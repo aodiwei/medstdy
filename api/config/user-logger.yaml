@@ -1,0 +1,43 @@
+
+# log level, 默认为INFO, 可选值为DEBUG|INFO|WARNING|ERROR, 等级依次增加
+level: INFO
+
+# 格式与python logging库一致
+
+#    %(name)s            Name of the logger (logging channel)
+#    %(levelno)s         Numeric logging level for the message (DEBUG, INFO,
+#                        WARNING, ERROR, CRITICAL)
+#    %(levelname)s       Text logging level for the message ("DEBUG", "INFO",
+#                        "WARNING", "ERROR", "CRITICAL")
+#    %(pathname)s        Full pathname of the source file where the logging
+#                        call was issued (if available)
+#    %(filename)s        Filename portion of pathname
+#    %(module)s          Module (name portion of filename)
+#    %(lineno)d          Source line number where the logging call was issued
+#                        (if available)
+#    %(funcName)s        Function name
+#    %(created)f         Time when the LogRecord was created (time.time()
+#                        return value)
+#    %(asctime)s         Textual time when the LogRecord was created
+#    %(msecs)d           Millisecond portion of the creation time
+#    %(relativeCreated)d Time in milliseconds when the LogRecord was created,
+#                        relative to the time the logging module was loaded
+#                        (typically at application startup time)
+#    %(thread)d          Thread ID (if available)
+#    %(threadName)s      Thread name (if available)
+#    %(process)d         Process ID (if available)
+#    %(message)s         The result of record.getMessage(), computed just as
+#                        the record is emitted
+#format: 
+
+# handler配置，可配置多个
+handlers:
+  #type: 类型，各类型支持不同的配置项。目前支持配置"file"
+
+  #standard 配置项
+  # standard默认为本地文件日志
+  # path: string, 必须
+  # rotate: bool(默认为true)
+  # rotateSize: string(默认为10M)
+  - type: file
+    path: logs/user_access.log
