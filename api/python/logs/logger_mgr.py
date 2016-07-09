@@ -2,7 +2,7 @@
 '''
 Created on 2016年2月16日
 
-@author: AilenZou
+@author: David Ao
 '''
 
 # from .standard import StandardLogger

@@ -2,7 +2,7 @@
 '''
 Created on 2015年12月11日
 
-@author: AilenZou
+@author: David Ao
 '''
 from .cache import Cache
 import pickle

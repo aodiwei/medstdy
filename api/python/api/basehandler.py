@@ -2,7 +2,7 @@
 '''
 Created on 2016年2月18日
 
-@author: AilenZou
+@author: David Ao
 '''
 import os
 

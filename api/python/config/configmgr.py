@@ -2,7 +2,7 @@
 '''
 Created on 2015年10月14日
 
-@author: AilenZou
+@author: David Ao
 '''
 import yaml
 

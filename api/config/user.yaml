@@ -1,24 +1,12 @@
 #user
 cookie_secret: JIaCjeGlSsqGUkfjPQNVAHPTGCqhBkxOrboesVT4zGE=
 
-redis:
-    host: localhost
-    port: 6380
-    # cookie过期时间，10天
-    cookie_expire: 864000
-
 mysql:
     host: localhost
     port: 3306
     user: root
     password: root
-    dbname: teamwork
-
-id_server:
-    host: localhost
-    port: 8800
-    # 一次返回多少个ID
-    tbl_user_req_num: 2
+    dbname: medlogic
 
 user_server:
     host: localhost
