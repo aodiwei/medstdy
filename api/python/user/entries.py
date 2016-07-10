@@ -5,8 +5,7 @@ Created on 2016年2月18日
 @author: David Ao
 '''
 
-from user.handlers import LoginHandler, RegisterHandler, CookieAuthHandler, UserInfoHandler, \
-    LogoutHandler, ModifyPasswordHandler, ResetPasswordHandler, SendMailHandler
+from user.handlers import *
 
 entries = [
     # account

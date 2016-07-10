@@ -1,15 +1,18 @@
 #user
 cookie_secret: JIaCjeGlSsqGUkfjPQNVAHPTGCqhBkxOrboesVT4zGE=
 
+cookie:
+  cookie_expire: 864000
+
 mysql:
-    host: localhost
+    host: 42.159.244.119
     port: 3306
-    user: root
-    password: root
+    user: david
+    password: 2wsx3edc
     dbname: medlogic
 
 user_server:
-    host: localhost
+    host: 42.159.244.119
     port: 8801
 
 email:
@@ -18,3 +21,7 @@ email:
   password: pwkcfklynwsdcgbe
   to: 1910593312@qq.com
   cc:
+
+logger:
+  level: INFO
+  path: logs/access.log

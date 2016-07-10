@@ -4,20 +4,21 @@ user manager
 @david
 """
 import base64
+import datetime
 import hashlib
 import json
-import os
+import time
 import uuid
 
-import redis
-import requests
+import yagmail
+from sqlalchemy.exc import IntegrityError
 
 import config
 import define
+import os
+import re
 from logs import LoggerMgr
-from user.db.dbclass import User
-from sqlalchemy.exc import IntegrityError
-import yagmail
+from user.db.dbclass import TbUser, TbCookies
 
 
 class CustomMgrError(Exception):
@@ -33,22 +34,11 @@ class AccountMgr(object):
     account manage
     """
     __ids = {}
-    config.ConfigMgr.init(os.path.join(define.root, "config/user.yaml"))
+    config.ConfigMgr.init(os.path.join(define.root, "config/config.yaml"))
 
     def __init__(self, db_session=None):
         self.__db_session = db_session
         self.__logger = LoggerMgr.getLogger()
-
-    def get_redis_inst(self):
-        """
-        get a redis instance
-        :return:
-        """
-        redis_conf = config.ConfigMgr.get("redis", {})
-        redis_host = redis_conf.get("host", "localhost")
-        redis_port = redis_conf.get("port", 6379)
-
-        return redis.StrictRedis(host=redis_host, port=redis_port, db=0)
 
     def send_email(self, subject, contents, send_to=None, **kwargs):
         """
@@ -95,15 +85,11 @@ class AccountMgr(object):
         :param kwargs:
         :return:
         """
-        id = self.__get_id(User.__tablename__)
-        if not id:
-            return None
-        kwargs["uid"] = id
         # 加密
         m = hashlib.md5()
         m.update(kwargs["password"])
         kwargs["password"] = m.hexdigest()
-        user = User(**kwargs)
+        user = TbUser(**kwargs)
         try:
             self.__db_session.add(user)
             self.__db_session.commit()
@@ -121,40 +107,17 @@ class AccountMgr(object):
                 conflict = msg
             raise CustomMgrError(conflict)
 
-    def __get_id(self, db_name):
-        """
-        get primary id for db table
-        :param db_name:
-        :return:
-        """
-        ids = AccountMgr.__ids.get(db_name, None)
-        if not ids:
-            conf = config.ConfigMgr.get("id_server", {})
-            # host = conf.get("host", "localhost")
-            # port = conf.get("port", "10000")
-            payload = {"type": db_name, "count": int(conf.get("{0}_req_num".format(db_name), 5)),}
-            url = "http://{host}:{port}/allocate".format(**conf)
-            try:
-                response = requests.get(url=url, params=payload)
-            except requests.ConnectionError, e:
-                raise CustomMgrError("id allocate server exception")
-
-            if response.status_code == 200:
-                result = json.loads(response.text)
-                if result.get("data", None):
-                    result["data"].reverse()
-                    self.__logger.info("{0} get primary id {1}".format(db_name, result))
-                    AccountMgr.__ids[db_name] = ids = result["data"]
-
-        return ids.pop() if ids else None
-
     def login(self, **kwargs):
         """
         user login
         :param kwargs:
         :return:
         """
-        result = self.__db_session.query(User.password, User.uid).filter(User.email == kwargs["user_name"]).first()
+        p = re.compile(r"^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")
+        if p.match(kwargs["user_name"]):  # email
+            result = self.__db_session.query(TbUser.password, TbUser.uid).filter(TbUser.email == kwargs["user_name"]).first()
+        else:
+            result = self.__db_session.query(TbUser.password, TbUser.uid).filter(TbUser.account == kwargs["user_name"]).first()
         if result is None:
             raise CustomMgrError(define.C_CAUSE_accountNotExisted)
         m = hashlib.md5()
@@ -173,15 +136,15 @@ class AccountMgr(object):
         :return:
         """
         try:
-            redis_inst = self.get_redis_inst()
             value = kwargs.copy()
             value.pop("cookie")
             value = json.dumps(value)
-            conf = config.ConfigMgr.get("redis", {})
-            # cookie过期时间
-            cookie_expire = conf.get("cookie_expire", 864000)
-            redis_inst.set(kwargs["cookie"], value, ex=int(cookie_expire))
-        except redis.ConnectionError, e:
+            tb_cookie = TbCookies()
+            tb_cookie.cookie = kwargs["cookie"]
+            tb_cookie.value = value
+            self.__db_session.add(tb_cookie)
+            self.__db_session.commit()
+        except Exception, e:
             self.__logger.error(e)
             raise CustomMgrError(define.C_CAUSE_setKeyError)
 
@@ -192,15 +155,22 @@ class AccountMgr(object):
         :return:
         """
         try:
-            redis_inst = self.get_redis_inst()
-            value = redis_inst.get(kwargs["cookie"])
-            if value:
-                conf = config.ConfigMgr.get("redis", {})
+            result = self.__db_session.query(TbCookies.value, TbCookies.update_time).\
+                filter(TbCookies.cookie == kwargs["cookie"]).first()
+            print result
+            if result:
+                conf = config.ConfigMgr.get("cookie", {})
                 # cookie过期时间
-                cookie_expire = conf.get("cookie_expire", 864000)
-                redis_inst.expire(kwargs["cookie"], cookie_expire)
-                return json.loads(value)
-        except redis.ConnectionError, e:
+                cookie_expire = int(conf.get("cookie_expire", 864000))
+                update_time = int(time.mktime(result.update_time.timetuple()))
+                current_timestamp = int(time.time())
+                if current_timestamp - update_time < cookie_expire:
+                    current_datetime = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                    self.__db_session.query(TbCookies).filter(TbCookies.cookie == kwargs["cookie"]).\
+                        update({TbCookies.update_time: current_datetime})
+                    self.__db_session.commit()
+                    return json.loads(result.value)
+        except Exception, e:
             self.__logger.error(e)
             raise CustomMgrError(define.C_CAUSE_getKeyError)
 
@@ -210,9 +180,7 @@ class AccountMgr(object):
         :param cookie:
         :return:
         """
-        redis_inst = self.get_redis_inst()
-        redis_inst.delete(cookie)
-        self.__logger.info("delete cooike from redis {0}".format(cookie))
+        self.__db_session.query(TbCookies).filter(TbCookies.cookie == cookie).delete()
 
     def get_user_info(self, uid):
         """
@@ -220,8 +188,8 @@ class AccountMgr(object):
         :param uid:
         :return:
         """
-        result = self.__db_session.query(User.account, User.email, User.uid, User.create_time, User.image).\
-            filter(User.uid == uid).first()
+        result = self.__db_session.query(TbUser.account, TbUser.email, TbUser.uid, TbUser.create_time, TbUser.image).\
+            filter(TbUser.uid == uid).first()
 
         if result:
             response = {
@@ -244,7 +212,7 @@ class AccountMgr(object):
         :param uid:
         :return:
         """
-        result = self.__db_session.query(User.password).filter(User.uid == uid).first()
+        result = self.__db_session.query(TbUser.password).filter(TbUser.uid == uid).first()
         if result is None:
             raise CustomMgrError(define.C_CAUSE_accountNotExisted)
         m = hashlib.md5()
@@ -265,13 +233,13 @@ class AccountMgr(object):
         :param email:
         :return:
         """
-        result = self.__db_session.query(User.email).filter(User.email == email).first()
+        result = self.__db_session.query(TbUser.email).filter(TbUser.email == email).first()
         if result is None:
             raise CustomMgrError(define.C_CAUSE_accountNotExisted)
         m = hashlib.md5()
         m.update(new_password)
         encryopted_password = m.hexdigest()
-        User.email = encryopted_password
+        TbUser.email = encryopted_password
 
     def check_reset_pws_url(self, email, key):
         """
@@ -280,6 +248,7 @@ class AccountMgr(object):
         :param email:
         :return:
         """
+        pass
         redis_inst = self.get_redis_inst()
         _key = redis_inst.get(email)
         if _key != key:
@@ -292,6 +261,7 @@ class AccountMgr(object):
         :param email:
         :return:
         """
+        pass
         rand_str = base64.b64encode(uuid.uuid4().bytes)
         m = hashlib.md5()
         m.update(rand_str)

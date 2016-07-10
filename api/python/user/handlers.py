@@ -24,7 +24,7 @@ class CookieAuthHandler(BaseHandler):
     def get(self):
         info = {"cookie": self.get_argument("cookie"),}
         try:
-            user_mgr = AccountMgr()
+            user_mgr = AccountMgr(db_session=self.db_session)
             response = user_mgr.cookie_auth(**info)
             if not response:
                 raise CustomHTTPError(401, error=define.C_EC_auth, cause=define.C_CAUSE_cookieMissing)
@@ -39,7 +39,7 @@ class UserBaseHandler(BaseHandler):
         cookie = self.get_secure_cookie(self.C_COOKIE)
         info = {"cookie": cookie}
         try:
-            user_mgr = AccountMgr()
+            user_mgr = AccountMgr(db_session=self.db_session)
             response = user_mgr.cookie_auth(**info)
             if not response:
                 raise CustomHTTPError(401, error=define.C_EC_auth, cause=define.C_CAUSE_cookieMissing)
@@ -76,9 +76,9 @@ class RegisterHandler(UserBaseHandler):
 
 class LoginHandler(UserBaseHandler):
     def post(self):
-        email = self.get_argument("user_name")
+        user_name = self.get_argument("user_name")
         password = self.get_argument("password")
-        info = {"user_name": email, "password": password, "timestamp": time.time(),}
+        info = {"user_name": user_name, "password": password, "timestamp": time.time(),}
         try:
             user_mgr = AccountMgr(db_session=self.db_session)
             uid = user_mgr.login(**info)
@@ -107,7 +107,7 @@ class LogoutHandler(UserBaseHandler):
     def post(self):
         cookie = self.get_secure_cookie(self.C_COOKIE)
         try:
-            user_mgr = AccountMgr()
+            user_mgr = AccountMgr(db_session=self.db_session)
             user_mgr.cookie_delete(cookie)
         except CustomMgrError, e:
             raise CustomHTTPError(401, error=define.C_EC_cacheError, cause=define.C_CAUSE_delKeyError)

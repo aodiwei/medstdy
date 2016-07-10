@@ -13,7 +13,7 @@ from sqlalchemy.types import Integer, String, DateTime
 BaseModel = declarative_base()
 
 
-class User(BaseModel):
+class TbUser(BaseModel):
     """
     user table
     """
@@ -25,3 +25,14 @@ class User(BaseModel):
     password = Column(String(50))
     image = Column(String(255))
     create_time = Column(DateTime)
+
+class TbCookies(BaseModel):
+    """
+    user cookies
+    """
+    __tablename__ = "tbl_cookies"
+
+    cookie = Column(String(255), primary_key=True)
+    value = Column(String(255))
+    update_time = Column(DateTime)
+

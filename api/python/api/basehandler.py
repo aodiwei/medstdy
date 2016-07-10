@@ -43,7 +43,7 @@ class BaseHandler(tornado.web.RequestHandler):
         if not cookie:
             raise CustomHTTPError(401, define.C_EC_auth, cause=define.C_CAUSE_cookieMissing)
 
-        config.ConfigMgr.init(os.path.join(define.root, "config/user.yaml"))
+        config.ConfigMgr.init(os.path.join(define.root, "config/config.yaml"))
         server_conf = config.ConfigMgr.get("user_server", {})
         url = "http://{host}:{port}/cookie_auth".format(**server_conf)
         payload = {
@@ -74,7 +74,7 @@ class BaseHandler(tornado.web.RequestHandler):
         use sqlalchemy to get a mysql session
         :return:
         """
-        config.ConfigMgr.init(os.path.join(define.root, "config/user.yaml"))
+        config.ConfigMgr.init(os.path.join(define.root, "config/config.yaml"))
         redis_conf = config.ConfigMgr.get("mysql", {})
         db_connect_string = "mysql+mysqldb://{user}:{password}@{host}:{port}/{dbname}?charset=utf8".format(**redis_conf)
         engine = create_engine(db_connect_string, echo=True)
