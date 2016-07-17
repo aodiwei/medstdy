@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+    <tbl_user_info>
+        <medical_id></medical_id>
+        <name></name>
+        <identity></identity>
+        <sex></sex>
+        <birthday></birthday>
+        <age></age>
+        <province></province>
+        <city></city>
+        <detail_addr></detail_addr>
+        <marriage></marriage>
+        <job></job>
+        <in_date></in_date>
+        <out_date></out_date>
+    </tbl_user_info>
+
+    <tbl_hospitalized>
+        <complain></complain>
+        <present_illness></present_illness>
+        <recent></recent>
+        <history_illness></history_illness>
+        <family_illness></family_illness>
+        <physical_exam></physical_exam>
+        <surgery></surgery>
+        <assist_exam></assist_exam>
+        <admits_diag></admits_diag>
+    </tbl_hospitalized>
+
+    <tbl_clinical_course>
+        <ill_description></ill_description>
+        <init_diag></init_diag>
+        <gist></gist>
+        <antidiastole></antidiastole>
+        <treat_plan></treat_plan>
+        <check_record></check_record>
+    </tbl_clinical_course>
+
+    <tbl_surgery>
+        <before_diag></before_diag>
+        <later_diag></later_diag>
+        <surgery_name></surgery_name>
+        <surgery_doctor></surgery_doctor>
+        <narcosis_doctor></narcosis_doctor>
+        <narcosis_way></narcosis_way>
+        <description></description>
+        <surgery_date></surgery_date>
+    </tbl_surgery>
+
+    <tbl_after_surgery>
+        <description></description>
+    </tbl_after_surgery>
+
+    <tbl_leave> 
+        <in_date></in_date>
+        <out_date></out_date>
+        <description></description>
+        <init_diag></init_diag>
+        <treatment></treatment>
+        <leave_diag></leave_diag>
+        <advice></advice>
+    </tbl_leave>
+
+</root>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
