@@ -34,7 +34,10 @@
         <gist></gist>
         <antidiastole></antidiastole>
         <treat_plan></treat_plan>
-        <check_record></check_record>
+        <check_record>
+            <item></item>
+            <item>根据记录数增加item</item>
+        </check_record>
     </tbl_clinical_course>
 
     <tbl_surgery>
@@ -49,7 +52,10 @@
     </tbl_surgery>
 
     <tbl_after_surgery>
-        <description></description>
+        <description>
+            <item></item>
+            <item>根据记录数增加item</item>
+        </description>
     </tbl_after_surgery>
 
     <tbl_leave> 
