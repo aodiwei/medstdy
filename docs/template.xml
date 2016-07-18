@@ -35,8 +35,14 @@
         <antidiastole></antidiastole>
         <treat_plan></treat_plan>
         <check_record>
-            <item></item>
-            <item>根据记录数增加item</item>
+            <item>
+                <date></date>
+                <content></content>
+            </item>
+            <item>
+                <date></date>
+                <content>根据记录数增加item</content>
+            </item>
         </check_record>
     </tbl_clinical_course>
 
@@ -53,12 +59,18 @@
 
     <tbl_after_surgery>
         <description>
-            <item></item>
-            <item>根据记录数增加item</item>
+            <item>
+                <date></date>
+                <content></content>
+            </item>
+            <item>
+                <date></date>
+                <content>根据记录数增加item</content>
+            </item>
         </description>
     </tbl_after_surgery>
 
-    <tbl_leave> 
+    <tbl_leave>
         <in_date></in_date>
         <out_date></out_date>
         <description></description>
