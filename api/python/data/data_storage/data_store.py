@@ -9,7 +9,6 @@ __purpose__ =
 import re
 
 from bs4 import BeautifulSoup, element
-from bson.objectid import ObjectId
 
 from logs import LoggerMgr
 from tools.utility import Utility, Instances
@@ -47,6 +46,8 @@ class DataStorage(object):
         tbl_list = soup.find_all(re.compile(r"^tbl*"))
         for tbl in tbl_list:
             tbl_name = tbl.name.encode("utf-8")
+            if tbl_name == "tbl_user_info":
+                tbl_name = "tbl_patient_info"
             collection = self._mongodb.get_collection(tbl_name)
             exist_id = collection.find_one({"_id": _id})
             if exist_id is not None:

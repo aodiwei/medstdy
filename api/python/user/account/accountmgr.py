@@ -4,9 +4,10 @@ user manager
 @david
 """
 import base64
-import datetime
 import hashlib
 import json
+import os
+import re
 import time
 import uuid
 
@@ -15,10 +16,8 @@ from sqlalchemy.exc import IntegrityError
 
 import config
 import define
-import os
-import re
+from db.dbclass import TbUser, TbCookies
 from logs import LoggerMgr
-from user.db.dbclass import TbUser, TbCookies
 
 
 class CustomMgrError(Exception):
