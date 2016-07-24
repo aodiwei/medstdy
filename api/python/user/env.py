@@ -15,9 +15,8 @@ import yaml
 
 def init():
     config.ConfigMgr.init(os.path.join(define.root, "config/config.yaml"))
-    conf = config.ConfigMgr.get("logger", {})
+    conf = config.ConfigMgr.get("logger_user", {})
     logs.LoggerMgr.init(define.root, conf)
-    logger = logs.LoggerMgr.getLogger()
 
     
 

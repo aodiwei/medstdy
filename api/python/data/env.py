@@ -15,9 +15,8 @@ import yaml
 
 def init():
     config.ConfigMgr.init(os.path.join(define.root, "config/config.yaml"))
-    with open(os.path.join(define.root, "config/config.yaml"), 'r') as s:
-        c = yaml.load(s)
-        logs.LoggerMgr.init(define.root, c)
+    conf = config.ConfigMgr.get("logger_data", {})
+    logs.LoggerMgr.init(define.root, conf)
 
     
     

@@ -13,3 +13,5 @@
 - data服务:
 
 > python -m data.main
+
+- 如果需要不同端口启动需在edit configure 里配置 script parameters 为 --port=8080 等

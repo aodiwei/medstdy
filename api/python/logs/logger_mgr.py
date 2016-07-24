@@ -6,6 +6,8 @@ Created on 2016年2月16日
 '''
 
 # from .standard import StandardLogger
+import sys
+
 from .exceptions import UnknownKeyError
 
 import logging
@@ -19,7 +21,7 @@ class LoggerMgr(object):
     C_LOGGER_NAME = "tornado.access"
     
     @classmethod
-    def init(cls, root, configs):
+    def init(cls, root, configs, console=True):
         defaultLevel = configs.get("level", "INFO")
         f = "%(levelname)s-%(asctime)s-%(filename)s-%(lineno)d-%(funcName)s[%(thread)d]: %(message)s"
         defaultFormat = configs.get("format", f)
@@ -38,6 +40,11 @@ class LoggerMgr(object):
         hdlr.setFormatter(fmt)
         hdlr.setLevel(logging.getLevelName(defaultLevel))
         logger.addHandler(hdlr)
+        if console:
+            consoleHandler = logging.StreamHandler(sys.stdout)
+            consoleHandler.setFormatter(fmt)
+            consoleHandler.setLevel(logging.getLevelName(defaultLevel))
+            logger.addHandler(consoleHandler)
 
             
     @classmethod

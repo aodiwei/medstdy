@@ -8,6 +8,7 @@ import yaml
 
 
 class ConfigMgr(object):
+    __config =None
 
     @classmethod
     def init(cls, configFile):

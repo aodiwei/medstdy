@@ -22,6 +22,15 @@ email:
   to: 1910593312@qq.com
   cc:
 
-logger:
+logger_user:
   level: INFO
-  path: logs/access.log
+  path: logs/user_access.log
+
+logger_data:
+  level: INFO
+  path: logs/data_access.log
+
+mongodb:
+  host: localhost
+  port: 27017
+  db: medlogic
