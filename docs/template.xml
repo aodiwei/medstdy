@@ -80,6 +80,38 @@
         <advice></advice>
     </tbl_leave>
 
+    <tbl_long_medical_orders>
+        <item>
+            <start_datetime></start_datetime>
+            <medical_order></medical_order>
+            <start_execute_doctor></start_execute_doctor>
+            <start_execute_nurse></start_execute_nurse>
+            <start_execute_datetime></start_execute_datetime>
+            <stop_datetime></stop_datetime>
+            <stop__execute_doctor></stop__execute_doctor>
+            <stop__execute_nurse></stop__execute_nurse>
+            <stop__execute_datetime></stop__execute_datetime>
+        </item>
+        <item>
+            .......根据数量增加
+        </item>
+    </tbl_long_medical_orders>
+
+
+    <tbl_temp_medical_orders>
+        <item>
+        <start_datetime></start_datetime>
+        <medical_order></medical_order>
+        <start_execute_doctor></start_execute_doctor>
+        <start_execute_nurse></start_execute_nurse>
+        <start_execute_datetime></start_execute_datetime>
+        <checker></checker>
+        </item>
+        <item>
+            .......根据数量增加
+        </item>
+    </tbl_temp_medical_orders>
+
 </root>
 
 
