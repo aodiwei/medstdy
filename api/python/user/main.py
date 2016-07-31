@@ -20,13 +20,12 @@ tornado.options.parse_command_line()
 env.init()
 
 logger = LoggerMgr.getLogger()
-static_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), r"console\webapp\app")
+static_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), r"console")
 
 
 if __name__ == '__main__':
     settings = {
         'cookie_secret': ConfigMgr.get("cookie_secret"),
-        "template_path":  "../../../web",
         "static_path":  static_path,
         # "debug": True,
     }
