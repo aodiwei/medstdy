@@ -1,5 +1,6 @@
 'use strict';
 
+var host = "http://localhost:8000/";
 angular.module('medApp.login', ['ngRoute'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -9,34 +10,18 @@ angular.module('medApp.login', ['ngRoute'])
   });
 }])
 
-.controller('loginCtrl', [function() {
-
-}]);
-
-angular.module('medApp.login').controller('PopoverDemoCtrl', function ($scope, $sce) {
-  $scope.dynamicPopover = {
-    content: 'Hello, World!',
-    templateUrl: 'myPopoverTemplate.html',
-    title: 'Title'
-  };
-
-  $scope.placement = {
-    options: [
-      'top',
-      'top-left',
-      'top-right',
-      'bottom',
-      'bottom-left',
-      'bottom-right',
-      'left',
-      'left-top',
-      'left-bottom',
-      'right',
-      'right-top',
-      'right-bottom'
-    ],
-    selected: 'top'
-  };
-
-  $scope.htmlPopover = $sce.trustAsHtml('<b style="color: red">I can</b> have <div class="label label-success">HTML</div> content');
+.controller('loginCtrl', function($scope, $http) {
+  $scope.user = {account: "eagle", password: "zaq1xsw2"};
+  $scope.sign = function () {
+        var config = {
+            url: host + "login",
+            method: "POST",
+            params: {user_name: $scope.user.account, password: $scope.user.password}
+        };
+        $http(config).success(function (data, status, headers, config) {
+            alert("登录成功");
+        }).error(function (data, status, headers, config) {
+            alert("登录失败");
+        });
+    };
 });

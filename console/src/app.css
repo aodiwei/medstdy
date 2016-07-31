@@ -1,0 +1,39 @@
+body {
+    padding: 50px;
+}
+
+/*.carousel {*/
+    /*height: 450px;*/
+    /*background-color: #000;*/
+/*}*/
+
+/*.carousel .item {*/
+    /*height: 450px;*/
+/*/ / 固定高度 background-color: #000;*/
+/*}*/
+
+.carousel img {
+    width: 100%;
+/ / 图片自适应
+}
+
+#login_form{
+    padding-top: 40%;
+    height: 100%;
+
+}
+#login_col{
+    background-image: url("img/s1.png");
+}
+.no-padding
+{
+    padding: 0;
+}
+.row {
+  overflow: hidden;
+}
+
+[class*="col-xs"]{
+  margin-bottom: -99999px;
+  padding-bottom: 99999px;
+}
