@@ -18,6 +18,10 @@
     "babel-loader": "^6.2.4",
     "ng-annotate": "^1.2.1",
     "raw-loader": "^0.5.1",
-    "angular-ui-bootstrap":"^2.0.0"
+    "angular-ui-bootstrap": "^2.0.0"
+  },
+  "devDependencies": {
+    "css-loader": "^0.23.1",
+    "style-loader": "^0.13.1"
   }
 }

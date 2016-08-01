@@ -20,7 +20,6 @@ body {
 #login_form{
     padding-top: 40%;
     height: 100%;
-
 }
 #login_col{
     background-image: url("img/s1.png");
@@ -33,7 +32,7 @@ body {
   overflow: hidden;
 }
 
-[class*="col-xs"]{
-  margin-bottom: -99999px;
-  padding-bottom: 99999px;
-}
+/*[class*="col-xs"]{*/
+  /*margin-bottom: -99999px;*/
+  /*padding-bottom: 99999px;*/
+/*}*/

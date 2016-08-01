@@ -1,7 +1,7 @@
 'use strict';
 
 var host = "http://localhost:8000/";
-angular.module('medApp.login', ['ngRoute'])
+angular.module('medApp.login', ['ngRoute', 'ui.bootstrap'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/login', {
@@ -24,4 +24,12 @@ angular.module('medApp.login', ['ngRoute'])
             alert("登录失败");
         });
     };
-});
+})
+
+.directive('panel1', function ($compile) {
+            return {
+                restrict: "E",
+                templateUrl:"../node_modules/angular-ui-bootstrap/template/carousel/carousel.html",
+
+            }
+        });
