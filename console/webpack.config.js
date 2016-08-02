@@ -15,7 +15,7 @@ module.exports = {
         Webpack to build.
     */
     output: {
-        path: path.join(__dirname, "/dist"),
+        path: path.join(__dirname, "/bundle"),
         filename: "bundle.js",
     },
     /*

@@ -1,57 +1,39 @@
 <div class="container">
-    <div class="row">
-            <panel1></panel1>
-            <!--<div  ng-include="'../node_modules/angular-ui-bootstrap/template/carousel/carousel.html'"></div>-->
-            <!--<div id="homeCarousel" class="carousel slide" data-ride="carousel" data-interval="2000">-->
-                <!--&lt;!&ndash; 轮播（Carousel）指标 &ndash;&gt;-->
-                <!--<ol class="carousel-indicators">-->
-                    <!--<li data-target="#homeCarousel" data-slide-to="0" class="active"></li>-->
-                    <!--<li data-target="#homeCarousel" data-slide-to="1"></li>-->
-                    <!--<li data-target="#homeCarousel" data-slide-to="2"></li>-->
-                <!--</ol>-->
-                <!--&lt;!&ndash; 轮播（Carousel）项目 &ndash;&gt;-->
-                <!--<div class="carousel-inner">-->
-                    <!--<div class="item active">-->
-                        <!--<img src="img/s1.png" alt="First slide">-->
-                        <!--<div class="carousel-caption">-->
-                            <!--<h4>医疗</h4>-->
-                            <!--<p>医疗科技</p>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                    <!--<div class="item">-->
-                        <!--<img src="img/s2.png" alt="Second slide">-->
-                    <!--</div>-->
-                    <!--<div class="item">-->
-                        <!--<img src="img/s3.png" alt="Third slide">-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--&lt;!&ndash; 轮播（Carousel）导航 &ndash;&gt;-->
-                <!--<a class="carousel-control left" href="#homeCarousel"-->
-                   <!--data-slide="prev">&lsaquo;</a>-->
-                <!--<a class="carousel-control right" href="#homeCarousel"-->
-                   <!--data-slide="next">&rsaquo;</a>-->
-            <!--</div>-->
+    <div class="row row-hidden-overflow ">
+        <div class="col-sm-8 no-padding  ">
+            <div ng-controller="CarouselDemoCtrl">
+                    <div uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
+                        <div uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
+                            <img ng-src="{{slide.image}}" style="margin:auto;">
+                            <div class="carousel-caption">
+                                <!--<h4>Slide {{slide.id}}</h4>-->
+                                <p>{{slide.text}}</p>
+                            </div>
+                        </div>
+                    </div>
+            </div>
         </div>
 
-        <div class="col-xs-4 no-padding" id="login_col">
+
+        <div class="col-sm-4 no-padding col-equal-height" id="login_col">
             <form class="form-horizontal " id="login_form" ng-controller="loginCtrl">
                 <div class="form-group">
-                    <label for="inputEmail3" class="col-sm-3 control-label">用 户</label>
-                    <div class="col-sm-8">
+                    <!--<label for="inputEmail3" class="col-sm-3 control-label">用 户</label>-->
+                    <div class="col-sm-8 col-sm-offset-2">
                         <input type="text" class="form-control" id="inputEmail3" placeholder="Email/用户名"
                                ng-model="user.account">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="inputPassword3" class="col-sm-3 control-label">密 码</label>
-                    <div class="col-sm-8">
+                    <!--<label for="inputPassword3" class="col-sm-3 control-label">密 码</label>-->
+                    <div class="col-sm-8 col-sm-offset-2">
                         <input type="password" class="form-control" id="inputPassword3" placeholder="密码"
                                ng-model="user.password">
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-9">
-                        <button type="submit" class="btn btn-default" ng-click="sign()">登录</button>
+                    <div class="col-sm-offset-2 col-sm-9">
+                        <button type="submit" class="btn btn-success" ng-click="sign()">登录</button>
                     </div>
                 </div>
             </form>
