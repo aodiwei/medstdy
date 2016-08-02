@@ -4,16 +4,11 @@
 angular.module('medApp', [
   'ngRoute',
   'medApp.login',
+  'medApp.upload-data',
   'ui.bootstrap'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
   $locationProvider.hashPrefix('!');
 
   $routeProvider.otherwise({redirectTo: '/login'});
-}])
-
-
-//.controller('NavBarCtrl', function($scope) {
-//
-//    $scope.isCollapsed = true;
-//});
+}]);

@@ -7,6 +7,8 @@
 require('../node_modules/angular/index.js');
 require('../node_modules/angular-route/index.js');
 require('../node_modules/angular-ui-bootstrap/index.js');
+require('../node_modules/angular-file-upload/dist/angular-file-upload.min.js');
 
-require('./app');
+require('./app.js');
 require('./login/login.js');
+require('./data/upload-data.js');

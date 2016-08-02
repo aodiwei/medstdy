@@ -10,7 +10,7 @@ angular.module('medApp.login', ['ngRoute', 'ui.bootstrap'])
   });
 }])
 
-.controller('loginCtrl', function($scope, $http) {
+.controller('loginCtrl', function($scope, $http, $location) {
   //$scope.user = {account: "eagle", password: "zaq1xsw2"};$scope.user = {};
   $scope.sign = function () {
         var config = {
@@ -20,6 +20,7 @@ angular.module('medApp.login', ['ngRoute', 'ui.bootstrap'])
         };
         $http(config).success(function (data, status, headers, config) {
             alert("登录成功");
+            $location.path("/upload-data");
         }).error(function (data, status, headers, config) {
             alert("登录失败");
         });
@@ -38,23 +39,23 @@ angular.module('medApp.login', ['ngRoute', 'ui.bootstrap'])
 //        })
 
 .controller('CarouselDemoCtrl', function ($scope) {
-  $scope.myInterval = 5000;
+  $scope.myInterval = 3000;
   $scope.noWrapSlides = false;
   $scope.active = 1;
   $scope.slides = [
       {
           image: "img/s1.png",
-          text: "good ",
+          text: " ",
           id: 0
       },
       {
           image: "img/s2.png",
-          text: "very",
+          text: "",
           id: 1
       },
       {
           image: "img/s3.png",
-          text: "就是这样",
+          text: "",
           id: 2
       }
   ];
