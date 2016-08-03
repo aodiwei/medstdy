@@ -1,5 +1,8 @@
+#  sudo pip install -r requirements.txt
+
 tornado>=4.3
 pyyaml>=3.11
 sqlalchemy
 yagmail
 pymongo
+requests

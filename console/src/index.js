@@ -4,11 +4,14 @@
 
 'use strict';
 
-require('../node_modules/angular/index.js');
-require('../node_modules/angular-route/index.js');
-require('../node_modules/angular-ui-bootstrap/index.js');
-require('../node_modules/angular-file-upload/dist/angular-file-upload.min.js');
+//node_modules
+require('angular');
+require('angular-route');
+require('angular-ui-bootstrap');
+require('angular-file-upload');
 
-require('./app.js');
-require('./login/login.js');
-require('./data/upload-data.js');
+//custom js
+require('./app');
+require('./login/login');
+require('./data/upload-data');
+require('./config/configure');

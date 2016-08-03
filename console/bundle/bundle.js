@@ -57,13 +57,17 @@
 
 	'use strict';
 
+	//node_modules
+
 	__webpack_require__(2);
 	__webpack_require__(4);
 	__webpack_require__(6);
 	__webpack_require__(8);
 
+	//custom js
 	__webpack_require__(9);
 	__webpack_require__(10);
+	__webpack_require__(12);
 	__webpack_require__(11);
 
 /***/ },
@@ -40440,11 +40444,13 @@
 
 /***/ },
 /* 10 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var host = "http://localhost:8000/";
+	var configure_mod = __webpack_require__(11);
+	var configure = new configure_mod();
+
 	angular.module('medApp.login', ['ngRoute', 'ui.bootstrap']).config(['$routeProvider', function ($routeProvider) {
 	    $routeProvider.when('/login', {
 	        templateUrl: 'login/login.html',
@@ -40454,7 +40460,7 @@
 	    $scope.user = { account: "eagle", password: "zaq1xsw2" };$scope.user = {};
 	    $scope.sign = function () {
 	        var config = {
-	            url: host + "login",
+	            url: configure.user_host + "login",
 	            method: "POST",
 	            params: { user_name: $scope.user.account, password: $scope.user.password }
 	        };
@@ -40501,7 +40507,42 @@
 /* 11 */
 /***/ function(module, exports) {
 
+	/**
+	 * Created by AO.Diwei on 2016/8/3.
+	 */
+	var configs = {
+	    user_host_local: "http://localhost:8000/",
+	    data_host_local: "http://localhost:8001/",
+	    user_host_online: "http://42.159.244.119:8000/",
+	    data_host_online: "http://42.159.244.119:8001/"
+	};
+
+	module.exports = function () {
+	    var p = navigator.platform;
+	    var configure = {};
+	    if (p.indexOf("Win") == 0) {
+	        configure = {
+	            user_host: configs.user_host_local,
+	            data_host: configs.data_host_local
+	        };
+	    } else {
+	        configure = {
+	            user_host: configs.user_host_online,
+	            data_host: configs.data_host_online
+	        };
+	    }
+
+	    return configure;
+	};
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
 	'use strict';
+
+	var configure_mod = __webpack_require__(11);
+	var configure = new configure_mod();
 
 	angular.module('medApp.upload-data', ['ngRoute', 'angularFileUpload']).config(['$routeProvider', function ($routeProvider) {
 	    $routeProvider.when('/upload-data', {
@@ -40509,9 +40550,8 @@
 	        controller: 'uploadController'
 	    });
 	}]).controller('uploadController', ['$scope', 'FileUploader', function ($scope, FileUploader) {
-	    var host = "http://localhost:8001/";
 	    var uploader = $scope.uploader = new FileUploader({
-	        url: host + 'upload-file'
+	        url: configure.data_host + 'upload-file'
 	    });
 
 	    // FILTERS

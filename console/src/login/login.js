@@ -1,6 +1,7 @@
 'use strict';
+var configure_mod = require('../config/configure.js');
+var configure = new configure_mod();
 
-var host = "http://localhost:8000/";
 angular.module('medApp.login', ['ngRoute', 'ui.bootstrap'])
 
 .config(['$routeProvider', function($routeProvider) {
@@ -14,7 +15,7 @@ angular.module('medApp.login', ['ngRoute', 'ui.bootstrap'])
   $scope.user = {account: "eagle", password: "zaq1xsw2"};$scope.user = {};
   $scope.sign = function () {
         var config = {
-            url: host + "login",
+            url: configure.user_host + "login",
             method: "POST",
             params: {user_name: $scope.user.account, password: $scope.user.password}
         };
