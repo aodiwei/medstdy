@@ -40457,7 +40457,8 @@
 	        controller: 'loginCtrl'
 	    });
 	}]).controller('loginCtrl', function ($scope, $http, $location) {
-	    $scope.user = { account: "eagle", password: "zaq1xsw2" };$scope.user = {};
+	    $scope.user = { account: "eagle", password: "zaq1xsw2" };
+	    //$scope.user = {};
 	    $scope.sign = function () {
 	        var config = {
 	            url: configure.user_host + "login",
@@ -40518,9 +40519,10 @@
 	};
 
 	module.exports = function () {
-	    var p = navigator.platform;
+	    //var p = navigator.platform;
 	    var configure = {};
-	    if (p.indexOf("Win") == 0) {
+	    var curhost = window.location.host;
+	    if (curhost.indexOf("localhost") == 0) {
 	        configure = {
 	            user_host: configs.user_host_local,
 	            data_host: configs.data_host_local
