@@ -24,4 +24,8 @@ sudo pip install -r requirements.txt
 
 > python -m data.main
 
+后台启动
+nohup python -m user.main > /dev/null 2>&1 &
+
+IDE启动
 - 如果需要不同端口启动需在edit configure 里配置 script parameters 为 --port=8080 等
