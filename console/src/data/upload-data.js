@@ -4,7 +4,7 @@ var configure = new configure_mod();
 
 angular.module('medApp.upload-data', ['ngRoute', 'angularFileUpload'])
     .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/upload-data', {
+        $routeProvider.when('/data/upload-data', {
             templateUrl: 'data/upload-data.html',
             controller: 'uploadController'
         });

@@ -7,5 +7,5 @@ Created on 2016年2月18日
 
 from data.handlers import *
 entries = [
-    (r"/upload-file", UploadHandler),
+    (r"/data/upload-file", UploadHandler),
 ]

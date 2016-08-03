@@ -9,13 +9,13 @@ from user.handlers import *
 
 entries = [
     # account
-    (r"/register$", RegisterHandler),
-    (r"/login$", LoginHandler),
-    (r"/cookie_auth$", CookieAuthHandler),
-    (r"/logout$", LogoutHandler),
-    (r"/user_info$", UserInfoHandler),
-    (r"/modify_psw$", ModifyPasswordHandler),
-    (r"/reset_psw$", ResetPasswordHandler),
-    (r"/send_mail_addr$", SendMailHandler),
+    (r"/user/register$", RegisterHandler),
+    (r"/user/login$", LoginHandler),
+    (r"/user/cookie_auth$", CookieAuthHandler),
+    (r"/user/logout$", LogoutHandler),
+    (r"/user/user_info$", UserInfoHandler),
+    (r"/user/modify_psw$", ModifyPasswordHandler),
+    (r"/user/reset_psw$", ResetPasswordHandler),
+    (r"/user/send_mail_addr$", SendMailHandler),
 
 ]

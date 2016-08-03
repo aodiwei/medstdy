@@ -40461,7 +40461,7 @@
 	    //$scope.user = {};
 	    $scope.sign = function () {
 	        var config = {
-	            url: configure.user_host + "login",
+	            url: configure.user_host + "/user/login",
 	            method: "POST",
 	            params: { user_name: $scope.user.account, password: $scope.user.password }
 	        };
@@ -40512,10 +40512,10 @@
 	 * Created by AO.Diwei on 2016/8/3.
 	 */
 	var configs = {
-	    user_host_local: "http://localhost:8000/",
-	    data_host_local: "http://localhost:8001/",
-	    user_host_online: "http://42.159.244.119:8000/",
-	    data_host_online: "http://42.159.244.119:8001/"
+	    user_host_local: "http://localhost",
+	    data_host_local: "http://localhost",
+	    user_host_online: "http://42.159.244.119",
+	    data_host_online: "http://42.159.244.119"
 	};
 
 	module.exports = function () {
@@ -40547,7 +40547,7 @@
 	var configure = new configure_mod();
 
 	angular.module('medApp.upload-data', ['ngRoute', 'angularFileUpload']).config(['$routeProvider', function ($routeProvider) {
-	    $routeProvider.when('/upload-data', {
+	    $routeProvider.when('/data/upload-data', {
 	        templateUrl: 'data/upload-data.html',
 	        controller: 'uploadController'
 	    });

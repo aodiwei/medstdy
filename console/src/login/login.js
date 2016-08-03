@@ -16,7 +16,7 @@ angular.module('medApp.login', ['ngRoute', 'ui.bootstrap'])
   //$scope.user = {};
   $scope.sign = function () {
         var config = {
-            url: configure.user_host + "login",
+            url: configure.user_host + "/user/login",
             method: "POST",
             params: {user_name: $scope.user.account, password: $scope.user.password}
         };

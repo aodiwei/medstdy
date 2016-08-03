@@ -2,10 +2,10 @@
  * Created by AO.Diwei on 2016/8/3.
  */
 var configs = {
-    user_host_local: "http://localhost:8000/",
-    data_host_local: "http://localhost:8001/",
-    user_host_online: "http://42.159.244.119:8000/",
-    data_host_online: "http://42.159.244.119:8001/"
+    user_host_local: "http://localhost",
+    data_host_local: "http://localhost",
+    user_host_online: "http://42.159.244.119",
+    data_host_online: "http://42.159.244.119"
 };
 
 module.exports = function(){
