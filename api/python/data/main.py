@@ -11,7 +11,7 @@ from tornado.options import options
 import env
 from config import ConfigMgr
 from logs import LoggerMgr
-from .entries import entries
+from entries import entries
 
 tornado.options.define('port', default=8001, help='run server on specific port.', type=int)
 

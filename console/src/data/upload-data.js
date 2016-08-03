@@ -3,28 +3,17 @@ var configure_mod = require('../config/configure.js');
 var configure = new configure_mod();
 
 angular.module('medApp.upload-data', ['ngRoute', 'angularFileUpload'])
-
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/upload-data', {
             templateUrl: 'data/upload-data.html',
             controller: 'uploadController'
         });
     }])
-
     .controller('uploadController', ['$scope', 'FileUploader', function ($scope, FileUploader) {
         var uploader = $scope.uploader = new FileUploader({
             url: configure.data_host + 'upload-file'
         });
-
-        // FILTERS
-
         uploader.filters.push(
-            //{
-            //    name: 'customFilter',
-            //    fn: function (item /*{File|FileLikeObject}*/, options) {
-            //        return this.queue.length < 10;
-            //    }
-            //},
             {
                 name: 'xmlFilter',
                 fn: function (item /*{File|FileLikeObject}*/, options) {
@@ -33,8 +22,6 @@ angular.module('medApp.upload-data', ['ngRoute', 'angularFileUpload'])
                 }
             }
         );
-
-        // CALLBACKS
 
         uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
             console.info('onWhenAddingFileFailed', item, filter, options);

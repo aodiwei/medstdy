@@ -1,6 +1,16 @@
 ## 部署方法:
+1. 安装mysql
+sudo apt-get install mysql-server mysql-client libmysqlclient-dev
 
-> sudo pip install -r requirements.txt
+2. 安装mongodb
+sudo apt install mongodb-server mongodb-clients
+
+3. 安装Python依赖
+sudo pip install -r requirements.txt
+
+4. 安装js依[此步生成环境可以忽略]
+安装npm: sudo apt install npm
+在console目录下执行npm install
   
 ### 运行方法:
 **配置参考[config](../config/)**

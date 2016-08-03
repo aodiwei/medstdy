@@ -6,3 +6,4 @@ sqlalchemy
 yagmail
 pymongo
 requests
+MySQL-python

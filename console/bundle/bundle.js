@@ -40555,25 +40555,13 @@
 	    var uploader = $scope.uploader = new FileUploader({
 	        url: configure.data_host + 'upload-file'
 	    });
-
-	    // FILTERS
-
-	    uploader.filters.push(
-	    //{
-	    //    name: 'customFilter',
-	    //    fn: function (item /*{File|FileLikeObject}*/, options) {
-	    //        return this.queue.length < 10;
-	    //    }
-	    //},
-	    {
+	    uploader.filters.push({
 	        name: 'xmlFilter',
 	        fn: function (item /*{File|FileLikeObject}*/, options) {
 	            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
 	            return '|xml|'.indexOf(type) !== -1;
 	        }
 	    });
-
-	    // CALLBACKS
 
 	    uploader.onWhenAddingFileFailed = function (item /*{File|FileLikeObject}*/, filter, options) {
 	        console.info('onWhenAddingFileFailed', item, filter, options);
