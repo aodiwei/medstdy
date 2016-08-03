@@ -13,7 +13,7 @@ from config import ConfigMgr
 from logs import LoggerMgr
 from .entries import entries
 
-tornado.options.define('port', default=11000, help='run server on specific port.', type=int)
+tornado.options.define('port', default=8001, help='run server on specific port.', type=int)
 
 tornado.options.parse_command_line()
 

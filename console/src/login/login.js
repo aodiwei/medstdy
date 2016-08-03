@@ -11,7 +11,7 @@ angular.module('medApp.login', ['ngRoute', 'ui.bootstrap'])
 }])
 
 .controller('loginCtrl', function($scope, $http, $location) {
-  //$scope.user = {account: "eagle", password: "zaq1xsw2"};$scope.user = {};
+  $scope.user = {account: "eagle", password: "zaq1xsw2"};$scope.user = {};
   $scope.sign = function () {
         var config = {
             url: host + "login",

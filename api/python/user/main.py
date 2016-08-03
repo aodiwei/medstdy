@@ -10,7 +10,7 @@ from entries import entries
 from logs import LoggerMgr
 
 tornado.options.define('port', 
-                       default=10000, 
+                       default=8000,
                        help='run server on specific port.', 
                        type=int
                        )

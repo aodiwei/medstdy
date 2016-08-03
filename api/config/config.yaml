@@ -13,7 +13,7 @@ mysql:
 
 user_server:
     host: 42.159.244.119
-    port: 8801
+    port: 8000
 
 email:
   host: smtp.qq.com
