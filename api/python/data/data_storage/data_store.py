@@ -6,12 +6,16 @@ __author__ = "adw"
 __mtime__ = "2016/7/23"
 __purpose__ = 
 """
+import os
 import re
+import platform
 
 from bs4 import BeautifulSoup, element
 
-from logs import LoggerMgr
+import define
+from logs import LoggerMgr, CustomMgrError
 from tools.utility import Utility, Instances
+
 
 log = LoggerMgr.getLogger()
 
@@ -20,22 +24,36 @@ class DataStorage(object):
     """
     data storage
     """
-
     def __init__(self):
         self._mongodb = Instances.get_mongo_inst()
-        pass
+        conf = Utility.conf_get("data_server")
+        if 'Windows' in platform.system():
+            self.data_file_path = conf.get("data_file_path_win")
+        else:
+            self.data_file_path = conf.get("data_file_path")
+        if not os.path.exists(self.data_file_path):
+            os.makedirs(self.data_file_path)
 
-    def data_store_mgr(self):
+    def data_store_mgr(self, file_info):
         """
         import data
         :return:
         """
-        file_path = r"F:\17MedPro\workspace\medstdy\docs\template_with_data.xml"
-        self.store_data_mongodb(file_path)
+        try:
+            filename = file_info.filename
+            file_body = file_info.body
+            file_path = os.path.join(self.data_file_path, filename)
+            with open(file_path, 'w') as f:
+                f.write(file_body)
+            # file_path = r"F:\17MedPro\workspace\medstdy\docs\template_with_data.xml"
+            # self.store_data_mongodb(file_path)
+        except Exception, e:
+            log.error("parse file {0} failed {1}".format(filename, e))
+            CustomMgrError(define.C_CAUSE_fileError)
 
     def store_data_mongodb(self, file_path):
         """
-
+        parse xml and store in mongodb
         :param file_path:
         :return:
         """

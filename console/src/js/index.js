@@ -19,9 +19,4 @@ require('../config/configure');
 require('../html/login.html');
 require('../html/upload-data.html');
 
-//require('./app.css');
-//
-//require('./img/s1.png');
-//require('./img/s2.png');
-//require('./img/s3.png');
-//require('./img/s4.jpg');
+require('../css/app.css');

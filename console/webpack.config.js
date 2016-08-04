@@ -54,7 +54,7 @@ module.exports = {
             {
                 test: /\.(jpe?g|png|gif|svg|jpg)$/i,
                 // inline base64url for <=1500 images
-                loader: 'url-loader?limit=15000&name=img/[name].[hash].[ext]',
+                loader: 'url-loader?limit=1500&name=img/[name].[hash].[ext]',
             }
         ]
     }

@@ -12,7 +12,7 @@ body {
     /*height: 100%;*/
 }
 #login_col{
-    background-image: url("../img/s4.jpg");
+    background-image: url("/img/s4.jpg");
 }
 .no-padding
 {

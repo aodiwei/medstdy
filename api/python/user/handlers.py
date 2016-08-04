@@ -35,6 +35,9 @@ class CookieAuthHandler(BaseHandler):
 
 
 class UserBaseHandler(BaseHandler):
+    """
+    base handler of user module
+    """
     def get_current_user(self):
         cookie = self.get_secure_cookie(self.C_COOKIE)
         info = {"cookie": cookie}
@@ -50,7 +53,9 @@ class UserBaseHandler(BaseHandler):
 
 
 class RegisterHandler(UserBaseHandler):
-    # 应该用post，为了方便测试暂时用get
+    """
+    register
+    """
     def post(self, *args, **kwargs):
 
         email = self.get_argument("email")
@@ -102,7 +107,6 @@ class LogoutHandler(UserBaseHandler):
     """
     user logout
     """
-
     @tornado.web.authenticated
     def post(self):
         cookie = self.get_secure_cookie(self.C_COOKIE)

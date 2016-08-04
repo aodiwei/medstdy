@@ -1,4 +1,4 @@
-#user
+# commond
 cookie_secret: JIaCjeGlSsqGUkfjPQNVAHPTGCqhBkxOrboesVT4zGE=
 
 cookie:
@@ -11,9 +11,10 @@ mysql:
     password: 2wsx3edc
     dbname: medlogic
 
-user_server:
-    host: 42.159.244.119
-    port: 8000
+mongodb:
+  host: 42.159.244.119
+  port: 27017
+  db: medlogic
 
 email:
   host: smtp.qq.com
@@ -22,15 +23,22 @@ email:
   to: 1910593312@qq.com
   cc:
 
+
+# user server
+user_server:
+    host: localhost
+    port: 8000
+
 logger_user:
   level: INFO
   path: logs/user_access.log
+
+# data server
+data_server:
+  data_file_path_win:  F:/17MedPro/data_file/
+  data_file_path: /home/Medlogic/data_file/
 
 logger_data:
   level: INFO
   path: logs/data_access.log
 
-mongodb:
-  host: localhost
-  port: 27017
-  db: medlogic

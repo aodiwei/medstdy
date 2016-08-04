@@ -17,6 +17,7 @@ C_EC_wrongPassword = "wrongPassword"
 C_EC_userMissing = "userMissing"
 C_EC_cacheError = "cacheError"
 C_EC_emailError = "emailError"
+C_EC_fileError = "FILE_ERROR"
 
 # Error cause
 C_CAUSE_userMissing = "userMissing"
@@ -33,3 +34,5 @@ C_CAUSE_delKeyError = "delKeyError"
 
 C_CAUSE_sendError = "sendError"
 C_CAUSE_invalidUrl = "invalidUrl"
+
+C_CAUSE_fileError = "FileParseFailed"

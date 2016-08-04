@@ -17,15 +17,7 @@ from sqlalchemy.exc import IntegrityError
 import config
 import define
 from db.dbclass import TbUser, TbCookies
-from logs import LoggerMgr
-
-
-class CustomMgrError(Exception):
-    def __init__(self, msg):
-        self.message = msg
-
-    def __str__(self):
-        return repr(self.message)
+from logs import LoggerMgr, CustomMgrError
 
 
 class AccountMgr(object):

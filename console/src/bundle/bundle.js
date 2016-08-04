@@ -65,20 +65,15 @@
 	__webpack_require__(8);
 
 	//custom js
-	__webpack_require__(11);
-	__webpack_require__(12);
-	__webpack_require__(14);
-	__webpack_require__(13);
-
 	__webpack_require__(9);
 	__webpack_require__(10);
+	__webpack_require__(12);
+	__webpack_require__(11);
 
-	//require('./app.css');
-	//
-	//require('./img/s1.png');
-	//require('./img/s2.png');
-	//require('./img/s3.png');
-	//require('./img/s4.jpg');
+	__webpack_require__(13);
+	__webpack_require__(14);
+
+	__webpack_require__(15);
 
 /***/ },
 /* 2 */
@@ -40442,18 +40437,6 @@
 /* 9 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n    <div class=\"row row-hidden-overflow \">\r\n        <div class=\"col-sm-8 no-padding  \">\r\n            <div ng-controller=\"CarouselDemoCtrl\">\r\n                    <div uib-carousel active=\"active\" interval=\"myInterval\" no-wrap=\"noWrapSlides\">\r\n                        <div uib-slide ng-repeat=\"slide in slides track by slide.id\" index=\"slide.id\">\r\n                            <img ng-src=\"{{slide.image}}\" style=\"margin:auto;\">\r\n                            <div class=\"carousel-caption\">\r\n                                <!--<h4>Slide {{slide.id}}</h4>-->\r\n                                <p>{{slide.text}}</p>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n            </div>\r\n        </div>\r\n\r\n\r\n        <div class=\"col-sm-4 no-padding col-equal-height\" id=\"login_col\">\r\n            <form class=\"form-horizontal \" id=\"login_form\" ng-controller=\"loginCtrl\">\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputEmail3\" class=\"col-sm-3 control-label\">用 户</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"text\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email/用户名\"\r\n                               ng-model=\"user.account\">\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputPassword3\" class=\"col-sm-3 control-label\">密 码</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"密码\"\r\n                               ng-model=\"user.password\">\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <div class=\"col-sm-offset-2 col-sm-9\">\r\n                        <button type=\"submit\" class=\"btn btn-success\" ng-click=\"sign()\">登录</button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>"
-
-/***/ },
-/* 10 */
-/***/ function(module, exports) {
-
-	module.exports = "<div ng-controller=\"uploadController\" nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, customFilter\">\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-3\">\r\n                <h3>选择文件</h3>\r\n                <p>可多选</p>\r\n                <!-- Example: nv-file-select=\"\" uploader=\"{Object}\" options=\"{Object}\" filters=\"{String}\" -->\r\n                <!--<input type=\"file\" nv-file-select=\"\" uploader=\"uploader\" multiple/><br/>-->\r\n\r\n                <div class=\"\" style=\";\">\r\n                    <input type=\"file\" nv-file-select=\"\" uploader=\"uploader\"  id=\"upload_file\" style=\"display: none\" multiple/>\r\n                    <button type=\"button\" class=\"btn btn-success\" id=\"upload_file-btn\"\r\n                            Onclick=\"upload_file.click(); apppath.value=upload_file.value;\">选择文件\r\n                    </button>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"col-md-9\" style=\"margin-bottom: 40px\">\r\n\r\n                <h3>上传列表</h3>\r\n                <p>文件数量: {{ uploader.queue.length }}</p>\r\n\r\n                <table class=\"table\">\r\n                    <thead>\r\n                    <tr>\r\n                        <th width=\"50%\">Name</th>\r\n                        <th ng-show=\"uploader.isHTML5\">Size</th>\r\n                        <th ng-show=\"uploader.isHTML5\">Progress</th>\r\n                        <th>Status</th>\r\n                        <th>Actions</th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    <tr ng-repeat=\"item in uploader.queue\">\r\n                        <td><strong>{{ item.file.name }}</strong></td>\r\n                        <td ng-show=\"uploader.isHTML5\" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>\r\n                        <td ng-show=\"uploader.isHTML5\">\r\n                            <div class=\"progress\" style=\"margin-bottom: 0;\">\r\n                                <div class=\"progress-bar\" role=\"progressbar\"\r\n                                     ng-style=\"{ 'width': item.progress + '%' }\"></div>\r\n                            </div>\r\n                        </td>\r\n                        <td class=\"text-center\">\r\n                            <span ng-show=\"item.isSuccess\"><i class=\"glyphicon glyphicon-ok\"></i></span>\r\n                            <span ng-show=\"item.isCancel\"><i class=\"glyphicon glyphicon-ban-circle\"></i></span>\r\n                            <span ng-show=\"item.isError\"><i class=\"glyphicon glyphicon-remove\"></i></span>\r\n                        </td>\r\n                        <td nowrap>\r\n                            <button type=\"button\" class=\"btn btn-success btn-xs\" ng-click=\"item.upload()\"\r\n                                    ng-disabled=\"item.isReady || item.isUploading || item.isSuccess\">\r\n                                <span class=\"glyphicon glyphicon-upload\"></span> 上传\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-warning btn-xs\" ng-click=\"item.cancel()\"\r\n                                    ng-disabled=\"!item.isUploading\">\r\n                                <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-danger btn-xs\" ng-click=\"item.remove()\">\r\n                                <span class=\"glyphicon glyphicon-trash\"></span> 移除\r\n                            </button>\r\n                        </td>\r\n                    </tr>\r\n                    </tbody>\r\n                </table>\r\n\r\n                <div>\r\n                    <div>\r\n                        上传进度:\r\n                        <div class=\"progress\" style=\"\">\r\n                            <div class=\"progress-bar\" role=\"progressbar\"\r\n                                 ng-style=\"{ 'width': uploader.progress + '%' }\"></div>\r\n                        </div>\r\n                    </div>\r\n                    <button type=\"button\" class=\"btn btn-success btn-s\" ng-click=\"uploader.uploadAll()\"\r\n                            ng-disabled=\"!uploader.getNotUploadedItems().length\">\r\n                        <span class=\"glyphicon glyphicon-upload\"></span> 上传全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-warning btn-s\" ng-click=\"uploader.cancelAll()\"\r\n                            ng-disabled=\"!uploader.isUploading\">\r\n                        <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-danger btn-s\" ng-click=\"uploader.clearQueue()\"\r\n                            ng-disabled=\"!uploader.queue.length\">\r\n                        <span class=\"glyphicon glyphicon-trash\"></span> 移除全部\r\n                    </button>\r\n                </div>\r\n\r\n            </div>\r\n\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>\r\n"
-
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
-
 	'use strict';
 
 	// Declare app level module which depends on views, and components
@@ -40465,12 +40448,12 @@
 	}]);
 
 /***/ },
-/* 12 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var configure_mod = __webpack_require__(13);
+	var configure_mod = __webpack_require__(11);
 	var configure = new configure_mod();
 
 	angular.module('medApp.login', ['ngRoute', 'ui.bootstrap']).config(['$routeProvider', function ($routeProvider) {
@@ -40527,7 +40510,7 @@
 	});
 
 /***/ },
-/* 13 */
+/* 11 */
 /***/ function(module, exports) {
 
 	/**
@@ -40560,12 +40543,12 @@
 	};
 
 /***/ },
-/* 14 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var configure_mod = __webpack_require__(13);
+	var configure_mod = __webpack_require__(11);
 	var configure = new configure_mod();
 
 	angular.module('medApp.upload-data', ['ngRoute', 'angularFileUpload']).config(['$routeProvider', function ($routeProvider) {
@@ -40622,6 +40605,366 @@
 
 	    console.info('uploader', uploader);
 	}]);
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"container\">\r\n    <div class=\"row row-hidden-overflow \">\r\n        <div class=\"col-sm-8 no-padding  \">\r\n            <div ng-controller=\"CarouselDemoCtrl\">\r\n                    <div uib-carousel active=\"active\" interval=\"myInterval\" no-wrap=\"noWrapSlides\">\r\n                        <div uib-slide ng-repeat=\"slide in slides track by slide.id\" index=\"slide.id\">\r\n                            <img ng-src=\"{{slide.image}}\" style=\"margin:auto;\">\r\n                            <div class=\"carousel-caption\">\r\n                                <!--<h4>Slide {{slide.id}}</h4>-->\r\n                                <p>{{slide.text}}</p>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n            </div>\r\n        </div>\r\n\r\n\r\n        <div class=\"col-sm-4 no-padding col-equal-height\" id=\"login_col\">\r\n            <form class=\"form-horizontal \" id=\"login_form\" ng-controller=\"loginCtrl\">\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputEmail3\" class=\"col-sm-3 control-label\">用 户</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"text\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email/用户名\"\r\n                               ng-model=\"user.account\">\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputPassword3\" class=\"col-sm-3 control-label\">密 码</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"密码\"\r\n                               ng-model=\"user.password\">\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <div class=\"col-sm-offset-2 col-sm-9\">\r\n                        <button type=\"submit\" class=\"btn btn-success\" ng-click=\"sign()\">登录</button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>"
+
+/***/ },
+/* 14 */
+/***/ function(module, exports) {
+
+	module.exports = "<div ng-controller=\"uploadController\" nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, customFilter\">\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-3\">\r\n                <h3>选择文件</h3>\r\n                <p>可多选</p>\r\n                <!-- Example: nv-file-select=\"\" uploader=\"{Object}\" options=\"{Object}\" filters=\"{String}\" -->\r\n                <!--<input type=\"file\" nv-file-select=\"\" uploader=\"uploader\" multiple/><br/>-->\r\n\r\n                <div class=\"\" style=\";\">\r\n                    <input type=\"file\" nv-file-select=\"\" uploader=\"uploader\"  id=\"upload_file\" style=\"display: none\" multiple/>\r\n                    <button type=\"button\" class=\"btn btn-success\" id=\"upload_file-btn\"\r\n                            Onclick=\"upload_file.click(); apppath.value=upload_file.value;\">选择文件\r\n                    </button>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"col-md-9\" style=\"margin-bottom: 40px\">\r\n\r\n                <h3>上传列表</h3>\r\n                <p>文件数量: {{ uploader.queue.length }}</p>\r\n\r\n                <table class=\"table\">\r\n                    <thead>\r\n                    <tr>\r\n                        <th width=\"50%\">Name</th>\r\n                        <th ng-show=\"uploader.isHTML5\">Size</th>\r\n                        <th ng-show=\"uploader.isHTML5\">Progress</th>\r\n                        <th>Status</th>\r\n                        <th>Actions</th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    <tr ng-repeat=\"item in uploader.queue\">\r\n                        <td><strong>{{ item.file.name }}</strong></td>\r\n                        <td ng-show=\"uploader.isHTML5\" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>\r\n                        <td ng-show=\"uploader.isHTML5\">\r\n                            <div class=\"progress\" style=\"margin-bottom: 0;\">\r\n                                <div class=\"progress-bar\" role=\"progressbar\"\r\n                                     ng-style=\"{ 'width': item.progress + '%' }\"></div>\r\n                            </div>\r\n                        </td>\r\n                        <td class=\"text-center\">\r\n                            <span ng-show=\"item.isSuccess\"><i class=\"glyphicon glyphicon-ok\"></i></span>\r\n                            <span ng-show=\"item.isCancel\"><i class=\"glyphicon glyphicon-ban-circle\"></i></span>\r\n                            <span ng-show=\"item.isError\"><i class=\"glyphicon glyphicon-remove\"></i></span>\r\n                        </td>\r\n                        <td nowrap>\r\n                            <button type=\"button\" class=\"btn btn-success btn-xs\" ng-click=\"item.upload()\"\r\n                                    ng-disabled=\"item.isReady || item.isUploading || item.isSuccess\">\r\n                                <span class=\"glyphicon glyphicon-upload\"></span> 上传\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-warning btn-xs\" ng-click=\"item.cancel()\"\r\n                                    ng-disabled=\"!item.isUploading\">\r\n                                <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-danger btn-xs\" ng-click=\"item.remove()\">\r\n                                <span class=\"glyphicon glyphicon-trash\"></span> 移除\r\n                            </button>\r\n                        </td>\r\n                    </tr>\r\n                    </tbody>\r\n                </table>\r\n\r\n                <div>\r\n                    <div>\r\n                        上传进度:\r\n                        <div class=\"progress\" style=\"\">\r\n                            <div class=\"progress-bar\" role=\"progressbar\"\r\n                                 ng-style=\"{ 'width': uploader.progress + '%' }\"></div>\r\n                        </div>\r\n                    </div>\r\n                    <button type=\"button\" class=\"btn btn-success btn-s\" ng-click=\"uploader.uploadAll()\"\r\n                            ng-disabled=\"!uploader.getNotUploadedItems().length\">\r\n                        <span class=\"glyphicon glyphicon-upload\"></span> 上传全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-warning btn-s\" ng-click=\"uploader.cancelAll()\"\r\n                            ng-disabled=\"!uploader.isUploading\">\r\n                        <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-danger btn-s\" ng-click=\"uploader.clearQueue()\"\r\n                            ng-disabled=\"!uploader.queue.length\">\r\n                        <span class=\"glyphicon glyphicon-trash\"></span> 移除全部\r\n                    </button>\r\n                </div>\r\n\r\n            </div>\r\n\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>\r\n"
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(16);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(18)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./app.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./app.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 16 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(17)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "body {\r\n    padding: 50px;\r\n}\r\n\r\n.carousel img {\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n\r\n#login_form{\r\n    padding-top: 40%;\r\n    /*height: 100%;*/\r\n}\r\n#login_col{\r\n    background-image: url(\"/img/s4.jpg\");\r\n}\r\n.no-padding\r\n{\r\n    padding: 0;\r\n}\r\n\r\n.row-hidden-overflow {\r\n  overflow: hidden;\r\n}\r\n\r\n\r\n.col-equal-height{\r\n  margin-bottom: -99999px;\r\n  padding-bottom: 99999px;\r\n}\r\n\r\n.carousel-control{\r\n    opacity: 0;\r\n}\r\n\r\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 17 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0,
+		styleElementsInsertedAtTop = [];
+
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+		// By default, add <style> tags to the bottom of <head>.
+		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+
+	function insertStyleElement(options, styleElement) {
+		var head = getHeadElement();
+		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+		if (options.insertAt === "top") {
+			if(!lastStyleElementInsertedAtTop) {
+				head.insertBefore(styleElement, head.firstChild);
+			} else if(lastStyleElementInsertedAtTop.nextSibling) {
+				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+			} else {
+				head.appendChild(styleElement);
+			}
+			styleElementsInsertedAtTop.push(styleElement);
+		} else if (options.insertAt === "bottom") {
+			head.appendChild(styleElement);
+		} else {
+			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		}
+	}
+
+	function removeStyleElement(styleElement) {
+		styleElement.parentNode.removeChild(styleElement);
+		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+		if(idx >= 0) {
+			styleElementsInsertedAtTop.splice(idx, 1);
+		}
+	}
+
+	function createStyleElement(options) {
+		var styleElement = document.createElement("style");
+		styleElement.type = "text/css";
+		insertStyleElement(options, styleElement);
+		return styleElement;
+	}
+
+	function createLinkElement(options) {
+		var linkElement = document.createElement("link");
+		linkElement.rel = "stylesheet";
+		insertStyleElement(options, linkElement);
+		return linkElement;
+	}
+
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement(options));
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement(options);
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement(options);
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+			};
+		}
+
+		update(obj);
+
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+
+	var replaceText = (function () {
+		var textStore = [];
+
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var sourceMap = obj.sourceMap;
+
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+
+		var blob = new Blob([css], { type: "text/css" });
+
+		var oldSrc = linkElement.href;
+
+		linkElement.href = URL.createObjectURL(blob);
+
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
 
 /***/ }
 /******/ ]);
