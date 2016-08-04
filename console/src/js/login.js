@@ -6,7 +6,7 @@ angular.module('medApp.login', ['ngRoute', 'ui.bootstrap'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/login', {
-    templateUrl: 'login/login.html',
+    templateUrl: 'html/login.html',
     controller: 'loginCtrl'
   });
 }])
