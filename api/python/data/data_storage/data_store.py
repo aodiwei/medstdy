@@ -41,15 +41,16 @@ class DataStorage(object):
         """
         try:
             filename = file_info.filename
-            file_body = file_info.body
+            file_body = file_info.body.encode("utf-8")
             file_path = os.path.join(self.data_file_path, filename)
             with open(file_path, 'w') as f:
                 f.write(file_body)
+            log.info("store file {0} success".format(filename))
             # file_path = r"F:\17MedPro\workspace\medstdy\docs\template_with_data.xml"
             # self.store_data_mongodb(file_path)
         except Exception, e:
             log.error("parse file {0} failed {1}".format(filename, e))
-            CustomMgrError(define.C_CAUSE_fileError)
+            raise CustomMgrError(define.C_CAUSE_fileError)
 
     def store_data_mongodb(self, file_path):
         """

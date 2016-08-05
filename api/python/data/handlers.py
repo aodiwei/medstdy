@@ -14,8 +14,9 @@ class UploadHandler(BaseHandler):
     @tornado.web.authenticated
     def post(self):
         try:
-            files = self.request.files
+            files = self.request.files['file']
             data_mgr = DataStorage()
             map(data_mgr.data_store_mgr, files)
         except CustomHTTPError, e:
             raise CustomHTTPError(401, error=define.C_EC_fileError, cause=e.message)
+

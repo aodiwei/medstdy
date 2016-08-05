@@ -45,7 +45,7 @@ class BaseHandler(tornado.web.RequestHandler):
 
         config.ConfigMgr.init(os.path.join(define.root, "config/config.yaml"))
         server_conf = config.ConfigMgr.get("user_server", {})
-        url = "http://{host}:{port}/cookie_auth".format(**server_conf)
+        url = "http://{host}:{port}/user/cookie_auth".format(**server_conf)
         payload = {
             "cookie": cookie,
         }
