@@ -3,12 +3,6 @@ var configure_mod = require('../config/configure.js');
 var configure = new configure_mod();
 
 angular.module('medApp.upload-data', ['ngRoute', 'angularFileUpload'])
-    .config(['$routeProvider', function ($routeProvider) {
-        $routeProvider.when('/upload-data', {
-            templateUrl: 'html/upload-data.html',
-            controller: 'uploadController'
-        });
-    }])
     .controller('uploadController', ['$scope', 'FileUploader', function ($scope, FileUploader) {
         var uploader = $scope.uploader = new FileUploader({
             url: configure.data_host + '/data/upload-file'
@@ -58,5 +52,5 @@ angular.module('medApp.upload-data', ['ngRoute', 'angularFileUpload'])
             console.info('onCompleteAll');
         };
 
-        console.info('uploader', uploader);
+        //console.info('uploader', uploader);
     }]);
