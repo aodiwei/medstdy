@@ -1,27 +1,25 @@
 'use strict';
-var configure_mod = require('../config/configure.js');
-var configure = new configure_mod();
+var app = require('./app.js');
 
-angular.module('medApp.login', ['ngRoute', 'ui.bootstrap'])
-    .controller('loginCtrl', function ($scope, $http, $location) {
-        //$scope.user = {account: "eagle", password: "zaq1xsw2"};
+app
+    .controller('loginController', function ($scope, $http, $location) {
         $scope.user = {};
         $scope.sign = function () {
             var config = {
-                url: configure.user_host + "/user/login",
-                method: "POST",
+                url: '/user/login',
+                method: 'POST',
                 params: {user_name: $scope.user.account, password: $scope.user.password}
             };
-            $http(config).success(function (data, status, headers, config) {
+            $http(config).success(function () {
                 //alert("登录成功");
                 $location.path("/upload-data");
-            }).error(function (data, status, headers, config) {
+            }).error(function () {
                 alert("登录失败");
             });
         };
     })
 
-    .controller('CarouselDemoCtrl', function ($scope) {
+    .controller('carouselController', function ($scope) {
         $scope.myInterval = 3000;
         $scope.noWrapSlides = false;
         $scope.active = 1;

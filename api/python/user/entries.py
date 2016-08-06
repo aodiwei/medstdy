@@ -17,5 +17,6 @@ entries = [
     (r"/user/modify_psw$", ModifyPasswordHandler),
     (r"/user/reset_psw$", ResetPasswordHandler),
     (r"/user/send_mail_addr$", SendMailHandler),
+    (r"/user/auth$", AuthHandler),
 
 ]

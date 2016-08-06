@@ -67,8 +67,8 @@
 	//custom js
 	__webpack_require__(9);
 	__webpack_require__(10);
-	__webpack_require__(12);
 	__webpack_require__(11);
+	__webpack_require__(12);
 
 	__webpack_require__(13);
 	__webpack_require__(14);
@@ -40441,11 +40441,26 @@
 
 	// Declare app level module which depends on views, and components
 
-	angular.module('medApp', ['ngRoute', 'medApp.login', 'medApp.upload-data', 'ui.bootstrap']).config(['$locationProvider', '$routeProvider', function ($locationProvider, $routeProvider) {
-	  //$locationProvider.hashPrefix('!');
+	var app = angular.module('medApp', ['ngRoute', 'angularFileUpload', 'ui.bootstrap']);
+	app.config(['$routeProvider', function ($routeProvider) {
+	    $routeProvider.when('/login', {
+	        templateUrl: 'html/login.html',
+	        controller: 'loginController'
+	    }).when('/upload-data', {
+	        templateUrl: 'html/upload-data.html',
+	        controller: 'uploadController'
+	    }).otherwise({
+	        redirectTo: '/login'
+	    });
+	}]).run(['$rootScope', 'auth', function ($rootScope, auth) {
+	    $rootScope.$on('$locationChangeStart', locationChangeStart);
 
-	  $routeProvider.otherwise({ redirectTo: '/login' });
+	    function locationChangeStart(event) {
+	        auth.auth();
+	    }
 	}]);
+
+	module.exports = app;
 
 /***/ },
 /* 10 */
@@ -40453,44 +40468,24 @@
 
 	'use strict';
 
-	var configure_mod = __webpack_require__(11);
-	var configure = new configure_mod();
+	var app = __webpack_require__(9);
 
-	angular.module('medApp.login', ['ngRoute', 'ui.bootstrap']).config(['$routeProvider', function ($routeProvider) {
-	    $routeProvider.when('/login', {
-	        templateUrl: 'html/login.html',
-	        controller: 'loginCtrl'
-	    });
-	}]).controller('loginCtrl', function ($scope, $http, $location) {
-	    $scope.user = { account: "eagle", password: "zaq1xsw2" };
-	    //$scope.user = {};
+	app.controller('loginController', function ($scope, $http, $location) {
+	    $scope.user = {};
 	    $scope.sign = function () {
 	        var config = {
-	            url: configure.user_host + "/user/login",
-	            method: "POST",
+	            url: '/user/login',
+	            method: 'POST',
 	            params: { user_name: $scope.user.account, password: $scope.user.password }
 	        };
-	        $http(config).success(function (data, status, headers, config) {
-	            alert("登录成功");
+	        $http(config).success(function () {
+	            //alert("登录成功");
 	            $location.path("/upload-data");
-	        }).error(function (data, status, headers, config) {
+	        }).error(function () {
 	            alert("登录失败");
 	        });
 	    };
-	})
-
-	//.directive('panel1', function ($compile) {
-	//            return {
-	//                restrict: "E",
-	//                replace:false,
-	//                transclude: true,
-	//                templateUrl:"../node_modules/angular-ui-bootstrap/template/carousel/carousel.html",
-	//                //templateUrl:"./login/temp.html",
-	//
-	//            }
-	//        })
-
-	.controller('CarouselDemoCtrl', function ($scope) {
+	}).controller('carouselController', function ($scope) {
 	    $scope.myInterval = 3000;
 	    $scope.noWrapSlides = false;
 	    $scope.active = 1;
@@ -40511,54 +40506,15 @@
 
 /***/ },
 /* 11 */
-/***/ function(module, exports) {
-
-	/**
-	 * Created by AO.Diwei on 2016/8/3.
-	 */
-	var configs = {
-	    user_host_local: "http://localhost",
-	    data_host_local: "http://localhost",
-	    user_host_online: "http://42.159.244.119",
-	    data_host_online: "http://42.159.244.119"
-	};
-
-	module.exports = function () {
-	    //var p = navigator.platform;
-	    var configure = {};
-	    var curhost = window.location.host;
-	    if (curhost.indexOf("localhost") == 0) {
-	        configure = {
-	            user_host: configs.user_host_local,
-	            data_host: configs.data_host_local
-	        };
-	    } else {
-	        configure = {
-	            user_host: configs.user_host_online,
-	            data_host: configs.data_host_online
-	        };
-	    }
-
-	    return configure;
-	};
-
-/***/ },
-/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var configure_mod = __webpack_require__(11);
-	var configure = new configure_mod();
+	var app = __webpack_require__(9);
 
-	angular.module('medApp.upload-data', ['ngRoute', 'angularFileUpload']).config(['$routeProvider', function ($routeProvider) {
-	    $routeProvider.when('/upload-data', {
-	        templateUrl: 'html/upload-data.html',
-	        controller: 'uploadController'
-	    });
-	}]).controller('uploadController', ['$scope', 'FileUploader', function ($scope, FileUploader) {
+	app.controller('uploadController', function ($scope, $location, FileUploader) {
 	    var uploader = $scope.uploader = new FileUploader({
-	        url: configure.data_host + '/data/upload-file'
+	        url: '/data/upload-file'
 	    });
 	    uploader.filters.push({
 	        name: 'xmlFilter',
@@ -40603,20 +40559,51 @@
 	        console.info('onCompleteAll');
 	    };
 
-	    console.info('uploader', uploader);
-	}]);
+	    //console.info('uploader', uploader);
+	});
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by david ao on 2016/8/6.
+	 */
+
+	'use strict';
+
+	var app = __webpack_require__(9);
+
+	app.service('auth', function ($location, $http) {
+	    this.auth = function () {
+	        if ($location.url() == '/login') {
+	            console.log('/login ignore auth');
+	            return;
+	        }
+	        var config = {
+	            url: "/user/auth",
+	            method: "GET"
+	        };
+	        $http(config).success(function () {
+	            console.log($location.absUrl(), "success");
+	        }).error(function () {
+	            $location.path("/login");
+	            alert("请先登录");
+	        });
+	    };
+	});
 
 /***/ },
 /* 13 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n    <div class=\"row row-hidden-overflow \">\r\n        <div class=\"col-sm-8 no-padding  \">\r\n            <div ng-controller=\"CarouselDemoCtrl\">\r\n                    <div uib-carousel active=\"active\" interval=\"myInterval\" no-wrap=\"noWrapSlides\">\r\n                        <div uib-slide ng-repeat=\"slide in slides track by slide.id\" index=\"slide.id\">\r\n                            <img ng-src=\"{{slide.image}}\" style=\"margin:auto;\">\r\n                            <div class=\"carousel-caption\">\r\n                                <!--<h4>Slide {{slide.id}}</h4>-->\r\n                                <p>{{slide.text}}</p>\r\n                            </div>\r\n                        </div>\r\n                    </div>\r\n            </div>\r\n        </div>\r\n\r\n\r\n        <div class=\"col-sm-4 no-padding col-equal-height\" id=\"login_col\">\r\n            <form class=\"form-horizontal \" id=\"login_form\" ng-controller=\"loginCtrl\">\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputEmail3\" class=\"col-sm-3 control-label\">用 户</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"text\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email/用户名\"\r\n                               ng-model=\"user.account\">\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputPassword3\" class=\"col-sm-3 control-label\">密 码</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"密码\"\r\n                               ng-model=\"user.password\">\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <div class=\"col-sm-offset-2 col-sm-9\">\r\n                        <button type=\"submit\" class=\"btn btn-success\" ng-click=\"sign()\">登录</button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>"
+	module.exports = "<div class=\"container\">\r\n    <div class=\"row row-hidden-overflow \">\r\n        <div class=\"col-sm-8 no-padding  \">\r\n            <div ng-controller=\"carouselController\">\r\n                <div uib-carousel active=\"active\" interval=\"myInterval\" no-wrap=\"noWrapSlides\">\r\n                    <div uib-slide ng-repeat=\"slide in slides track by slide.id\" index=\"slide.id\">\r\n                        <img ng-src=\"{{slide.image}}\" style=\"margin:auto;\">\r\n                        <div class=\"carousel-caption\">\r\n                            <!--<h4>Slide {{slide.id}}</h4>-->\r\n                            <p>{{slide.text}}</p>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-sm-4 no-padding col-equal-height\" id=\"login_col\">\r\n            <form class=\"form-horizontal \" id=\"login_form\" ng-controller=\"loginController\" name=\"loginForm\" novalidate>\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputEmail3\" class=\"col-sm-3 control-label\">用 户</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"text\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email/用户名\"\r\n                               ng-model=\"user.account\" name=\"account\" required>\r\n                        <span style=\"color:red\" ng-show=\"loginForm.account.$dirty && loginForm.account.$invalid\">\r\n                        <span ng-show=\"loginForm.account.$error.required\">用户名是必须的</span>\r\n                        </span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputPassword3\" class=\"col-sm-3 control-label\">密 码</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"密码\"\r\n                               ng-model=\"user.password\" name=\"password\" required>\r\n                        <span style=\"color:red\" ng-show=\"loginForm.password.$dirty && loginForm.password.$invalid\">\r\n                        <span ng-show=\"loginForm.password.$error.required\">密码是必须的</span>\r\n                        </span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <div class=\"col-sm-offset-2 col-sm-9\">\r\n                        <button type=\"submit\" class=\"btn btn-success\" ng-click=\"sign()\"\r\n                        ng-disabled=\"loginForm.account.$invalid || loginForm.password.$invalid\">\r\n                            登录\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ },
 /* 14 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"uploadController\" nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, customFilter\">\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-3\">\r\n                <h3>选择文件</h3>\r\n                <p>可多选</p>\r\n                <!-- Example: nv-file-select=\"\" uploader=\"{Object}\" options=\"{Object}\" filters=\"{String}\" -->\r\n                <!--<input type=\"file\" nv-file-select=\"\" uploader=\"uploader\" multiple/><br/>-->\r\n\r\n                <div class=\"\" style=\";\">\r\n                    <input type=\"file\" nv-file-select=\"\" uploader=\"uploader\"  id=\"upload_file\" style=\"display: none\" multiple/>\r\n                    <button type=\"button\" class=\"btn btn-success\" id=\"upload_file-btn\"\r\n                            Onclick=\"upload_file.click(); apppath.value=upload_file.value;\">选择文件\r\n                    </button>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"col-md-9\" style=\"margin-bottom: 40px\">\r\n\r\n                <h3>上传列表</h3>\r\n                <p>文件数量: {{ uploader.queue.length }}</p>\r\n\r\n                <table class=\"table\">\r\n                    <thead>\r\n                    <tr>\r\n                        <th width=\"50%\">Name</th>\r\n                        <th ng-show=\"uploader.isHTML5\">Size</th>\r\n                        <th ng-show=\"uploader.isHTML5\">Progress</th>\r\n                        <th>Status</th>\r\n                        <th>Actions</th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    <tr ng-repeat=\"item in uploader.queue\">\r\n                        <td><strong>{{ item.file.name }}</strong></td>\r\n                        <td ng-show=\"uploader.isHTML5\" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>\r\n                        <td ng-show=\"uploader.isHTML5\">\r\n                            <div class=\"progress\" style=\"margin-bottom: 0;\">\r\n                                <div class=\"progress-bar\" role=\"progressbar\"\r\n                                     ng-style=\"{ 'width': item.progress + '%' }\"></div>\r\n                            </div>\r\n                        </td>\r\n                        <td class=\"text-center\">\r\n                            <span ng-show=\"item.isSuccess\"><i class=\"glyphicon glyphicon-ok\"></i></span>\r\n                            <span ng-show=\"item.isCancel\"><i class=\"glyphicon glyphicon-ban-circle\"></i></span>\r\n                            <span ng-show=\"item.isError\"><i class=\"glyphicon glyphicon-remove\"></i></span>\r\n                        </td>\r\n                        <td nowrap>\r\n                            <button type=\"button\" class=\"btn btn-success btn-xs\" ng-click=\"item.upload()\"\r\n                                    ng-disabled=\"item.isReady || item.isUploading || item.isSuccess\">\r\n                                <span class=\"glyphicon glyphicon-upload\"></span> 上传\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-warning btn-xs\" ng-click=\"item.cancel()\"\r\n                                    ng-disabled=\"!item.isUploading\">\r\n                                <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-danger btn-xs\" ng-click=\"item.remove()\">\r\n                                <span class=\"glyphicon glyphicon-trash\"></span> 移除\r\n                            </button>\r\n                        </td>\r\n                    </tr>\r\n                    </tbody>\r\n                </table>\r\n\r\n                <div>\r\n                    <div>\r\n                        上传进度:\r\n                        <div class=\"progress\" style=\"\">\r\n                            <div class=\"progress-bar\" role=\"progressbar\"\r\n                                 ng-style=\"{ 'width': uploader.progress + '%' }\"></div>\r\n                        </div>\r\n                    </div>\r\n                    <button type=\"button\" class=\"btn btn-success btn-s\" ng-click=\"uploader.uploadAll()\"\r\n                            ng-disabled=\"!uploader.getNotUploadedItems().length\">\r\n                        <span class=\"glyphicon glyphicon-upload\"></span> 上传全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-warning btn-s\" ng-click=\"uploader.cancelAll()\"\r\n                            ng-disabled=\"!uploader.isUploading\">\r\n                        <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-danger btn-s\" ng-click=\"uploader.clearQueue()\"\r\n                            ng-disabled=\"!uploader.queue.length\">\r\n                        <span class=\"glyphicon glyphicon-trash\"></span> 移除全部\r\n                    </button>\r\n                </div>\r\n\r\n            </div>\r\n\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>\r\n"
+	module.exports = "<div  nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, customFilter\">\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-3\">\r\n                <h3>选择文件</h3>\r\n                <p>可多选</p>\r\n                <!-- Example: nv-file-select=\"\" uploader=\"{Object}\" options=\"{Object}\" filters=\"{String}\" -->\r\n                <!--<input type=\"file\" nv-file-select=\"\" uploader=\"uploader\" multiple/><br/>-->\r\n\r\n                <div class=\"\" style=\";\">\r\n                    <input type=\"file\" nv-file-select=\"\" uploader=\"uploader\"  id=\"upload_file\" style=\"display: none\" multiple/>\r\n                    <button type=\"button\" class=\"btn btn-success\" id=\"upload_file-btn\"\r\n                            Onclick=\"upload_file.click(); apppath.value=upload_file.value;\">选择文件\r\n                    </button>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"col-md-9\" style=\"margin-bottom: 40px\">\r\n\r\n                <h3>上传列表</h3>\r\n                <p>文件数量: {{ uploader.queue.length }}</p>\r\n\r\n                <table class=\"table\">\r\n                    <thead>\r\n                    <tr>\r\n                        <th width=\"50%\">Name</th>\r\n                        <th ng-show=\"uploader.isHTML5\">Size</th>\r\n                        <th ng-show=\"uploader.isHTML5\">Progress</th>\r\n                        <th>Status</th>\r\n                        <th>Actions</th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    <tr ng-repeat=\"item in uploader.queue\">\r\n                        <td><strong>{{ item.file.name }}</strong></td>\r\n                        <td ng-show=\"uploader.isHTML5\" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>\r\n                        <td ng-show=\"uploader.isHTML5\">\r\n                            <div class=\"progress\" style=\"margin-bottom: 0;\">\r\n                                <div class=\"progress-bar\" role=\"progressbar\"\r\n                                     ng-style=\"{ 'width': item.progress + '%' }\"></div>\r\n                            </div>\r\n                        </td>\r\n                        <td class=\"text-center\">\r\n                            <span ng-show=\"item.isSuccess\"><i class=\"glyphicon glyphicon-ok\"></i></span>\r\n                            <span ng-show=\"item.isCancel\"><i class=\"glyphicon glyphicon-ban-circle\"></i></span>\r\n                            <span ng-show=\"item.isError\"><i class=\"glyphicon glyphicon-remove\"></i></span>\r\n                        </td>\r\n                        <td nowrap>\r\n                            <button type=\"button\" class=\"btn btn-success btn-xs\" ng-click=\"item.upload()\"\r\n                                    ng-disabled=\"item.isReady || item.isUploading || item.isSuccess\">\r\n                                <span class=\"glyphicon glyphicon-upload\"></span> 上传\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-warning btn-xs\" ng-click=\"item.cancel()\"\r\n                                    ng-disabled=\"!item.isUploading\">\r\n                                <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-danger btn-xs\" ng-click=\"item.remove()\">\r\n                                <span class=\"glyphicon glyphicon-trash\"></span> 移除\r\n                            </button>\r\n                        </td>\r\n                    </tr>\r\n                    </tbody>\r\n                </table>\r\n\r\n                <div>\r\n                    <div>\r\n                        上传进度:\r\n                        <div class=\"progress\" style=\"\">\r\n                            <div class=\"progress-bar\" role=\"progressbar\"\r\n                                 ng-style=\"{ 'width': uploader.progress + '%' }\"></div>\r\n                        </div>\r\n                    </div>\r\n                    <button type=\"button\" class=\"btn btn-success btn-s\" ng-click=\"uploader.uploadAll()\"\r\n                            ng-disabled=\"!uploader.getNotUploadedItems().length\">\r\n                        <span class=\"glyphicon glyphicon-upload\"></span> 上传全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-warning btn-s\" ng-click=\"uploader.cancelAll()\"\r\n                            ng-disabled=\"!uploader.isUploading\">\r\n                        <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-danger btn-s\" ng-click=\"uploader.clearQueue()\"\r\n                            ng-disabled=\"!uploader.queue.length\">\r\n                        <span class=\"glyphicon glyphicon-trash\"></span> 移除全部\r\n                    </button>\r\n                </div>\r\n\r\n            </div>\r\n\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>\r\n"
 
 /***/ },
 /* 15 */

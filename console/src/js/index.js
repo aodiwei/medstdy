@@ -14,7 +14,7 @@ require('angular-file-upload');
 require('./app');
 require('./login');
 require('./upload-data');
-require('../config/configure');
+require('./service');
 
 require('../html/login.html');
 require('../html/upload-data.html');

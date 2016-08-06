@@ -19,7 +19,8 @@
     "ng-annotate": "^1.2.1",
     "raw-loader": "^0.5.1",
     "angular-ui-bootstrap": "^2.0.0",
-    "angular-file-upload": "^2.3.4"
+    "angular-file-upload": "^2.3.4",
+    "bootstrap": "^3.0.0"
   },
   "devDependencies": {
     "css-loader": "^0.23.1",

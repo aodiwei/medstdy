@@ -20,7 +20,6 @@ class CookieAuthHandler(BaseHandler):
     """
     验证cookie
     """
-
     def get(self):
         info = {"cookie": self.get_argument("cookie"),}
         try:
@@ -192,3 +191,11 @@ class SendMailHandler(UserBaseHandler):
         except CustomMgrError, e:
             raise CustomHTTPError(401, error=define.C_EC_emailError, cause=define.C_CAUSE_sendError)
 
+
+class AuthHandler(UserBaseHandler):
+    """
+    before visit every page, auth whether login
+    """
+    @tornado.web.authenticated
+    def get(self):
+        pass

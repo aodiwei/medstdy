@@ -1,11 +1,10 @@
 'use strict';
-var configure_mod = require('../config/configure.js');
-var configure = new configure_mod();
+var app = require('./app.js');
 
-angular.module('medApp.upload-data', ['ngRoute', 'angularFileUpload'])
-    .controller('uploadController', ['$scope', 'FileUploader', function ($scope, FileUploader) {
+app
+    .controller('uploadController', function ($scope, $location, FileUploader) {
         var uploader = $scope.uploader = new FileUploader({
-            url: configure.data_host + '/data/upload-file'
+            url: '/data/upload-file'
         });
         uploader.filters.push(
             {
@@ -53,4 +52,4 @@ angular.module('medApp.upload-data', ['ngRoute', 'angularFileUpload'])
         };
 
         //console.info('uploader', uploader);
-    }]);
+    });
