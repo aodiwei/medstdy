@@ -4,6 +4,7 @@ Created on 2016年2月18日
 
 @author: David Ao
 '''
+import json
 import os
 
 import requests
@@ -51,7 +52,8 @@ class BaseHandler(tornado.web.RequestHandler):
         }
         response = requests.get(url=url, params=payload)
         if response.status_code == 200:
-            return response.text
+            result = json.loads(response.text)
+            return result
         return False
     
     def write_error(self, status_code, **kwargs):

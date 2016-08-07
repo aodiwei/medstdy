@@ -12,7 +12,7 @@ mysql:
     dbname: medlogic
 
 mongodb:
-  host: 42.159.244.119
+  host: localhost
   port: 27017
   db: medlogic
 

@@ -5,6 +5,7 @@ Created on 2016年2月18日
 @author: David Ao
 '''
 import base64
+import json
 import re
 import time
 import uuid
@@ -120,7 +121,6 @@ class UserInfoHandler(UserBaseHandler):
     """
     获取用户信息
     """
-
     @tornado.web.authenticated
     def get(self):
         user = self.get_current_user()

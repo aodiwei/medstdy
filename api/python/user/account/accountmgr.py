@@ -18,6 +18,7 @@ import config
 import define
 from db.dbclass import TbUser, TbCookies
 from logs import LoggerMgr, CustomMgrError
+log = LoggerMgr.getLogger()
 
 
 class AccountMgr(object):
@@ -29,7 +30,6 @@ class AccountMgr(object):
 
     def __init__(self, db_session=None):
         self.__db_session = db_session
-        self.__logger = LoggerMgr.getLogger()
 
     def send_email(self, subject, contents, send_to=None, **kwargs):
         """
@@ -84,16 +84,16 @@ class AccountMgr(object):
         try:
             self.__db_session.add(user)
             self.__db_session.commit()
-            self.__logger.info("add a user: {account}".format(**kwargs))
+            log.info("add a user: {account}".format(**kwargs))
         except IntegrityError, e:
             msg = e.message
             # 从异常里找出是账号冲突还是邮箱冲突
             if msg.find("account") > 0:
                 conflict = "account has existed"
-                self.__logger.warning("{0}:{1}".format(conflict, kwargs["account"]))
+                log.warning("{0}:{1}".format(conflict, kwargs["account"]))
             elif msg.find("email") > 0:
                 conflict = "email has existed"
-                self.__logger.warning("{0}:{1}".format(conflict, kwargs["email"]))
+                log.warning("{0}:{1}".format(conflict, kwargs["email"]))
             else:
                 conflict = msg
             raise CustomMgrError(conflict)
@@ -115,9 +115,10 @@ class AccountMgr(object):
         m.update(kwargs["password"])
         encryopted_password = m.hexdigest()
         if result.password == encryopted_password:
+            log.log("{} login success".format(kwargs["user_name"]))
             return result.uid
         else:
-            self.__logger.warning("{0} login failed with wrong password".format(kwargs["user_name"]))
+            log.warning("{0} login failed with wrong password".format(kwargs["user_name"]))
             return None
 
     def cookie_cache(self, **kwargs):
@@ -136,7 +137,7 @@ class AccountMgr(object):
             self.__db_session.add(tb_cookie)
             self.__db_session.commit()
         except Exception, e:
-            self.__logger.error(e)
+            log.error(e)
             raise CustomMgrError(define.C_CAUSE_setKeyError)
 
     def cookie_auth(self, **kwargs):
@@ -162,7 +163,7 @@ class AccountMgr(object):
                     self.__db_session.commit()
                     return json.loads(result.value)
         except Exception, e:
-            self.__logger.error(e)
+            log.error(e)
             raise CustomMgrError(define.C_CAUSE_getKeyError)
 
     def cookie_delete(self, cookie):
@@ -214,7 +215,7 @@ class AccountMgr(object):
             encryopted_password = m.hexdigest()
             result.password = encryopted_password
         else:
-            self.__logger.warning("{0} modify password failed with wrong password".format(uid))
+            log.warning("{0} modify password failed with wrong password".format(uid))
             raise CustomMgrError(define.C_CAUSE_wrongPassword)
 
     def reset_password(self, email, new_password):
@@ -243,7 +244,7 @@ class AccountMgr(object):
         redis_inst = self.get_redis_inst()
         _key = redis_inst.get(email)
         if _key != key:
-            self.__logger.error("url key error {0} != {1}".format(_key, key))
+            log.error("url key error {0} != {1}".format(_key, key))
             raise CustomMgrError("invalid url")
 
     def send_email_url(self, email):
@@ -268,7 +269,7 @@ class AccountMgr(object):
 
         try:
             self.send_email(subject=subject, contents=content, send_to=email)
-            self.__logger.info("send a url:{0} to email successfully".format(url))
+            log.info("send a url:{0} to email successfully".format(url))
         except Exception, e:
-            self.__logger.exception("send url:{0} failed".format(url))
+            log.exception("send url:{0} failed".format(url))
             raise CustomMgrError("send url email failed")

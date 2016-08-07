@@ -8,8 +8,9 @@ var app = require('./app.js');
 
 app.service('auth', function ($location, $http) {
     this.auth = function () {
-        if ($location.url() == '/login') {
-            console.log('/login ignore auth');
+        var currentUrl = $location.url();
+        if (currentUrl == '/login'|| currentUrl == '') {
+            console.log(currentUrl, 'ignore auth');
             return;
         }
         var config = {
