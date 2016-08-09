@@ -1,0 +1,75 @@
+0. 建文件夹
+	在usr/local下
+	sudo mkdir java
+	sudo chown MedLogic:MedLogic java
+	sudo mkdir solr
+	sudo chown MedLogic:MedLogic solr
+	sudo mkdir tomcat 
+	sudo chown MedLogic:MedLogic tomcat
+1. 下载jdk, 解压到/usr/local/java
+	tar zxvf jdk-8u101-linux-x64.tar.gz 
+	cp -r jdk1.8.0_101 /usr/local/java/
+2. 设置环境变量
+cd /etc
+vim profile
+在末尾加上
+export JAVA_HOME=/usr/local/java/jdk1.8.0_101
+export JRE_HOME=/usr/local/java/jdk1.8.0_101/jre
+export PATH=$PATH:/usr/local/java/jdk1.8.0_101/bin
+export CLASSPATH=./:/usr/local/java/jdk1.7.0_75/lib:/usr/local/java/jdk1.8.0_101/jre/lib
+3. source profile
+4. java -version
+
+安装solr
+5. 下载solr， 解压到/usr/local/solr
+	解压：tar xvfz solr-4.10.4.tgz
+	cp -r solr-4.10.4 /usr/local/solr/
+6. 启动solr
+	cd /usr/local/solr/solr-4.10.4
+	bin/solr start
+基于jetty的单机版就ok了
+
+安装tomcat
+7. 下载tomcat,解压到/usr/local/tomcat
+	tar zxvf apache-tomcat-7.0.70.tar.gz
+	cp -r apache-tomcat-7.0.70 /usr/local/tomcat/
+8. 备份原来的webapps
+	mv webapp webapps.bak
+	新建一个webapps
+	mkdir webapps
+9. 拷贝solr.war到webapps
+	cp solr.war /usr/local/tomcat/apache-tomcat-7.0.70/webapps/
+10. 解压solr.war
+	jar -xvf solr.war 
+11. 建solrhome
+	/usr/local/solr$ mkdir solrhome
+12. 修改web.xml
+	在/webapps/WEB-INF
+	    <env-entry>
+       <env-entry-name>solr/home</env-entry-name>
+       <env-entry-value>/usr/local/solr/solrhome</env-entry-value># 重点是这个路径和11里一致
+       <env-entry-type>java.lang.String</env-entry-type>
+    </env-entry>
+13. 将example\solr目录下的所有文件复制到你的 /user/local/solr/solrhome目录
+	cp -r solr/* /usr/local/solr/solrhome/
+
+14. 将\example\lib\ext下面的所有包复制到tomcat容器中的${tomcat_home}\lib下面
+	/example/lib$ cp ext/* /usr/local/tomcat/apache-tomcat-7.0.70/lib/
+	
+15 修改端口， 在tomcat/apache-tomcat-7.0.70/conf$ vim server.xml 
+    <Connector port="8983" protocol="HTTP/1.1"
+               connectionTimeout="20000"
+               redirectPort="8443" 
+                URIEncoding="UTF-8" />
+16. 12步可能不成功，用下面的方式
+	在apache-tomcat-7.0.70/conf/Catalina/localhost下新建solr.xml
+	<?xml version="1.0" encoding="utf-8"?>
+	<Context docBase="/usr/local/solr/solr-4.10.4/example/webapps/solr.war" debug="0" crossContext="true">
+	<Environment name="solr/home" type="java.lang.String" value="/usr/local/solr/solrhome" override="true"/>
+	</Context>
+	
+17. 启动tomcat
+	bin/startup.sh
+	bin/shutdown.sh
+	
+	
