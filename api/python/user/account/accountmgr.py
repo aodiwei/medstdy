@@ -11,13 +11,13 @@ import re
 import time
 import uuid
 
-import yagmail
 from sqlalchemy.exc import IntegrityError
 
 import config
 import define
 from db.dbclass import TbUser, TbCookies
 from logs import LoggerMgr, CustomMgrError
+from tools.utility import Utility
 log = LoggerMgr.getLogger()
 
 
@@ -30,45 +30,6 @@ class AccountMgr(object):
 
     def __init__(self, db_session=None):
         self.__db_session = db_session
-
-    def send_email(self, subject, contents, send_to=None, **kwargs):
-        """
-        send email, by default, use email info in config file, if you want use personal email,
-        use kwargs like:
-        kwargs = {
-            "user": xxxx,
-            "password", xxxx,
-            "host": xxx,
-            "to":xxx,
-            "cc":xxx # a list or str
-        }
-        :param subject:
-        :param contents:
-        :param kwargs:
-        :return:
-        """
-        if kwargs:
-            user = kwargs.get("user")
-            password = kwargs.get("password")
-            host = kwargs.get("host")
-            to = kwargs.get("to")
-            cc = kwargs.get("cc", None)
-        else:
-            conf = config.ConfigMgr.get("email", {})
-            user = conf.get("user")
-            password = conf.get("password")
-            host = conf.get("host")
-            to = conf.get("to")
-            cc = conf.get("cc", "")
-            if cc:
-                cc = cc.split(",")
-
-        if send_to is not None:
-            to = send_to
-        to = to.encode("utf-8")
-        yag = yagmail.SMTP(user=user, password=password, host=host)
-        yag.send(to=to, subject=subject, contents=contents, cc=cc)
-
 
     def register(self, **kwargs):
         """
@@ -115,7 +76,7 @@ class AccountMgr(object):
         m.update(kwargs["password"])
         encryopted_password = m.hexdigest()
         if result.password == encryopted_password:
-            log.log("{} login success".format(kwargs["user_name"]))
+            log.info("{} login success".format(kwargs["user_name"]))
             return result.uid
         else:
             log.warning("{0} login failed with wrong password".format(kwargs["user_name"]))
@@ -268,7 +229,7 @@ class AccountMgr(object):
         subject = "teamwork 找回密码"
 
         try:
-            self.send_email(subject=subject, contents=content, send_to=email)
+            Utility.send_email(subject=subject, contents=content, send_to=email)
             log.info("send a url:{0} to email successfully".format(url))
         except Exception, e:
             log.exception("send url:{0} failed".format(url))
