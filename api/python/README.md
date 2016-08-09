@@ -6,6 +6,7 @@ sudo apt-get install mysql-server mysql-client libmysqlclient-dev
 sudo apt install mongodb-server mongodb-clients
 
 3. 安装Python依赖
+sudo apt-get install libxslt1-dev libxml2
 sudo pip install -r requirements.txt
 
 4. 安装js依[此步生成环境可以忽略]
@@ -30,3 +31,11 @@ nohup python -m user.main > /dev/null 2>&1 &
 
 IDE启动
 - 如果需要不同端口启动需在edit configure 里配置 script parameters 为 --port=8080 等
+
+
+访问域名
+http://medical.chinacloudapp.cn/
+ip
+42.159.244.119
+用户名:MedLogic
+密码：MedLogic2016
