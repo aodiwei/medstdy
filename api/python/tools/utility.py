@@ -9,7 +9,9 @@ __purpose__ =
 import os
 
 import pymongo
+import time
 import yagmail
+import sunburnt
 
 import config
 import define
@@ -31,6 +33,16 @@ class Instances(object):
         db = conf.get("db", "medlogic")
         mongo_cli = pymongo.MongoClient(host, int(port))
         return mongo_cli.get_database(db)
+
+    @classmethod
+    def get_solr_inst(cls):
+        """
+        get slr instance
+        :return:
+        """
+        conf = Utility.conf_get("solr")
+        url = "http://{host}:{port}/solr/{core}".format(**conf)
+        return sunburnt.SolrInterface(url=url, retry_timeout=10)
 
 
 class Utility(object):
@@ -86,3 +98,19 @@ class Utility(object):
         to = to.encode("utf-8")
         yag = yagmail.SMTP(user=user, password=password, host=host)
         yag.send(to=to, subject=subject, contents=contents, cc=cc)
+
+    @classmethod
+    def log_important_operation(cls, user, cause):
+        """
+        把用户的重要操作记录到mongodb
+        :param user:
+        :param cause:
+        :return:
+        """
+        mongodb = Instances.get_mongo_inst()
+        collection = mongodb.get_collection("tbl_user_operation_history")
+        oper_datetime = time.strftime("%Y%m%d_%H%M%S")
+        oper = {
+            oper_datetime: cause
+        }
+        collection.update_one(filter={"_id": user}, update={"$set": oper}, upsert=True)

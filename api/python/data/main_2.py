@@ -14,5 +14,5 @@ env.init()
 from data_storage.data_store import DataStorage
 
 if __name__ == "__main__":
-    data_mgr = DataStorage()
-    data_mgr.data_store_mgr()
+    data_mgr = DataStorage("manual_operation")
+    data_mgr.store_data_from_disk()

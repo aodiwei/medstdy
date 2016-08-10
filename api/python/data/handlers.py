@@ -19,7 +19,7 @@ class UploadHandler(BaseHandler):
         user_name = user.get("user_name")
         try:
             data_mgr = DataStorage(user=user_name)
-            map(data_mgr.data_store_mgr, files)
+            map(data_mgr.store_data_from_web, files)
         except CustomMgrError, e:
             raise CustomHTTPError(500, error=define.C_EC_fileError, cause=e.message)
 

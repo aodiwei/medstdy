@@ -9,3 +9,5 @@ requests
 MySQL-python
 #lxml
 http://pypi.doubanio.com/packages/09/f3/c41293bc181b8c727cc485339dc57af653dae6d17d4c8dbf0cbac53cb4aa/lxml-3.6.1.tar.gz#md5=b27472db50fb794795b767bf713287a0
+#solr
+https://github.com/tow/sunburnt/archive/master.zip

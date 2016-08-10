@@ -23,6 +23,11 @@ email:
   to: 1910593312@qq.com
   cc:
 
+solr:
+  host: 42.159.244.119
+  port: 8983
+  core: medical
+
 
 # user server
 user_server:
@@ -41,4 +46,24 @@ data_server:
 logger_data:
   level: INFO
   path: logs/data_access.log
+
+solr_fields:
+  medical_id
+  name
+  sex
+  birthday
+  age
+  province
+  city
+  detail_addr
+  marriage
+  job
+  complain
+  present_illness
+  family_illness
+  init_diag
+  gist
+  before_diag
+  later_diag
+  narcosis_way
 
