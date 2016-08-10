@@ -19,7 +19,7 @@ Zookeeper: Zookeeper提供分布式锁功能，对SolrCloud是必须的。它处
 	sudo chown MedLogic:MedLogic java
 	sudo mkdir solr
 	sudo chown MedLogic:MedLogic solr
-	sudo mkdir tomcat 
+	sudo mkdir tomcat
 	sudo chown MedLogic:MedLogic tomcat
 1. 下载jdk, 解压到/usr/local/java
 	tar zxvf jdk-8u101-linux-x64.tar.gz 
