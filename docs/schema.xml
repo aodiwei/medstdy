@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<schema name="example" version="1.5">
+    <field name="_version_" type="long" indexed="true" stored="true"/>
+    <field name="_root_" type="string" indexed="true" stored="false"/>  
+
+    <field name="medical_id" type="string" indexed="true" stored="true" required="true"/> 
+
+    <field name="name" type="text_general" indexed="true" stored="true"/>
+    <field name="sex" type="text_general" indexed="true" stored="true"/>
+    <field name="birthday" type="date" indexed="true" stored="true"/>
+    <field name="age" type="int" indexed="true" stored="true" />
+    <field name="province" type="text_general" indexed="true" stored="true"/>
+    <field name="city" type="text_general" indexed="true" stored="true"/>
+    <field name="detail_addr" type="text_general" indexed="true" stored="true"/>
+    <field name="marriage" type="text_general" indexed="true" stored="true"/>
+    <field name="job" type="text_general" indexed="true" stored="true"/>
+    <field name="complain" type="text_general" indexed="true" stored="true"/>
+    <field name="present_illness" type="text_general" indexed="true" stored="true"/>
+    <field name="family_illness" type="text_general" indexed="true" stored="true"/>
+    <field name="init_diag" type="text_general" indexed="true" stored="true"/>
+    <field name="gist" type="text_general" indexed="true" stored="true"/>
+    <field name="before_diag" type="text_general" indexed="true" stored="true"/>
+    <field name="later_diag" type="text_general" indexed="true" stored="true"/>
+    <field name="narcosis_way" type="text_general" indexed="true" stored="true"/>
+
+    <field name="text" type="text_general" indexed="true" stored="false" multiValued="true"/>
+    <field name="person" type="text_general" indexed="true" stored="false" multiValued="true"/>
+
+    <uniqueKey>medical_id</uniqueKey>
+
+ <!-- DEPRECATED: The defaultSearchField is consulted by various query parsers when
+  parsing a query string that isn't explicit about the field.  Machine (non-user)
+  generated queries are best made explicit, or they can use the "df" request parameter
+  which takes precedence over this.
+  Note: Un-commenting defaultSearchField will be insufficient if your request handler
+  in solrconfig.xml defines "df", which takes precedence. That would need to be removed.
+  -->
+    <defaultSearchField>text</defaultSearchField>
+
+ <!-- DEPRECATED: The defaultOperator (AND|OR) is consulted by various query parsers
+  when parsing a query string to determine if a clause of the query should be marked as
+  required or optional, assuming the clause isn't already marked by some operator.
+  The default is OR, which is generally assumed so it is not a good idea to change it
+  globally here.  The "q.op" request parameter takes precedence over this.
+ <solrQueryParser defaultOperator="OR"/> -->
+
+    <copyField source="complain" dest="text"/>
+    <copyField source="present_illness" dest="text"/>
+    <copyField source="family_illness" dest="text"/>
+    <copyField source="init_diag" dest="text"/>
+    <copyField source="gist" dest="text"/>
+    <copyField source="before_diag" dest="text"/>
+    <copyField source="later_diag" dest="text"/>
+    <copyField source="narcosis_way" dest="text"/>
+
+    <copyField source="name" dest="person"/>
+    <copyField source="sex" dest="person"/>
+    <copyField source="birthday" dest="person"/>
+    <copyField source="age" dest="person"/>
+    <copyField source="province" dest="person"/>
+    <copyField source="city" dest="person"/>
+    <copyField source="detail_addr" dest="person"/>
+    <copyField source="marriage" dest="person"/>
+    <copyField source="job" dest="person"/>
+   
+    <fieldType name="string" class="solr.StrField" sortMissingLast="true" />
+
+    <!-- boolean type: "true" or "false" -->
+    <fieldType name="boolean" class="solr.BoolField" sortMissingLast="true"/>
+    <fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="float" class="solr.TrieFloatField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="double" class="solr.TrieDoubleField" precisionStep="0" positionIncrementGap="0"/>
+    <fieldType name="tint" class="solr.TrieIntField" precisionStep="8" positionIncrementGap="0"/>
+    <fieldType name="tfloat" class="solr.TrieFloatField" precisionStep="8" positionIncrementGap="0"/>
+    <fieldType name="tlong" class="solr.TrieLongField" precisionStep="8" positionIncrementGap="0"/>
+    <fieldType name="tdouble" class="solr.TrieDoubleField" precisionStep="8" positionIncrementGap="0"/>
+    <fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"/>
+
+    <!-- A Trie based date field for faster date range queries and date faceting. -->
+    <fieldType name="tdate" class="solr.TrieDateField" precisionStep="6" positionIncrementGap="0"/>
+
+
+    <!--Binary data type. The data should be sent/retrieved in as Base64 encoded Strings -->
+    <fieldtype name="binary" class="solr.BinaryField"/>
+    <fieldType name="random" class="solr.RandomSortField" indexed="true" />
+    
+    <fieldtype name="text_general" class="solr.TextField" positionIncrementGap="100">
+     <analyzer> 
+        <tokenizer class="com.chenlb.mmseg4j.solr.MMSegTokenizerFactory" mode="complex" dicPath="dic"/>
+     </analyzer>
+    </fieldtype>
+    
+    <fieldtype name="textMaxWord" class="solr.TextField" positionIncrementGap="100">
+         <analyzer>
+        <tokenizer class="com.chenlb.mmseg4j.solr.MMSegTokenizerFactory" mode="max-word" />
+         </analyzer>
+    </fieldtype>
+
+    <fieldtype name="textSimple" class="solr.TextField" positionIncrementGap="100">
+         <analyzer>
+        <tokenizer class="com.chenlb.mmseg4j.solr.MMSegTokenizerFactory" mode="simple" dicPath="n:/custom/path/to/my_dic" />
+         </analyzer>
+    </fieldtype>
+    
+    <fieldType name="text_en" class="solr.TextField" positionIncrementGap="100">
+      <analyzer type="index">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <!-- in this example, we will only use synonyms at query time
+        <filter class="solr.SynonymFilterFactory" synonyms="index_synonyms.txt" ignoreCase="true" expand="false"/>
+        -->
+        <!-- Case insensitive stop word removal.
+        -->
+        <filter class="solr.StopFilterFactory"
+                ignoreCase="true"
+                words="lang/stopwords_en.txt"
+                />
+        <filter class="solr.LowerCaseFilterFactory"/>
+	<filter class="solr.EnglishPossessiveFilterFactory"/>
+        <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
+	<!-- Optionally you may want to use this less aggressive stemmer instead of PorterStemFilterFactory:
+        <filter class="solr.EnglishMinimalStemFilterFactory"/>
+	-->
+        <filter class="solr.PorterStemFilterFactory"/>
+      </analyzer>
+      <analyzer type="query">
+        <tokenizer class="solr.StandardTokenizerFactory"/>
+        <filter class="solr.SynonymFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
+        <filter class="solr.StopFilterFactory"
+                ignoreCase="true"
+                words="lang/stopwords_en.txt"
+                />
+        <filter class="solr.LowerCaseFilterFactory"/>
+	<filter class="solr.EnglishPossessiveFilterFactory"/>
+        <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
+	<!-- Optionally you may want to use this less aggressive stemmer instead of PorterStemFilterFactory:
+        <filter class="solr.EnglishMinimalStemFilterFactory"/>
+	-->
+        <filter class="solr.PorterStemFilterFactory"/>
+      </analyzer>
+    </fieldType>
+
+
+
+    <!-- since fields of this type are by default not stored or indexed,
+         any data added to them will be ignored outright.  --> 
+    <fieldtype name="ignored" stored="false" indexed="false" multiValued="true" class="solr.StrField" />
+
+    <fieldType name="point" class="solr.PointType" dimension="2" subFieldSuffix="_d"/>
+
+    <!-- A specialized field for geospatial search. If indexed, this fieldType must not be multivalued. -->
+    <fieldType name="location" class="solr.LatLonType" subFieldSuffix="_coordinate"/>
+
+    <!-- An alternative geospatial field type new to Solr 4.  It supports multiValued and polygon shapes.
+      For more information about this and other Spatial fields new to Solr 4, see:
+      http://wiki.apache.org/solr/SolrAdaptersForLuceneSpatial4
+    -->
+    <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
+        geo="true" distErrPct="0.025" maxDistErr="0.000009" units="degrees" />    <!-- Spatial rectangle (bounding box) field. It supports most spatial predicates, and has
+     special relevancy modes: score=overlapRatio|area|area2D (local-param to the query).  DocValues is required for
+     relevancy. -->
+    <fieldType name="bbox" class="solr.BBoxField"
+        geo="true" units="degrees" numberType="_bbox_coord" />
+    <fieldType name="_bbox_coord" class="solr.TrieDoubleField" precisionStep="8" docValues="true" stored="false"/>
+
+    <fieldType name="currency" class="solr.CurrencyField" precisionStep="8" defaultCurrency="USD" currencyConfig="currency.xml" />
+             
+ 
+</schema>
