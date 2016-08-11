@@ -37,5 +37,3 @@ IDE启动
 http://medical.chinacloudapp.cn/
 ip
 42.159.244.119
-用户名:MedLogic
-密码：MedLogic2016
