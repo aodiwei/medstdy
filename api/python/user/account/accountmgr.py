@@ -133,7 +133,9 @@ class AccountMgr(object):
         :param cookie:
         :return:
         """
-        self.__db_session.query(TbCookies).filter(TbCookies.cookie == cookie).delete()
+        res = self.__db_session.query(TbCookies).filter(TbCookies.cookie == cookie).delete()
+        self.__db_session.commit()
+        log.info("delete cookies: {}".format(cookie))
 
     def get_user_info(self, uid):
         """

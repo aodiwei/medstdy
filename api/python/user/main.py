@@ -20,7 +20,7 @@ tornado.options.parse_command_line()
 env.init()
 
 logger = LoggerMgr.getLogger()
-static_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), r"console")
+static_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), r"web")
 
 
 if __name__ == '__main__':

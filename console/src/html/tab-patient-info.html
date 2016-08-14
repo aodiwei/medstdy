@@ -1,0 +1,77 @@
+<div ng-controller="tabPatientController">
+    <div class="row form-line">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">病案号</span>
+                <input type="text" class="form-control" ng-model="medical_id">
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">姓名</span>
+                <input type="text" class="form-control" ng-model="medical_id">
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-line">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">身份证号</span>
+                <input type="text" class="form-control">
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">性别</span>
+                <select class="form-control" ng-model="sex" ng-options="o as o for o in selected.sex"></select>
+                <!--<input type="text" class="form-control">-->
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-line">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">生日</span>
+                <input type="date" class="form-control" ng-model="birthday">
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">年龄</span>
+                <input type="number" class="form-control" ng-model="age">
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row form-line">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">省份</span>
+                <!--<input type="text" class="form-control" ng-model="province">-->
+                <select required class="form-control" ng-model="province"
+                        ng-options="key as key for (key,value) in selected.division"
+                        ng-change="city='';">
+                    <!--address.district='';-->
+                    <option value="">省</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">城市</span>
+                <!--<input type="text" class="form-control" ng-model="city">-->
+                <select class="form-control" ng-model="city"
+                        ng-options="key as key for (key,value) in selected.division[province]">
+                    <!--ng-change="address.district='';"-->
+                    <option value="">市</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+

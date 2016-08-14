@@ -20,29 +20,13 @@
 </head>
 <body>
 
-<nav class="navbar navbar-inverse navbar-fixed-top navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" ng-init="isCollapsed=true" ng-click="isCollapsed = !isCollapsed">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">Medic Study</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse"  uib-collapse="isCollapsed">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#">首页</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-
-
-<div ng-view></div>
+<div ng-include="'html/top_nav.html'"></div>
+<div class="row">
+    <div ng-include="'html/left_nav.html'"></div>
+    <div ng-class="{true: 'col-sm-9', false: 'col-sm-12'}[$root.leftView]">
+        <div ng-view></div>
+    </div>
+</div>
 
 
 </body>

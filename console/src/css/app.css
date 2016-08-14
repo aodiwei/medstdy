@@ -1,5 +1,6 @@
 body {
-    padding: 50px;
+    padding-top: 50px;
+    margin-left: -1px;
 }
 
 .carousel img {
@@ -7,29 +8,73 @@ body {
     height: 100%;
 }
 
-#login_form{
+#login_form {
     padding-top: 40%;
     /*height: 100%;*/
 }
-#login_col{
+
+#login_col {
     background-image: url("/img/s4.jpg");
 }
-.no-padding
-{
+
+.no-padding {
     padding: 0;
 }
 
 .row-hidden-overflow {
-  overflow: hidden;
+    overflow: hidden;
 }
 
-
-.col-equal-height{
-  margin-bottom: -99999px;
-  padding-bottom: 99999px;
+.col-equal-height {
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
 }
 
-.carousel-control{
+.carousel-control {
     opacity: 0;
 }
 
+/* make sidebar nav vertical */
+@media (min-width: 768px) {
+    .sidebar-nav .navbar .navbar-collapse {
+        padding: 0;
+        max-height: none;
+    }
+
+    .sidebar-nav .navbar ul {
+        float: none;
+    }
+
+    .sidebar-nav .navbar ul:not {
+        display: block;
+    }
+
+    .sidebar-nav .navbar li {
+        float: none;
+        display: block;
+    }
+
+    .sidebar-nav .navbar li a {
+        padding-top: 12px;
+        padding-bottom: 12px;
+    }
+}
+
+/*.sidebar-nav {*/
+/*margin-bottom: -99999px;*/
+/*padding-bottom: 99999px;*/
+/*}*/
+
+/*left nva*/
+.sidebar-navbar-collapse h2 {
+    color: #ffffff;
+}
+
+/*form-data*/
+.form-line {
+    margin-top: 20px;
+}
+
+.btn-top {
+    margin-top: 20px;
+}

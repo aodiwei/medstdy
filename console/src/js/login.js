@@ -41,5 +41,26 @@ app
             }
         ];
 
+    })
+    .controller('mainController', function ($scope, auth) {
+        auth.auth().then(function(){
+                 $scope.leftView = true;
+                 $scope.isActive = true;
+            }).catch(function(){
+                 $scope.leftView = false;
+                 $scope.isActive = false;
+            });
+        //$scope.leftViewFun = function(){
+        //
+        //};
+        //$scope.leftView = $scope.leftViewFun();
+        //$scope.isActive = $scope.leftViewFun();
+        //if(!res){
+        //    $scope.leftView = false;
+        //    $scope.isActive = false;
+        //}else {
+        //    $scope.leftView = true;
+        //    $scope.isActive = true;
+        //}
     });
 
