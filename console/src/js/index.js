@@ -9,6 +9,7 @@ require('angular');
 require('angular-route');
 require('angular-ui-bootstrap');
 require('angular-file-upload');
+require('angular-messages');
 
 //custom js
 require('./app');

@@ -5,6 +5,7 @@ var app = angular.module('medApp', [
         'ngRoute',
         'angularFileUpload',
         'ui.bootstrap',
+        'angular-messages',
         //'ui.bootstrap.tabs'
     ]);
 app.config(['$routeProvider', function ($routeProvider) {

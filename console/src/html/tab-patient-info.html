@@ -63,7 +63,7 @@
                 <span class="input-group-addon">城市</span>
                 <!--<input type="text" class="form-control" ng-model="patient_info.city">-->
                 <select class="form-control" ng-model="patient_info.city"
-                        ng-options="key as key for (key,value) in selected.division[province]">
+                        ng-options="key as key for (key,value) in selected.division[patient_info.province]">
                     <!--ng-change="address.district='';"-->
                     <option value="">市</option>
                 </select>

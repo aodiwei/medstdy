@@ -22,7 +22,7 @@ app
             marriage: ['已婚', '未婚']
         };
     })
-    .controller("Tab2Ctrl", function ($scope) {
+    .controller("tabHospitalizedController", function ($scope) {
     })
     .controller("Tab3Ctrl", function ($scope) {
     });
