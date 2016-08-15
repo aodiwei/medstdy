@@ -3,13 +3,13 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">病案号</span>
-                <input type="text" class="form-control" ng-model="medical_id">
+                <input type="text" class="form-control" ng-model="patient_info.medical_id">
             </div>
         </div>
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">姓名</span>
-                <input type="text" class="form-control" ng-model="medical_id">
+                <input type="text" class="form-control" ng-model="patient_info.name">
             </div>
         </div>
     </div>
@@ -24,7 +24,7 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">性别</span>
-                <select class="form-control" ng-model="sex" ng-options="o as o for o in selected.sex"></select>
+                <select class="form-control" ng-model="patient_info.sex" ng-options="o as o for o in selected.sex"></select>
                 <!--<input type="text" class="form-control">-->
             </div>
         </div>
@@ -34,24 +34,23 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">生日</span>
-                <input type="date" class="form-control" ng-model="birthday">
+                <input type="date" class="form-control" ng-model="patient_info.birthday">
             </div>
         </div>
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">年龄</span>
-                <input type="number" class="form-control" ng-model="age">
+                <input type="number" class="form-control" ng-model="patient_info.age">
             </div>
         </div>
-
     </div>
 
     <div class="row form-line">
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">省份</span>
-                <!--<input type="text" class="form-control" ng-model="province">-->
-                <select required class="form-control" ng-model="province"
+                <!--<input type="text" class="form-control" ng-model="patient_info.province">-->
+                <select required class="form-control" ng-model="patient_info.province"
                         ng-options="key as key for (key,value) in selected.division"
                         ng-change="city='';">
                     <!--address.district='';-->
@@ -62,8 +61,8 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">城市</span>
-                <!--<input type="text" class="form-control" ng-model="city">-->
-                <select class="form-control" ng-model="city"
+                <!--<input type="text" class="form-control" ng-model="patient_info.city">-->
+                <select class="form-control" ng-model="patient_info.city"
                         ng-options="key as key for (key,value) in selected.division[province]">
                     <!--ng-change="address.district='';"-->
                     <option value="">市</option>
@@ -72,6 +71,53 @@
         </div>
     </div>
 
+    <div class="row form-line">
+        <div class="col-xs-10">
+            <div class="input-group">
+                <span class="input-group-addon">详细地址</span>
+                <input type="text" class="form-control" ng-model="patient_info.detail_addr">
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-line">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">婚姻</span>
+                <select class="form-control" ng-model="patient_info.marriage" ng-options="o as o for o in selected.marriage"></select>
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">职业</span>
+                <input type="text" class="form-control" ng-model="patient_info.job">
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-line">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">入院时间</span>
+                <input type="datetime-local" class="form-control" ng-model="patient_info.in_date">
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">出院时间</span>
+                <input type="datetime-local" class="form-control" ng-model="patient_info.out_date">
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-line">
+        <div class="col-xs-10">
+            <div class="input-group">
+                <span class="input-group-addon">门诊</span>
+                <input type="text" class="form-control" ng-model="patient_info.detail_addr">
+            </div>
+        </div>
+    </div>
 
 </div>
 

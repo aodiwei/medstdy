@@ -16,10 +16,10 @@ app
         };
     })
     .controller("tabPatientController", function ($scope) {
-        $scope.medical_id = 1234;
         $scope.selected = {
             sex: ['男', '女'],
             division: division_conf,
+            marriage: ['已婚', '未婚']
         };
     })
     .controller("Tab2Ctrl", function ($scope) {
