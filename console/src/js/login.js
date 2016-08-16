@@ -2,7 +2,7 @@
 var app = require('./app.js');
 
 app
-    .controller('loginController', function ($scope, $http, $location) {
+    .controller('loginController', function ($scope, $http, $location, fData) {
         $scope.user = {};
         $scope.sign = function () {
             var config = {
@@ -12,6 +12,7 @@ app
             };
             $http(config).success(function () {
                 //alert("登录成功");
+                fData.setAccount($scope.user.account);
                 $location.path("/upload-data");
             }).error(function () {
                 alert("登录失败");

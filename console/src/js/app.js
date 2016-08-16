@@ -5,7 +5,7 @@ var app = angular.module('medApp', [
         'ngRoute',
         'angularFileUpload',
         'ui.bootstrap',
-        'angular-messages',
+        'ngMessages',
         //'ui.bootstrap.tabs'
     ]);
 app.config(['$routeProvider', function ($routeProvider) {
@@ -32,9 +32,9 @@ app.config(['$routeProvider', function ($routeProvider) {
 
     function locationChangeStart(event) {
         auth.auth().then(function(){
-            $rootScope.leftView = true;
+            //$rootScope.leftView = true;
         }).catch(function () {
-            $rootScope.leftView = false;
+            //$rootScope.leftView = false;
         });
     }
 }]);

@@ -4,16 +4,9 @@
 'use strict';
 var app = require('./app.js');
 app
-    .controller("leftNavController", function ($scope, $http, $location) {
-        var req = {
-            url: '/user/user_info',
-            method: 'GET',
-        };
-        $http(req).then(function (res) {
-            $scope.account = res.data.account;
-        }).catch(function () {
-            console.log("get user info failed");
-        });
+    .controller("leftNavController", function ($scope, $http, $location, fData) {
+        $scope.left_nav = fData.getLeftNav;
+        $scope.account = fData.getAccount;
 
         $scope.isActive = function (viewLocation) {
             return viewLocation === $location.path();
@@ -32,4 +25,8 @@ app
             });
 
         };
+    })
+
+    .controller("contentController", function($scope, fData){
+        $scope.left_nav = fData.getLeftNav;
     });

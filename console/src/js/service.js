@@ -6,29 +6,53 @@
 
 var app = require('./app.js');
 
-app.service('auth', function ($location, $http, $q) {
-
+app.service('auth', function ($location, $http, $q, fData) {
     this.auth = function () {
         var defer = $q.defer();
         var currentUrl = $location.url();
         if (currentUrl == '/login'|| currentUrl == '') {
             console.log(currentUrl, 'ignore auth');
-            var promise = defer.promise;
             defer.reject(false);
-            return promise;
+            fData.setLeftNav(false);
+            return defer.promise;
+        }else {
+            fData.setLeftNav(true);
         }
         var config = {
             url: "/user/auth",
             method: "GET"
         };
-        var promise = $http(config).then(function () {
+        $http(config).then(function () {
             console.log($location.absUrl(), "success");
-            defer.resolve(true)
+            defer.resolve(true);
         }).catch(function () {
             $location.path("/login");
             alert("请先登录");
             defer.reject(false)
         });
-        return promise
+        return defer.promise
+    };
+});
+
+app.factory('fData', function() {
+    var _leftNav = false;
+    var _account = "";
+    return {
+        getLeftNav: function () {
+            return _leftNav;
+        },
+        setLeftNav: function(flag){
+            _leftNav = flag;
+            return _leftNav;
+        },
+        getAccount: function(){
+            console.log("get", _account);
+            return _account;
+        },
+        setAccount: function(account){
+            _account = account;
+            console.log("set", _account);
+            return _account;
+        }
     }
 });

@@ -1,4 +1,4 @@
-<div class="col-sm-3" ng-show="$root.leftView" ng-controller="leftNavController">
+<div class="col-sm-3" ng-show="left_nav()" ng-controller="leftNavController">
     <div class="sidebar-nav">
         <div class="navbar navbar-default" role="navigation">
             <div class="navbar-header">
@@ -16,7 +16,7 @@
                 <ul class="nav navbar-nav">
                     <div class="text-center">
                         <h2 class="brand">Medical Study<br>
-                            <small>{{account}}</small>
+                            <small>{{account()}}</small>
                         </h2>
                         <img src="img/user-head.png" class="user-avatar"/><br/>
                         <a ng-click="logout()" class="btn btn-white btn-outline btn-rounded btn-sm">Logout</a>
