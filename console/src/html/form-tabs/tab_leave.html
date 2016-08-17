@@ -1,0 +1,57 @@
+<div ng-controller="tabPatientController">
+    <div class="row form-line">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">入院时间</span>
+                <input type="date" class="form-control" ng-model="leave.in_date">
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">出院时间</span>
+                <input type="date" class="form-control" ng-model="leave.out_date">
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-line">
+        <div class="col-xs-10">
+            <div class="input-group">
+                <span class="input-group-addon">入院病情描述</span>
+                <textarea rows="3" class="form-control" ng-model="leave.description"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-line">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">初步诊断</span>
+                <input type="text" class="form-control" ng-model="leave.init_diag">
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">出院诊断</span>
+                <input type="text" class="form-control" ng-model="leave.leave_diag">
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-line">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">治疗过程</span>
+                <textarea rows="3" class="form-control" ng-model="leave.treatment"></textarea>
+            </div>
+        </div>
+
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">出院医嘱</span>
+                <textarea rows="3" class="form-control" ng-model="leave.advice"></textarea>
+            </div>
+        </div>
+    </div>
+
+</div>

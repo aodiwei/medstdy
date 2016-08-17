@@ -1,0 +1,71 @@
+<div ng-controller="tabSurgeryController">
+    <div class="row form-line">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">手术时间</span>
+                <input type="date" class="form-control" ng-model="surgery.surgery_date">
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">术前诊断</span>
+                <input type="text" class="form-control" ng-model="surgery.before_diag">
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-line">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">术后诊断</span>
+                <input type="text" class="form-control" ng-model="surgery.later_diag">
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">手术名称</span>
+                <input type="text" class="form-control" ng-model="surgery.surgery_name">
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-line">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">手术医生</span>
+                <input type="text" class="form-control" ng-model="surgery.surgery_doctor">
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">麻醉医生</span>
+                <input type="text" class="form-control" ng-model="surgery.narcosis_doctor">
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-line">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">器械护士</span>
+                <input type="text" class="form-control" ng-model="surgery.instrument_nurses">
+            </div>
+        </div>
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">麻醉方式</span>
+                <input type="text" class="form-control" ng-model="surgery.narcosis_way">
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-line">
+        <div class="col-xs-10">
+            <div class="input-group">
+                <span class="input-group-addon">描述</span>
+                <textarea rows="5" class="form-control" ng-model="surgery.description"></textarea>
+            </div>
+        </div>
+    </div>
+
+</div>

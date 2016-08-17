@@ -20,13 +20,26 @@ require('./left_nav');
 require('./form-data-tabs');
 require('../config/division.js');
 
+require('../html/nav/left_nav.html');
+require('../html/nav/top_nav.html');
 
 require('../html/login.html');
 require('../html/upload-data.html');
-require('../html/form-data-tabs.html');
-require('../html/left_nav.html');
-require('../html/top_nav.html');
-require('../html/tab-patient-info.html');
+
+require('../html/form-tabs/form-data-tabs.html');
+require('../html/form-tabs/tab-patient-info.html');
+require('../html/form-tabs/tab_clinical_course.html');
+require('../html/form-tabs/tab_hospitalized.html');
+require('../html/form-tabs/tab_surgery.html');
+require('../html/form-tabs/tab_after_surgery.html');
+require('../html/form-tabs/tab_leave.html');
+require('../html/form-tabs/tab_temp_medical_orders.html');
+require('../html/form-tabs/tab_long_medical_orders.html');
+
+require('../html/widget/check-record.html');
+require('../html/widget/after_surgery_record.html');
+require('../html/widget/long_medical_orders.html');
+require('../html/widget/temp_medical_orders.html');
 
 require('../css/app.css');
 
