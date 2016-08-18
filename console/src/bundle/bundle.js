@@ -41472,18 +41472,43 @@
 
 	var app = __webpack_require__(11);
 	var division_conf = __webpack_require__(17);
-	app.controller("tabsController", function ($scope) {
+	app.controller("tabsController", function ($scope, $http) {
 	    $scope.tabs = [{ title: '患者基本信息', content: 'html/form-tabs/tab-patient-info.html' }, { title: '住院病历记录', content: 'html/form-tabs/tab_hospitalized.html' }, { title: '首次病程记录表', content: 'html/form-tabs/tab_clinical_course.html' }, { title: '手术记录表', content: 'html/form-tabs/tab_surgery.html' }, { title: '术后病程', content: 'html/form-tabs/tab_after_surgery.html' }, { title: '出院记录表', content: 'html/form-tabs/tab_leave.html' }, { title: '长期医嘱记录表', content: 'html/form-tabs/tab_long_medical_orders.html' }, { title: '临时医嘱记录表', content: 'html/form-tabs/tab_temp_medical_orders.html' }];
 
 	    $scope.model = {
 	        name: 'Tabs'
 	    };
-
-	    $scope.patient_info = {};
+	    $scope.patient_info = {
+	        medical_id: "123232",
+	        name: "javk",
+	        sex: "女",
+	        birthday: new Date("2016-08-17 16:00"),
+	        province: "新疆省",
+	        city: "克拉玛依市",
+	        age: 12,
+	        detail_addr: "xxx",
+	        marriage: "未婚",
+	        job: "xxxx",
+	        in_date: new Date("2016-08-25 15:03:00"),
+	        out_date: new Date("2016-08-25 15:02:00"),
+	        outpatient: "dfdfdf"
+	    };
+	    //$scope.patient_info = {};
 	    $scope.clinical_course = {};
 	    $scope.submit = function () {
 	        console.log($scope.patient_info);
-	        console.log($scope.clinical_course);
+	        //console.log($scope.clinical_course);
+	        var req = {
+	            url: '/data/form-data',
+	            method: 'POST',
+	            params: { patient_info: $scope.patient_info }
+	        };
+
+	        $http(req).then(function (data) {
+	            console.log(data);
+	        }).catch(function () {
+	            alert("提交失败");
+	        });
 	    };
 	}).controller("tabPatientController", function ($scope) {
 	    $scope.selected = {
@@ -41493,12 +41518,10 @@
 	    };
 	}).controller("tabHospitalizedController", function ($scope) {}).controller("tabClinicalCourseController", function ($scope) {
 	    //$scope.clinical_course = {};
-	    var item = { clinical_course: { datetime: "", record: "" } };
-	    $scope.records = [item];
+	    var item = { datetime: "", record: "" };
+	    $scope.clinical_course = [item];
 	    $scope.addRecord = function () {
-	        $scope.records.push(item);
-	        console.log($scope.datetime);
-	        console.log($scope.record);
+	        $scope.clinical_course.push({ datetime: "", record: "" });
 	        console.log($scope.clinical_course);
 	    };
 	    $scope.delRecord = function (index) {
@@ -41984,7 +42007,7 @@
 /* 24 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabClinicalCourseController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">病例特点</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.ill_description\"> </textarea>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">初步诊断</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"clinical_course.init_diag\"></textarea>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">诊断依据</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"clinical_course.gist\"> </textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">治疗计划</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.treat_plan\"></textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">鉴别诊断</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"clinical_course.antidiastole\"></textarea>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <!--<div class=\"row form-line\">-->\r\n        <!--<div class=\"col-xs-10\">-->\r\n            <!--<div class=\"input-group\">-->\r\n                <!--<span class=\"input-group-addon\">查房记录<br><br><br><a class=\"glyphicon glyphicon-plus\" ng-click=\"addRecord()\"></a></span>-->\r\n                <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"clinical_course.check_record.datetime\">-->\r\n                <!--<textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.check_record.record\"></textarea>-->\r\n            <!--</div>-->\r\n        <!--</div>-->\r\n    <!--</div>-->\r\n\r\n    <div ng-repeat=\"item in records\">\r\n        <div class=\"row form-line\">\r\n            <div class=\"col-xs-10\">\r\n                <div class=\"input-group\">\r\n                    <span class=\"input-group-addon\">查房记录<br><br>\r\n                        <a class=\"glyphicon glyphicon-plus\" ng-click=\"addRecord()\"></a>\r\n                        <br>\r\n                        <a class=\"glyphicon glyphicon-minus\" ng-click=\"delRecord($index)\"></a>\r\n                    </span>\r\n                    <input type=\"datetime-local\" class=\"form-control\" ng-model=\"item.clinical_course.datetime\">\r\n                    <textarea rows=\"3\" class=\"form-control\" ng-model=\"item.clinical_course.record\"></textarea>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>"
+	module.exports = "<div ng-controller=\"tabClinicalCourseController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">病例特点</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.ill_description\"> </textarea>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">初步诊断</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"clinical_course.init_diag\"></textarea>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">诊断依据</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"clinical_course.gist\"> </textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">治疗计划</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.treat_plan\"></textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">鉴别诊断</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"clinical_course.antidiastole\"></textarea>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <!--<div class=\"row form-line\">-->\r\n        <!--<div class=\"col-xs-10\">-->\r\n            <!--<div class=\"input-group\">-->\r\n                <!--<span class=\"input-group-addon\">查房记录<br><br><br><a class=\"glyphicon glyphicon-plus\" ng-click=\"addRecord()\"></a></span>-->\r\n                <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"clinical_course.check_record.datetime\">-->\r\n                <!--<textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.check_record.record\"></textarea>-->\r\n            <!--</div>-->\r\n        <!--</div>-->\r\n    <!--</div>-->\r\n\r\n    <div ng-repeat=\"item in clinical_course track by $index\">\r\n        <div class=\"row form-line\">\r\n            <div class=\"col-xs-10\">\r\n                <div class=\"input-group\">\r\n                    <span class=\"input-group-addon\">查房记录<br><br>\r\n                        <a class=\"glyphicon glyphicon-plus\" ng-click=\"addRecord()\"></a>\r\n                        <br>\r\n                        <a class=\"glyphicon glyphicon-minus\" ng-click=\"delRecord($index)\"></a>\r\n                    </span>\r\n                    <input type=\"datetime-local\" class=\"form-control\" ng-model=\"clinical_course[$index].datetime\">\r\n                    <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course[$index].record\"></textarea>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>"
 
 /***/ },
 /* 25 */
