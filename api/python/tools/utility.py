@@ -8,6 +8,7 @@ __purpose__ =
 """
 import os
 
+import datetime
 import pymongo
 import time
 import yagmail
@@ -15,6 +16,13 @@ import sunburnt
 
 import config
 import define
+
+class CONST(object):
+    """
+    some const val
+    """
+    LOCAL_FORMAT = "%Y-%m-%d %H:%M:%S"
+    UTC_FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ"
 
 
 class Instances(object):
@@ -114,3 +122,23 @@ class Utility(object):
             oper_datetime: cause
         }
         collection.update_one(filter={"_id": user}, update={"$set": oper}, upsert=True)
+
+    @classmethod
+    def utc2local(cls, utc_st, date_inst=False):
+        """
+        UTC时间转本地时间（+8:00）
+        :param date_inst: datetime instance
+        :param utc_st:
+        :return:
+        """
+        utc_st = utc_st.encode("utf-8")
+        utc = datetime.datetime.strptime(utc_st, CONST.UTC_FORMAT)
+        now_stamp = time.time()
+        local_time = datetime.datetime.fromtimestamp(now_stamp)
+        utc_time = datetime.datetime.utcfromtimestamp(now_stamp)
+        offset = local_time - utc_time
+        local_st = utc + offset
+        if date_inst:
+            return local_st
+        else:
+            return local_st.strftime(CONST.UTC_FORMAT)

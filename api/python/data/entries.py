@@ -8,4 +8,5 @@ Created on 2016年2月18日
 from data.handlers import *
 entries = [
     (r"/data/upload-file", UploadHandler),
+    (r"/data/form-data", FormDataHandler),
 ]
