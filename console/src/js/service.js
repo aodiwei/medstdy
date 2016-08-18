@@ -11,7 +11,7 @@ app.service('auth', function ($location, $http, $q, fData) {
         var defer = $q.defer();
         var currentUrl = $location.url();
         if (currentUrl == '/login'|| currentUrl == '') {
-            console.log(currentUrl, 'ignore auth');
+            //console.log(currentUrl, 'ignore auth');
             defer.reject(false);
             fData.setLeftNav(false);
             return defer.promise;
@@ -46,12 +46,12 @@ app.factory('fData', function() {
             return _leftNav;
         },
         getAccount: function(){
-            console.log("get", _account);
+            //console.log("get", _account);
             return _account;
         },
         setAccount: function(account){
             _account = account;
-            console.log("set", _account);
+            //console.log("set", _account);
             return _account;
         }
     }

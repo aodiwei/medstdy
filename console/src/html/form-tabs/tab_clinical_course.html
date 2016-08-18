@@ -41,18 +41,30 @@
 
     </div>
 
-    <div class="row form-line">
-        <div class="col-xs-10">
-            <div class="input-group">
-                <span class="input-group-addon">查房记录<br><br><br><a class="glyphicon glyphicon-plus" ng-click="addRecord()"></a></span>
-                <input type="datetime-local" class="form-control" ng-model="clinical_course.check_record.datetime">
-                <textarea rows="3" class="form-control" ng-model="clinical_course.check_record.record"></textarea>
+    <!--<div class="row form-line">-->
+        <!--<div class="col-xs-10">-->
+            <!--<div class="input-group">-->
+                <!--<span class="input-group-addon">查房记录<br><br><br><a class="glyphicon glyphicon-plus" ng-click="addRecord()"></a></span>-->
+                <!--<input type="datetime-local" class="form-control" ng-model="clinical_course.check_record.datetime">-->
+                <!--<textarea rows="3" class="form-control" ng-model="clinical_course.check_record.record"></textarea>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+    <div ng-repeat="item in records">
+        <div class="row form-line">
+            <div class="col-xs-10">
+                <div class="input-group">
+                    <span class="input-group-addon">查房记录<br><br>
+                        <a class="glyphicon glyphicon-plus" ng-click="addRecord()"></a>
+                        <br>
+                        <a class="glyphicon glyphicon-minus" ng-click="delRecord($index)"></a>
+                    </span>
+                    <input type="datetime-local" class="form-control" ng-model="item.clinical_course.datetime">
+                    <textarea rows="3" class="form-control" ng-model="item.clinical_course.record"></textarea>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div ng-repeat="index in records">
-        <div ng-include="'html/widget/check-record.html'"></div>
     </div>
 
 </div>

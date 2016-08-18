@@ -20,6 +20,13 @@ app
         $scope.model = {
             name: 'Tabs'
         };
+
+        $scope.patient_info = {};
+        $scope.clinical_course = {};
+        $scope.submit = function(){
+            console.log($scope.patient_info);
+            console.log($scope.clinical_course);
+        }
     })
     .controller("tabPatientController", function ($scope) {
         $scope.selected = {
@@ -31,11 +38,14 @@ app
     .controller("tabHospitalizedController", function ($scope) {
     })
     .controller("tabClinicalCourseController", function ($scope) {
-        $scope.records = [];
-        $scope.index = 0;
+        //$scope.clinical_course = {};
+        var item = {clinical_course: {datetime: "", record: ""}};
+        $scope.records = [item];
         $scope.addRecord = function() {
-            $scope.records.push($scope.index);
-            $scope.index++;
+            $scope.records.push(item);
+            console.log($scope.datetime);
+            console.log($scope.record);
+            console.log($scope.clinical_course);
         };
         $scope.delRecord = function(index) {
             $scope.records.splice(index, 1);
