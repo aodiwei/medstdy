@@ -18,6 +18,7 @@ C_EC_userMissing = "userMissing"
 C_EC_cacheError = "cacheError"
 C_EC_emailError = "emailError"
 C_EC_fileError = "FILE_ERROR"
+C_EC_formError = "FORM_ERROR"
 
 # Error cause
 C_CAUSE_userMissing = "userMissing"

@@ -6,21 +6,19 @@
                 <textarea rows="3" class="form-control" ng-model="clinical_course.ill_description"> </textarea>
             </div>
         </div>
-
     </div>
 
     <div class="row form-line">
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">初步诊断</span>
-                <textarea rows="1" class="form-control" ng-model="clinical_course.init_diag"></textarea>
+                <textarea rows="3" class="form-control" ng-model="clinical_course.init_diag"></textarea>
             </div>
         </div>
-
         <div class="col-xs-5">
             <div class="input-group">
-                <span class="input-group-addon">诊断依据</span>
-                <textarea rows="1" class="form-control" ng-model="clinical_course.gist"> </textarea>
+                <span class="input-group-addon">治疗计划</span>
+                <textarea rows="3" class="form-control" ng-model="clinical_course.treat_plan"></textarea>
             </div>
         </div>
     </div>
@@ -28,8 +26,8 @@
     <div class="row form-line">
         <div class="col-xs-5">
             <div class="input-group">
-                <span class="input-group-addon">治疗计划</span>
-                <textarea rows="3" class="form-control" ng-model="clinical_course.treat_plan"></textarea>
+                <span class="input-group-addon">诊断依据</span>
+                <textarea rows="1" class="form-control" ng-model="clinical_course.gist"> </textarea>
             </div>
         </div>
         <div class="col-xs-5">
@@ -41,30 +39,8 @@
 
     </div>
 
-    <!--<div class="row form-line">-->
-        <!--<div class="col-xs-10">-->
-            <!--<div class="input-group">-->
-                <!--<span class="input-group-addon">查房记录<br><br><br><a class="glyphicon glyphicon-plus" ng-click="addRecord()"></a></span>-->
-                <!--<input type="datetime-local" class="form-control" ng-model="clinical_course.check_record.datetime">-->
-                <!--<textarea rows="3" class="form-control" ng-model="clinical_course.check_record.record"></textarea>-->
-            <!--</div>-->
-        <!--</div>-->
-    <!--</div>-->
-
-    <div ng-repeat="item in clinical_course track by $index">
-        <div class="row form-line">
-            <div class="col-xs-10">
-                <div class="input-group">
-                    <span class="input-group-addon">查房记录<br><br>
-                        <a class="glyphicon glyphicon-plus" ng-click="addRecord()"></a>
-                        <br>
-                        <a class="glyphicon glyphicon-minus" ng-click="delRecord($index)"></a>
-                    </span>
-                    <input type="datetime-local" class="form-control" ng-model="clinical_course[$index].datetime">
-                    <textarea rows="3" class="form-control" ng-model="clinical_course[$index].record"></textarea>
-                </div>
-            </div>
-        </div>
+    <div ng-repeat="item in check_record track by $index">
+        <div ng-include="'html/widget/check_record.html'"></div>
     </div>
 
 </div>

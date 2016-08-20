@@ -1,42 +1,5 @@
 <div ng-controller="tabTempMedicalOrdersController">
-    <div class="row form-line">
-        <div class="col-xs-5">
-            <div class="input-group">
-                <span class="input-group-addon">开始时间</span>
-                <input type="datetime-local" class="form-control" ng-model="temp_medical_orders.items.start_datetime">
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon">医嘱</span>
-                <input type="text" class="form-control" ng-model="temp_medical_orders.items.medical_order">
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon">执行医生</span>
-                <input type="text" class="form-control" ng-model="temp_medical_orders.items.start_execute_doctor">
-            </div>
-        </div>
-
-        <div class="col-xs-4">
-            <div class="input-group">
-                <span class="input-group-addon">执行护士</span>
-                <input type="text" class="form-control" ng-model="temp_medical_orders.items.start_execute_nurse">
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon">执行时间</span>
-                <input type="datetime-local" class="form-control" ng-model="temp_medical_orders.items.start_execute_datetime">
-            </div>
-            <div class="input-group">
-                <span class="input-group-addon">核对人</span>
-                <input type="text" class="form-control" ng-model="temp_medical_orders.items.checker">
-            </div>
-        </div>
-
-        <div class="col-xs-1">
-            <span class="input-group-addon">增加记录<a class="glyphicon glyphicon-plus"
-                                                   ng-click="addRecord()"></a></span>
-        </div>
-    </div>
-
-    <div ng-repeat="index in records">
+    <div ng-repeat="index in temp_items track by $index">
         <div ng-include="'html/widget/temp_medical_orders.html'"></div>
     </div>
 </div>

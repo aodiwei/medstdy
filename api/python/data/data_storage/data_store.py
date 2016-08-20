@@ -10,6 +10,7 @@ import os
 import platform
 import re
 import time
+import json
 
 from bs4 import BeautifulSoup, element
 
@@ -85,6 +86,25 @@ class DataStorage(object):
         self.add_doc_to_solr(**tbl_doc)
         # 记录操作
         operation_cause = "upload file {0}".format(filename)
+        Utility.log_important_operation(self.user, operation_cause)
+
+    def form_data(self, **tbl_data):
+        """
+        录入数据
+        :param tbl_doc:
+        :return:
+        """
+        tbl_patient_info = json.loads(tbl_data["tbl_patient_info"][0])
+        _id = tbl_patient_info["medical_id"]
+        tbl_doc = {}
+        for k, v in tbl_data.iteritems():
+            tab = json.loads(v[0])
+            tab["_id"] = _id
+            tbl_doc[k] = tab
+        self.add_doc_to_mongodb(**tbl_doc)
+        self.add_doc_to_solr(**tbl_doc)
+        # 记录操作
+        operation_cause = "type in  {0}".format(_id)
         Utility.log_important_operation(self.user, operation_cause)
 
     def _format_text(self, text):
@@ -211,3 +231,5 @@ class DataStorage(object):
             log.info("finish insert {0} to {1}".format(doc["_id"], tbl_name))
 
         return True
+
+

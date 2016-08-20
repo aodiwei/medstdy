@@ -2,35 +2,39 @@
     <div class="col-xs-5">
         <div class="input-group">
             <span class="input-group-addon">开始时间</span>
-            <input type="datetime-local" class="form-control" ng-model="temp_medical_orders.items.start_datetime">
+            <input type="datetime-local" class="form-control" ng-model="temp_items[$index].start_datetime">
         </div>
         <div class="input-group">
             <span class="input-group-addon">医嘱</span>
-            <input type="text" class="form-control" ng-model="temp_medical_orders.items.medical_order">
+            <input type="text" class="form-control" ng-model="temp_items[$index].medical_order">
         </div>
         <div class="input-group">
             <span class="input-group-addon">执行医生</span>
-            <input type="text" class="form-control" ng-model="temp_medical_orders.items.start_execute_doctor">
+            <input type="text" class="form-control" ng-model="temp_items[$index].start_execute_doctor">
         </div>
     </div>
 
     <div class="col-xs-4">
         <div class="input-group">
             <span class="input-group-addon">执行护士</span>
-            <input type="text" class="form-control" ng-model="temp_medical_orders.items.start_execute_nurse">
+            <input type="text" class="form-control" ng-model="temp_items[$index].start_execute_nurse">
         </div>
         <div class="input-group">
             <span class="input-group-addon">执行时间</span>
-            <input type="datetime-local" class="form-control" ng-model="temp_medical_orders.items.start_execute_datetime">
+            <input type="datetime-local" class="form-control" ng-model="temp_items[$index].start_execute_datetime">
         </div>
         <div class="input-group">
             <span class="input-group-addon">核对人</span>
-            <input type="text" class="form-control" ng-model="temp_medical_orders.items.checker">
+            <input type="text" class="form-control" ng-model="temp_items[$index].checker">
         </div>
     </div>
     <div class="col-xs-1">
-            <span class="input-group-addon">删除记录<a class="glyphicon glyphicon-minus"
-                                                   ng-click="delRecord($index)"></a></span>
+        <button class="button button-action button-circle button-small button-glow" ng-click="addRecord()"><i
+                class="fa fa-plus"></i></button>
+        <button class="button button-primary button-box button-small"><i>{{$index + 1}}</i></button>
+        <button class="button button-highlight button-circle button-small button-glow"
+                ng-click="delRecord($index)" ng-hide="$index==0">
+            <i class="fa fa-minus"></i></button>
     </div>
 
 </div>

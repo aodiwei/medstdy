@@ -1,13 +1,15 @@
 <div class="row form-line">
     <div class="col-xs-9">
         <div class="input-group">
-            <span class="input-group-addon">术后病程
+            <span class="input-group-addon">查房记录
             </span>
-            <input type="datetime-local" class="form-control" ng-model="description[$index].date">
-            <textarea rows="3" class="form-control" ng-model="description[$index].content"></textarea>
+            <input type="datetime-local" class="form-control" ng-model="check_record[$index].date">
+            <!--<div ng-include="'html/widget/datepicker/datepicker.html'"></div>-->
+            <textarea rows="3" class="form-control" ng-model="check_record[$index].content"></textarea>
         </div>
     </div>
     <div class="col-xs-1">
+        <br>
         <button class="button button-action button-circle button-small button-glow" ng-click="addRecord()"><i
                 class="fa fa-plus"></i></button>
         <button class="button button-primary button-box button-small"><i>{{$index + 1}}</i></button>

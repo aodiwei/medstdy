@@ -14,6 +14,7 @@
         <job></job>
         <in_date></in_date>
         <out_date></out_date>
+        <outpatient></outpatient>
     </tbl_user_info>
 
     <tbl_hospitalized>
