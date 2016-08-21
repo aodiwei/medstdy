@@ -64,20 +64,19 @@
 	__webpack_require__(6);
 	__webpack_require__(8);
 	__webpack_require__(9);
+	__webpack_require__(11);
 
 	//custom js
-	__webpack_require__(11);
 	__webpack_require__(12);
 	__webpack_require__(13);
 	__webpack_require__(14);
 	__webpack_require__(15);
 	__webpack_require__(16);
 	__webpack_require__(17);
+	__webpack_require__(47);
 	__webpack_require__(18);
-
-	__webpack_require__(44);
-
 	__webpack_require__(19);
+
 	__webpack_require__(20);
 
 	__webpack_require__(21);
@@ -85,6 +84,7 @@
 
 	__webpack_require__(23);
 	__webpack_require__(24);
+
 	__webpack_require__(25);
 	__webpack_require__(26);
 	__webpack_require__(27);
@@ -92,15 +92,18 @@
 	__webpack_require__(29);
 	__webpack_require__(30);
 	__webpack_require__(31);
-
 	__webpack_require__(32);
 	__webpack_require__(33);
+
 	__webpack_require__(34);
 	__webpack_require__(35);
-	__webpack_require__(42);
-
 	__webpack_require__(36);
+	__webpack_require__(37);
+	__webpack_require__(38);
+	__webpack_require__(39);
+
 	__webpack_require__(40);
+	__webpack_require__(44);
 
 /***/ },
 /* 2 */
@@ -41217,11 +41220,676 @@
 /* 11 */
 /***/ function(module, exports) {
 
+	// https://github.com/Gillardo/bootstrap-ui-datetime-picker
+	// Version: 2.4.3
+	// Released: 2016-07-14 
+	angular.module('ui.bootstrap.datetimepicker', ['ui.bootstrap.dateparser', 'ui.bootstrap.position'])
+	    .constant('uiDatetimePickerConfig', {
+	        dateFormat: 'yyyy-MM-dd HH:mm',
+	        defaultTime: '00:00:00',
+	        html5Types: {
+	            date: 'yyyy-MM-dd',
+	            'datetime-local': 'yyyy-MM-ddTHH:mm:ss.sss',
+	            'month': 'yyyy-MM'
+	        },
+	        initialPicker: 'date',
+	        reOpenDefault: false,
+	        enableDate: true,
+	        enableTime: true,
+	        buttonBar: {
+	            show: true,
+	            now: {
+	                show: true,
+	                text: 'Now'
+	            },
+	            today: {
+	                show: true,
+	                text: 'Today'
+	            },
+	            clear: {
+	                show: true,
+	                text: 'Clear'
+	            },
+	            date: {
+	                show: true,
+	                text: 'Date'
+	            },
+	            time: {
+	                show: true,
+	                text: 'Time'
+	            },
+	            close: {
+	                show: true,
+	                text: 'Close'
+	            }
+	        },
+	        closeOnDateSelection: true,
+	        closeOnTimeNow: true,
+	        appendToBody: false,
+	        altInputFormats: [],
+	        ngModelOptions: {},
+	        saveAs: false,
+	        readAs: false
+	    })
+	    .controller('DateTimePickerController', ['$scope', '$element', '$attrs', '$compile', '$parse', '$document', '$timeout', '$uibPosition', 'dateFilter', 'uibDateParser', 'uiDatetimePickerConfig', '$rootScope',
+	        function ($scope, $element, $attrs, $compile, $parse, $document, $timeout, $uibPosition, dateFilter, uibDateParser, uiDatetimePickerConfig, $rootScope) {
+	            var dateFormat = uiDatetimePickerConfig.dateFormat,
+	                ngModel, ngModelOptions, $popup, cache = {}, watchListeners = [],
+	                closeOnDateSelection = angular.isDefined($attrs.closeOnDateSelection) ? $scope.$parent.$eval($attrs.closeOnDateSelection) : uiDatetimePickerConfig.closeOnDateSelection,
+	                closeOnTimeNow = angular.isDefined($attrs.closeOnTimeNow) ? $scope.$parent.$eval($attrs.closeOnTimeNow) : uiDatetimePickerConfig.closeOnTimeNow,
+	                appendToBody = angular.isDefined($attrs.datepickerAppendToBody) ? $scope.$parent.$eval($attrs.datepickerAppendToBody) : uiDatetimePickerConfig.appendToBody,
+	                altInputFormats = angular.isDefined($attrs.altInputFormats) ? $scope.$parent.$eval($attrs.altInputFormats) : uiDatetimePickerConfig.altInputFormats,
+	                saveAs = angular.isDefined($attrs.saveAs) ? $scope.$parent.$eval($attrs.saveAs) || $attrs.saveAs : uiDatetimePickerConfig.saveAs,
+	                readAs = angular.isDefined($attrs.readAs) ? $scope.$parent.$eval($attrs.readAs) : uiDatetimePickerConfig.readAs;
+
+	            this.init = function (_ngModel) {
+	                ngModel = _ngModel;
+	                ngModelOptions = ngModel.$options || uiDatetimePickerConfig.ngModelOptions;
+
+	                $scope.buttonBar = angular.isDefined($attrs.buttonBar) ? $scope.$parent.$eval($attrs.buttonBar) : uiDatetimePickerConfig.buttonBar;
+
+	                // determine which pickers should be available. Defaults to date and time
+	                $scope.enableDate = angular.isDefined($scope.enableDate) ? $scope.enableDate : uiDatetimePickerConfig.enableDate;
+	                $scope.enableTime = angular.isDefined($scope.enableTime) ? $scope.enableTime : uiDatetimePickerConfig.enableTime;
+
+	                // determine default picker
+	                $scope.initialPicker = angular.isDefined($attrs.initialPicker) ? $attrs.initialPicker : ($scope.enableDate ? uiDatetimePickerConfig.initialPicker : 'time');
+
+	                // determine the picker to open when control is re-opened
+	                $scope.reOpenDefault = angular.isDefined($attrs.reOpenDefault) ? $attrs.reOpenDefault : uiDatetimePickerConfig.reOpenDefault;
+
+	                // check if an illegal combination of options exists
+	                if ($scope.initialPicker == 'date' && !$scope.enableDate) {
+	                    throw new Error("datetimePicker can't have initialPicker set to date and have enableDate set to false.");
+	                }
+
+	                // default picker view
+	                $scope.showPicker = !$scope.enableDate ? 'time' : $scope.initialPicker;
+
+	                var isHtml5DateInput = false;
+
+	                if (uiDatetimePickerConfig.html5Types[$attrs.type]) {
+	                    dateFormat = uiDatetimePickerConfig.html5Types[$attrs.type];
+	                    isHtml5DateInput = true;
+	                } else {
+	                    dateFormat = $attrs.datetimePicker || uiDatetimePickerConfig.dateFormat;
+	                    $attrs.$observe('datetimePicker', function (value) {
+	                        var newDateFormat = value || uiDatetimePickerConfig.dateFormat;
+
+	                        if (newDateFormat !== dateFormat) {
+	                            dateFormat = newDateFormat;
+	                            ngModel.$modelValue = null;
+
+	                            if (!dateFormat) {
+	                                throw new Error('datetimePicker must have a date format specified.');
+	                            }
+	                        }
+	                    });
+	                }
+
+	                if (!dateFormat) {
+	                    throw new Error('datetimePicker must have a date format specified.');
+	                }
+
+	                // popup element used to display calendar
+	                var popupEl = angular.element('' +
+	                    '<div date-picker-wrap>' +
+	                    '<div uib-datepicker></div>' +
+	                    '</div>' +
+	                    '<div time-picker-wrap>' +
+	                    '<div uib-timepicker style="margin:0 auto"></div>' +
+	                    '</div>');
+
+	                if (ngModelOptions) {
+	                    timezone = ngModelOptions.timezone;
+	                    $scope.ngModelOptions = angular.copy(ngModelOptions);
+	                    $scope.ngModelOptions.timezone = null;
+	                    if ($scope.ngModelOptions.updateOnDefault === true) {
+	                        $scope.ngModelOptions.updateOn = $scope.ngModelOptions.updateOn ?
+	                        $scope.ngModelOptions.updateOn + ' default' : 'default';
+	                    }
+
+	                    popupEl.attr('ng-model-options', 'ngModelOptions');
+	                } else {
+	                    timezone = null;
+	                }
+
+	                // get attributes from directive
+	                popupEl.attr({
+	                    'ng-model': 'date',
+	                    'ng-change': 'dateSelection(date)'
+	                });
+
+	                // datepicker element
+	                var datepickerEl = angular.element(popupEl.children()[0]);
+
+	                if (!$scope.datepickerOptions) {
+	                    $scope.datepickerOptions = {};
+	                }
+
+	                if (isHtml5DateInput) {
+	                    if ($attrs.type === 'month') {
+	                        $scope.datepickerOptions.datepickerMode = 'month';
+	                        $scope.datepickerOptions.minMode = 'month';
+	                    }
+	                }
+
+	                datepickerEl.attr('datepicker-options', 'datepickerOptions');
+
+	                // set datepickerMode to day by default as need to create watch
+	                // else disabled cannot pass in mode
+	                if (!angular.isDefined($scope.datepickerOptions.datepickerMode)) {
+	                    $scope.datepickerOptions.datepickerMode = 'day';
+	                }
+
+	                // timepicker element
+	                var timepickerEl = angular.element(popupEl.children()[1]);
+
+	                if (!$scope.timepickerOptions)
+	                    $scope.timepickerOptions = {};
+
+	                for (var key in $scope.timepickerOptions) {
+	                    timepickerEl.attr(cameltoDash(key), 'timepickerOptions.' + key);
+	                }
+
+	                // watch attrs - NOTE: minDate and maxDate are used with datePicker and timePicker.  By using the minDate and maxDate
+	                // with the timePicker, you can dynamically set the min and max time values.  This cannot be done using the min and max values
+	                // with the timePickerOptions
+	                angular.forEach(['minDate', 'maxDate', 'initDate'], function (key) {
+	                    if ($scope.datepickerOptions[key]) {
+	                        if (key == 'minDate') {
+	                            timepickerEl.attr('min', 'datepickerOptions.minDate');
+	                        } else if (key == 'maxDate')
+	                            timepickerEl.attr('max', 'datepickerOptions.maxDate');
+	                    }
+	                });
+
+	                // do not check showWeeks attr, as should be used via datePickerOptions
+
+	                if (!isHtml5DateInput) {
+	                    // Internal API to maintain the correct ng-invalid-[key] class
+	                    ngModel.$$parserName = 'datetime';
+	                    ngModel.$validators.datetime = validator;
+	                    ngModel.$parsers.unshift(parseDate);
+	                    ngModel.$formatters.push(function (value) {
+	                        if (ngModel.$isEmpty(value)) {
+	                            $scope.date = value;
+	                            return value;
+	                        }
+
+	                        $scope.date = uibDateParser.fromTimezone(value, ngModelOptions.timezone);
+
+	                        dateFormat = dateFormat.replace(/M!/, 'MM')
+	                            .replace(/d!/, 'dd');
+
+	                        return uibDateParser.filter($scope.date, dateFormat);
+	                    });
+	                } else {
+	                    ngModel.$formatters.push(function (value) {
+	                        $scope.date = uibDateParser.fromTimezone(value, ngModelOptions.timezone);
+	                        return value;
+	                    });
+	                }
+
+	                if (saveAs) {
+	                    // If it is determined closure var's need to be exposed to the parser, don't add the formatter here.
+	                    // Instead just call the method from within the stock parser with this context and/or any needed closure variables.
+	                    if (angular.isFunction(saveAs))
+	                        ngModel.$parsers.push(saveAs);
+	                    else
+	                        ngModel.$parsers.push(saveAsParser);
+
+	                    // Assuming if saveAs is !false, we'll want to convert, either pass the function, or the stock str/num -> Date obj formatter.
+	                    if (angular.isFunction(readAs))
+	                        ngModel.$formatters.push(readAs);
+	                    else
+	                        ngModel.$formatters.push(readAsFormatter);
+	                }
+	                // Detect changes in the view from the text box
+	                ngModel.$viewChangeListeners.push(function () {
+	                    $scope.date = parseDateString(ngModel.$viewValue);
+	                });
+
+	                $element.bind('keydown', inputKeydownBind);
+
+	                $popup = $compile(popupEl)($scope);
+	                // Prevent jQuery cache memory leak (template is now redundant after linking)
+	                popupEl.remove();
+
+	                if (appendToBody) {
+	                    $document.find('body').append($popup);
+	                } else {
+	                    $element.after($popup);
+	                }
+
+	                function readAsFormatter(value) {
+	                    if (ngModel.$isEmpty(value))
+	                        return value;
+
+	                    var d = new Date(value);
+	                    if (angular.isDate(d) && !isNaN(d))
+	                        return d;
+
+	                    return value;
+	                }
+
+	                function saveAsParser(value) {
+	                    if (!value || angular.isString(value) || !angular.isDate(value) || isNaN(value))
+	                        return value;
+
+	                    if (saveAs === 'ISO')
+	                        return value.toISOString();
+
+	                    if (saveAs === 'json')
+	                        return value.toJSON();
+
+	                    if (saveAs === 'number')
+	                        return value.valueOf();
+
+	                    if (!isHtml5DateInput) {
+	                        dateFormat = dateFormat.replace(/M!/, 'MM')
+	                            .replace(/d!/, 'dd');
+	                        return uibDateParser.filter(uibDateParser.fromTimezone(value, ngModelOptions.timezone), dateFormat);
+	                    } else {
+	                        return uibDateParser.fromTimezone(value, ngModelOptions.timezone).toLocaleString();
+	                    }
+	                }
+	            };
+
+	            // get text
+	            $scope.getText = function (key) {
+	                return $scope.buttonBar[key].text || uiDatetimePickerConfig.buttonBar[key].text;
+	            };
+
+	            $scope.keydown = function (evt) {
+	                if (evt.which === 27) {
+	                    $scope.close(false);
+	                    $element[0].focus();
+	                }
+	            };
+
+	            // determine if button is to be shown or not
+	            $scope.doShow = function (key) {
+	                if (angular.isDefined($scope.buttonBar[key].show))
+	                    return $scope.buttonBar[key].show;
+	                else
+	                    return uiDatetimePickerConfig.buttonBar[key].show;
+	            };
+
+	            // Inner change
+	            $scope.dateSelection = function (dt, opt) {
+
+	                // check if timePicker is being shown and merge dates, so that the date
+	                // part is never changed, only the time
+	                if ($scope.enableTime && $scope.showPicker === 'time') {
+
+	                    // only proceed if dt is a date
+	                    if (dt || dt != null) {
+	                        // check if our $scope.date is null, and if so, set to todays date
+	                        if (!angular.isDefined($scope.date) || $scope.date == null) {
+	                            $scope.date = new Date();
+	                        }
+
+	                        // dt will not be undefined if the now or today button is pressed
+	                        if (dt && dt != null) {
+	                            // get the existing date and update the time
+	                            var date = new Date($scope.date);
+	                            date.setHours(dt.getHours());
+	                            date.setMinutes(dt.getMinutes());
+	                            date.setSeconds(dt.getSeconds());
+	                            date.setMilliseconds(dt.getMilliseconds());
+	                            dt = date;
+	                        }
+	                    }
+	                }
+
+	                if (angular.isDefined(dt)) {
+	                    if (!$scope.date) {
+	                        var defaultTime = angular.isDefined($attrs.defaultTime) ? $attrs.defaultTime : uiDatetimePickerConfig.defaultTime;
+	                        var t = new Date('2001-01-01 ' + defaultTime);
+
+	                        if (!isNaN(t) && dt != null) {
+	                            dt.setHours(t.getHours());
+	                            dt.setMinutes(t.getMinutes());
+	                            dt.setSeconds(t.getSeconds());
+	                            dt.setMilliseconds(t.getMilliseconds());
+	                        }
+	                    }
+	                    $scope.date = dt;
+	                }
+
+	                var date = $scope.date ? dateFilter($scope.date, dateFormat) : null;
+
+	                $element.val(date);
+	                ngModel.$setViewValue(date);
+
+	                if (closeOnDateSelection) {
+	                    // do not close when using timePicker as make impossible to choose a time
+	                    if ($scope.showPicker != 'time' && date != null) {
+	                        // if time is enabled, swap to timePicker
+	                        if ($scope.enableTime) {
+	                            $scope.open('time');
+	                        } else {
+	                            $scope.close(false);
+	                        }
+	                    } else if (closeOnTimeNow && $scope.showPicker === 'time' && date != null && opt === 'now') {
+	                        $scope.close(false);
+	                    }
+	                }
+
+	            };
+
+	            $scope.$watch('isOpen', function (value) {
+	                $scope.dropdownStyle = {
+	                    display: value ? 'block' : 'none'
+	                };
+
+	                if (value) {
+	                    cache['openDate'] = $scope.date;
+
+	                    var position = appendToBody ? $uibPosition.offset($element) : $uibPosition.position($element);
+
+	                    if (appendToBody) {
+	                        $scope.dropdownStyle.top = (position.top + $element.prop('offsetHeight')) + 'px';
+	                    } else {
+	                        $scope.dropdownStyle.top = undefined;
+	                    }
+
+	                    $scope.dropdownStyle.left = position.left + 'px';
+
+	                    $timeout(function () {
+	                        $scope.$broadcast('uib:datepicker.focus');
+	                        $document.bind('click', documentClickBind);
+	                    }, 0, false);
+
+	                    $scope.open($scope.showPicker);
+	                } else {
+	                    $document.unbind('click', documentClickBind);
+	                }
+	            });
+
+	            $scope.isDisabled = function (date) {
+	                if (date === 'today' || date === 'now')
+	                    date = uibDateParser.fromTimezone(new Date(), timezone);
+
+	                var dates = {};
+	                angular.forEach(['minDate', 'maxDate'], function (key) {
+	                    if (!$scope.datepickerOptions[key]) {
+	                        dates[key] = null;
+	                    } else if (angular.isDate($scope.datepickerOptions[key])) {
+	                        dates[key] = uibDateParser.fromTimezone(new Date($scope.datepickerOptions[key]), timezone);
+	                    } else {
+	                        dates[key] = new Date(dateFilter($scope.datepickerOptions[key], 'medium'));
+	                    }
+	                });
+
+	                return $scope.datepickerOptions &&
+	                    dates.minDate && $scope.compare(date, dates.minDate) < 0 ||
+	                    dates.maxDate && $scope.compare(date, dates.maxDate) > 0;
+	            };
+
+	            $scope.compare = function (date1, date2) {
+	                return new Date(date1.getFullYear(), date1.getMonth(), date1.getDate()) - new Date(date2.getFullYear(), date2.getMonth(), date2.getDate());
+	            };
+
+	            $scope.select = function (opt, evt) {
+	                if (angular.isDefined(evt)) {
+	                    evt.preventDefault();
+	                    evt.stopPropagation();
+	                }
+					
+	                var date = null;
+	                var isNow = opt === 'now';
+
+	                if (opt === 'today' || opt == 'now') {
+	                    var now = new Date();
+	                    if (angular.isDate($scope.date)) {
+	                        date = new Date($scope.date);
+	                        date.setFullYear(now.getFullYear(), now.getMonth(), now.getDate());
+	                        date.setHours(now.getHours(), now.getMinutes(), now.getSeconds(), now.getMilliseconds());
+	                    } else {
+	                        date = now;
+	                    }
+	                }
+
+	                $scope.dateSelection(date, opt);
+	            };
+
+	            $scope.open = function (picker, evt) {
+	                if (angular.isDefined(evt)) {
+	                    evt.preventDefault();
+	                    evt.stopPropagation();
+	                }
+
+	                // need to delay this, else timePicker never shown
+	                $timeout(function () {
+	                    $scope.showPicker = picker;
+	                }, 0);
+
+	                // in order to update the timePicker, we need to update the model reference!
+	                // as found here https://angular-ui.github.io/bootstrap/#/timepicker
+	                if (picker == 'time') {
+	                    $timeout(function () {
+	                        $scope.date = parseDateString(ngModel.$viewValue);
+	                    }, 50);
+	                }
+	            };
+
+	            $scope.close = function (closePressed, evt) {
+	                if (angular.isDefined(evt)) {
+	                    evt.preventDefault();
+	                    evt.stopPropagation();
+	                }
+					
+	                $scope.isOpen = false;
+
+	                // if enableDate and enableTime are true, reopen the picker in date mode first
+	                if ($scope.enableDate && $scope.enableTime)
+	                    $scope.showPicker = $scope.reOpenDefault === false ? 'date' : $scope.reOpenDefault;
+
+	                // if a on-close-fn has been defined, lets call it
+	                // we only call this if closePressed is defined!
+	                if (angular.isDefined(closePressed)) {
+	                    $scope.whenClosed({args: {closePressed: closePressed, openDate: cache['openDate'] || null, closeDate: $scope.date}});
+	                } else {
+	                    $element[0].focus();
+	                }
+	            };
+
+	            $scope.$on('$destroy', function () {
+	                if ($scope.isOpen === true) {
+	                    if (!$rootScope.$$phase) {
+	                        $scope.$apply(function () {
+	                            $scope.close();
+	                        });
+	                    }
+	                }
+
+	                watchListeners.forEach(function (a) {
+	                    a();
+	                });
+	                $popup.remove();
+	                $element.unbind('keydown', inputKeydownBind);
+	                $document.unbind('click', documentClickBind);
+	            });
+
+	            function documentClickBind(evt) {
+	                var popup = $popup[0];
+	                var dpContainsTarget = $element[0].contains(evt.target);
+
+	                // The popup node may not be an element node
+	                // In some browsers (IE only) element nodes have the 'contains' function
+	                var popupContainsTarget = popup.contains !== undefined && popup.contains(evt.target);
+
+	                if ($scope.isOpen && !(dpContainsTarget || popupContainsTarget)) {
+	                    $scope.$apply(function () {
+	                        $scope.close(false);
+	                    });
+	                }
+	            }
+
+	            function inputKeydownBind(evt) {
+	                if (evt.which === 27 && $scope.isOpen) {
+	                    evt.preventDefault();
+	                    evt.stopPropagation();
+	                    $scope.$apply(function () {
+	                        $scope.close(false);
+	                    });
+	                    $element[0].focus();
+	                } else if (evt.which === 40 && !$scope.isOpen) {
+	                    evt.preventDefault();
+	                    evt.stopPropagation();
+	                    $scope.$apply(function () {
+	                        $scope.isOpen = true;
+	                    });
+	                }
+	            }
+
+	            function cameltoDash(string) {
+	                return string.replace(/([A-Z])/g, function ($1) {
+	                    return '-' + $1.toLowerCase();
+	                });
+	            }
+
+	            function parseDateString(viewValue) {
+	                var date = uibDateParser.parse(viewValue, dateFormat, $scope.date);
+	                if (isNaN(date)) {
+	                    for (var i = 0; i < altInputFormats.length; i++) {
+	                        date = uibDateParser.parse(viewValue, altInputFormats[i], $scope.date);
+	                        if (!isNaN(date)) {
+	                            return date;
+	                        }
+	                    }
+	                }
+	                return date;
+	            }
+
+	            function parseDate(viewValue) {
+	                if (angular.isNumber(viewValue) && !isNaN(viewValue)) {
+	                    // presumably timestamp to date object
+	                    viewValue = new Date(viewValue);
+	                }
+
+	                if (!viewValue) {
+	                    return null;
+	                }
+
+	                if (angular.isDate(viewValue) && !isNaN(viewValue)) {
+	                    return viewValue;
+	                }
+
+	                if (angular.isString(viewValue)) {
+	                    var date = parseDateString(viewValue);
+	                    if (!isNaN(date)) {
+	                        return uibDateParser.toTimezone(date, ngModelOptions.timezone);
+	                    }
+
+	                    return undefined;
+	                } else {
+	                    return undefined;
+	                }
+	            }
+
+	            function validateMinMax(value) {
+	                if ($scope.datepickerOptions.minDate && value < $scope.datepickerOptions.minDate) {
+	                    return false;
+	                } else if ($scope.datepickerOptions.maxDate && value > $scope.datepickerOptions.maxDate) {
+	                    return false;
+	                } else {
+	                    return true;
+	                }
+	            }
+
+	            function validator(modelValue, viewValue) {
+	                var value = modelValue || viewValue;
+
+	                if (!($attrs.ngRequired || $attrs.required) && !value) {
+	                    return true;
+	                }
+
+	                if (angular.isNumber(value)) {
+	                    value = new Date(value);
+	                }
+
+	                if (!value) {
+	                    return true;
+	                } else if (angular.isDate(value) && !isNaN(value)) {
+	                    return validateMinMax(value);
+	                } else if (angular.isDate(new Date(value)) && !isNaN(new Date(value).valueOf())) {
+	                    return validateMinMax(new Date(value));
+	                } else if (angular.isString(value)) {
+	                    return !isNaN(parseDateString(viewValue)) && validateMinMax(parseDateString(viewValue));
+	                } else {
+	                    return false;
+	                }
+	            }
+
+	        }])
+	    .directive('datetimePicker', function () {
+	        return {
+	            restrict: 'A',
+	            require: ['ngModel', 'datetimePicker'],
+	            controller: 'DateTimePickerController',
+	            scope: {
+	                isOpen: '=?',
+	                datepickerOptions: '=?',
+	                timepickerOptions: '=?',
+	                enableDate: '=?',
+	                enableTime: '=?',
+	                initialPicker: '=?',
+	                reOpenDefault: '=?',
+	                whenClosed: '&'
+	            },
+	            link: function (scope, element, attrs, ctrls) {
+	                var ngModel = ctrls[0],
+	                    ctrl = ctrls[1];
+
+	                ctrl.init(ngModel);
+	            }
+	        };
+	    })
+	    .directive('datePickerWrap', function () {
+	        return {
+	            restrict: 'EA',
+	            replace: true,
+	            transclude: true,
+	            templateUrl: 'template/date-picker.html'
+	        };
+	    })
+
+	    .directive('timePickerWrap', function () {
+	        return {
+	            restrict: 'EA',
+	            replace: true,
+	            transclude: true,
+	            templateUrl: 'template/time-picker.html'
+	        };
+	    });
+
+	angular.module('ui.bootstrap.datetimepicker').run(['$templateCache', function($templateCache) {
+	  'use strict';
+
+	  $templateCache.put('template/date-picker.html',
+	    "<ul class=\"dropdown-menu dropdown-menu-left datetime-picker-dropdown\" ng-if=\"isOpen && showPicker == 'date'\" ng-style=dropdownStyle style=left:inherit ng-keydown=keydown($event) ng-click=\"$event.preventDefault(); $event.stopPropagation()\"><li style=\"padding:0 5px 5px 5px\" class=date-picker-menu><div ng-transclude></div></li><li style=padding:5px ng-if=buttonBar.show><span class=\"btn-group pull-left\" style=margin-right:10px ng-if=\"doShow('today') || doShow('clear')\"><button type=button class=\"btn btn-sm btn-info\" ng-if=\"doShow('today')\" ng-click=\"select('today', $event)\" ng-disabled=\"isDisabled('today')\">{{ getText('today') }}</button> <button type=button class=\"btn btn-sm btn-danger\" ng-if=\"doShow('clear')\" ng-click=\"select('clear', $event)\">{{ getText('clear') }}</button></span> <span class=\"btn-group pull-right\" ng-if=\"(doShow('time') && enableTime) || doShow('close')\"><button type=button class=\"btn btn-sm btn-default\" ng-if=\"doShow('time') && enableTime\" ng-click=\"open('time', $event)\">{{ getText('time')}}</button> <button type=button class=\"btn btn-sm btn-success\" ng-if=\"doShow('close')\" ng-click=\"close(true, $event)\">{{ getText('close') }}</button></span> <span class=clearfix></span></li></ul>"
+	  );
+
+
+	  $templateCache.put('template/time-picker.html',
+	    "<ul class=\"dropdown-menu dropdown-menu-left datetime-picker-dropdown\" ng-if=\"isOpen && showPicker == 'time'\" ng-style=dropdownStyle style=left:inherit ng-keydown=keydown($event) ng-click=\"$event.preventDefault(); $event.stopPropagation()\"><li style=\"padding:0 5px 5px 5px\" class=time-picker-menu><div ng-transclude></div></li><li style=padding:5px ng-if=buttonBar.show><span class=\"btn-group pull-left\" style=margin-right:10px ng-if=\"doShow('now') || doShow('clear')\"><button type=button class=\"btn btn-sm btn-info\" ng-if=\"doShow('now')\" ng-click=\"select('now', $event)\" ng-disabled=\"isDisabled('now')\">{{ getText('now') }}</button> <button type=button class=\"btn btn-sm btn-danger\" ng-if=\"doShow('clear')\" ng-click=\"select('clear', $event)\">{{ getText('clear') }}</button></span> <span class=\"btn-group pull-right\" ng-if=\"(doShow('date') && enableDate) || doShow('close')\"><button type=button class=\"btn btn-sm btn-default\" ng-if=\"doShow('date') && enableDate\" ng-click=\"open('date', $event)\">{{ getText('date')}}</button> <button type=button class=\"btn btn-sm btn-success\" ng-if=\"doShow('close')\" ng-click=\"close(true, $event)\">{{ getText('close') }}</button></span> <span class=clearfix></span></li></ul>"
+	  );
+
+	}]);
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
 	'use strict';
 
 	// Declare app level module which depends on views, and components
 
-	var app = angular.module('medApp', ['ngRoute', 'angularFileUpload', 'ui.bootstrap', 'ngMessages']);
+	var app = angular.module('medApp', ['ngRoute', 'angularFileUpload', 'ui.bootstrap', 'ngMessages', 'ui.bootstrap.datetimepicker']);
 	app.config(['$routeProvider', function ($routeProvider) {
 	    $routeProvider.when('/login', {
 	        templateUrl: 'html/login.html',
@@ -41249,12 +41917,12 @@
 	module.exports = app;
 
 /***/ },
-/* 12 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var app = __webpack_require__(11);
+	var app = __webpack_require__(12);
 
 	app.controller('loginController', function ($scope, $http, $location, fData) {
 	    $scope.user = {};
@@ -41312,12 +41980,12 @@
 	});
 
 /***/ },
-/* 13 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var app = __webpack_require__(11);
+	var app = __webpack_require__(12);
 
 	app.controller('uploadController', function ($scope, $location, FileUploader) {
 	    var uploader = $scope.uploader = new FileUploader({
@@ -41370,7 +42038,7 @@
 	});
 
 /***/ },
-/* 14 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -41379,7 +42047,7 @@
 
 	'use strict';
 
-	var app = __webpack_require__(11);
+	var app = __webpack_require__(12);
 
 	app.service('auth', function ($location, $http, $q, fData) {
 	    this.auth = function () {
@@ -41433,7 +42101,7 @@
 	});
 
 /***/ },
-/* 15 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -41441,7 +42109,7 @@
 	 */
 	'use strict';
 
-	var app = __webpack_require__(11);
+	var app = __webpack_require__(12);
 	app.controller("leftNavController", function ($scope, $http, $location, fData) {
 	    $scope.left_nav = fData.getLeftNav;
 	    $scope.account = fData.getAccount;
@@ -41467,7 +42135,7 @@
 	});
 
 /***/ },
-/* 16 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -41475,9 +42143,9 @@
 	 */
 	'use strict';
 
-	var app = __webpack_require__(11);
-	var division_conf = __webpack_require__(17);
-	var test_data = __webpack_require__(18);
+	var app = __webpack_require__(12);
+	var division_conf = __webpack_require__(18);
+	var test_data = __webpack_require__(19);
 	app.controller("tabsController", function ($scope, $http) {
 	    $scope.tabs = [{ title: '患者基本信息', content: 'html/form-tabs/tab-patient-info.html' }, { title: '住院病历记录', content: 'html/form-tabs/tab_hospitalized.html' }, { title: '首次病程记录表', content: 'html/form-tabs/tab_clinical_course.html' }, { title: '手术记录表', content: 'html/form-tabs/tab_surgery.html' }, { title: '术后病程', content: 'html/form-tabs/tab_after_surgery.html' }, { title: '出院记录表', content: 'html/form-tabs/tab_leave.html' }, { title: '长期医嘱记录表', content: 'html/form-tabs/tab_long_medical_orders.html' }, { title: '临时医嘱记录表', content: 'html/form-tabs/tab_temp_medical_orders.html' }];
 
@@ -41537,26 +42205,26 @@
 	        console.log($scope.long_medical_orders);
 	        console.log($scope.temp_medical_orders);
 
-	        var req = {
-	            url: '/data/form-data',
-	            method: 'POST',
-	            params: {
-	                tbl_patient_info: $scope.patient_info,
-	                tbl_hospitalized: $scope.hospitalized,
-	                tbl_clinical_course: $scope.clinical_course,
-	                tbl_after_surgery: $scope.after_surgery,
-	                tbl_surgery: $scope.surgery,
-	                tbl_leave: $scope.leave,
-	                tbl_long_medical_orders: $scope.long_medical_orders,
-	                tbl_temp_medical_orders: $scope.temp_medical_orders
-	            }
-	        };
-
-	        $http(req).then(function (data) {
-	            console.log(data);
-	        }).catch(function () {
-	            console.log("提交失败");
-	        });
+	        //var req = {
+	        //    url: '/data/form-data',
+	        //    method: 'POST',
+	        //    params: {
+	        //        tbl_patient_info: $scope.patient_info,
+	        //        tbl_hospitalized: $scope.hospitalized,
+	        //        tbl_clinical_course: $scope.clinical_course,
+	        //        tbl_after_surgery: $scope.after_surgery,
+	        //        tbl_surgery: $scope.surgery,
+	        //        tbl_leave: $scope.leave,
+	        //        tbl_long_medical_orders: $scope.long_medical_orders,
+	        //        tbl_temp_medical_orders: $scope.temp_medical_orders,
+	        //    }
+	        //};
+	        //
+	        //$http(req).then(function (data) {
+	        //    console.log(data)
+	        //}).catch(function () {
+	        //    console.log("提交失败");
+	        //});
 	    };
 	}).controller("tabPatientController", function ($scope) {
 	    $scope.selected = {
@@ -41612,7 +42280,7 @@
 	});
 
 /***/ },
-/* 17 */
+/* 18 */
 /***/ function(module, exports) {
 
 	/**
@@ -42018,7 +42686,7 @@
 	module.exports = division;
 
 /***/ },
-/* 18 */
+/* 19 */
 /***/ function(module, exports) {
 
 	/**
@@ -42078,118 +42746,191 @@
 	module.exports = test_data;
 
 /***/ },
-/* 19 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"col-sm-3\" ng-show=\"left_nav()\" ng-controller=\"leftNavController\">\r\n    <div class=\"sidebar-nav\">\r\n        <div class=\"navbar navbar-default\" role=\"navigation\">\r\n            <div class=\"navbar-header\">\r\n                <button type=\"button\" class=\"navbar-toggle collapsed\" ng-init=\"isCollapsed=true\"\r\n                        ng-click=\"isCollapsed = !isCollapsed\">\r\n                    <span class=\"sr-only\">Toggle navigation</span>\r\n                    <span class=\"icon-bar\"></span>\r\n                    <span class=\"icon-bar\"></span>\r\n                    <span class=\"icon-bar\"></span>\r\n                </button>\r\n                <span class=\"visible-xs navbar-brand\">Sidebar menu</span>\r\n            </div>\r\n            <div class=\"navbar-collapse collapse sidebar-navbar-collapse navbar-inverse\"\r\n                 uib-collapse=\"isCollapsed\">\r\n                <ul class=\"nav navbar-nav\">\r\n                    <div class=\"text-center\">\r\n                        <h2 class=\"brand\">Medical Study<br>\r\n                            <small>{{account()}}</small>\r\n                        </h2>\r\n                        <img src=\"img/user-head.png\" class=\"user-avatar\"/><br/>\r\n                        <a ng-click=\"logout()\" class=\"btn btn-white btn-outline btn-rounded btn-sm\">Logout</a>\r\n                    </div>\r\n                    <li ng-class=\"{active: isActive('/upload-data')}\"><a href=\"#/upload-data\">上传数据</a></li>\r\n                    <li ng-class=\"{active: isActive('/form-data')}\"><a href=\"#/form-data\">录入数据</a></li>\r\n                    <li class=\"divider\"></li>\r\n                    <!--<li ng-class=\"{active: isActive('/upload-data')}\"><a href=\"#/form-data\">Menu Item 3</a></li>-->\r\n                    <li><a href=\"#\">Reviews <span class=\"badge\">1,118</span></a></li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
-
-/***/ },
 /* 20 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<nav class=\"navbar navbar-inverse navbar-fixed-top navbar-static-top\">\r\n    <div class=\"container\">\r\n        <div class=\"navbar-header\">\r\n            <!--<button type=\"button\" class=\"navbar-toggle collapsed\" ng-init=\"isCollapsed=true\" ng-click=\"isCollapsed = !isCollapsed\">-->\r\n            <!--<span class=\"sr-only\">Toggle navigation</span>-->\r\n            <!--<span class=\"icon-bar\"></span>-->\r\n            <!--<span class=\"icon-bar\"></span>-->\r\n            <!--<span class=\"icon-bar\"></span>-->\r\n            <!--</button>-->\r\n            <!--<a class=\"navbar-brand\" href=\"#\">Medic Study</a>-->\r\n            <a class=\"navbar-brand\" rel=\"home\" href=\"#\" title=\"Medic Study\">\r\n                <img style=\"max-width:100px;;\"\r\n                     src=\"img/logo2.png\">\r\n            </a>\r\n        </div>\r\n        <div id=\"navbar1\" class=\"collapse navbar-collapse\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <li class=\"active\"><a href=\"#\">首页</a></li>\r\n                <li><a href=\"#\">About</a></li>\r\n                <li><a href=\"#\">Contact</a></li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</nav>"
+	/**
+	 * Created by asus on 2016/8/20.
+	 */
+
+	var app = __webpack_require__(12);
+
+	app.controller("datepickerController", function ($scope) {
+	    var that = this;
+
+	    $scope.buttonBar = {
+	        show: true,
+	        now: {
+	            show: true,
+	            text: '现在'
+	        },
+	        today: {
+	            show: true,
+	            text: '今天'
+	        },
+	        clear: {
+	            show: true,
+	            text: '清除'
+	        },
+	        date: {
+	            show: true,
+	            text: '日期'
+	        },
+	        time: {
+	            show: true,
+	            text: '时间'
+	        },
+	        close: {
+	            show: true,
+	            text: '确定'
+	        }
+	    };
+	    // global config picker
+	    this.picker_datetime = {
+	        date: new Date(),
+	        calendarOptions: {
+	            showWeeks: false
+	        }
+	    };
+
+	    this.picker_date = {
+	        date: new Date(),
+	        calendarOptions: {
+	            showWeeks: false
+	        },
+	        enableTime: false
+	    };
+
+	    this.openCalendar = function (e, picker) {
+	        that[picker].open = true;
+	    };
+	});
 
 /***/ },
 /* 21 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n    <div class=\"row row-hidden-overflow \">\r\n        <div class=\"col-sm-8 no-padding  \">\r\n            <div ng-controller=\"carouselController\">\r\n                <div uib-carousel active=\"active\" interval=\"myInterval\" no-wrap=\"noWrapSlides\">\r\n                    <div uib-slide ng-repeat=\"slide in slides track by slide.id\" index=\"slide.id\">\r\n                        <img ng-src=\"{{slide.image}}\" style=\"margin:auto;\">\r\n                        <div class=\"carousel-caption\">\r\n                            <!--<h4>Slide {{slide.id}}</h4>-->\r\n                            <p>{{slide.text}}</p>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-sm-4 no-padding col-equal-height\" id=\"login_col\">\r\n            <form class=\"form-horizontal \" id=\"login_form\" ng-controller=\"loginController\" name=\"loginForm\" novalidate>\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputEmail3\" class=\"col-sm-3 control-label\">用 户</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"text\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email/用户名\"\r\n                               ng-model=\"user.account\" name=\"account\" required>\r\n                        <span style=\"color:red\" ng-show=\"loginForm.account.$dirty && loginForm.account.$invalid\">\r\n                        <span ng-show=\"loginForm.account.$error.required\">用户名是必须的</span>\r\n                        </span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputPassword3\" class=\"col-sm-3 control-label\">密 码</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"密码\"\r\n                               ng-model=\"user.password\" name=\"password\" required>\r\n                        <span style=\"color:red\" ng-show=\"loginForm.password.$dirty && loginForm.password.$invalid\">\r\n                        <span ng-show=\"loginForm.password.$error.required\">密码是必须的</span>\r\n                        </span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <div class=\"col-sm-offset-2 col-sm-9\">\r\n                        <button type=\"submit\" class=\"btn btn-success\" ng-click=\"sign()\"\r\n                        ng-disabled=\"loginForm.account.$invalid || loginForm.password.$invalid\">\r\n                            登录\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+	module.exports = "<div class=\"col-sm-3\" ng-show=\"left_nav()\" ng-controller=\"leftNavController\">\r\n    <div class=\"sidebar-nav\">\r\n        <div class=\"navbar navbar-default\" role=\"navigation\">\r\n            <div class=\"navbar-header\">\r\n                <button type=\"button\" class=\"navbar-toggle collapsed\" ng-init=\"isCollapsed=true\"\r\n                        ng-click=\"isCollapsed = !isCollapsed\">\r\n                    <span class=\"sr-only\">Toggle navigation</span>\r\n                    <span class=\"icon-bar\"></span>\r\n                    <span class=\"icon-bar\"></span>\r\n                    <span class=\"icon-bar\"></span>\r\n                </button>\r\n                <span class=\"visible-xs navbar-brand\">Sidebar menu</span>\r\n            </div>\r\n            <div class=\"navbar-collapse collapse sidebar-navbar-collapse navbar-inverse\"\r\n                 uib-collapse=\"isCollapsed\">\r\n                <ul class=\"nav navbar-nav\">\r\n                    <div class=\"text-center\">\r\n                        <h2 class=\"brand\">Medical Study<br>\r\n                            <small>{{account()}}</small>\r\n                        </h2>\r\n                        <img src=\"img/user-head.png\" class=\"user-avatar\"/><br/>\r\n                        <a ng-click=\"logout()\" class=\"btn btn-white btn-outline btn-rounded btn-sm\">Logout</a>\r\n                    </div>\r\n                    <li ng-class=\"{active: isActive('/upload-data')}\"><a href=\"#/upload-data\">上传数据</a></li>\r\n                    <li ng-class=\"{active: isActive('/form-data')}\"><a href=\"#/form-data\">录入数据</a></li>\r\n                    <li class=\"divider\"></li>\r\n                    <!--<li ng-class=\"{active: isActive('/upload-data')}\"><a href=\"#/form-data\">Menu Item 3</a></li>-->\r\n                    <li><a href=\"#\">Reviews <span class=\"badge\">1,118</span></a></li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ },
 /* 22 */
 /***/ function(module, exports) {
 
-	module.exports = "<div  nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, customFilter\">\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-2\">\r\n                <h3>选择文件</h3>\r\n                <p>可多选</p>\r\n                <!-- Example: nv-file-select=\"\" uploader=\"{Object}\" options=\"{Object}\" filters=\"{String}\" -->\r\n                <!--<input type=\"file\" nv-file-select=\"\" uploader=\"uploader\" multiple/><br/>-->\r\n\r\n                <div class=\"\" style=\";\">\r\n                    <input type=\"file\" nv-file-select=\"\" uploader=\"uploader\"  id=\"upload_file\" style=\"display: none\" multiple/>\r\n                    <button type=\"button\" class=\"btn btn-success\" id=\"upload_file-btn\"\r\n                            Onclick=\"upload_file.click(); apppath.value=upload_file.value;\">选择文件\r\n                    </button>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"col-md-6\" style=\"margin-bottom: 40px\">\r\n\r\n                <h3>上传列表</h3>\r\n                <p>文件数量: {{ uploader.queue.length }}</p>\r\n\r\n                <table class=\"table\">\r\n                    <thead>\r\n                    <tr>\r\n                        <th width=\"50%\">Name</th>\r\n                        <th ng-show=\"uploader.isHTML5\">Size</th>\r\n                        <th ng-show=\"uploader.isHTML5\">Progress</th>\r\n                        <th>Status</th>\r\n                        <th>Actions</th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    <tr ng-repeat=\"item in uploader.queue\">\r\n                        <td><strong>{{ item.file.name }}</strong></td>\r\n                        <td ng-show=\"uploader.isHTML5\" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>\r\n                        <td ng-show=\"uploader.isHTML5\">\r\n                            <div class=\"progress\" style=\"margin-bottom: 0;\">\r\n                                <div class=\"progress-bar\" role=\"progressbar\"\r\n                                     ng-style=\"{ 'width': item.progress + '%' }\"></div>\r\n                            </div>\r\n                        </td>\r\n                        <td class=\"text-center\">\r\n                            <span ng-show=\"item.isSuccess\"><i class=\"glyphicon glyphicon-ok\"></i></span>\r\n                            <span ng-show=\"item.isCancel\"><i class=\"glyphicon glyphicon-ban-circle\"></i></span>\r\n                            <span ng-show=\"item.isError\"><i class=\"glyphicon glyphicon-remove\"></i></span>\r\n                        </td>\r\n                        <td nowrap>\r\n                            <button type=\"button\" class=\"btn btn-success btn-xs\" ng-click=\"item.upload()\"\r\n                                    ng-disabled=\"item.isReady || item.isUploading || item.isSuccess\">\r\n                                <span class=\"glyphicon glyphicon-upload\"></span> 上传\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-warning btn-xs\" ng-click=\"item.cancel()\"\r\n                                    ng-disabled=\"!item.isUploading\">\r\n                                <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-danger btn-xs\" ng-click=\"item.remove()\">\r\n                                <span class=\"glyphicon glyphicon-trash\"></span> 移除\r\n                            </button>\r\n                        </td>\r\n                    </tr>\r\n                    </tbody>\r\n                </table>\r\n\r\n                <div>\r\n                    <div>\r\n                        上传进度:\r\n                        <div class=\"progress\" style=\"\">\r\n                            <div class=\"progress-bar\" role=\"progressbar\"\r\n                                 ng-style=\"{ 'width': uploader.progress + '%' }\"></div>\r\n                        </div>\r\n                    </div>\r\n                    <button type=\"button\" class=\"btn btn-success btn-s\" ng-click=\"uploader.uploadAll()\"\r\n                            ng-disabled=\"!uploader.getNotUploadedItems().length\">\r\n                        <span class=\"glyphicon glyphicon-upload\"></span> 上传全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-warning btn-s\" ng-click=\"uploader.cancelAll()\"\r\n                            ng-disabled=\"!uploader.isUploading\">\r\n                        <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-danger btn-s\" ng-click=\"uploader.clearQueue()\"\r\n                            ng-disabled=\"!uploader.queue.length\">\r\n                        <span class=\"glyphicon glyphicon-trash\"></span> 移除全部\r\n                    </button>\r\n                </div>\r\n\r\n            </div>\r\n\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>\r\n"
+	module.exports = "<nav class=\"navbar navbar-inverse navbar-fixed-top navbar-static-top\">\r\n    <div class=\"container\">\r\n        <div class=\"navbar-header\">\r\n            <!--<button type=\"button\" class=\"navbar-toggle collapsed\" ng-init=\"isCollapsed=true\" ng-click=\"isCollapsed = !isCollapsed\">-->\r\n            <!--<span class=\"sr-only\">Toggle navigation</span>-->\r\n            <!--<span class=\"icon-bar\"></span>-->\r\n            <!--<span class=\"icon-bar\"></span>-->\r\n            <!--<span class=\"icon-bar\"></span>-->\r\n            <!--</button>-->\r\n            <!--<a class=\"navbar-brand\" href=\"#\">Medic Study</a>-->\r\n            <a class=\"navbar-brand\" rel=\"home\" href=\"#\" title=\"Medic Study\">\r\n                <img style=\"max-width:100px;;\"\r\n                     src=\"img/logo2.png\">\r\n            </a>\r\n        </div>\r\n        <div id=\"navbar1\" class=\"collapse navbar-collapse\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <li class=\"active\"><a href=\"#\">首页</a></li>\r\n                <li><a href=\"#\">About</a></li>\r\n                <li><a href=\"#\">Contact</a></li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</nav>"
 
 /***/ },
 /* 23 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabsController\">\r\n    <uib-tabset active=\"active\" >\r\n        <!--<uib-tab index=\"0\" heading=\"Static title\">Static content</uib-tab>-->\r\n        <uib-tab index=\"$index + 1\" ng-repeat=\"tab in tabs\" heading=\"{{tab.title}}\">\r\n            <ng-include src=\"tab.content\"></ng-include>\r\n        </uib-tab>\r\n        <!--<uib-tab index=\"3\" select=\"alertMe()\">-->\r\n            <!--<uib-tab-heading>-->\r\n                <!--<i class=\"glyphicon glyphicon-bell\"></i> Alert!-->\r\n            <!--</uib-tab-heading>-->\r\n            <!--I've got an HTML heading, and a select callback. Pretty cool!-->\r\n        <!--</uib-tab>-->\r\n    </uib-tabset>\r\n    <button class=\"btn btn-success btn-top\" ng-click=\"submit()\">提交</button>\r\n</div>"
+	module.exports = "<div class=\"container\">\r\n    <div class=\"row row-hidden-overflow \">\r\n        <div class=\"col-sm-8 no-padding  \">\r\n            <div ng-controller=\"carouselController\">\r\n                <div uib-carousel active=\"active\" interval=\"myInterval\" no-wrap=\"noWrapSlides\">\r\n                    <div uib-slide ng-repeat=\"slide in slides track by slide.id\" index=\"slide.id\">\r\n                        <img ng-src=\"{{slide.image}}\" style=\"margin:auto;\">\r\n                        <div class=\"carousel-caption\">\r\n                            <!--<h4>Slide {{slide.id}}</h4>-->\r\n                            <p>{{slide.text}}</p>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-sm-4 no-padding col-equal-height\" id=\"login_col\">\r\n            <form class=\"form-horizontal \" id=\"login_form\" ng-controller=\"loginController\" name=\"loginForm\" novalidate>\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputEmail3\" class=\"col-sm-3 control-label\">用 户</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"text\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email/用户名\"\r\n                               ng-model=\"user.account\" name=\"account\" required>\r\n                        <span style=\"color:red\" ng-show=\"loginForm.account.$dirty && loginForm.account.$invalid\">\r\n                        <span ng-show=\"loginForm.account.$error.required\">用户名是必须的</span>\r\n                        </span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputPassword3\" class=\"col-sm-3 control-label\">密 码</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"密码\"\r\n                               ng-model=\"user.password\" name=\"password\" required>\r\n                        <span style=\"color:red\" ng-show=\"loginForm.password.$dirty && loginForm.password.$invalid\">\r\n                        <span ng-show=\"loginForm.password.$error.required\">密码是必须的</span>\r\n                        </span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <div class=\"col-sm-offset-2 col-sm-9\">\r\n                        <button type=\"submit\" class=\"btn btn-success\" ng-click=\"sign()\"\r\n                        ng-disabled=\"loginForm.account.$invalid || loginForm.password.$invalid\">\r\n                            登录\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ },
 /* 24 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabPatientController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">病案号</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.medical_id\">\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">姓名</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.name\">\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">身份证号</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.identity\">\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">性别</span>\r\n                <select class=\"form-control\" ng-model=\"patient_info.sex\" ng-options=\"o as o for o in selected.sex\"></select>\r\n                <!--<input type=\"text\" class=\"form-control\">-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">生日</span>\r\n                <input type=\"date\" class=\"form-control\" ng-model=\"patient_info.birthday\">\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">年龄</span>\r\n                <input type=\"number\" class=\"form-control\" ng-model=\"patient_info.age\">\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">省份</span>\r\n                <!--<input type=\"text\" class=\"form-control\" ng-model=\"patient_info.province\">-->\r\n                <select required class=\"form-control\" ng-model=\"patient_info.province\"\r\n                        ng-options=\"key as key for (key,value) in selected.division\"\r\n                        ng-change=\"city='';\">\r\n                    <!--address.district='';-->\r\n                    <option value=\"\">省</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">城市</span>\r\n                <!--<input type=\"text\" class=\"form-control\" ng-model=\"patient_info.city\">-->\r\n                <select class=\"form-control\" ng-model=\"patient_info.city\"\r\n                        ng-options=\"key as key for (key,value) in selected.division[patient_info.province]\">\r\n                    <!--ng-change=\"address.district='';\"-->\r\n                    <option value=\"\">市</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">详细地址</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.detail_addr\">\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">婚姻</span>\r\n                <select class=\"form-control\" ng-model=\"patient_info.marriage\" ng-options=\"o as o for o in selected.marriage\"></select>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">职业</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.job\">\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院时间</span>\r\n                <input type=\"datetime-local\" class=\"form-control\" ng-model=\"patient_info.in_date\">\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院时间</span>\r\n                <input type=\"datetime-local\" class=\"form-control\" ng-model=\"patient_info.out_date\">\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">门诊</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.outpatient\">\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
+	module.exports = "<div  nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, customFilter\">\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-2\">\r\n                <h3>选择文件</h3>\r\n                <p>可多选</p>\r\n                <!-- Example: nv-file-select=\"\" uploader=\"{Object}\" options=\"{Object}\" filters=\"{String}\" -->\r\n                <!--<input type=\"file\" nv-file-select=\"\" uploader=\"uploader\" multiple/><br/>-->\r\n\r\n                <div class=\"\" style=\";\">\r\n                    <input type=\"file\" nv-file-select=\"\" uploader=\"uploader\"  id=\"upload_file\" style=\"display: none\" multiple/>\r\n                    <button type=\"button\" class=\"btn btn-success\" id=\"upload_file-btn\"\r\n                            Onclick=\"upload_file.click(); apppath.value=upload_file.value;\">选择文件\r\n                    </button>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"col-md-6\" style=\"margin-bottom: 40px\">\r\n\r\n                <h3>上传列表</h3>\r\n                <p>文件数量: {{ uploader.queue.length }}</p>\r\n\r\n                <table class=\"table\">\r\n                    <thead>\r\n                    <tr>\r\n                        <th width=\"50%\">Name</th>\r\n                        <th ng-show=\"uploader.isHTML5\">Size</th>\r\n                        <th ng-show=\"uploader.isHTML5\">Progress</th>\r\n                        <th>Status</th>\r\n                        <th>Actions</th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    <tr ng-repeat=\"item in uploader.queue\">\r\n                        <td><strong>{{ item.file.name }}</strong></td>\r\n                        <td ng-show=\"uploader.isHTML5\" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>\r\n                        <td ng-show=\"uploader.isHTML5\">\r\n                            <div class=\"progress\" style=\"margin-bottom: 0;\">\r\n                                <div class=\"progress-bar\" role=\"progressbar\"\r\n                                     ng-style=\"{ 'width': item.progress + '%' }\"></div>\r\n                            </div>\r\n                        </td>\r\n                        <td class=\"text-center\">\r\n                            <span ng-show=\"item.isSuccess\"><i class=\"glyphicon glyphicon-ok\"></i></span>\r\n                            <span ng-show=\"item.isCancel\"><i class=\"glyphicon glyphicon-ban-circle\"></i></span>\r\n                            <span ng-show=\"item.isError\"><i class=\"glyphicon glyphicon-remove\"></i></span>\r\n                        </td>\r\n                        <td nowrap>\r\n                            <button type=\"button\" class=\"btn btn-success btn-xs\" ng-click=\"item.upload()\"\r\n                                    ng-disabled=\"item.isReady || item.isUploading || item.isSuccess\">\r\n                                <span class=\"glyphicon glyphicon-upload\"></span> 上传\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-warning btn-xs\" ng-click=\"item.cancel()\"\r\n                                    ng-disabled=\"!item.isUploading\">\r\n                                <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-danger btn-xs\" ng-click=\"item.remove()\">\r\n                                <span class=\"glyphicon glyphicon-trash\"></span> 移除\r\n                            </button>\r\n                        </td>\r\n                    </tr>\r\n                    </tbody>\r\n                </table>\r\n\r\n                <div>\r\n                    <div>\r\n                        上传进度:\r\n                        <div class=\"progress\" style=\"\">\r\n                            <div class=\"progress-bar\" role=\"progressbar\"\r\n                                 ng-style=\"{ 'width': uploader.progress + '%' }\"></div>\r\n                        </div>\r\n                    </div>\r\n                    <button type=\"button\" class=\"btn btn-success btn-s\" ng-click=\"uploader.uploadAll()\"\r\n                            ng-disabled=\"!uploader.getNotUploadedItems().length\">\r\n                        <span class=\"glyphicon glyphicon-upload\"></span> 上传全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-warning btn-s\" ng-click=\"uploader.cancelAll()\"\r\n                            ng-disabled=\"!uploader.isUploading\">\r\n                        <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-danger btn-s\" ng-click=\"uploader.clearQueue()\"\r\n                            ng-disabled=\"!uploader.queue.length\">\r\n                        <span class=\"glyphicon glyphicon-trash\"></span> 移除全部\r\n                    </button>\r\n                </div>\r\n\r\n            </div>\r\n\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>\r\n"
 
 /***/ },
 /* 25 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabClinicalCourseController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">病例特点</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.ill_description\"> </textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">初步诊断</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.init_diag\"></textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">治疗计划</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.treat_plan\"></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">诊断依据</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"clinical_course.gist\"> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">鉴别诊断</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"clinical_course.antidiastole\"></textarea>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div ng-repeat=\"item in check_record track by $index\">\r\n        <div ng-include=\"'html/widget/check_record.html'\"></div>\r\n    </div>\r\n\r\n</div>"
+	module.exports = "<form ng-controller=\"tabsController\" name=\"form_data\" ng-submit=\"submit()\">\r\n    <uib-tabset active=\"active\" >\r\n        <!--<uib-tab index=\"0\" heading=\"Static title\">Static content</uib-tab>-->\r\n        <uib-tab index=\"$index + 1\" ng-repeat=\"tab in tabs\" heading=\"{{tab.title}}\">\r\n            <ng-include src=\"tab.content\"></ng-include>\r\n        </uib-tab>\r\n        <!--<uib-tab index=\"3\" select=\"alertMe()\">-->\r\n            <!--<uib-tab-heading>-->\r\n                <!--<i class=\"glyphicon glyphicon-bell\"></i> Alert!-->\r\n            <!--</uib-tab-heading>-->\r\n            <!--I've got an HTML heading, and a select callback. Pretty cool!-->\r\n        <!--</uib-tab>-->\r\n    </uib-tabset>\r\n    <button type=\"submit\" class=\"btn btn-success btn-top\" >提交</button>\r\n</form>"
 
 /***/ },
 /* 26 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabHospitalizedController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">主诉</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.complain\"> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">现病史</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.present_illness\"></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">近期</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.recent\"> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">既往史</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.history_illness\"></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">家族史</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.family_illness\"> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院诊断</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.admits_diag\"> </textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">体格检查</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"hospitalized.physical_exam\"></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">整形外科情况</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"hospitalized.surgery\"> </textarea>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">辅助检查</span>\r\n                <textarea rows=\"2\" class=\"form-control\" ng-model=\"hospitalized.assist_exam\"></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n\r\n</div>\r\n"
+	module.exports = "<div ng-controller=\"tabPatientController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">病案号</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.medical_id\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">姓名</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.name\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">身份证号</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.identity\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">性别</span>\r\n                <select class=\"form-control\" ng-model=\"patient_info.sex\" ng-options=\"o as o for o in selected.sex\" required></select>\r\n                <!--<input type=\"text\" class=\"form-control\">-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">生日</span>\r\n                <!--<input type=\"date\" class=\"form-control\" ng-model=\"patient_info.birthday\" required>-->\r\n                <div ng-repeat=\"model in [patient_info.birthday]\" ng-include=\"'html/widget/datepicker/datepicker.html'\"></div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">年龄</span>\r\n                <input type=\"number\" class=\"form-control\" ng-model=\"patient_info.age\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">省份</span>\r\n                <!--<input type=\"text\" class=\"form-control\" ng-model=\"patient_info.province\">-->\r\n                <select required class=\"form-control\" ng-model=\"patient_info.province\"\r\n                        ng-options=\"key as key for (key,value) in selected.division\"\r\n                        ng-change=\"city='';\" required>\r\n                    <!--address.district='';-->\r\n                    <option value=\"\">省</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">城市</span>\r\n                <!--<input type=\"text\" class=\"form-control\" ng-model=\"patient_info.city\">-->\r\n                <select class=\"form-control\" ng-model=\"patient_info.city\"\r\n                        ng-options=\"key as key for (key,value) in selected.division[patient_info.province]\" required>\r\n                    <!--ng-change=\"address.district='';\"-->\r\n                    <option value=\"\">市</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">详细地址</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.detail_addr\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">婚姻</span>\r\n                <select class=\"form-control\" ng-model=\"patient_info.marriage\" ng-options=\"o as o for o in selected.marriage\" required></select>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">职业</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.job\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院时间</span>\r\n                <div ng-repeat=\"model in [patient_info.in_date]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n                <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"patient_info.in_date\" required>-->\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院时间</span>\r\n                <div ng-repeat=\"model in [patient_info.out_date]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n                <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"patient_info.out_date\" required>-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">门诊</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.outpatient\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
 
 /***/ },
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabSurgeryController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">手术时间</span>\r\n                <input type=\"date\" class=\"form-control\" ng-model=\"surgery.surgery_date\">\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">术前诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.before_diag\">\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">术后诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.later_diag\">\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">手术名称</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.surgery_name\">\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">手术医生</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.surgery_doctor\">\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">麻醉医生</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.narcosis_doctor\">\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">器械护士</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.instrument_nurses\">\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">麻醉方式</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.narcosis_way\">\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">描述</span>\r\n                <textarea rows=\"5\" class=\"form-control\" ng-model=\"surgery.description\"></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>"
+	module.exports = "<div ng-controller=\"tabClinicalCourseController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">病例特点</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.ill_description\"> </textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">初步诊断</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.init_diag\"></textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">治疗计划</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.treat_plan\"></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">诊断依据</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"clinical_course.gist\" required> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">鉴别诊断</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"clinical_course.antidiastole\" required></textarea>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div ng-repeat=\"item in check_record track by $index\">\r\n        <div ng-include=\"'html/widget/check_record.html'\"></div>\r\n    </div>\r\n\r\n</div>"
 
 /***/ },
 /* 28 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabAfterSurgeryController\">\r\n    <div ng-repeat=\"item in description track by $index\">\r\n        <div ng-include=\"'html/widget/after_surgery_record.html'\"></div>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"tabHospitalizedController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">主诉</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.complain\" required> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">现病史</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.present_illness\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">近期</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.recent\" required> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">既往史</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.history_illness\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">家族史</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.family_illness\" required> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院诊断</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.admits_diag\" required> </textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">体格检查</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"hospitalized.physical_exam\" required> </textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">整形外科情况</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"hospitalized.surgery\" required> </textarea>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">辅助检查</span>\r\n                <textarea rows=\"2\" class=\"form-control\" ng-model=\"hospitalized.assist_exam\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n\r\n</div>\r\n"
 
 /***/ },
 /* 29 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabPatientController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院时间</span>\r\n                <input type=\"date\" class=\"form-control\" ng-model=\"leave.in_date\">\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院时间</span>\r\n                <input type=\"date\" class=\"form-control\" ng-model=\"leave.out_date\">\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院病情描述</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"leave.description\"></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">初步诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"leave.init_diag\">\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"leave.leave_diag\">\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">治疗过程</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"leave.treatment\"></textarea>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院医嘱</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"leave.advice\"></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>"
+	module.exports = "<div ng-controller=\"tabSurgeryController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">手术时间</span>\r\n                <div ng-repeat=\"model in [surgery.surgery_date]\" ng-include=\"'html/widget/datepicker/datepicker.html'\"></div>\r\n                <!--<input type=\"date\" class=\"form-control\" ng-model=\"surgery.surgery_date\" required>-->\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">术前诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.before_diag\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">术后诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.later_diag\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">手术名称</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.surgery_name\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">手术医生</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.surgery_doctor\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">麻醉医生</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.narcosis_doctor\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">器械护士</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.instrument_nurses\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">麻醉方式</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.narcosis_way\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">描述</span>\r\n                <textarea rows=\"5\" class=\"form-control\" ng-model=\"surgery.description\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>"
 
 /***/ },
 /* 30 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabTempMedicalOrdersController\">\r\n    <div ng-repeat=\"index in temp_items track by $index\">\r\n        <div ng-include=\"'html/widget/temp_medical_orders.html'\"></div>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"tabAfterSurgeryController\">\r\n    <div ng-repeat=\"item in description track by $index\">\r\n        <div ng-include=\"'html/widget/after_surgery_record.html'\"></div>\r\n    </div>\r\n</div>"
 
 /***/ },
 /* 31 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabLongMedicalOrdersController\">\r\n    <div ng-repeat=\"index in long_items track by $index\">\r\n        <div ng-include=\"'html/widget/long_medical_orders.html'\"></div>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"tabPatientController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院时间</span>\r\n                <div ng-repeat=\"model in [leave.in_date]\" ng-include=\"'html/widget/datepicker/datepicker.html'\"></div>\r\n                <!--<input type=\"date\" class=\"form-control\" ng-model=\"leave.in_date\" required>-->\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院时间</span>\r\n                <div ng-repeat=\"model in [leave.out_date]\" ng-include=\"'html/widget/datepicker/datepicker.html'\"></div>\r\n                <!--<input type=\"date\" class=\"form-control\" ng-model=\"leave.out_date\" required>-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院病情描述</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"leave.description\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">初步诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"leave.init_diag\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"leave.leave_diag\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">治疗过程</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"leave.treatment\" required></textarea>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院医嘱</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"leave.advice\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>"
 
 /***/ },
 /* 32 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-9\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">查房记录\r\n            </span>\r\n            <input type=\"datetime-local\" class=\"form-control\" ng-model=\"check_record[$index].date\">\r\n            <!--<div ng-include=\"'html/widget/datepicker/datepicker.html'\"></div>-->\r\n            <textarea rows=\"3\" class=\"form-control\" ng-model=\"check_record[$index].content\"></textarea>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <br>\r\n        <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i\r\n                class=\"fa fa-plus\"></i></button>\r\n        <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n            <i class=\"fa fa-minus\"></i></button>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"tabTempMedicalOrdersController\">\r\n    <div ng-repeat=\"index in temp_items track by $index\">\r\n        <div ng-include=\"'html/widget/temp_medical_orders.html'\"></div>\r\n    </div>\r\n</div>"
 
 /***/ },
 /* 33 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-9\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">术后病程\r\n            </span>\r\n            <input type=\"datetime-local\" class=\"form-control\" ng-model=\"description[$index].date\">\r\n            <textarea rows=\"3\" class=\"form-control\" ng-model=\"description[$index].content\"></textarea>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i\r\n                class=\"fa fa-plus\"></i></button>\r\n        <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n            <i class=\"fa fa-minus\"></i></button>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"tabLongMedicalOrdersController\">\r\n    <div ng-repeat=\"index in long_items track by $index\">\r\n        <div ng-include=\"'html/widget/long_medical_orders.html'\"></div>\r\n    </div>\r\n</div>"
 
 /***/ },
 /* 34 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-5\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始时间</span>\r\n            <input type=\"datetime-local\" class=\"form-control\" ng-model=\"long_items[$index].start_datetime\">\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">医嘱</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].medical_order\">\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始执行医生</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].start_execute_doctor\">\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始执行护士</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].start_execute_nurse\">\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始执行时间</span>\r\n            <input type=\"datetime-local\" class=\"form-control\" ng-model=\"long_items[$index].start_execute_datetime\">\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"col-xs-4\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止时间</span>\r\n            <input type=\"datetime-local\" class=\"form-control\" ng-model=\"long_items[$index].stop_datetime\">\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止执行医生</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].stop_execute_doctor\">\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止执行护士</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].stop_execute_nurse\">\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止执行时间</span>\r\n            <input type=\"datetime-local\" class=\"form-control\" ng-model=\"long_items[$index].stop_execute_datetime\">\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <br>\r\n        <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i\r\n                class=\"fa fa-plus\"></i></button>\r\n        <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n            <i class=\"fa fa-minus\"></i></button>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
+	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-9\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">查房记录\r\n            </span>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"check_record[$index].date\" required>-->\r\n            <div ng-repeat=\"model in [check_record[$index].date]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <textarea rows=\"3\" class=\"form-control\" ng-model=\"check_record[$index].content\" required></textarea>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <br>\r\n        <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i\r\n                class=\"fa fa-plus\"></i></button>\r\n        <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n            <i class=\"fa fa-minus\"></i></button>\r\n    </div>\r\n</div>"
 
 /***/ },
 /* 35 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-5\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始时间</span>\r\n            <input type=\"datetime-local\" class=\"form-control\" ng-model=\"temp_items[$index].start_datetime\">\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">医嘱</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].medical_order\">\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">执行医生</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].start_execute_doctor\">\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"col-xs-4\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">执行护士</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].start_execute_nurse\">\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">执行时间</span>\r\n            <input type=\"datetime-local\" class=\"form-control\" ng-model=\"temp_items[$index].start_execute_datetime\">\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">核对人</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].checker\">\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i\r\n                class=\"fa fa-plus\"></i></button>\r\n        <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n            <i class=\"fa fa-minus\"></i></button>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
+	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-9\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">术后病程\r\n            </span>\r\n            <div ng-repeat=\"model in [description[$index].date]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"description[$index].date\" required>-->\r\n            <textarea rows=\"3\" class=\"form-control\" ng-model=\"description[$index].content\" required></textarea>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i\r\n                class=\"fa fa-plus\"></i></button>\r\n        <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n            <i class=\"fa fa-minus\"></i></button>\r\n    </div>\r\n</div>"
 
 /***/ },
 /* 36 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-5\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始时间</span>\r\n            <div ng-repeat=\"model in [long_items[$index].start_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"long_items[$index].start_datetime\" required>-->\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">医嘱</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].medical_order\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始执行医生</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].start_execute_doctor\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始执行护士</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].start_execute_nurse\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始执行时间</span>\r\n            <div ng-repeat=\"model in [long_items[$index].start_execute_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"long_items[$index].start_execute_datetime\" required>-->\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"col-xs-4\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止时间</span>\r\n            <div ng-repeat=\"model in [long_items[$index].stop_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"long_items[$index].stop_datetime\" required>-->\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止执行医生</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].stop_execute_doctor\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止执行护士</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].stop_execute_nurse\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止执行时间</span>\r\n            <div ng-repeat=\"model in [long_items[$index].stop_execute_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"long_items[$index].stop_execute_datetime\" required>-->\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <br>\r\n        <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i\r\n                class=\"fa fa-plus\"></i></button>\r\n        <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n            <i class=\"fa fa-minus\"></i></button>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
+
+/***/ },
+/* 37 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-5\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始时间</span>\r\n            <div ng-repeat=\"model in [temp_items[$index].start_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"temp_items[$index].start_datetime\" required>-->\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">医嘱</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].medical_order\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">执行医生</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].start_execute_doctor\" required>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"col-xs-4\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">执行护士</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].start_execute_nurse\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">执行时间</span>\r\n            <div ng-repeat=\"model in [temp_items[$index].start_execute_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"temp_items[$index].start_execute_datetime\" required>-->\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">核对人</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].checker\" required>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i\r\n                class=\"fa fa-plus\"></i></button>\r\n        <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n            <i class=\"fa fa-minus\"></i></button>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
+
+/***/ },
+/* 38 */
+/***/ function(module, exports) {
+
+	module.exports = "<div ng-controller=\"datepickerController as ctrl\">\r\n    <p class=\"input-group\" style=\"margin: 0; width: 100%;\">\r\n        <input type=\"text\" class=\"form-control\" datetime-picker=\"yyyy-MM-dd\" ng-model=model is-open=\"ctrl.picker_date.open\"\r\n               datepicker-options=\"ctrl.picker_date.calendarOptions\" enable-time=\"ctrl.picker_date.enableTime\" button-bar=\"buttonBar\"/>\r\n      <span class=\"input-group-btn\">\r\n          <button type=\"button\" class=\"btn btn-default\" ng-click=\"ctrl.openCalendar($event, 'picker_date')\"><i\r\n                  class=\"fa fa-calendar\"></i></button>\r\n      </span>\r\n    </p>\r\n</div>"
+
+/***/ },
+/* 39 */
+/***/ function(module, exports) {
+
+	module.exports = "<div ng-controller=\"datepickerController as ctrl\">\r\n    <p class=\"input-group\" style=\"margin: 0; width: 100%;\">\r\n        <input type=\"text\" class=\"form-control\" datetime-picker ng-model=model is-open=\"ctrl.picker_datetime.open\"\r\n               datepicker-options=\"ctrl.picker_datetime.calendarOptions\" button-bar=\"buttonBar\"/>\r\n      <span class=\"input-group-btn\">\r\n          <button type=\"button\" class=\"btn btn-default\" ng-click=\"ctrl.openCalendar($event, 'picker_datetime')\"><i\r\n                  class=\"fa fa-calendar\"></i></button>\r\n      </span>\r\n    </p>\r\n</div>"
+
+/***/ },
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(37);
+	var content = __webpack_require__(41);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(39)(content, {});
+	var update = __webpack_require__(43)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -42206,21 +42947,21 @@
 	}
 
 /***/ },
-/* 37 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(38)();
+	exports = module.exports = __webpack_require__(42)();
 	// imports
 
 
 	// module
-	exports.push([module.id, "body {\r\n    padding-top: 50px;\r\n    margin-left: -1px;\r\n}\r\n\r\n.carousel img {\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n\r\n#login_form {\r\n    padding-top: 40%;\r\n    /*height: 100%;*/\r\n}\r\n\r\n#login_col {\r\n    background-image: url(\"/img/s4.jpg\");\r\n}\r\n\r\n.no-padding {\r\n    padding: 0;\r\n}\r\n\r\n.row-hidden-overflow {\r\n    overflow: hidden;\r\n}\r\n\r\n.col-equal-height {\r\n    margin-bottom: -99999px;\r\n    padding-bottom: 99999px;\r\n}\r\n\r\n.carousel-control {\r\n    opacity: 0;\r\n}\r\n\r\n/* make sidebar nav vertical */\r\n@media (min-width: 768px) {\r\n    .sidebar-nav .navbar .navbar-collapse {\r\n        padding: 0;\r\n        max-height: none;\r\n    }\r\n\r\n    .sidebar-nav .navbar ul {\r\n        float: none;\r\n    }\r\n\r\n    .sidebar-nav .navbar ul:not {\r\n        display: block;\r\n    }\r\n\r\n    .sidebar-nav .navbar li {\r\n        float: none;\r\n        display: block;\r\n    }\r\n\r\n    .sidebar-nav .navbar li a {\r\n        padding-top: 12px;\r\n        padding-bottom: 12px;\r\n    }\r\n}\r\n\r\n/*.sidebar-nav {*/\r\n/*margin-bottom: -99999px;*/\r\n/*padding-bottom: 99999px;*/\r\n/*}*/\r\n\r\n/*left nva*/\r\n.sidebar-navbar-collapse h2 {\r\n    color: #ffffff;\r\n}\r\n\r\n/*form-data*/\r\n.form-line {\r\n    margin-top: 20px;\r\n}\r\n\r\n.btn-top {\r\n    margin-top: 20px;\r\n}", ""]);
+	exports.push([module.id, "body {\r\n    padding-top: 50px;\r\n    margin-left: -1px;\r\n}\r\n\r\n.carousel img {\r\n    width: 100%;\r\n    height: 100%;\r\n}\r\n\r\n#login_form {\r\n    padding-top: 40%;\r\n    /*height: 100%;*/\r\n}\r\n\r\n#login_col {\r\n    background-image: url(\"/img/s4.jpg\");\r\n}\r\n\r\n.no-padding {\r\n    padding: 0;\r\n}\r\n\r\n.row-hidden-overflow {\r\n    overflow: hidden;\r\n}\r\n\r\n.col-equal-height {\r\n    margin-bottom: -99999px;\r\n    padding-bottom: 99999px;\r\n}\r\n\r\n.carousel-control {\r\n    opacity: 0;\r\n}\r\n\r\n/* make sidebar nav vertical */\r\n@media (min-width: 768px) {\r\n    .sidebar-nav .navbar .navbar-collapse {\r\n        padding: 0;\r\n        max-height: none;\r\n    }\r\n\r\n    .sidebar-nav .navbar ul {\r\n        float: none;\r\n    }\r\n\r\n    .sidebar-nav .navbar ul:not {\r\n        display: block;\r\n    }\r\n\r\n    .sidebar-nav .navbar li {\r\n        float: none;\r\n        display: block;\r\n    }\r\n\r\n    .sidebar-nav .navbar li a {\r\n        padding-top: 12px;\r\n        padding-bottom: 12px;\r\n    }\r\n}\r\n\r\n/*.sidebar-nav {*/\r\n/*margin-bottom: -99999px;*/\r\n/*padding-bottom: 99999px;*/\r\n/*}*/\r\n\r\n/*left nva*/\r\n.sidebar-navbar-collapse h2 {\r\n    color: #ffffff;\r\n}\r\n\r\n/*form-data*/\r\n.form-line {\r\n    margin-top: 20px;\r\n}\r\n\r\n.btn-top {\r\n    margin-top: 20px;\r\n}\r\n\r\n/*时间控件*/\r\n.form-horizontal {\r\n    width:100%;\r\n}\r\n\r\n.datetime-picker-dropdown {\r\n\r\n}\r\n\r\n.datetime-picker-dropdown > li.date-picker-menu div > table .btn-default {\r\n    border: 0;\r\n}\r\n\r\n.datetime-picker-dropdown > li.time-picker-menu div > table {\r\n\r\n}\r\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 38 */
+/* 42 */
 /***/ function(module, exports) {
 
 	/*
@@ -42276,7 +43017,7 @@
 
 
 /***/ },
-/* 39 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -42528,16 +43269,16 @@
 
 
 /***/ },
-/* 40 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(41);
+	var content = __webpack_require__(45);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(39)(content, {});
+	var update = __webpack_require__(43)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -42554,10 +43295,10 @@
 	}
 
 /***/ },
-/* 41 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(38)();
+	exports = module.exports = __webpack_require__(42)();
 	// imports
 
 
@@ -42568,114 +43309,68 @@
 
 
 /***/ },
-/* 42 */
+/* 46 */,
+/* 47 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"datepickerController\">\r\n    <p class=\"input-group\" style=\"margin: 0; width: 100%;\">\r\n        <input type=\"datetime-local\" class=\"form-control\" uib-datepicker-popup ng-model=\"dt\" is-open=\"popup2.opened\"\r\n               datepicker-options=\"dateOptions\"  ng-required=\"true\" close-text=\"Close\"/>\r\n  <span class=\"input-group-btn\">\r\n    <button type=\"button\" class=\"btn btn-default\" ng-click=\"open2()\"><i class=\"glyphicon glyphicon-calendar\"></i>\r\n    </button>\r\n  </span>\r\n    </p>\r\n</div>"
+	'use strict';
 
-/***/ },
-/* 43 */,
-/* 44 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * Created by asus on 2016/8/20.
-	 */
-
-	var app = __webpack_require__(11);
-	app.controller("datepickerController", function ($scope) {
-	  $scope.today = function () {
-	    $scope.dt = new Date();
-	  };
-	  $scope.today();
-
-	  $scope.clear = function () {
-	    $scope.dt = null;
-	  };
-
-	  $scope.inlineOptions = {
-	    customClass: getDayClass,
-	    minDate: new Date(),
-	    showWeeks: true
-	  };
-
-	  $scope.dateOptions = {
-	    dateDisabled: disabled,
-	    formatYear: 'yy',
-	    maxDate: new Date(2020, 5, 22),
-	    minDate: new Date(),
-	    startingDay: 1
-
-	  };
-
-	  // Disable weekend selection
-	  function disabled(data) {
-	    var date = data.date,
-	        mode = data.mode;
-	    return mode === 'day' && (date.getDay() === 0 || date.getDay() === 6);
-	  }
-
-	  $scope.toggleMin = function () {
-	    $scope.inlineOptions.minDate = $scope.inlineOptions.minDate ? null : new Date();
-	    $scope.dateOptions.minDate = $scope.inlineOptions.minDate;
-	  };
-
-	  $scope.toggleMin();
-
-	  $scope.open1 = function () {
-	    $scope.popup1.opened = true;
-	  };
-
-	  $scope.open2 = function () {
-	    $scope.popup2.opened = true;
-	  };
-
-	  $scope.setDate = function (year, month, day) {
-	    $scope.dt = new Date(year, month, day);
-	  };
-
-	  $scope.formats = ['dd-MMMM-yyyy', 'yyyy/MM/dd', 'dd.MM.yyyy', 'shortDate', 'yyyy-MM-dd HH:mm'];
-	  $scope.format = $scope.formats[4];
-	  $scope.altInputFormats = ['M!/d!/yyyy'];
-
-	  $scope.popup1 = {
-	    opened: false
-	  };
-
-	  $scope.popup2 = {
-	    opened: false
-	  };
-
-	  var tomorrow = new Date();
-	  tomorrow.setDate(tomorrow.getDate() + 1);
-	  var afterTomorrow = new Date();
-	  afterTomorrow.setDate(tomorrow.getDate() + 1);
-	  $scope.events = [{
-	    date: tomorrow,
-	    status: 'full'
-	  }, {
-	    date: afterTomorrow,
-	    status: 'partially'
-	  }];
-
-	  function getDayClass(data) {
-	    var date = data.date,
-	        mode = data.mode;
-	    if (mode === 'day') {
-	      var dayToCheck = new Date(date).setHours(0, 0, 0, 0);
-
-	      for (var i = 0; i < $scope.events.length; i++) {
-	        var currentDay = new Date($scope.events[i].date).setHours(0, 0, 0, 0);
-
-	        if (dayToCheck === currentDay) {
-	          return $scope.events[i].status;
-	        }
-	      }
+	angular.module("ngLocale", [], ["$provide", function ($provide) {
+	  var PLURAL_CATEGORY = { ZERO: "zero", ONE: "one", TWO: "two", FEW: "few", MANY: "many", OTHER: "other" };
+	  $provide.value("$locale", {
+	    "DATETIME_FORMATS": {
+	      "AMPMS": ["\u4e0a\u5348", "\u4e0b\u5348"],
+	      "DAY": ["\u661f\u671f\u65e5", "\u661f\u671f\u4e00", "\u661f\u671f\u4e8c", "\u661f\u671f\u4e09", "\u661f\u671f\u56db", "\u661f\u671f\u4e94", "\u661f\u671f\u516d"],
+	      "ERANAMES": ["\u516c\u5143\u524d", "\u516c\u5143"],
+	      "ERAS": ["\u516c\u5143\u524d", "\u516c\u5143"],
+	      "FIRSTDAYOFWEEK": 6,
+	      "MONTH": ["\u4e00\u6708", "\u4e8c\u6708", "\u4e09\u6708", "\u56db\u6708", "\u4e94\u6708", "\u516d\u6708", "\u4e03\u6708", "\u516b\u6708", "\u4e5d\u6708", "\u5341\u6708", "\u5341\u4e00\u6708", "\u5341\u4e8c\u6708"],
+	      "SHORTDAY": ["\u5468\u65e5", "\u5468\u4e00", "\u5468\u4e8c", "\u5468\u4e09", "\u5468\u56db", "\u5468\u4e94", "\u5468\u516d"],
+	      "SHORTMONTH": ["1\u6708", "2\u6708", "3\u6708", "4\u6708", "5\u6708", "6\u6708", "7\u6708", "8\u6708", "9\u6708", "10\u6708", "11\u6708", "12\u6708"],
+	      "STANDALONEMONTH": ["\u4e00\u6708", "\u4e8c\u6708", "\u4e09\u6708", "\u56db\u6708", "\u4e94\u6708", "\u516d\u6708", "\u4e03\u6708", "\u516b\u6708", "\u4e5d\u6708", "\u5341\u6708", "\u5341\u4e00\u6708", "\u5341\u4e8c\u6708"],
+	      "WEEKENDRANGE": [5, 6],
+	      "fullDate": "y\u5e74M\u6708d\u65e5EEEE",
+	      "longDate": "y\u5e74M\u6708d\u65e5",
+	      "medium": "y\u5e74M\u6708d\u65e5 ah:mm:ss",
+	      "mediumDate": "y\u5e74M\u6708d\u65e5",
+	      "mediumTime": "ah:mm:ss",
+	      "short": "y/M/d ah:mm",
+	      "shortDate": "y/M/d",
+	      "shortTime": "ah:mm"
+	    },
+	    "NUMBER_FORMATS": {
+	      "CURRENCY_SYM": "\u00a5",
+	      "DECIMAL_SEP": ".",
+	      "GROUP_SEP": ",",
+	      "PATTERNS": [{
+	        "gSize": 3,
+	        "lgSize": 3,
+	        "maxFrac": 3,
+	        "minFrac": 0,
+	        "minInt": 1,
+	        "negPre": "-",
+	        "negSuf": "",
+	        "posPre": "",
+	        "posSuf": ""
+	      }, {
+	        "gSize": 3,
+	        "lgSize": 3,
+	        "maxFrac": 2,
+	        "minFrac": 2,
+	        "minInt": 1,
+	        "negPre": "-\u00a4",
+	        "negSuf": "",
+	        "posPre": "\u00a4",
+	        "posSuf": ""
+	      }]
+	    },
+	    "id": "zh-cn",
+	    "localeID": "zh_CN",
+	    "pluralCat": function (n, opt_precision) {
+	      return PLURAL_CATEGORY.OTHER;
 	    }
-
-	    return '';
-	  }
-	});
+	  });
+	}]);
 
 /***/ }
 /******/ ]);

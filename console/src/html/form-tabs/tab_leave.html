@@ -3,13 +3,15 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">入院时间</span>
-                <input type="date" class="form-control" ng-model="leave.in_date">
+                <div ng-repeat="model in [leave.in_date]" ng-include="'html/widget/datepicker/datepicker.html'"></div>
+                <!--<input type="date" class="form-control" ng-model="leave.in_date" required>-->
             </div>
         </div>
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">出院时间</span>
-                <input type="date" class="form-control" ng-model="leave.out_date">
+                <div ng-repeat="model in [leave.out_date]" ng-include="'html/widget/datepicker/datepicker.html'"></div>
+                <!--<input type="date" class="form-control" ng-model="leave.out_date" required>-->
             </div>
         </div>
     </div>
@@ -18,7 +20,7 @@
         <div class="col-xs-10">
             <div class="input-group">
                 <span class="input-group-addon">入院病情描述</span>
-                <textarea rows="3" class="form-control" ng-model="leave.description"></textarea>
+                <textarea rows="3" class="form-control" ng-model="leave.description" required></textarea>
             </div>
         </div>
     </div>
@@ -27,13 +29,13 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">初步诊断</span>
-                <input type="text" class="form-control" ng-model="leave.init_diag">
+                <input type="text" class="form-control" ng-model="leave.init_diag" required>
             </div>
         </div>
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">出院诊断</span>
-                <input type="text" class="form-control" ng-model="leave.leave_diag">
+                <input type="text" class="form-control" ng-model="leave.leave_diag" required>
             </div>
         </div>
     </div>
@@ -42,14 +44,14 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">治疗过程</span>
-                <textarea rows="3" class="form-control" ng-model="leave.treatment"></textarea>
+                <textarea rows="3" class="form-control" ng-model="leave.treatment" required></textarea>
             </div>
         </div>
 
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">出院医嘱</span>
-                <textarea rows="3" class="form-control" ng-model="leave.advice"></textarea>
+                <textarea rows="3" class="form-control" ng-model="leave.advice" required></textarea>
             </div>
         </div>
     </div>

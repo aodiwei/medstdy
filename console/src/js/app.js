@@ -6,7 +6,7 @@ var app = angular.module('medApp', [
     'angularFileUpload',
     'ui.bootstrap',
     'ngMessages',
-    //'ui.bootstrap.tabs'
+    'ui.bootstrap.datetimepicker'
 ]);
 app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider

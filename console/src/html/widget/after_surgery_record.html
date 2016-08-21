@@ -3,8 +3,9 @@
         <div class="input-group">
             <span class="input-group-addon">术后病程
             </span>
-            <input type="datetime-local" class="form-control" ng-model="description[$index].date">
-            <textarea rows="3" class="form-control" ng-model="description[$index].content"></textarea>
+            <div ng-repeat="model in [description[$index].date]" ng-include="'html/widget/datepicker/datetimepicker.html'"></div>
+            <!--<input type="datetime-local" class="form-control" ng-model="description[$index].date" required>-->
+            <textarea rows="3" class="form-control" ng-model="description[$index].content" required></textarea>
         </div>
     </div>
     <div class="col-xs-1">

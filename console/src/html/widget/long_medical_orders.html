@@ -2,42 +2,46 @@
     <div class="col-xs-5">
         <div class="input-group">
             <span class="input-group-addon">开始时间</span>
-            <input type="datetime-local" class="form-control" ng-model="long_items[$index].start_datetime">
+            <div ng-repeat="model in [long_items[$index].start_datetime]" ng-include="'html/widget/datepicker/datetimepicker.html'"></div>
+            <!--<input type="datetime-local" class="form-control" ng-model="long_items[$index].start_datetime" required>-->
         </div>
         <div class="input-group">
             <span class="input-group-addon">医嘱</span>
-            <input type="text" class="form-control" ng-model="long_items[$index].medical_order">
+            <input type="text" class="form-control" ng-model="long_items[$index].medical_order" required>
         </div>
         <div class="input-group">
             <span class="input-group-addon">开始执行医生</span>
-            <input type="text" class="form-control" ng-model="long_items[$index].start_execute_doctor">
+            <input type="text" class="form-control" ng-model="long_items[$index].start_execute_doctor" required>
         </div>
         <div class="input-group">
             <span class="input-group-addon">开始执行护士</span>
-            <input type="text" class="form-control" ng-model="long_items[$index].start_execute_nurse">
+            <input type="text" class="form-control" ng-model="long_items[$index].start_execute_nurse" required>
         </div>
         <div class="input-group">
             <span class="input-group-addon">开始执行时间</span>
-            <input type="datetime-local" class="form-control" ng-model="long_items[$index].start_execute_datetime">
+            <div ng-repeat="model in [long_items[$index].start_execute_datetime]" ng-include="'html/widget/datepicker/datetimepicker.html'"></div>
+            <!--<input type="datetime-local" class="form-control" ng-model="long_items[$index].start_execute_datetime" required>-->
         </div>
     </div>
 
     <div class="col-xs-4">
         <div class="input-group">
             <span class="input-group-addon">停止时间</span>
-            <input type="datetime-local" class="form-control" ng-model="long_items[$index].stop_datetime">
+            <div ng-repeat="model in [long_items[$index].stop_datetime]" ng-include="'html/widget/datepicker/datetimepicker.html'"></div>
+            <!--<input type="datetime-local" class="form-control" ng-model="long_items[$index].stop_datetime" required>-->
         </div>
         <div class="input-group">
             <span class="input-group-addon">停止执行医生</span>
-            <input type="text" class="form-control" ng-model="long_items[$index].stop_execute_doctor">
+            <input type="text" class="form-control" ng-model="long_items[$index].stop_execute_doctor" required>
         </div>
         <div class="input-group">
             <span class="input-group-addon">停止执行护士</span>
-            <input type="text" class="form-control" ng-model="long_items[$index].stop_execute_nurse">
+            <input type="text" class="form-control" ng-model="long_items[$index].stop_execute_nurse" required>
         </div>
         <div class="input-group">
             <span class="input-group-addon">停止执行时间</span>
-            <input type="datetime-local" class="form-control" ng-model="long_items[$index].stop_execute_datetime">
+            <div ng-repeat="model in [long_items[$index].stop_execute_datetime]" ng-include="'html/widget/datepicker/datetimepicker.html'"></div>
+            <!--<input type="datetime-local" class="form-control" ng-model="long_items[$index].stop_execute_datetime" required>-->
         </div>
     </div>
     <div class="col-xs-1">

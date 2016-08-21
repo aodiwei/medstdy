@@ -1,4 +1,4 @@
-<div ng-controller="tabsController">
+<form ng-controller="tabsController" name="form_data" ng-submit="submit()">
     <uib-tabset active="active" >
         <!--<uib-tab index="0" heading="Static title">Static content</uib-tab>-->
         <uib-tab index="$index + 1" ng-repeat="tab in tabs" heading="{{tab.title}}">
@@ -11,5 +11,5 @@
             <!--I've got an HTML heading, and a select callback. Pretty cool!-->
         <!--</uib-tab>-->
     </uib-tabset>
-    <button class="btn btn-success btn-top" ng-click="submit()">提交</button>
-</div>
+    <button type="submit" class="btn btn-success btn-top" >提交</button>
+</form>

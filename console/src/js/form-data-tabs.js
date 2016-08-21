@@ -74,26 +74,26 @@ app
             console.log($scope.long_medical_orders);
             console.log($scope.temp_medical_orders);
 
-            var req = {
-                url: '/data/form-data',
-                method: 'POST',
-                params: {
-                    tbl_patient_info: $scope.patient_info,
-                    tbl_hospitalized: $scope.hospitalized,
-                    tbl_clinical_course: $scope.clinical_course,
-                    tbl_after_surgery: $scope.after_surgery,
-                    tbl_surgery: $scope.surgery,
-                    tbl_leave: $scope.leave,
-                    tbl_long_medical_orders: $scope.long_medical_orders,
-                    tbl_temp_medical_orders: $scope.temp_medical_orders,
-                }
-            };
-
-            $http(req).then(function (data) {
-                console.log(data)
-            }).catch(function () {
-                console.log("提交失败");
-            });
+            //var req = {
+            //    url: '/data/form-data',
+            //    method: 'POST',
+            //    params: {
+            //        tbl_patient_info: $scope.patient_info,
+            //        tbl_hospitalized: $scope.hospitalized,
+            //        tbl_clinical_course: $scope.clinical_course,
+            //        tbl_after_surgery: $scope.after_surgery,
+            //        tbl_surgery: $scope.surgery,
+            //        tbl_leave: $scope.leave,
+            //        tbl_long_medical_orders: $scope.long_medical_orders,
+            //        tbl_temp_medical_orders: $scope.temp_medical_orders,
+            //    }
+            //};
+            //
+            //$http(req).then(function (data) {
+            //    console.log(data)
+            //}).catch(function () {
+            //    console.log("提交失败");
+            //});
         }
     })
     .controller("tabPatientController", function ($scope) {

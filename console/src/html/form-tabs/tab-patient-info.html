@@ -3,13 +3,13 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">病案号</span>
-                <input type="text" class="form-control" ng-model="patient_info.medical_id">
+                <input type="text" class="form-control" ng-model="patient_info.medical_id" required>
             </div>
         </div>
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">姓名</span>
-                <input type="text" class="form-control" ng-model="patient_info.name">
+                <input type="text" class="form-control" ng-model="patient_info.name" required>
             </div>
         </div>
     </div>
@@ -18,13 +18,13 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">身份证号</span>
-                <input type="text" class="form-control" ng-model="patient_info.identity">
+                <input type="text" class="form-control" ng-model="patient_info.identity" required>
             </div>
         </div>
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">性别</span>
-                <select class="form-control" ng-model="patient_info.sex" ng-options="o as o for o in selected.sex"></select>
+                <select class="form-control" ng-model="patient_info.sex" ng-options="o as o for o in selected.sex" required></select>
                 <!--<input type="text" class="form-control">-->
             </div>
         </div>
@@ -34,13 +34,14 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">生日</span>
-                <input type="date" class="form-control" ng-model="patient_info.birthday">
+                <!--<input type="date" class="form-control" ng-model="patient_info.birthday" required>-->
+                <div ng-repeat="model in [patient_info.birthday]" ng-include="'html/widget/datepicker/datepicker.html'"></div>
             </div>
         </div>
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">年龄</span>
-                <input type="number" class="form-control" ng-model="patient_info.age">
+                <input type="number" class="form-control" ng-model="patient_info.age" required>
             </div>
         </div>
     </div>
@@ -52,7 +53,7 @@
                 <!--<input type="text" class="form-control" ng-model="patient_info.province">-->
                 <select required class="form-control" ng-model="patient_info.province"
                         ng-options="key as key for (key,value) in selected.division"
-                        ng-change="city='';">
+                        ng-change="city='';" required>
                     <!--address.district='';-->
                     <option value="">省</option>
                 </select>
@@ -63,7 +64,7 @@
                 <span class="input-group-addon">城市</span>
                 <!--<input type="text" class="form-control" ng-model="patient_info.city">-->
                 <select class="form-control" ng-model="patient_info.city"
-                        ng-options="key as key for (key,value) in selected.division[patient_info.province]">
+                        ng-options="key as key for (key,value) in selected.division[patient_info.province]" required>
                     <!--ng-change="address.district='';"-->
                     <option value="">市</option>
                 </select>
@@ -75,7 +76,7 @@
         <div class="col-xs-10">
             <div class="input-group">
                 <span class="input-group-addon">详细地址</span>
-                <input type="text" class="form-control" ng-model="patient_info.detail_addr">
+                <input type="text" class="form-control" ng-model="patient_info.detail_addr" required>
             </div>
         </div>
     </div>
@@ -84,13 +85,13 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">婚姻</span>
-                <select class="form-control" ng-model="patient_info.marriage" ng-options="o as o for o in selected.marriage"></select>
+                <select class="form-control" ng-model="patient_info.marriage" ng-options="o as o for o in selected.marriage" required></select>
             </div>
         </div>
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">职业</span>
-                <input type="text" class="form-control" ng-model="patient_info.job">
+                <input type="text" class="form-control" ng-model="patient_info.job" required>
             </div>
         </div>
     </div>
@@ -99,13 +100,15 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">入院时间</span>
-                <input type="datetime-local" class="form-control" ng-model="patient_info.in_date">
+                <div ng-repeat="model in [patient_info.in_date]" ng-include="'html/widget/datepicker/datetimepicker.html'"></div>
+                <!--<input type="datetime-local" class="form-control" ng-model="patient_info.in_date" required>-->
             </div>
         </div>
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">出院时间</span>
-                <input type="datetime-local" class="form-control" ng-model="patient_info.out_date">
+                <div ng-repeat="model in [patient_info.out_date]" ng-include="'html/widget/datepicker/datetimepicker.html'"></div>
+                <!--<input type="datetime-local" class="form-control" ng-model="patient_info.out_date" required>-->
             </div>
         </div>
     </div>
@@ -114,7 +117,7 @@
         <div class="col-xs-10">
             <div class="input-group">
                 <span class="input-group-addon">门诊</span>
-                <input type="text" class="form-control" ng-model="patient_info.outpatient">
+                <input type="text" class="form-control" ng-model="patient_info.outpatient" required>
             </div>
         </div>
     </div>

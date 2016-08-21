@@ -1,10 +1,10 @@
-<div ng-controller="datepickerController">
+<div ng-controller="datepickerController as ctrl">
     <p class="input-group" style="margin: 0; width: 100%;">
-        <input type="datetime-local" class="form-control" uib-datepicker-popup ng-model="dt" is-open="popup2.opened"
-               datepicker-options="dateOptions"  ng-required="true" close-text="Close"/>
-  <span class="input-group-btn">
-    <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i>
-    </button>
-  </span>
+        <input type="text" class="form-control" datetime-picker="yyyy-MM-dd" ng-model=model is-open="ctrl.picker_date.open"
+               datepicker-options="ctrl.picker_date.calendarOptions" enable-time="ctrl.picker_date.enableTime" button-bar="buttonBar"/>
+      <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="ctrl.openCalendar($event, 'picker_date')"><i
+                  class="fa fa-calendar"></i></button>
+      </span>
     </p>
 </div>
