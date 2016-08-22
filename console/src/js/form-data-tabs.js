@@ -56,11 +56,17 @@ app
         }];
 
         // for debug
-        $scope.patient_info = test_data.patient_info;
-        $scope.clinical_course = test_data.clinical_course;
-        $scope.check_record = test_data.clinical_course.check_record;
-        $scope.long_items = test_data.long_medical_orders.items;
-        $scope.temp_items = test_data.temp_medical_orders.items;
+        $scope.patient_info = test_data.tbl_patient_info;
+        $scope.clinical_course = test_data.tbl_clinical_course;
+        $scope.hospitalized = test_data.tbl_hospitalized;
+        $scope.surgery = test_data.tbl_surgery;
+        $scope.after_surgery = test_data.tbl_after_surgery;
+        $scope.leave = test_data.tbl_leave;
+
+        $scope.check_record = test_data.tbl_clinical_course.check_record;
+        $scope.long_items = test_data.tbl_long_medical_orders.items;
+        $scope.temp_items = test_data.tbl_temp_medical_orders.items;
+
 
         $scope.submit = function () {
             $scope.clinical_course["check_record"] = $scope.check_record;
@@ -74,33 +80,33 @@ app
             console.log($scope.long_medical_orders);
             console.log($scope.temp_medical_orders);
 
-            //var req = {
-            //    url: '/data/form-data',
-            //    method: 'POST',
-            //    params: {
-            //        tbl_patient_info: $scope.patient_info,
-            //        tbl_hospitalized: $scope.hospitalized,
-            //        tbl_clinical_course: $scope.clinical_course,
-            //        tbl_after_surgery: $scope.after_surgery,
-            //        tbl_surgery: $scope.surgery,
-            //        tbl_leave: $scope.leave,
-            //        tbl_long_medical_orders: $scope.long_medical_orders,
-            //        tbl_temp_medical_orders: $scope.temp_medical_orders,
-            //    }
-            //};
-            //
-            //$http(req).then(function (data) {
-            //    console.log(data)
-            //}).catch(function () {
-            //    console.log("提交失败");
-            //});
+            var req = {
+                url: '/data/form-data',
+                method: 'POST',
+                params: {
+                    tbl_patient_info: $scope.patient_info,
+                    tbl_hospitalized: $scope.hospitalized,
+                    tbl_clinical_course: $scope.clinical_course,
+                    tbl_after_surgery: $scope.after_surgery,
+                    tbl_surgery: $scope.surgery,
+                    tbl_leave: $scope.leave,
+                    tbl_long_medical_orders: $scope.long_medical_orders,
+                    tbl_temp_medical_orders: $scope.temp_medical_orders,
+                }
+            };
+
+            $http(req).then(function (data) {
+                console.log(data)
+            }).catch(function () {
+                console.log("提交失败");
+            });
         }
     })
     .controller("tabPatientController", function ($scope) {
         $scope.selected = {
             sex: ['男', '女'],
             division: division_conf,
-            marriage: ['已婚', '未婚']
+            marriage: ['已婚', '未婚', '丧偶', '离婚', '其他']
         };
     })
 

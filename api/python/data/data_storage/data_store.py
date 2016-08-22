@@ -25,6 +25,7 @@ class DataStorage(object):
     """
     data storage
     """
+
     def __init__(self, user):
         self.user = user
         self._mongodb = Instances.get_mongo_inst()
@@ -34,19 +35,23 @@ class DataStorage(object):
             self.data_file_path = conf.get("data_file_path_win")
         else:
             self.data_file_path = conf.get("data_file_path")
-        if not os.path.exists(self.data_file_path):
-            os.makedirs(self.data_file_path)
+        self.xml_path = os.path.join(self.data_file_path, "xml")
+        self.json_path = os.path.join(self.data_file_path, "json")
+        if not os.path.exists(self.xml_path):
+            os.makedirs(self.xml_path)
+        if not os.path.exists(self.json_path):
+            os.makedirs(self.json_path)
 
     def store_data_from_disk(self):
         """
         store disk xml to mongodb and solr
         :return:
         """
-        list_dirs = os.walk(self.data_file_path)
+        list_dirs = os.walk(self.xml_path)
         for root, dirs, files in list_dirs:
             for filename in files:
                 try:
-                    with open(os.path.join(self.data_file_path, filename), "rb") as f:
+                    with open(os.path.join(self.xml_path, filename), "rb") as f:
                         file_body = f.readlines()
                         if file_body:
                             file_body = file_body[0]
@@ -65,7 +70,7 @@ class DataStorage(object):
         try:
             filename = file_info.filename
             file_body = file_info.body
-            file_path = os.path.join(self.data_file_path, filename)
+            file_path = os.path.join(self.xml_path, filename)
             with open(file_path, 'w') as f:
                 f.write(file_body)
             log.info("store file {0} success".format(filename))
@@ -86,6 +91,7 @@ class DataStorage(object):
         self.add_doc_to_solr(**tbl_doc)
         # 记录操作
         operation_cause = "upload file {0}".format(filename)
+        log.info(operation_cause)
         Utility.log_important_operation(self.user, operation_cause)
 
     def form_data(self, **tbl_data):
@@ -101,10 +107,15 @@ class DataStorage(object):
             tab = json.loads(v[0])
             tab["_id"] = _id
             tbl_doc[k] = tab
+        json_str = json.dumps(tbl_doc)
+        file_path = os.path.join(self.json_path, _id + ".json")
+        with open(file_path, "w") as f:
+            f.write(json_str)
         self.add_doc_to_mongodb(**tbl_doc)
         self.add_doc_to_solr(**tbl_doc)
         # 记录操作
         operation_cause = "type in  {0}".format(_id)
+        log.info(operation_cause)
         Utility.log_important_operation(self.user, operation_cause)
 
     def _format_text(self, text):
@@ -231,5 +242,6 @@ class DataStorage(object):
             log.info("finish insert {0} to {1}".format(doc["_id"], tbl_name))
 
         return True
+
 
 

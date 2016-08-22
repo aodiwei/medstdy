@@ -73,19 +73,18 @@
 	__webpack_require__(15);
 	__webpack_require__(16);
 	__webpack_require__(17);
-	__webpack_require__(47);
+	__webpack_require__(20);
 	__webpack_require__(18);
 	__webpack_require__(19);
 
-	__webpack_require__(20);
-
 	__webpack_require__(21);
+
 	__webpack_require__(22);
-
 	__webpack_require__(23);
-	__webpack_require__(24);
 
+	__webpack_require__(24);
 	__webpack_require__(25);
+
 	__webpack_require__(26);
 	__webpack_require__(27);
 	__webpack_require__(28);
@@ -94,16 +93,17 @@
 	__webpack_require__(31);
 	__webpack_require__(32);
 	__webpack_require__(33);
-
 	__webpack_require__(34);
+
 	__webpack_require__(35);
 	__webpack_require__(36);
 	__webpack_require__(37);
 	__webpack_require__(38);
 	__webpack_require__(39);
-
 	__webpack_require__(40);
-	__webpack_require__(44);
+
+	__webpack_require__(41);
+	__webpack_require__(45);
 
 /***/ },
 /* 2 */
@@ -42187,11 +42187,16 @@
 	    }];
 
 	    // for debug
-	    $scope.patient_info = test_data.patient_info;
-	    $scope.clinical_course = test_data.clinical_course;
-	    $scope.check_record = test_data.clinical_course.check_record;
-	    $scope.long_items = test_data.long_medical_orders.items;
-	    $scope.temp_items = test_data.temp_medical_orders.items;
+	    $scope.patient_info = test_data.tbl_patient_info;
+	    $scope.clinical_course = test_data.tbl_clinical_course;
+	    $scope.hospitalized = test_data.tbl_hospitalized;
+	    $scope.surgery = test_data.tbl_surgery;
+	    $scope.after_surgery = test_data.tbl_after_surgery;
+	    $scope.leave = test_data.tbl_leave;
+
+	    $scope.check_record = test_data.tbl_clinical_course.check_record;
+	    $scope.long_items = test_data.tbl_long_medical_orders.items;
+	    $scope.temp_items = test_data.tbl_temp_medical_orders.items;
 
 	    $scope.submit = function () {
 	        $scope.clinical_course["check_record"] = $scope.check_record;
@@ -42205,32 +42210,32 @@
 	        console.log($scope.long_medical_orders);
 	        console.log($scope.temp_medical_orders);
 
-	        //var req = {
-	        //    url: '/data/form-data',
-	        //    method: 'POST',
-	        //    params: {
-	        //        tbl_patient_info: $scope.patient_info,
-	        //        tbl_hospitalized: $scope.hospitalized,
-	        //        tbl_clinical_course: $scope.clinical_course,
-	        //        tbl_after_surgery: $scope.after_surgery,
-	        //        tbl_surgery: $scope.surgery,
-	        //        tbl_leave: $scope.leave,
-	        //        tbl_long_medical_orders: $scope.long_medical_orders,
-	        //        tbl_temp_medical_orders: $scope.temp_medical_orders,
-	        //    }
-	        //};
-	        //
-	        //$http(req).then(function (data) {
-	        //    console.log(data)
-	        //}).catch(function () {
-	        //    console.log("提交失败");
-	        //});
+	        var req = {
+	            url: '/data/form-data',
+	            method: 'POST',
+	            params: {
+	                tbl_patient_info: $scope.patient_info,
+	                tbl_hospitalized: $scope.hospitalized,
+	                tbl_clinical_course: $scope.clinical_course,
+	                tbl_after_surgery: $scope.after_surgery,
+	                tbl_surgery: $scope.surgery,
+	                tbl_leave: $scope.leave,
+	                tbl_long_medical_orders: $scope.long_medical_orders,
+	                tbl_temp_medical_orders: $scope.temp_medical_orders
+	            }
+	        };
+
+	        $http(req).then(function (data) {
+	            console.log(data);
+	        }).catch(function () {
+	            console.log("提交失败");
+	        });
 	    };
 	}).controller("tabPatientController", function ($scope) {
 	    $scope.selected = {
 	        sex: ['男', '女'],
 	        division: division_conf,
-	        marriage: ['已婚', '未婚']
+	        marriage: ['已婚', '未婚', '丧偶', '离婚', '其他']
 	    };
 	}).controller("tabHospitalizedController", function ($scope) {}).controller("tabClinicalCourseController", function ($scope) {
 	    $scope.addRecord = function () {
@@ -42694,52 +42699,125 @@
 	 */
 
 	var test_data = {
-	    patient_info: {
-	        medical_id: "975951111",
-	        name: "薛婷婷",
-	        sex: "女",
-	        birthday: new Date("1988-09-29"),
-	        identity: "420381198809291228",
-	        province: "湖北省",
-	        city: "十堰市",
-	        age: 26,
-	        detail_addr: "丹江口市龙口路5号2栋8号",
-	        marriage: "未婚",
-	        job: "职员",
-	        in_date: new Date("2015-09-18 15:03:00"),
-	        out_date: new Date("2015-09-29 15:02:00"),
-	        outpatient: "dfdfdf"
+	    //patient_info: {
+	    //    medical_id: "975951111",
+	    //    name: "薛婷婷",
+	    //    sex: "女",
+	    //    birthday: new Date("1988-09-29"),
+	    //    identity: "420381198809291228",
+	    //    province: "湖北省",
+	    //    city: "十堰市",
+	    //    age: 26,
+	    //    detail_addr: "丹江口市龙口路5号2栋8号",
+	    //    marriage: "未婚",
+	    //    job: "职员",
+	    //    in_date: new Date(new Date("2015-09-18 15:03:00"),
+	    //    out_date: new Date(new Date("2015-09-29 15:02:00"),
+	    //    outpatient: "dfdfdf"
+	    //},
+	    //clinical_course: {
+	    //    gist: 'xx',
+	    //    check_record: [
+	    //        {date: new Date('2016-08-10 04:02:00'), content: 'xxx'},
+	    //        {date: new Date('2016-08-19T14:02:00'), content: 'yyy'}
+	    //    ],
+	    //    ill_description: 'xxx',
+	    //    treat_plan: 'xxx',
+	    //    antidiastole: 'xx',
+	    //    init_diag: 'xxx'
+	    //},
+	    //long_medical_orders: {
+	    //    items: [{
+	    //        start_datetime: new Date('2015-09-21 12:28'),
+	    //        medical_order: '重症监护（麻醉）',
+	    //        start_execute_doctor: '张三',
+	    //        start_execute_nurse: '李梅',
+	    //        start_execute_datetime: new Date('2015-09-21 12:28'),
+	    //        stop_datetime: new Date('2015-09-21 12:28'),
+	    //        stop_execute_doctor: 'xxx',
+	    //        stop_execute_nurse: 'xxx',
+	    //        stop_execute_datetime: new Date('2015-09-21 12:28'),
+	    //    }]
+	    //},
+	    //temp_medical_orders: {
+	    //    items: [{
+	    //        start_datetime: new Date('2015-09-21 12:28'),
+	    //        medical_order: '重症监护（麻醉）',
+	    //        start_execute_doctor: '张三',
+	    //        start_execute_nurse: '李梅',
+	    //        start_execute_datetime: new Date('2015-09-21 12:28'),
+	    //        checker: '李梅'
+	    //    }]
+	    //}
+
+
+	    tbl_surgery: {
+	        "instrument_nurses": "\u5218\u5cb3", "surgery_doctor": "\u5f20\u8d85",
+	        "before_diag": "\u9ab8\u540e\u7f29 \u53d1\u80b2\u6027", "description": "\u624b\u672f\u8fc7\u7a0b",
+	        "narcosis_way": "\u5168\u9ebb", "later_diag": "\u9ab8\u540e\u7f29 \u53d1\u80b2\u6027",
+	        "narcosis_doctor": "\u738b\u7389\u6167", "_id": "0102231", "surgery_name": "\u9ab8\u6253\u9489"
 	    },
-	    clinical_course: {
-	        gist: 'xx',
-	        check_record: [{ date: new Date('2016-08-10 04:02:00'), content: 'xxx' }, { date: new Date('2016-08-19T14:02:00'), content: 'yyy' }],
-	        ill_description: 'xxx',
-	        treat_plan: 'xxx',
-	        antidiastole: 'xx',
-	        init_diag: 'xxx'
+
+	    tbl_after_surgery: {
+	        "_id": "0102231", "description": [{ "date": "", "content": "\u60a3\u8005\u3001\u3001\u3001\u3001" }, { "date": "", "content": "\u672f\u540e" }]
 	    },
-	    long_medical_orders: {
-	        items: [{
-	            start_datetime: new Date('2015-09-21 12:28'),
-	            medical_order: '重症监护（麻醉）',
-	            start_execute_doctor: '张三',
-	            start_execute_nurse: '李梅',
-	            start_execute_datetime: new Date('2015-09-21 12:28'),
-	            stop_datetime: new Date('2015-09-21 12:28'),
-	            stop_execute_doctor: 'xxx',
-	            stop_execute_nurse: 'xxx',
-	            stop_execute_datetime: new Date('2015-09-21 12:28')
-	        }]
+
+	    tbl_temp_medical_orders: {
+	        "items": [{
+	            "start_datetime": new Date("2015-09-21T04:28:00.000Z"), "start_execute_doctor": "\u5f20\u4e09", "checker": "\u674e\u6885",
+	            "start_execute_nurse": "\u674e\u6885", "start_execute_datetime": new Date("2015-09-21T04:28:00.000Z"),
+	            "medical_order": "\u91cd\u75c7\u76d1\u62a4\uff08\u9ebb\u9189\uff09"
+	        }], "_id": "0102231"
 	    },
-	    temp_medical_orders: {
-	        items: [{
-	            start_datetime: new Date('2015-09-21 12:28'),
-	            medical_order: '重症监护（麻醉）',
-	            start_execute_doctor: '张三',
-	            start_execute_nurse: '李梅',
-	            start_execute_datetime: new Date('2015-09-21 12:28'),
-	            checker: '李梅'
-	        }]
+
+	    tbl_leave: {
+	        "description": "\u60a3\u8005\u75c5\u60c5", "leave_diag": "\u540e\u7f29",
+	        "advice": "\u4fdd\u6301\u53e3\u8154\u6e05\u6d01",
+	        "treatment": "\u8fc7\u7a0b", "_id": "0102231", "init_diag": "\u540e\u7f29"
+	    },
+
+	    tbl_clinical_course: {
+	        "gist": "\u6839\u636e\u60a3\u8005\u75c5\u53f2",
+	        "check_record": [{ "date": new Date("2016-08-09T20:02:00.000Z"), "content": "\u60a3\u8005\u60c5\u51b5\u826f\u597d" }],
+	        "ill_description": "\u60a3\u8005\u4e2d\u5e74\u7537\u6027",
+	        "treat_plan": "1.\u5b8c\u5584\u672f\u524d\u5404\u9879\u76f8\u5173\u68c0\u67e5",
+	        "antidiastole": "\u8bca\u65ad\u660e\u786e", "_id": "0102231",
+	        "init_diag": "\u9ab8\u540e\u7f29 \u53d1\u80b2\u6027"
+	    },
+
+	    tbl_hospitalized: {
+	        "history_illness": "\u5426\u8ba4\u9ad8\u8840\u538b", "_id": "0102231",
+	        "family_illness": "\u7236\u6bcd\u5065\u5eb7",
+	        "present_illness": "1\u5e74\u524d\u81ea\u89c9\u9ab8\u90e8\u540e\u7f29 \u5f71\u54cd\u7f8e\u89c2\uff0c\u672a\u8fdb\u884c\u7279\u6b8a\u6cbb\u7597",
+	        "assist_exam": "\u8840\u5e38\u89c4", "surgery": "\u60a3\u8005\u660e\u663e\u540e\u7f29",
+	        "recent": "\u4e00\u822c\u72b6\u51b5\u826f\u597d",
+	        "complain": "\u81ea\u89c9\u9ab8\u90e8\u540e\u7f29 \u5f71\u54cd\u7f8e\u89c21\u5e74",
+	        "physical_exam": "\u53d1\u80b2\u6b63\u5e38", "admits_diag": "\u9ab8\u540e\u7f29 \u53d1\u80b2\u6027"
+	    },
+
+	    tbl_long_medical_orders: {
+	        "items": [{
+	            "start_datetime": new Date("2015-09-21T04:28:00.000Z"), "start_execute_doctor": "\u5f20\u4e09", "stop_execute_nurse": "xxx",
+	            "stop_datetime": new Date("2015-09-21T04:28:00.000Z"), "stop_execute_doctor": "xxx", "start_execute_nurse": "\u674e\u6885",
+	            "start_execute_datetime": new Date("2015-09-21T04:28:00.000Z"), "medical_order": "\u91cd\u75c7\u76d1\u62a4\uff08\u9ebb\u9189\uff09",
+	            "stop_execute_datetime": new Date("2015-09-21T04:28:00.000Z")
+	        }, {
+	            "start_datetime": "", "start_execute_doctor": "xx", "stop_execute_nurse": "xx", "stop_datetime": "",
+	            "stop_execute_doctor": "xxx",
+	            "start_execute_nurse": "xx", "start_execute_datetime": "", "medical_order": "\u4e09\u7ea7\u62a4\u7406",
+	            "stop_execute_datetime": ""
+	        }],
+	        "_id": "0102231"
+	    },
+
+	    tbl_patient_info: {
+	        "province": "\u5185\u8499\u53e4\u7701", "city": "\u547c\u4f26\u8d1d\u5c14\u5e02", "_id": "0102231",
+	        "name": "\u65f6\u57f9\u5065", "detail_addr": "\u9102\u6e29\u514b\u81ea\u6cbb\u5dde\u65d7\u5df4\u9547",
+	        "age": 26,
+	        "medical_id": "0102231", "sex": "\u7537", "job": "\u5de5\u4eba", "birthday": new Date("1988-09-29T00:00:00.000Z"),
+	        "marriage": "\u5df2\u5a5a", "outpatient": "\u9ab8\u540e\u7f29 \u53d1\u80b2\u6027",
+	        "out_date": new Date("2015-09-29T07:02:00.000Z"), "in_date": new Date("2015-09-18T07:03:00.000Z"),
+	        "identity": "420381198809291228"
 	    }
 	};
 
@@ -42747,6 +42825,69 @@
 
 /***/ },
 /* 20 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	angular.module("ngLocale", [], ["$provide", function ($provide) {
+	  var PLURAL_CATEGORY = { ZERO: "zero", ONE: "one", TWO: "two", FEW: "few", MANY: "many", OTHER: "other" };
+	  $provide.value("$locale", {
+	    "DATETIME_FORMATS": {
+	      "AMPMS": ["\u4e0a\u5348", "\u4e0b\u5348"],
+	      "DAY": ["\u661f\u671f\u65e5", "\u661f\u671f\u4e00", "\u661f\u671f\u4e8c", "\u661f\u671f\u4e09", "\u661f\u671f\u56db", "\u661f\u671f\u4e94", "\u661f\u671f\u516d"],
+	      "ERANAMES": ["\u516c\u5143\u524d", "\u516c\u5143"],
+	      "ERAS": ["\u516c\u5143\u524d", "\u516c\u5143"],
+	      "FIRSTDAYOFWEEK": 6,
+	      "MONTH": ["\u4e00\u6708", "\u4e8c\u6708", "\u4e09\u6708", "\u56db\u6708", "\u4e94\u6708", "\u516d\u6708", "\u4e03\u6708", "\u516b\u6708", "\u4e5d\u6708", "\u5341\u6708", "\u5341\u4e00\u6708", "\u5341\u4e8c\u6708"],
+	      "SHORTDAY": ["\u5468\u65e5", "\u5468\u4e00", "\u5468\u4e8c", "\u5468\u4e09", "\u5468\u56db", "\u5468\u4e94", "\u5468\u516d"],
+	      "SHORTMONTH": ["1\u6708", "2\u6708", "3\u6708", "4\u6708", "5\u6708", "6\u6708", "7\u6708", "8\u6708", "9\u6708", "10\u6708", "11\u6708", "12\u6708"],
+	      "STANDALONEMONTH": ["\u4e00\u6708", "\u4e8c\u6708", "\u4e09\u6708", "\u56db\u6708", "\u4e94\u6708", "\u516d\u6708", "\u4e03\u6708", "\u516b\u6708", "\u4e5d\u6708", "\u5341\u6708", "\u5341\u4e00\u6708", "\u5341\u4e8c\u6708"],
+	      "WEEKENDRANGE": [5, 6],
+	      "fullDate": "y\u5e74M\u6708d\u65e5EEEE",
+	      "longDate": "y\u5e74M\u6708d\u65e5",
+	      "medium": "y\u5e74M\u6708d\u65e5 ah:mm:ss",
+	      "mediumDate": "y\u5e74M\u6708d\u65e5",
+	      "mediumTime": "ah:mm:ss",
+	      "short": "y/M/d ah:mm",
+	      "shortDate": "y/M/d",
+	      "shortTime": "ah:mm"
+	    },
+	    "NUMBER_FORMATS": {
+	      "CURRENCY_SYM": "\u00a5",
+	      "DECIMAL_SEP": ".",
+	      "GROUP_SEP": ",",
+	      "PATTERNS": [{
+	        "gSize": 3,
+	        "lgSize": 3,
+	        "maxFrac": 3,
+	        "minFrac": 0,
+	        "minInt": 1,
+	        "negPre": "-",
+	        "negSuf": "",
+	        "posPre": "",
+	        "posSuf": ""
+	      }, {
+	        "gSize": 3,
+	        "lgSize": 3,
+	        "maxFrac": 2,
+	        "minFrac": 2,
+	        "minInt": 1,
+	        "negPre": "-\u00a4",
+	        "negSuf": "",
+	        "posPre": "\u00a4",
+	        "posSuf": ""
+	      }]
+	    },
+	    "id": "zh-cn",
+	    "localeID": "zh_CN",
+	    "pluralCat": function (n, opt_precision) {
+	      return PLURAL_CATEGORY.OTHER;
+	    }
+	  });
+	}]);
+
+/***/ },
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -42807,130 +42948,130 @@
 	});
 
 /***/ },
-/* 21 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"col-sm-3\" ng-show=\"left_nav()\" ng-controller=\"leftNavController\">\r\n    <div class=\"sidebar-nav\">\r\n        <div class=\"navbar navbar-default\" role=\"navigation\">\r\n            <div class=\"navbar-header\">\r\n                <button type=\"button\" class=\"navbar-toggle collapsed\" ng-init=\"isCollapsed=true\"\r\n                        ng-click=\"isCollapsed = !isCollapsed\">\r\n                    <span class=\"sr-only\">Toggle navigation</span>\r\n                    <span class=\"icon-bar\"></span>\r\n                    <span class=\"icon-bar\"></span>\r\n                    <span class=\"icon-bar\"></span>\r\n                </button>\r\n                <span class=\"visible-xs navbar-brand\">Sidebar menu</span>\r\n            </div>\r\n            <div class=\"navbar-collapse collapse sidebar-navbar-collapse navbar-inverse\"\r\n                 uib-collapse=\"isCollapsed\">\r\n                <ul class=\"nav navbar-nav\">\r\n                    <div class=\"text-center\">\r\n                        <h2 class=\"brand\">Medical Study<br>\r\n                            <small>{{account()}}</small>\r\n                        </h2>\r\n                        <img src=\"img/user-head.png\" class=\"user-avatar\"/><br/>\r\n                        <a ng-click=\"logout()\" class=\"btn btn-white btn-outline btn-rounded btn-sm\">Logout</a>\r\n                    </div>\r\n                    <li ng-class=\"{active: isActive('/upload-data')}\"><a href=\"#/upload-data\">上传数据</a></li>\r\n                    <li ng-class=\"{active: isActive('/form-data')}\"><a href=\"#/form-data\">录入数据</a></li>\r\n                    <li class=\"divider\"></li>\r\n                    <!--<li ng-class=\"{active: isActive('/upload-data')}\"><a href=\"#/form-data\">Menu Item 3</a></li>-->\r\n                    <li><a href=\"#\">Reviews <span class=\"badge\">1,118</span></a></li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
-
-/***/ },
 /* 22 */
 /***/ function(module, exports) {
 
-	module.exports = "<nav class=\"navbar navbar-inverse navbar-fixed-top navbar-static-top\">\r\n    <div class=\"container\">\r\n        <div class=\"navbar-header\">\r\n            <!--<button type=\"button\" class=\"navbar-toggle collapsed\" ng-init=\"isCollapsed=true\" ng-click=\"isCollapsed = !isCollapsed\">-->\r\n            <!--<span class=\"sr-only\">Toggle navigation</span>-->\r\n            <!--<span class=\"icon-bar\"></span>-->\r\n            <!--<span class=\"icon-bar\"></span>-->\r\n            <!--<span class=\"icon-bar\"></span>-->\r\n            <!--</button>-->\r\n            <!--<a class=\"navbar-brand\" href=\"#\">Medic Study</a>-->\r\n            <a class=\"navbar-brand\" rel=\"home\" href=\"#\" title=\"Medic Study\">\r\n                <img style=\"max-width:100px;;\"\r\n                     src=\"img/logo2.png\">\r\n            </a>\r\n        </div>\r\n        <div id=\"navbar1\" class=\"collapse navbar-collapse\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <li class=\"active\"><a href=\"#\">首页</a></li>\r\n                <li><a href=\"#\">About</a></li>\r\n                <li><a href=\"#\">Contact</a></li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</nav>"
+	module.exports = "<div class=\"col-sm-3\" ng-show=\"left_nav()\" ng-controller=\"leftNavController\">\r\n    <div class=\"sidebar-nav\">\r\n        <div class=\"navbar navbar-default\" role=\"navigation\">\r\n            <div class=\"navbar-header\">\r\n                <button type=\"button\" class=\"navbar-toggle collapsed\" ng-init=\"isCollapsed=true\"\r\n                        ng-click=\"isCollapsed = !isCollapsed\">\r\n                    <span class=\"sr-only\">Toggle navigation</span>\r\n                    <span class=\"icon-bar\"></span>\r\n                    <span class=\"icon-bar\"></span>\r\n                    <span class=\"icon-bar\"></span>\r\n                </button>\r\n                <span class=\"visible-xs navbar-brand\">Medical Study</span>\r\n            </div>\r\n            <div class=\"navbar-collapse collapse sidebar-navbar-collapse navbar-inverse\"\r\n                 uib-collapse=\"isCollapsed\">\r\n                <ul class=\"nav navbar-nav\">\r\n                    <div class=\"text-center\">\r\n                        <h2 class=\"brand\">Medical Study<br>\r\n                            <small>{{account()}}</small>\r\n                        </h2>\r\n                        <img src=\"img/user-head.png\" class=\"user-avatar\"/><br/>\r\n                        <a ng-click=\"logout()\" class=\"btn btn-white btn-outline btn-rounded btn-sm\">Logout</a>\r\n                    </div>\r\n                    <li ng-class=\"{active: isActive('/upload-data')}\"><a href=\"#/upload-data\">上传数据</a></li>\r\n                    <li ng-class=\"{active: isActive('/form-data')}\"><a href=\"#/form-data\">录入数据</a></li>\r\n                    <li class=\"divider\"></li>\r\n                    <!--<li ng-class=\"{active: isActive('/upload-data')}\"><a href=\"#/form-data\">Menu Item 3</a></li>-->\r\n                    <li><a href=\"#\">Reviews <span class=\"badge\">1,118</span></a></li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ },
 /* 23 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"container\">\r\n    <div class=\"row row-hidden-overflow \">\r\n        <div class=\"col-sm-8 no-padding  \">\r\n            <div ng-controller=\"carouselController\">\r\n                <div uib-carousel active=\"active\" interval=\"myInterval\" no-wrap=\"noWrapSlides\">\r\n                    <div uib-slide ng-repeat=\"slide in slides track by slide.id\" index=\"slide.id\">\r\n                        <img ng-src=\"{{slide.image}}\" style=\"margin:auto;\">\r\n                        <div class=\"carousel-caption\">\r\n                            <!--<h4>Slide {{slide.id}}</h4>-->\r\n                            <p>{{slide.text}}</p>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-sm-4 no-padding col-equal-height\" id=\"login_col\">\r\n            <form class=\"form-horizontal \" id=\"login_form\" ng-controller=\"loginController\" name=\"loginForm\" novalidate>\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputEmail3\" class=\"col-sm-3 control-label\">用 户</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"text\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email/用户名\"\r\n                               ng-model=\"user.account\" name=\"account\" required>\r\n                        <span style=\"color:red\" ng-show=\"loginForm.account.$dirty && loginForm.account.$invalid\">\r\n                        <span ng-show=\"loginForm.account.$error.required\">用户名是必须的</span>\r\n                        </span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputPassword3\" class=\"col-sm-3 control-label\">密 码</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"密码\"\r\n                               ng-model=\"user.password\" name=\"password\" required>\r\n                        <span style=\"color:red\" ng-show=\"loginForm.password.$dirty && loginForm.password.$invalid\">\r\n                        <span ng-show=\"loginForm.password.$error.required\">密码是必须的</span>\r\n                        </span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <div class=\"col-sm-offset-2 col-sm-9\">\r\n                        <button type=\"submit\" class=\"btn btn-success\" ng-click=\"sign()\"\r\n                        ng-disabled=\"loginForm.account.$invalid || loginForm.password.$invalid\">\r\n                            登录\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
+	module.exports = "<nav class=\"navbar navbar-inverse navbar-fixed-top navbar-static-top\">\r\n    <div class=\"container\">\r\n        <div class=\"navbar-header\">\r\n            <!--<button type=\"button\" class=\"navbar-toggle collapsed\" ng-init=\"isCollapsed=true\" ng-click=\"isCollapsed = !isCollapsed\">-->\r\n            <!--<span class=\"sr-only\">Toggle navigation</span>-->\r\n            <!--<span class=\"icon-bar\"></span>-->\r\n            <!--<span class=\"icon-bar\"></span>-->\r\n            <!--<span class=\"icon-bar\"></span>-->\r\n            <!--</button>-->\r\n            <!--<a class=\"navbar-brand\" href=\"#\">Medic Study</a>-->\r\n            <a class=\"navbar-brand\" rel=\"home\" href=\"#\" title=\"Medic Study\">\r\n                <img style=\"max-width:100px;;\"\r\n                     src=\"img/logo2.png\">\r\n            </a>\r\n        </div>\r\n        <div id=\"navbar1\" class=\"collapse navbar-collapse\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <li class=\"active\"><a href=\"#\">首页</a></li>\r\n                <li><a href=\"#\">About</a></li>\r\n                <li><a href=\"#\">Contact</a></li>\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</nav>"
 
 /***/ },
 /* 24 */
 /***/ function(module, exports) {
 
-	module.exports = "<div  nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, customFilter\">\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-2\">\r\n                <h3>选择文件</h3>\r\n                <p>可多选</p>\r\n                <!-- Example: nv-file-select=\"\" uploader=\"{Object}\" options=\"{Object}\" filters=\"{String}\" -->\r\n                <!--<input type=\"file\" nv-file-select=\"\" uploader=\"uploader\" multiple/><br/>-->\r\n\r\n                <div class=\"\" style=\";\">\r\n                    <input type=\"file\" nv-file-select=\"\" uploader=\"uploader\"  id=\"upload_file\" style=\"display: none\" multiple/>\r\n                    <button type=\"button\" class=\"btn btn-success\" id=\"upload_file-btn\"\r\n                            Onclick=\"upload_file.click(); apppath.value=upload_file.value;\">选择文件\r\n                    </button>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"col-md-6\" style=\"margin-bottom: 40px\">\r\n\r\n                <h3>上传列表</h3>\r\n                <p>文件数量: {{ uploader.queue.length }}</p>\r\n\r\n                <table class=\"table\">\r\n                    <thead>\r\n                    <tr>\r\n                        <th width=\"50%\">Name</th>\r\n                        <th ng-show=\"uploader.isHTML5\">Size</th>\r\n                        <th ng-show=\"uploader.isHTML5\">Progress</th>\r\n                        <th>Status</th>\r\n                        <th>Actions</th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    <tr ng-repeat=\"item in uploader.queue\">\r\n                        <td><strong>{{ item.file.name }}</strong></td>\r\n                        <td ng-show=\"uploader.isHTML5\" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>\r\n                        <td ng-show=\"uploader.isHTML5\">\r\n                            <div class=\"progress\" style=\"margin-bottom: 0;\">\r\n                                <div class=\"progress-bar\" role=\"progressbar\"\r\n                                     ng-style=\"{ 'width': item.progress + '%' }\"></div>\r\n                            </div>\r\n                        </td>\r\n                        <td class=\"text-center\">\r\n                            <span ng-show=\"item.isSuccess\"><i class=\"glyphicon glyphicon-ok\"></i></span>\r\n                            <span ng-show=\"item.isCancel\"><i class=\"glyphicon glyphicon-ban-circle\"></i></span>\r\n                            <span ng-show=\"item.isError\"><i class=\"glyphicon glyphicon-remove\"></i></span>\r\n                        </td>\r\n                        <td nowrap>\r\n                            <button type=\"button\" class=\"btn btn-success btn-xs\" ng-click=\"item.upload()\"\r\n                                    ng-disabled=\"item.isReady || item.isUploading || item.isSuccess\">\r\n                                <span class=\"glyphicon glyphicon-upload\"></span> 上传\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-warning btn-xs\" ng-click=\"item.cancel()\"\r\n                                    ng-disabled=\"!item.isUploading\">\r\n                                <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-danger btn-xs\" ng-click=\"item.remove()\">\r\n                                <span class=\"glyphicon glyphicon-trash\"></span> 移除\r\n                            </button>\r\n                        </td>\r\n                    </tr>\r\n                    </tbody>\r\n                </table>\r\n\r\n                <div>\r\n                    <div>\r\n                        上传进度:\r\n                        <div class=\"progress\" style=\"\">\r\n                            <div class=\"progress-bar\" role=\"progressbar\"\r\n                                 ng-style=\"{ 'width': uploader.progress + '%' }\"></div>\r\n                        </div>\r\n                    </div>\r\n                    <button type=\"button\" class=\"btn btn-success btn-s\" ng-click=\"uploader.uploadAll()\"\r\n                            ng-disabled=\"!uploader.getNotUploadedItems().length\">\r\n                        <span class=\"glyphicon glyphicon-upload\"></span> 上传全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-warning btn-s\" ng-click=\"uploader.cancelAll()\"\r\n                            ng-disabled=\"!uploader.isUploading\">\r\n                        <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-danger btn-s\" ng-click=\"uploader.clearQueue()\"\r\n                            ng-disabled=\"!uploader.queue.length\">\r\n                        <span class=\"glyphicon glyphicon-trash\"></span> 移除全部\r\n                    </button>\r\n                </div>\r\n\r\n            </div>\r\n\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>\r\n"
+	module.exports = "<div class=\"container\">\r\n    <div class=\"row row-hidden-overflow \">\r\n        <div class=\"col-sm-8 no-padding  \">\r\n            <div ng-controller=\"carouselController\">\r\n                <div uib-carousel active=\"active\" interval=\"myInterval\" no-wrap=\"noWrapSlides\">\r\n                    <div uib-slide ng-repeat=\"slide in slides track by slide.id\" index=\"slide.id\">\r\n                        <img ng-src=\"{{slide.image}}\" style=\"margin:auto;\">\r\n                        <div class=\"carousel-caption\">\r\n                            <!--<h4>Slide {{slide.id}}</h4>-->\r\n                            <p>{{slide.text}}</p>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-sm-4 no-padding col-equal-height\" id=\"login_col\">\r\n            <form class=\"form-horizontal \" id=\"login_form\" ng-controller=\"loginController\" name=\"loginForm\" novalidate>\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputEmail3\" class=\"col-sm-3 control-label\">用 户</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"text\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email/用户名\"\r\n                               ng-model=\"user.account\" name=\"account\" required>\r\n                        <span style=\"color:red\" ng-show=\"loginForm.account.$dirty && loginForm.account.$invalid\">\r\n                        <span ng-show=\"loginForm.account.$error.required\">用户名是必须的</span>\r\n                        </span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputPassword3\" class=\"col-sm-3 control-label\">密 码</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"密码\"\r\n                               ng-model=\"user.password\" name=\"password\" required>\r\n                        <span style=\"color:red\" ng-show=\"loginForm.password.$dirty && loginForm.password.$invalid\">\r\n                        <span ng-show=\"loginForm.password.$error.required\">密码是必须的</span>\r\n                        </span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <div class=\"col-sm-offset-2 col-sm-9\">\r\n                        <button type=\"submit\" class=\"btn btn-success\" ng-click=\"sign()\"\r\n                        ng-disabled=\"loginForm.account.$invalid || loginForm.password.$invalid\">\r\n                            登录\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ },
 /* 25 */
 /***/ function(module, exports) {
 
-	module.exports = "<form ng-controller=\"tabsController\" name=\"form_data\" ng-submit=\"submit()\">\r\n    <uib-tabset active=\"active\" >\r\n        <!--<uib-tab index=\"0\" heading=\"Static title\">Static content</uib-tab>-->\r\n        <uib-tab index=\"$index + 1\" ng-repeat=\"tab in tabs\" heading=\"{{tab.title}}\">\r\n            <ng-include src=\"tab.content\"></ng-include>\r\n        </uib-tab>\r\n        <!--<uib-tab index=\"3\" select=\"alertMe()\">-->\r\n            <!--<uib-tab-heading>-->\r\n                <!--<i class=\"glyphicon glyphicon-bell\"></i> Alert!-->\r\n            <!--</uib-tab-heading>-->\r\n            <!--I've got an HTML heading, and a select callback. Pretty cool!-->\r\n        <!--</uib-tab>-->\r\n    </uib-tabset>\r\n    <button type=\"submit\" class=\"btn btn-success btn-top\" >提交</button>\r\n</form>"
+	module.exports = "<div  nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, customFilter\">\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-2\">\r\n                <h3>选择文件</h3>\r\n                <p>可多选</p>\r\n                <!-- Example: nv-file-select=\"\" uploader=\"{Object}\" options=\"{Object}\" filters=\"{String}\" -->\r\n                <!--<input type=\"file\" nv-file-select=\"\" uploader=\"uploader\" multiple/><br/>-->\r\n\r\n                <div class=\"\" style=\";\">\r\n                    <input type=\"file\" nv-file-select=\"\" uploader=\"uploader\"  id=\"upload_file\" style=\"display: none\" multiple/>\r\n                    <button type=\"button\" class=\"btn btn-success\" id=\"upload_file-btn\"\r\n                            Onclick=\"upload_file.click(); apppath.value=upload_file.value;\">选择文件\r\n                    </button>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"col-md-6\" style=\"margin-bottom: 40px\">\r\n\r\n                <h3>上传列表</h3>\r\n                <p>文件数量: {{ uploader.queue.length }}</p>\r\n\r\n                <table class=\"table\">\r\n                    <thead>\r\n                    <tr>\r\n                        <th width=\"50%\">Name</th>\r\n                        <th ng-show=\"uploader.isHTML5\">Size</th>\r\n                        <th ng-show=\"uploader.isHTML5\">Progress</th>\r\n                        <th>Status</th>\r\n                        <th>Actions</th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    <tr ng-repeat=\"item in uploader.queue\">\r\n                        <td><strong>{{ item.file.name }}</strong></td>\r\n                        <td ng-show=\"uploader.isHTML5\" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>\r\n                        <td ng-show=\"uploader.isHTML5\">\r\n                            <div class=\"progress\" style=\"margin-bottom: 0;\">\r\n                                <div class=\"progress-bar\" role=\"progressbar\"\r\n                                     ng-style=\"{ 'width': item.progress + '%' }\"></div>\r\n                            </div>\r\n                        </td>\r\n                        <td class=\"text-center\">\r\n                            <span ng-show=\"item.isSuccess\"><i class=\"glyphicon glyphicon-ok\"></i></span>\r\n                            <span ng-show=\"item.isCancel\"><i class=\"glyphicon glyphicon-ban-circle\"></i></span>\r\n                            <span ng-show=\"item.isError\"><i class=\"glyphicon glyphicon-remove\"></i></span>\r\n                        </td>\r\n                        <td nowrap>\r\n                            <button type=\"button\" class=\"btn btn-success btn-xs\" ng-click=\"item.upload()\"\r\n                                    ng-disabled=\"item.isReady || item.isUploading || item.isSuccess\">\r\n                                <span class=\"glyphicon glyphicon-upload\"></span> 上传\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-warning btn-xs\" ng-click=\"item.cancel()\"\r\n                                    ng-disabled=\"!item.isUploading\">\r\n                                <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-danger btn-xs\" ng-click=\"item.remove()\">\r\n                                <span class=\"glyphicon glyphicon-trash\"></span> 移除\r\n                            </button>\r\n                        </td>\r\n                    </tr>\r\n                    </tbody>\r\n                </table>\r\n\r\n                <div>\r\n                    <div>\r\n                        上传进度:\r\n                        <div class=\"progress\" style=\"\">\r\n                            <div class=\"progress-bar\" role=\"progressbar\"\r\n                                 ng-style=\"{ 'width': uploader.progress + '%' }\"></div>\r\n                        </div>\r\n                    </div>\r\n                    <button type=\"button\" class=\"btn btn-success btn-s\" ng-click=\"uploader.uploadAll()\"\r\n                            ng-disabled=\"!uploader.getNotUploadedItems().length\">\r\n                        <span class=\"glyphicon glyphicon-upload\"></span> 上传全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-warning btn-s\" ng-click=\"uploader.cancelAll()\"\r\n                            ng-disabled=\"!uploader.isUploading\">\r\n                        <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-danger btn-s\" ng-click=\"uploader.clearQueue()\"\r\n                            ng-disabled=\"!uploader.queue.length\">\r\n                        <span class=\"glyphicon glyphicon-trash\"></span> 移除全部\r\n                    </button>\r\n                </div>\r\n\r\n            </div>\r\n\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>\r\n"
 
 /***/ },
 /* 26 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabPatientController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">病案号</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.medical_id\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">姓名</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.name\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">身份证号</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.identity\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">性别</span>\r\n                <select class=\"form-control\" ng-model=\"patient_info.sex\" ng-options=\"o as o for o in selected.sex\" required></select>\r\n                <!--<input type=\"text\" class=\"form-control\">-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">生日</span>\r\n                <!--<input type=\"date\" class=\"form-control\" ng-model=\"patient_info.birthday\" required>-->\r\n                <div ng-repeat=\"model in [patient_info.birthday]\" ng-include=\"'html/widget/datepicker/datepicker.html'\"></div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">年龄</span>\r\n                <input type=\"number\" class=\"form-control\" ng-model=\"patient_info.age\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">省份</span>\r\n                <!--<input type=\"text\" class=\"form-control\" ng-model=\"patient_info.province\">-->\r\n                <select required class=\"form-control\" ng-model=\"patient_info.province\"\r\n                        ng-options=\"key as key for (key,value) in selected.division\"\r\n                        ng-change=\"city='';\" required>\r\n                    <!--address.district='';-->\r\n                    <option value=\"\">省</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">城市</span>\r\n                <!--<input type=\"text\" class=\"form-control\" ng-model=\"patient_info.city\">-->\r\n                <select class=\"form-control\" ng-model=\"patient_info.city\"\r\n                        ng-options=\"key as key for (key,value) in selected.division[patient_info.province]\" required>\r\n                    <!--ng-change=\"address.district='';\"-->\r\n                    <option value=\"\">市</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">详细地址</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.detail_addr\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">婚姻</span>\r\n                <select class=\"form-control\" ng-model=\"patient_info.marriage\" ng-options=\"o as o for o in selected.marriage\" required></select>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">职业</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.job\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院时间</span>\r\n                <div ng-repeat=\"model in [patient_info.in_date]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n                <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"patient_info.in_date\" required>-->\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院时间</span>\r\n                <div ng-repeat=\"model in [patient_info.out_date]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n                <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"patient_info.out_date\" required>-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">门诊</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.outpatient\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
+	module.exports = "<form ng-controller=\"tabsController\" name=\"form_data\" ng-submit=\"submit()\">\r\n    <uib-tabset active=\"active\" >\r\n        <!--<uib-tab index=\"0\" heading=\"Static title\">Static content</uib-tab>-->\r\n        <uib-tab index=\"$index + 1\" ng-repeat=\"tab in tabs\" heading=\"{{tab.title}}\">\r\n            <ng-include src=\"tab.content\"></ng-include>\r\n        </uib-tab>\r\n        <!--<uib-tab index=\"3\" select=\"alertMe()\">-->\r\n            <!--<uib-tab-heading>-->\r\n                <!--<i class=\"glyphicon glyphicon-bell\"></i> Alert!-->\r\n            <!--</uib-tab-heading>-->\r\n            <!--I've got an HTML heading, and a select callback. Pretty cool!-->\r\n        <!--</uib-tab>-->\r\n    </uib-tabset>\r\n    <button type=\"submit\" class=\"btn btn-success btn-top\" ng-disabled=\"form_data.$invalid\">提交</button>\r\n</form>"
 
 /***/ },
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabClinicalCourseController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">病例特点</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.ill_description\"> </textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">初步诊断</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.init_diag\"></textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">治疗计划</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.treat_plan\"></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">诊断依据</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"clinical_course.gist\" required> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">鉴别诊断</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"clinical_course.antidiastole\" required></textarea>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div ng-repeat=\"item in check_record track by $index\">\r\n        <div ng-include=\"'html/widget/check_record.html'\"></div>\r\n    </div>\r\n\r\n</div>"
+	module.exports = "<div ng-controller=\"tabPatientController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">病案号</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.medical_id\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">姓名</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.name\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">身份证号</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.identity\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">性别</span>\r\n                <select class=\"form-control\" ng-model=\"patient_info.sex\" ng-options=\"o as o for o in selected.sex\" required></select>\r\n                <!--<input type=\"text\" class=\"form-control\">-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">生日</span>\r\n                <!--<input type=\"date\" class=\"form-control\" ng-model=\"patient_info.birthday\" required>-->\r\n                <div ng-repeat=\"model in [patient_info.birthday]\" ng-include=\"'html/widget/datepicker/datepicker.html'\"></div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">年龄</span>\r\n                <input type=\"number\" class=\"form-control\" ng-model=\"patient_info.age\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">省份</span>\r\n                <!--<input type=\"text\" class=\"form-control\" ng-model=\"patient_info.province\">-->\r\n                <select required class=\"form-control\" ng-model=\"patient_info.province\"\r\n                        ng-options=\"key as key for (key,value) in selected.division\"\r\n                        ng-change=\"city='';\" required>\r\n                    <!--address.district='';-->\r\n                    <option value=\"\">省</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">城市</span>\r\n                <!--<input type=\"text\" class=\"form-control\" ng-model=\"patient_info.city\">-->\r\n                <select class=\"form-control\" ng-model=\"patient_info.city\"\r\n                        ng-options=\"key as key for (key,value) in selected.division[patient_info.province]\" required>\r\n                    <!--ng-change=\"address.district='';\"-->\r\n                    <option value=\"\">市</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">详细地址</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.detail_addr\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">婚姻</span>\r\n                <select class=\"form-control\" ng-model=\"patient_info.marriage\" ng-options=\"o as o for o in selected.marriage\" required></select>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">职业</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.job\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院时间</span>\r\n                <div ng-repeat=\"model in [patient_info.in_date]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n                <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"patient_info.in_date\" required>-->\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院时间</span>\r\n                <div ng-repeat=\"model in [patient_info.out_date]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n                <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"patient_info.out_date\" required>-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">门诊</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.outpatient\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
 
 /***/ },
 /* 28 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabHospitalizedController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">主诉</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.complain\" required> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">现病史</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.present_illness\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">近期</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.recent\" required> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">既往史</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.history_illness\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">家族史</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.family_illness\" required> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院诊断</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.admits_diag\" required> </textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">体格检查</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"hospitalized.physical_exam\" required> </textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">整形外科情况</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"hospitalized.surgery\" required> </textarea>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">辅助检查</span>\r\n                <textarea rows=\"2\" class=\"form-control\" ng-model=\"hospitalized.assist_exam\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n\r\n</div>\r\n"
+	module.exports = "<div ng-controller=\"tabClinicalCourseController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">病例特点</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.ill_description\"> </textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">初步诊断</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.init_diag\"></textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">治疗计划</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.treat_plan\"></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">诊断依据</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"clinical_course.gist\" required> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">鉴别诊断</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"clinical_course.antidiastole\" required></textarea>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div ng-repeat=\"item in check_record track by $index\">\r\n        <div ng-include=\"'html/widget/check_record.html'\"></div>\r\n    </div>\r\n\r\n</div>"
 
 /***/ },
 /* 29 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabSurgeryController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">手术时间</span>\r\n                <div ng-repeat=\"model in [surgery.surgery_date]\" ng-include=\"'html/widget/datepicker/datepicker.html'\"></div>\r\n                <!--<input type=\"date\" class=\"form-control\" ng-model=\"surgery.surgery_date\" required>-->\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">术前诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.before_diag\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">术后诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.later_diag\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">手术名称</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.surgery_name\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">手术医生</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.surgery_doctor\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">麻醉医生</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.narcosis_doctor\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">器械护士</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.instrument_nurses\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">麻醉方式</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.narcosis_way\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">描述</span>\r\n                <textarea rows=\"5\" class=\"form-control\" ng-model=\"surgery.description\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>"
+	module.exports = "<div ng-controller=\"tabHospitalizedController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">主诉</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.complain\" required> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">现病史</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.present_illness\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">近期</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.recent\" required> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">既往史</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.history_illness\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">家族史</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.family_illness\" required> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院诊断</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.admits_diag\" required> </textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">体格检查</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"hospitalized.physical_exam\" required> </textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">整形外科情况</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"hospitalized.surgery\" required> </textarea>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">辅助检查</span>\r\n                <textarea rows=\"2\" class=\"form-control\" ng-model=\"hospitalized.assist_exam\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n\r\n</div>\r\n"
 
 /***/ },
 /* 30 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabAfterSurgeryController\">\r\n    <div ng-repeat=\"item in description track by $index\">\r\n        <div ng-include=\"'html/widget/after_surgery_record.html'\"></div>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"tabSurgeryController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">手术时间</span>\r\n                <div ng-repeat=\"model in [surgery.surgery_date]\" ng-include=\"'html/widget/datepicker/datepicker.html'\"></div>\r\n                <!--<input type=\"date\" class=\"form-control\" ng-model=\"surgery.surgery_date\" required>-->\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">术前诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.before_diag\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">术后诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.later_diag\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">手术名称</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.surgery_name\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">手术医生</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.surgery_doctor\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">麻醉医生</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.narcosis_doctor\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">器械护士</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.instrument_nurses\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">麻醉方式</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.narcosis_way\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">描述</span>\r\n                <textarea rows=\"5\" class=\"form-control\" ng-model=\"surgery.description\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>"
 
 /***/ },
 /* 31 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabPatientController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院时间</span>\r\n                <div ng-repeat=\"model in [leave.in_date]\" ng-include=\"'html/widget/datepicker/datepicker.html'\"></div>\r\n                <!--<input type=\"date\" class=\"form-control\" ng-model=\"leave.in_date\" required>-->\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院时间</span>\r\n                <div ng-repeat=\"model in [leave.out_date]\" ng-include=\"'html/widget/datepicker/datepicker.html'\"></div>\r\n                <!--<input type=\"date\" class=\"form-control\" ng-model=\"leave.out_date\" required>-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院病情描述</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"leave.description\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">初步诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"leave.init_diag\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"leave.leave_diag\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">治疗过程</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"leave.treatment\" required></textarea>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院医嘱</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"leave.advice\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>"
+	module.exports = "<div ng-controller=\"tabAfterSurgeryController\">\r\n    <div ng-repeat=\"item in description track by $index\">\r\n        <div ng-include=\"'html/widget/after_surgery_record.html'\"></div>\r\n    </div>\r\n</div>"
 
 /***/ },
 /* 32 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabTempMedicalOrdersController\">\r\n    <div ng-repeat=\"index in temp_items track by $index\">\r\n        <div ng-include=\"'html/widget/temp_medical_orders.html'\"></div>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"tabPatientController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院时间</span>\r\n                <div ng-repeat=\"model in [leave.in_date]\" ng-include=\"'html/widget/datepicker/datepicker.html'\"></div>\r\n                <!--<input type=\"date\" class=\"form-control\" ng-model=\"leave.in_date\" required>-->\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院时间</span>\r\n                <div ng-repeat=\"model in [leave.out_date]\" ng-include=\"'html/widget/datepicker/datepicker.html'\"></div>\r\n                <!--<input type=\"date\" class=\"form-control\" ng-model=\"leave.out_date\" required>-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院病情描述</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"leave.description\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">初步诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"leave.init_diag\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"leave.leave_diag\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">治疗过程</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"leave.treatment\" required></textarea>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院医嘱</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"leave.advice\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>"
 
 /***/ },
 /* 33 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabLongMedicalOrdersController\">\r\n    <div ng-repeat=\"index in long_items track by $index\">\r\n        <div ng-include=\"'html/widget/long_medical_orders.html'\"></div>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"tabTempMedicalOrdersController\">\r\n    <div ng-repeat=\"index in temp_items track by $index\">\r\n        <div ng-include=\"'html/widget/temp_medical_orders.html'\"></div>\r\n    </div>\r\n</div>"
 
 /***/ },
 /* 34 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-9\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">查房记录\r\n            </span>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"check_record[$index].date\" required>-->\r\n            <div ng-repeat=\"model in [check_record[$index].date]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <textarea rows=\"3\" class=\"form-control\" ng-model=\"check_record[$index].content\" required></textarea>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <br>\r\n        <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i\r\n                class=\"fa fa-plus\"></i></button>\r\n        <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n            <i class=\"fa fa-minus\"></i></button>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"tabLongMedicalOrdersController\">\r\n    <div ng-repeat=\"index in long_items track by $index\">\r\n        <div ng-include=\"'html/widget/long_medical_orders.html'\"></div>\r\n    </div>\r\n</div>"
 
 /***/ },
 /* 35 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-9\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">术后病程\r\n            </span>\r\n            <div ng-repeat=\"model in [description[$index].date]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"description[$index].date\" required>-->\r\n            <textarea rows=\"3\" class=\"form-control\" ng-model=\"description[$index].content\" required></textarea>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i\r\n                class=\"fa fa-plus\"></i></button>\r\n        <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n            <i class=\"fa fa-minus\"></i></button>\r\n    </div>\r\n</div>"
+	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-9\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">查房记录\r\n            </span>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"check_record[$index].date\" required>-->\r\n            <div ng-repeat=\"model in [check_record[$index].date]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <textarea rows=\"3\" class=\"form-control\" ng-model=\"check_record[$index].content\" required></textarea>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <br>\r\n        <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i\r\n                class=\"fa fa-plus\"></i></button>\r\n        <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n            <i class=\"fa fa-minus\"></i></button>\r\n    </div>\r\n</div>"
 
 /***/ },
 /* 36 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-5\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始时间</span>\r\n            <div ng-repeat=\"model in [long_items[$index].start_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"long_items[$index].start_datetime\" required>-->\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">医嘱</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].medical_order\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始执行医生</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].start_execute_doctor\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始执行护士</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].start_execute_nurse\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始执行时间</span>\r\n            <div ng-repeat=\"model in [long_items[$index].start_execute_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"long_items[$index].start_execute_datetime\" required>-->\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"col-xs-4\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止时间</span>\r\n            <div ng-repeat=\"model in [long_items[$index].stop_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"long_items[$index].stop_datetime\" required>-->\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止执行医生</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].stop_execute_doctor\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止执行护士</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].stop_execute_nurse\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止执行时间</span>\r\n            <div ng-repeat=\"model in [long_items[$index].stop_execute_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"long_items[$index].stop_execute_datetime\" required>-->\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <br>\r\n        <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i\r\n                class=\"fa fa-plus\"></i></button>\r\n        <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n            <i class=\"fa fa-minus\"></i></button>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
+	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-9\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">术后病程\r\n            </span>\r\n            <div ng-repeat=\"model in [description[$index].date]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"description[$index].date\" required>-->\r\n            <textarea rows=\"3\" class=\"form-control\" ng-model=\"description[$index].content\" required></textarea>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i\r\n                class=\"fa fa-plus\"></i></button>\r\n        <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n            <i class=\"fa fa-minus\"></i></button>\r\n    </div>\r\n</div>"
 
 /***/ },
 /* 37 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-5\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始时间</span>\r\n            <div ng-repeat=\"model in [temp_items[$index].start_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"temp_items[$index].start_datetime\" required>-->\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">医嘱</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].medical_order\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">执行医生</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].start_execute_doctor\" required>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"col-xs-4\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">执行护士</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].start_execute_nurse\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">执行时间</span>\r\n            <div ng-repeat=\"model in [temp_items[$index].start_execute_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"temp_items[$index].start_execute_datetime\" required>-->\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">核对人</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].checker\" required>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i\r\n                class=\"fa fa-plus\"></i></button>\r\n        <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n            <i class=\"fa fa-minus\"></i></button>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
+	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-5\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始时间</span>\r\n            <div ng-repeat=\"model in [long_items[$index].start_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"long_items[$index].start_datetime\" required>-->\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">医嘱</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].medical_order\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始执行医生</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].start_execute_doctor\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始执行护士</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].start_execute_nurse\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始执行时间</span>\r\n            <div ng-repeat=\"model in [long_items[$index].start_execute_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"long_items[$index].start_execute_datetime\" required>-->\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"col-xs-4\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止时间</span>\r\n            <div ng-repeat=\"model in [long_items[$index].stop_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"long_items[$index].stop_datetime\" required>-->\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止执行医生</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].stop_execute_doctor\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止执行护士</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].stop_execute_nurse\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止执行时间</span>\r\n            <div ng-repeat=\"model in [long_items[$index].stop_execute_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"long_items[$index].stop_execute_datetime\" required>-->\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <br>\r\n        <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i\r\n                class=\"fa fa-plus\"></i></button>\r\n        <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n            <i class=\"fa fa-minus\"></i></button>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
 
 /***/ },
 /* 38 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"datepickerController as ctrl\">\r\n    <p class=\"input-group\" style=\"margin: 0; width: 100%;\">\r\n        <input type=\"text\" class=\"form-control\" datetime-picker=\"yyyy-MM-dd\" ng-model=model is-open=\"ctrl.picker_date.open\"\r\n               datepicker-options=\"ctrl.picker_date.calendarOptions\" enable-time=\"ctrl.picker_date.enableTime\" button-bar=\"buttonBar\"/>\r\n      <span class=\"input-group-btn\">\r\n          <button type=\"button\" class=\"btn btn-default\" ng-click=\"ctrl.openCalendar($event, 'picker_date')\"><i\r\n                  class=\"fa fa-calendar\"></i></button>\r\n      </span>\r\n    </p>\r\n</div>"
+	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-5\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始时间</span>\r\n            <div ng-repeat=\"model in [temp_items[$index].start_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"temp_items[$index].start_datetime\" required>-->\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">医嘱</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].medical_order\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">执行医生</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].start_execute_doctor\" required>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"col-xs-4\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">执行护士</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].start_execute_nurse\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">执行时间</span>\r\n            <div ng-repeat=\"model in [temp_items[$index].start_execute_datetime]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n            <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"temp_items[$index].start_execute_datetime\" required>-->\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">核对人</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].checker\" required>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i\r\n                class=\"fa fa-plus\"></i></button>\r\n        <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n            <i class=\"fa fa-minus\"></i></button>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
 
 /***/ },
 /* 39 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"datepickerController as ctrl\">\r\n    <p class=\"input-group\" style=\"margin: 0; width: 100%;\">\r\n        <input type=\"text\" class=\"form-control\" datetime-picker ng-model=model is-open=\"ctrl.picker_datetime.open\"\r\n               datepicker-options=\"ctrl.picker_datetime.calendarOptions\" button-bar=\"buttonBar\"/>\r\n      <span class=\"input-group-btn\">\r\n          <button type=\"button\" class=\"btn btn-default\" ng-click=\"ctrl.openCalendar($event, 'picker_datetime')\"><i\r\n                  class=\"fa fa-calendar\"></i></button>\r\n      </span>\r\n    </p>\r\n</div>"
+	module.exports = "<div ng-controller=\"datepickerController as ctrl\">\r\n    <p class=\"input-group\" style=\"margin: 0; width: 100%;\">\r\n        <input type=\"text\" class=\"form-control\" datetime-picker=\"yyyy-MM-dd\" ng-model=model is-open=\"ctrl.picker_date.open\"\r\n               datepicker-options=\"ctrl.picker_date.calendarOptions\" enable-time=\"ctrl.picker_date.enableTime\" button-bar=\"buttonBar\"/>\r\n      <span class=\"input-group-btn\">\r\n          <button type=\"button\" class=\"btn btn-default\" ng-click=\"ctrl.openCalendar($event, 'picker_date')\"><i\r\n                  class=\"fa fa-calendar\"></i></button>\r\n      </span>\r\n    </p>\r\n</div>"
 
 /***/ },
 /* 40 */
+/***/ function(module, exports) {
+
+	module.exports = "<div ng-controller=\"datepickerController as ctrl\">\r\n    <p class=\"input-group\" style=\"margin: 0; width: 100%;\">\r\n        <input type=\"text\" class=\"form-control\" datetime-picker ng-model=model is-open=\"ctrl.picker_datetime.open\"\r\n               datepicker-options=\"ctrl.picker_datetime.calendarOptions\" button-bar=\"buttonBar\"/>\r\n      <span class=\"input-group-btn\">\r\n          <button type=\"button\" class=\"btn btn-default\" ng-click=\"ctrl.openCalendar($event, 'picker_datetime')\"><i\r\n                  class=\"fa fa-calendar\"></i></button>\r\n      </span>\r\n    </p>\r\n</div>"
+
+/***/ },
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(41);
+	var content = __webpack_require__(42);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(43)(content, {});
+	var update = __webpack_require__(44)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -42947,10 +43088,10 @@
 	}
 
 /***/ },
-/* 41 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(42)();
+	exports = module.exports = __webpack_require__(43)();
 	// imports
 
 
@@ -42961,7 +43102,7 @@
 
 
 /***/ },
-/* 42 */
+/* 43 */
 /***/ function(module, exports) {
 
 	/*
@@ -43017,7 +43158,7 @@
 
 
 /***/ },
-/* 43 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -43269,16 +43410,16 @@
 
 
 /***/ },
-/* 44 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(45);
+	var content = __webpack_require__(46);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(43)(content, {});
+	var update = __webpack_require__(44)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -43295,10 +43436,10 @@
 	}
 
 /***/ },
-/* 45 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(42)();
+	exports = module.exports = __webpack_require__(43)();
 	// imports
 
 
@@ -43307,70 +43448,6 @@
 
 	// exports
 
-
-/***/ },
-/* 46 */,
-/* 47 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	angular.module("ngLocale", [], ["$provide", function ($provide) {
-	  var PLURAL_CATEGORY = { ZERO: "zero", ONE: "one", TWO: "two", FEW: "few", MANY: "many", OTHER: "other" };
-	  $provide.value("$locale", {
-	    "DATETIME_FORMATS": {
-	      "AMPMS": ["\u4e0a\u5348", "\u4e0b\u5348"],
-	      "DAY": ["\u661f\u671f\u65e5", "\u661f\u671f\u4e00", "\u661f\u671f\u4e8c", "\u661f\u671f\u4e09", "\u661f\u671f\u56db", "\u661f\u671f\u4e94", "\u661f\u671f\u516d"],
-	      "ERANAMES": ["\u516c\u5143\u524d", "\u516c\u5143"],
-	      "ERAS": ["\u516c\u5143\u524d", "\u516c\u5143"],
-	      "FIRSTDAYOFWEEK": 6,
-	      "MONTH": ["\u4e00\u6708", "\u4e8c\u6708", "\u4e09\u6708", "\u56db\u6708", "\u4e94\u6708", "\u516d\u6708", "\u4e03\u6708", "\u516b\u6708", "\u4e5d\u6708", "\u5341\u6708", "\u5341\u4e00\u6708", "\u5341\u4e8c\u6708"],
-	      "SHORTDAY": ["\u5468\u65e5", "\u5468\u4e00", "\u5468\u4e8c", "\u5468\u4e09", "\u5468\u56db", "\u5468\u4e94", "\u5468\u516d"],
-	      "SHORTMONTH": ["1\u6708", "2\u6708", "3\u6708", "4\u6708", "5\u6708", "6\u6708", "7\u6708", "8\u6708", "9\u6708", "10\u6708", "11\u6708", "12\u6708"],
-	      "STANDALONEMONTH": ["\u4e00\u6708", "\u4e8c\u6708", "\u4e09\u6708", "\u56db\u6708", "\u4e94\u6708", "\u516d\u6708", "\u4e03\u6708", "\u516b\u6708", "\u4e5d\u6708", "\u5341\u6708", "\u5341\u4e00\u6708", "\u5341\u4e8c\u6708"],
-	      "WEEKENDRANGE": [5, 6],
-	      "fullDate": "y\u5e74M\u6708d\u65e5EEEE",
-	      "longDate": "y\u5e74M\u6708d\u65e5",
-	      "medium": "y\u5e74M\u6708d\u65e5 ah:mm:ss",
-	      "mediumDate": "y\u5e74M\u6708d\u65e5",
-	      "mediumTime": "ah:mm:ss",
-	      "short": "y/M/d ah:mm",
-	      "shortDate": "y/M/d",
-	      "shortTime": "ah:mm"
-	    },
-	    "NUMBER_FORMATS": {
-	      "CURRENCY_SYM": "\u00a5",
-	      "DECIMAL_SEP": ".",
-	      "GROUP_SEP": ",",
-	      "PATTERNS": [{
-	        "gSize": 3,
-	        "lgSize": 3,
-	        "maxFrac": 3,
-	        "minFrac": 0,
-	        "minInt": 1,
-	        "negPre": "-",
-	        "negSuf": "",
-	        "posPre": "",
-	        "posSuf": ""
-	      }, {
-	        "gSize": 3,
-	        "lgSize": 3,
-	        "maxFrac": 2,
-	        "minFrac": 2,
-	        "minInt": 1,
-	        "negPre": "-\u00a4",
-	        "negSuf": "",
-	        "posPre": "\u00a4",
-	        "posSuf": ""
-	      }]
-	    },
-	    "id": "zh-cn",
-	    "localeID": "zh_CN",
-	    "pluralCat": function (n, opt_precision) {
-	      return PLURAL_CATEGORY.OTHER;
-	    }
-	  });
-	}]);
 
 /***/ }
 /******/ ]);

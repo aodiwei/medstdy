@@ -21,7 +21,8 @@
     "angular-ui-bootstrap": "^2.0.0",
     "angular-file-upload": "^2.3.4",
     "bootstrap": "^3.0.0",
-    "angular-messages": "^1.5.8"
+    "angular-messages": "^1.5.8",
+    "bootstrap-ui-datetime-picker": "^2.4.3"
   },
   "devDependencies": {
     "css-loader": "^0.23.1",
