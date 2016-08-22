@@ -6,6 +6,7 @@ var app = require('./app.js');
 
 app.controller("datepickerController", function ($scope) {
     var that = this;
+    $scope.model = "patient_info.birthday";
 
     $scope.buttonBar = {
             show: true,
