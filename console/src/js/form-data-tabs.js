@@ -56,7 +56,7 @@ app
         }];
 
         // for debug
-        //$scope.patient_info = test_data.tbl_patient_info;
+        $scope.patient_info = test_data.tbl_patient_info;
         //$scope.clinical_course = test_data.tbl_clinical_course;
         //$scope.hospitalized = test_data.tbl_hospitalized;
         //$scope.surgery = test_data.tbl_surgery;

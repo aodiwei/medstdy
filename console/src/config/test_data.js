@@ -123,7 +123,7 @@ var test_data = {
         "province": "\u5185\u8499\u53e4\u7701", "city": "\u547c\u4f26\u8d1d\u5c14\u5e02", "_id": "0102231",
         "name": "\u65f6\u57f9\u5065", "detail_addr": "\u9102\u6e29\u514b\u81ea\u6cbb\u5dde\u65d7\u5df4\u9547",
         "age": 26,
-        "medical_id": "0102231", "sex": "\u7537", "job": "\u5de5\u4eba", "birthday": new Date("1988-09-29T00:00:00.000Z"),
+        "medical_id": "0102231", "sex": "\u7537", "job": "\u5de5\u4eba", "birthday1": new Date("1988-09-29T00:00:00.000Z"),
         "marriage": "\u5df2\u5a5a", "outpatient": "\u9ab8\u540e\u7f29 \u53d1\u80b2\u6027",
         "out_date": new Date("2015-09-29T07:02:00.000Z"), "in_date": new Date("2015-09-18T07:03:00.000Z"),
         "identity": "420381198809291228"

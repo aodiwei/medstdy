@@ -34,8 +34,9 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">生日</span>
+                <date-picker ng-model="patient_info.birthday"></date-picker>
                 <!--<input type="date" class="form-control" ng-model="patient_info.birthday" required>-->
-                <div ng-repeat="item in ['patient_info.birthday']" ng-include="'html/widget/datepicker/datepicker.html'"></div>
+                <!--<div ng-repeat="item in ['patient_info.birthday']" ng-include="'html/widget/datepicker/datepicker.html'"></div>-->
             </div>
         </div>
         <div class="col-xs-5">

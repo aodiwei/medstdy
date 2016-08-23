@@ -41912,7 +41912,135 @@
 	            //$rootScope.leftView = false;
 	        });
 	    }
-	}]);
+	}]).directive("datePicker", function () {
+	    return {
+	        scope: {
+	            bindModel: "=ngModel"
+	        },
+	        transclude: true,
+	        //require: ["^form", "ngModel"],// Array = multiple requires, ? = optional, ^ = check parent elements
+	        restrict: "E",
+	        templateUrl: "../html/widget/datepicker/datepicker.html",
+	        link: function ($scope, iElm, iAttrs, controllers) {
+	            //$scope.buttonBar = {
+	            //    show: true,
+	            //    now: {
+	            //        show: true,
+	            //        text: '现在'
+	            //    },
+	            //    today: {
+	            //        show: true,
+	            //        text: '今天'
+	            //    },
+	            //    clear: {
+	            //        show: true,
+	            //        text: '清除'
+	            //    },
+	            //    date: {
+	            //        show: true,
+	            //        text: '日期'
+	            //    },
+	            //    time: {
+	            //        show: true,
+	            //        text: '时间'
+	            //    },
+	            //    close: {
+	            //        show: true,
+	            //        text: '确定'
+	            //    }
+	            //};
+	            //$scope.picker_date = {
+	            //    date: new Date(),
+	            //    calendarOptions: {
+	            //        showWeeks: false
+	            //    },
+	            //    enableTime: false,
+	            //    buttonBar: {
+	            //        show: true,
+	            //        now: {
+	            //            show: true,
+	            //            text: '现在'
+	            //        },
+	            //        today: {
+	            //            show: true,
+	            //            text: '今天'
+	            //        },
+	            //        clear: {
+	            //            show: true,
+	            //            text: '清除'
+	            //        },
+	            //        date: {
+	            //            show: true,
+	            //            text: '日期'
+	            //        },
+	            //        time: {
+	            //            show: true,
+	            //            text: '时间'
+	            //        },
+	            //        close: {
+	            //            show: true,
+	            //            text: '确定'
+	            //        }
+	            //    },
+	            //};
+	            //
+	            //
+	            //$scope.openCalendar = function (e) {
+	            //    $scope.open = true;
+	            //};
+	            var that = this;
+
+	            $scope.buttonBar = {
+	                show: true,
+	                now: {
+	                    show: true,
+	                    text: '现在'
+	                },
+	                today: {
+	                    show: true,
+	                    text: '今天'
+	                },
+	                clear: {
+	                    show: true,
+	                    text: '清除'
+	                },
+	                date: {
+	                    show: true,
+	                    text: '日期'
+	                },
+	                time: {
+	                    show: true,
+	                    text: '时间'
+	                },
+	                close: {
+	                    show: true,
+	                    text: '确定'
+	                }
+	            };
+	            // global config picker
+	            this.picker_datetime = {
+	                date: new Date(),
+	                calendarOptions: {
+	                    showWeeks: false
+	                }
+	            };
+
+	            $scope.picker_date = {
+	                date: new Date(),
+	                calendarOptions: {
+	                    showWeeks: false
+	                },
+	                open: false,
+	                enableTime: false
+
+	            };
+
+	            $scope.openCalendar = function (e, picker) {
+	                $scope.picker_date.open = true;
+	            };
+	        }
+	    };
+	});
 
 	module.exports = app;
 
@@ -42187,7 +42315,7 @@
 	    }];
 
 	    // for debug
-	    //$scope.patient_info = test_data.tbl_patient_info;
+	    $scope.patient_info = test_data.tbl_patient_info;
 	    //$scope.clinical_course = test_data.tbl_clinical_course;
 	    //$scope.hospitalized = test_data.tbl_hospitalized;
 	    //$scope.surgery = test_data.tbl_surgery;
@@ -42818,7 +42946,7 @@
 	        "province": "\u5185\u8499\u53e4\u7701", "city": "\u547c\u4f26\u8d1d\u5c14\u5e02", "_id": "0102231",
 	        "name": "\u65f6\u57f9\u5065", "detail_addr": "\u9102\u6e29\u514b\u81ea\u6cbb\u5dde\u65d7\u5df4\u9547",
 	        "age": 26,
-	        "medical_id": "0102231", "sex": "\u7537", "job": "\u5de5\u4eba", "birthday": new Date("1988-09-29T00:00:00.000Z"),
+	        "medical_id": "0102231", "sex": "\u7537", "job": "\u5de5\u4eba", "birthday1": new Date("1988-09-29T00:00:00.000Z"),
 	        "marriage": "\u5df2\u5a5a", "outpatient": "\u9ab8\u540e\u7f29 \u53d1\u80b2\u6027",
 	        "out_date": new Date("2015-09-29T07:02:00.000Z"), "in_date": new Date("2015-09-18T07:03:00.000Z"),
 	        "identity": "420381198809291228"
@@ -42902,7 +43030,6 @@
 
 	app.controller("datepickerController", function ($scope) {
 	    var that = this;
-	    $scope.model = "patient_info.birthday";
 
 	    $scope.buttonBar = {
 	        show: true,
@@ -42986,7 +43113,7 @@
 /* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabPatientController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">病案号</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.medical_id\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">姓名</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.name\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">身份证号</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.identity\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">性别</span>\r\n                <select class=\"form-control\" ng-model=\"patient_info.sex\" ng-options=\"o as o for o in selected.sex\" required></select>\r\n                <!--<input type=\"text\" class=\"form-control\">-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">生日</span>\r\n                <!--<input type=\"date\" class=\"form-control\" ng-model=\"patient_info.birthday\" required>-->\r\n                <div ng-repeat=\"item in ['patient_info.birthday']\" ng-include=\"'html/widget/datepicker/datepicker.html'\"></div>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">年龄</span>\r\n                <input type=\"number\" class=\"form-control\" ng-model=\"patient_info.age\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">省份</span>\r\n                <!--<input type=\"text\" class=\"form-control\" ng-model=\"patient_info.province\">-->\r\n                <select required class=\"form-control\" ng-model=\"patient_info.province\"\r\n                        ng-options=\"key as key for (key,value) in selected.division\"\r\n                        ng-change=\"city='';\" required>\r\n                    <!--address.district='';-->\r\n                    <option value=\"\">省</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">城市</span>\r\n                <!--<input type=\"text\" class=\"form-control\" ng-model=\"patient_info.city\">-->\r\n                <select class=\"form-control\" ng-model=\"patient_info.city\"\r\n                        ng-options=\"key as key for (key,value) in selected.division[patient_info.province]\" required>\r\n                    <!--ng-change=\"address.district='';\"-->\r\n                    <option value=\"\">市</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">详细地址</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.detail_addr\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">婚姻</span>\r\n                <select class=\"form-control\" ng-model=\"patient_info.marriage\" ng-options=\"o as o for o in selected.marriage\" required></select>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">职业</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.job\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院时间</span>\r\n                <div ng-repeat=\"model in [patient_info.in_date]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n                <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"patient_info.in_date\" required>-->\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院时间</span>\r\n                <div ng-repeat=\"model in [patient_info.out_date]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n                <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"patient_info.out_date\" required>-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">门诊</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.outpatient\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
+	module.exports = "<div ng-controller=\"tabPatientController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">病案号</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.medical_id\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">姓名</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.name\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">身份证号</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.identity\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">性别</span>\r\n                <select class=\"form-control\" ng-model=\"patient_info.sex\" ng-options=\"o as o for o in selected.sex\" required></select>\r\n                <!--<input type=\"text\" class=\"form-control\">-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">生日</span>\r\n                <date-picker ng-model=\"patient_info.birthday\"></date-picker>\r\n                <!--<input type=\"date\" class=\"form-control\" ng-model=\"patient_info.birthday\" required>-->\r\n                <!--<div ng-repeat=\"item in ['patient_info.birthday']\" ng-include=\"'html/widget/datepicker/datepicker.html'\"></div>-->\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">年龄</span>\r\n                <input type=\"number\" class=\"form-control\" ng-model=\"patient_info.age\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">省份</span>\r\n                <!--<input type=\"text\" class=\"form-control\" ng-model=\"patient_info.province\">-->\r\n                <select required class=\"form-control\" ng-model=\"patient_info.province\"\r\n                        ng-options=\"key as key for (key,value) in selected.division\"\r\n                        ng-change=\"city='';\" required>\r\n                    <!--address.district='';-->\r\n                    <option value=\"\">省</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">城市</span>\r\n                <!--<input type=\"text\" class=\"form-control\" ng-model=\"patient_info.city\">-->\r\n                <select class=\"form-control\" ng-model=\"patient_info.city\"\r\n                        ng-options=\"key as key for (key,value) in selected.division[patient_info.province]\" required>\r\n                    <!--ng-change=\"address.district='';\"-->\r\n                    <option value=\"\">市</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">详细地址</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.detail_addr\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">婚姻</span>\r\n                <select class=\"form-control\" ng-model=\"patient_info.marriage\" ng-options=\"o as o for o in selected.marriage\" required></select>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">职业</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.job\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院时间</span>\r\n                <div ng-repeat=\"model in [patient_info.in_date]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n                <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"patient_info.in_date\" required>-->\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院时间</span>\r\n                <div ng-repeat=\"model in [patient_info.out_date]\" ng-include=\"'html/widget/datepicker/datetimepicker.html'\"></div>\r\n                <!--<input type=\"datetime-local\" class=\"form-control\" ng-model=\"patient_info.out_date\" required>-->\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">门诊</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.outpatient\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
 
 /***/ },
 /* 28 */
@@ -43058,7 +43185,7 @@
 /* 39 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"datepickerController as ctrl\">\r\n    <p class=\"input-group\" style=\"margin: 0; width: 100%;\">\r\n        <input type=\"text\" class=\"form-control\" datetime-picker=\"yyyy-MM-dd\" ng-model=\"model\" is-open=\"ctrl.picker_date.open\"\r\n               datepicker-options=\"ctrl.picker_date.calendarOptions\" enable-time=\"ctrl.picker_date.enableTime\"\r\n               button-bar=\"buttonBar\" required/>\r\n        xx{{item}}xx{{model}}\r\n      <span class=\"input-group-btn\">\r\n          <button type=\"button\" class=\"btn btn-default\" ng-click=\"ctrl.openCalendar($event, 'picker_date')\"><i\r\n                  class=\"fa fa-calendar\"></i></button>\r\n      </span>\r\n    </p>\r\n</div>"
+	module.exports = "<div >\r\n    <p class=\"input-group\" style=\"margin: 0; width: 100%;\">\r\n        <input type=\"text\" class=\"form-control\" datetime-picker=\"yyyy-MM-dd\" ng-model=\"bindModel\" is-open=\"picker_date.open\"\r\n               datepicker-options=\"picker_date.calendarOptions\" enable-time=\"picker_date.enableTime\"\r\n               button-bar=\"buttonBar\" required/>\r\n      <span class=\"input-group-btn\">\r\n          <button type=\"button\" class=\"btn btn-default\" ng-click=\"openCalendar($event)\"><i\r\n                  class=\"fa fa-calendar\"></i></button>\r\n      </span>\r\n    </p>\r\n</div>"
 
 /***/ },
 /* 40 */
