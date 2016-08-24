@@ -2,8 +2,7 @@
     <div class="col-xs-5">
         <div class="input-group">
             <span class="input-group-addon">开始时间</span>
-            <div ng-repeat="model in [temp_items[$index].start_datetime]" ng-include="'html/widget/datepicker/datetimepicker.html'"></div>
-            <!--<input type="datetime-local" class="form-control" ng-model="temp_items[$index].start_datetime" required>-->
+            <datetime-picker ng-model="temp_items[$index].start_datetime"></datetime-picker>
         </div>
         <div class="input-group">
             <span class="input-group-addon">医嘱</span>
@@ -22,8 +21,7 @@
         </div>
         <div class="input-group">
             <span class="input-group-addon">执行时间</span>
-            <div ng-repeat="model in [temp_items[$index].start_execute_datetime]" ng-include="'html/widget/datepicker/datetimepicker.html'"></div>
-            <!--<input type="datetime-local" class="form-control" ng-model="temp_items[$index].start_execute_datetime" required>-->
+            <datetime-picker ng-model="temp_items[$index].start_execute_datetime"></datetime-picker>
         </div>
         <div class="input-group">
             <span class="input-group-addon">核对人</span>

@@ -3,8 +3,7 @@
         <div class="input-group">
             <span class="input-group-addon">查房记录
             </span>
-            <!--<input type="datetime-local" class="form-control" ng-model="check_record[$index].date" required>-->
-            <div ng-repeat="model in [check_record[$index].date]" ng-include="'html/widget/datepicker/datetimepicker.html'"></div>
+            <datetime-picker ng-model="check_record[$index].date"></datetime-picker>
             <textarea rows="3" class="form-control" ng-model="check_record[$index].content" required></textarea>
         </div>
     </div>

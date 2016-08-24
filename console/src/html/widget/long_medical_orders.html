@@ -2,8 +2,8 @@
     <div class="col-xs-5">
         <div class="input-group">
             <span class="input-group-addon">开始时间</span>
-            <div ng-repeat="model in [long_items[$index].start_datetime]" ng-include="'html/widget/datepicker/datetimepicker.html'"></div>
-            <!--<input type="datetime-local" class="form-control" ng-model="long_items[$index].start_datetime" required>-->
+            <datetime-picker ng-model="long_items[$index].start_datetime"></datetime-picker>
+
         </div>
         <div class="input-group">
             <span class="input-group-addon">医嘱</span>
@@ -19,16 +19,14 @@
         </div>
         <div class="input-group">
             <span class="input-group-addon">开始执行时间</span>
-            <div ng-repeat="model in [long_items[$index].start_execute_datetime]" ng-include="'html/widget/datepicker/datetimepicker.html'"></div>
-            <!--<input type="datetime-local" class="form-control" ng-model="long_items[$index].start_execute_datetime" required>-->
+            <datetime-picker ng-model="long_items[$index].start_execute_datetime"></datetime-picker>
         </div>
     </div>
 
     <div class="col-xs-4">
         <div class="input-group">
             <span class="input-group-addon">停止时间</span>
-            <div ng-repeat="model in [long_items[$index].stop_datetime]" ng-include="'html/widget/datepicker/datetimepicker.html'"></div>
-            <!--<input type="datetime-local" class="form-control" ng-model="long_items[$index].stop_datetime" required>-->
+            <datetime-picker ng-model="long_items[$index].stop_datetime"></datetime-picker>
         </div>
         <div class="input-group">
             <span class="input-group-addon">停止执行医生</span>
@@ -40,8 +38,7 @@
         </div>
         <div class="input-group">
             <span class="input-group-addon">停止执行时间</span>
-            <div ng-repeat="model in [long_items[$index].stop_execute_datetime]" ng-include="'html/widget/datepicker/datetimepicker.html'"></div>
-            <!--<input type="datetime-local" class="form-control" ng-model="long_items[$index].stop_execute_datetime" required>-->
+            <datetime-picker ng-model="long_items[$index].stop_execute_datetime"></datetime-picker>
         </div>
     </div>
     <div class="col-xs-1">

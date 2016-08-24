@@ -9,13 +9,13 @@ app
     .controller("tabsController", function ($scope, $http) {
         $scope.tabs = [
             {title: '患者基本信息', content: 'html/form-tabs/tab-patient-info.html'},
-            //{title: '住院病历记录', content: 'html/form-tabs/tab_hospitalized.html'},
-            //{title: '首次病程记录表', content: 'html/form-tabs/tab_clinical_course.html'},
-            //{title: '手术记录表', content: 'html/form-tabs/tab_surgery.html'},
-            //{title: '术后病程', content: 'html/form-tabs/tab_after_surgery.html'},
-            //{title: '出院记录表', content: 'html/form-tabs/tab_leave.html'},
-            //{title: '长期医嘱记录表', content: 'html/form-tabs/tab_long_medical_orders.html'},
-            //{title: '临时医嘱记录表', content: 'html/form-tabs/tab_temp_medical_orders.html'}
+            {title: '住院病历记录', content: 'html/form-tabs/tab_hospitalized.html'},
+            {title: '首次病程记录表', content: 'html/form-tabs/tab_clinical_course.html'},
+            {title: '手术记录表', content: 'html/form-tabs/tab_surgery.html'},
+            {title: '术后病程', content: 'html/form-tabs/tab_after_surgery.html'},
+            {title: '出院记录表', content: 'html/form-tabs/tab_leave.html'},
+            {title: '长期医嘱记录表', content: 'html/form-tabs/tab_long_medical_orders.html'},
+            {title: '临时医嘱记录表', content: 'html/form-tabs/tab_temp_medical_orders.html'}
         ];
 
         $scope.model = {
@@ -56,7 +56,7 @@ app
         }];
 
         // for debug
-        $scope.patient_info = test_data.tbl_patient_info;
+        //$scope.patient_info = test_data.tbl_patient_info;
         //$scope.clinical_course = test_data.tbl_clinical_course;
         //$scope.hospitalized = test_data.tbl_hospitalized;
         //$scope.surgery = test_data.tbl_surgery;
@@ -98,11 +98,11 @@ app
                 }
             };
 
-            //$http(req).then(function (data) {
-            //    console.log(data)
-            //}).catch(function () {
-            //    console.log("提交失败");
-            //});
+            $http(req).then(function (data) {
+                console.log(data)
+            }).catch(function () {
+                console.log("提交失败");
+            });
         }
     })
     .controller("tabPatientController", function ($scope) {

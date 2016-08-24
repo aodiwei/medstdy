@@ -48,126 +48,97 @@ app.config(['$routeProvider', function ($routeProvider) {
             restrict: "E",
             templateUrl: "../html/widget/datepicker/datepicker.html",
             link: function ($scope, iElm, iAttrs, controllers) {
-                //$scope.buttonBar = {
-                //    show: true,
-                //    now: {
-                //        show: true,
-                //        text: '现在'
-                //    },
-                //    today: {
-                //        show: true,
-                //        text: '今天'
-                //    },
-                //    clear: {
-                //        show: true,
-                //        text: '清除'
-                //    },
-                //    date: {
-                //        show: true,
-                //        text: '日期'
-                //    },
-                //    time: {
-                //        show: true,
-                //        text: '时间'
-                //    },
-                //    close: {
-                //        show: true,
-                //        text: '确定'
-                //    }
-                //};
-                //$scope.picker_date = {
-                //    date: new Date(),
-                //    calendarOptions: {
-                //        showWeeks: false
-                //    },
-                //    enableTime: false,
-                //    buttonBar: {
-                //        show: true,
-                //        now: {
-                //            show: true,
-                //            text: '现在'
-                //        },
-                //        today: {
-                //            show: true,
-                //            text: '今天'
-                //        },
-                //        clear: {
-                //            show: true,
-                //            text: '清除'
-                //        },
-                //        date: {
-                //            show: true,
-                //            text: '日期'
-                //        },
-                //        time: {
-                //            show: true,
-                //            text: '时间'
-                //        },
-                //        close: {
-                //            show: true,
-                //            text: '确定'
-                //        }
-                //    },
-                //};
-                //
-                //
-                //$scope.openCalendar = function (e) {
-                //    $scope.open = true;
-                //};
-                var that = this;
-
                 $scope.buttonBar = {
+                    show: true,
+                    now: {
                         show: true,
-                        now: {
-                            show: true,
-                            text: '现在'
-                        },
-                        today: {
-                            show: true,
-                            text: '今天'
-                        },
-                        clear: {
-                            show: true,
-                            text: '清除'
-                        },
-                        date: {
-                            show: true,
-                            text: '日期'
-                        },
-                        time: {
-                            show: true,
-                            text: '时间'
-                        },
-                        close: {
-                            show: true,
-                            text: '确定'
-                        }
-                };
-                // global config picker
-                this.picker_datetime = {
-                    date: new Date(),
-                    calendarOptions: {
-                        showWeeks: false
+                        text: '现在'
+                    },
+                    today: {
+                        show: true,
+                        text: '今天'
+                    },
+                    clear: {
+                        show: true,
+                        text: '清除'
+                    },
+                    date: {
+                        show: true,
+                        text: '日期'
+                    },
+                    time: {
+                        show: true,
+                        text: '时间'
+                    },
+                    close: {
+                        show: true,
+                        text: '确定'
                     }
                 };
-
                 $scope.picker_date = {
                     date: new Date(),
                     calendarOptions: {
                         showWeeks: false
                     },
-                    open: false,
                     enableTime: false
-
                 };
 
-
-                $scope.openCalendar = function (e, picker) {
-                    $scope.picker_date.open = true;
+                $scope.openCalendar = function (e) {
+                    $scope.open = true;
                 };
-
             }
-        };
+        }
+    })
+    .directive("datetimePicker", function () {
+        return {
+            scope: {
+                bindModel: "=ngModel"
+            },
+            transclude: true,
+            //require: ["^form", "ngModel"],// Array = multiple requires, ? = optional, ^ = check parent elements
+            restrict: "E",
+            templateUrl: "../html/widget/datepicker/datetimepicker.html",
+            link: function ($scope, iElm, iAttrs, controllers) {
+                $scope.buttonBar = {
+                    show: true,
+                    now: {
+                        show: true,
+                        text: '现在'
+                    },
+                    today: {
+                        show: true,
+                        text: '今天'
+                    },
+                    clear: {
+                        show: true,
+                        text: '清除'
+                    },
+                    date: {
+                        show: true,
+                        text: '日期'
+                    },
+                    time: {
+                        show: true,
+                        text: '时间'
+                    },
+                    close: {
+                        show: true,
+                        text: '确定'
+                    }
+                };
+                $scope.picker_datetime = {
+                    date: new Date(),
+                    calendarOptions: {
+                        showWeeks: false
+                    },
+                    enableTime: false
+                };
+
+                $scope.openCalendar = function (e) {
+                    $scope.open = true;
+                };
+            }
+        }
     });
 
 module.exports = app;

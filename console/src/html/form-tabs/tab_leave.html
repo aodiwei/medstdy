@@ -3,15 +3,13 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">入院时间</span>
-                <div ng-repeat="model in [leave.in_date]" ng-include="'html/widget/datepicker/datepicker.html'"></div>
-                <!--<input type="date" class="form-control" ng-model="leave.in_date" required>-->
+                <date-picker ng-model="leave.in_date"></date-picker>
             </div>
         </div>
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">出院时间</span>
-                <div ng-repeat="model in [leave.out_date]" ng-include="'html/widget/datepicker/datepicker.html'"></div>
-                <!--<input type="date" class="form-control" ng-model="leave.out_date" required>-->
+                <date-picker ng-model="leave.out_date"></date-picker>
             </div>
         </div>
     </div>
