@@ -9,6 +9,7 @@
         <age></age>
         <province></province>
         <city></city>
+        <district></district>
         <detail_addr></detail_addr>
         <marriage></marriage>
         <job></job>

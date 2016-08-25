@@ -11,6 +11,7 @@ require('angular-ui-bootstrap');
 require('angular-file-upload');
 require('angular-messages');
 require('bootstrap-ui-datetime-picker');
+require('angular-material');
 
 //custom js
 require('./app');
@@ -24,6 +25,7 @@ require('../config/division.js');
 require('../config/test_data.js');
 
 require('./datepicker');
+require('./modal_dialog');
 
 require('../html/nav/left_nav.html');
 require('../html/nav/top_nav.html');
@@ -47,6 +49,7 @@ require('../html/widget/long_medical_orders.html');
 require('../html/widget/temp_medical_orders.html');
 require('../html/widget/datepicker/datepicker.html');
 require('../html/widget/datepicker/datetimepicker.html');
+require('../html/widget/modal_dialog.html');
 
 
 require('../css/app.css');

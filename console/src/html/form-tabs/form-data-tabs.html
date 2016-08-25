@@ -1,15 +1,27 @@
 <form ng-controller="tabsController" name="form_data" ng-submit="submit()">
-    <uib-tabset active="active" >
-        <!--<uib-tab index="0" heading="Static title">Static content</uib-tab>-->
-        <uib-tab index="$index + 1" ng-repeat="tab in tabs" heading="{{tab.title}}">
-            <ng-include src="tab.content"></ng-include>
-        </uib-tab>
-        <!--<uib-tab index="3" select="alertMe()">-->
-            <!--<uib-tab-heading>-->
+    <div class="row">
+        <div class="col-xs-12">
+            <uib-tabset active="active">
+                <!--<uib-tab index="0" heading="Static title">Static content</uib-tab>-->
+                <uib-tab index="$index + 1" ng-repeat="tab in tabs" heading="{{tab.title}}">
+                    <ng-include src="tab.content"></ng-include>
+                </uib-tab>
+                <!--<uib-tab index="3" select="alertMe()">-->
+                <!--<uib-tab-heading>-->
                 <!--<i class="glyphicon glyphicon-bell"></i> Alert!-->
-            <!--</uib-tab-heading>-->
-            <!--I've got an HTML heading, and a select callback. Pretty cool!-->
-        <!--</uib-tab>-->
-    </uib-tabset>
-    <button type="submit" class="btn btn-success btn-top" ng-disabled="form_data.$invalid">提交</button>
+                <!--</uib-tab-heading>-->
+                <!--I've got an HTML heading, and a select callback. Pretty cool!-->
+                <!--</uib-tab>-->
+            </uib-tabset>
+            <button type="submit" class="btn btn-success btn-top" ng-disabled="form_data.$invalid">提交</button>
+        </div>
+    </div>
+
+    <div class="row form-line">
+        <div class="col-xs-8 ">
+            <div uib-alert class="alert-danger" ng-show="form_data.$invalid">还未完成数据录入，请检查各数据项是否完成输入</div>
+            <div uib-alert class="alert-success" ng-hide="form_data.$invalid">数据输入完成，请检查各数据项无误后点击提交按钮提交数据</div>
+        </div>
+    </div>
+    <div ng-include="'html/widget/modal_dialog.html'"></div>
 </form>

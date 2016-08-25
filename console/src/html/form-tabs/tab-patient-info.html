@@ -24,7 +24,8 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">性别</span>
-                <select class="form-control" ng-model="patient_info.sex" ng-options="o as o for o in selected.sex" required></select>
+                <select class="form-control" ng-model="patient_info.sex" ng-options="o as o for o in selected.sex"
+                        required></select>
             </div>
         </div>
     </div>
@@ -51,7 +52,6 @@
                 <select required class="form-control" ng-model="patient_info.province"
                         ng-options="key as key for (key,value) in selected.division"
                         ng-change="city='';" required>
-                    <!--address.district='';-->
                     <option value="">省</option>
                 </select>
             </div>
@@ -59,10 +59,9 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">城市</span>
-                <!--<input type="text" class="form-control" ng-model="patient_info.city">-->
                 <select class="form-control" ng-model="patient_info.city"
                         ng-options="key as key for (key,value) in selected.division[patient_info.province]" required>
-                    <!--ng-change="address.district='';"-->
+                    ng-change="patient_info.district='';"
                     <option value="">市</option>
                 </select>
             </div>
@@ -70,7 +69,17 @@
     </div>
 
     <div class="row form-line">
-        <div class="col-xs-10">
+        <div class="col-xs-5">
+            <div class="input-group">
+                <span class="input-group-addon">县/区</span>
+                <select class="form-control" ng-model="patient_info.district"
+                        ng-options="key for key in selected.division[patient_info.province][patient_info.city]"
+                        required>
+                    <option value="">县</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">详细地址</span>
                 <input type="text" class="form-control" ng-model="patient_info.detail_addr" required>
@@ -82,7 +91,8 @@
         <div class="col-xs-5">
             <div class="input-group">
                 <span class="input-group-addon">婚姻</span>
-                <select class="form-control" ng-model="patient_info.marriage" ng-options="o as o for o in selected.marriage" required></select>
+                <select class="form-control" ng-model="patient_info.marriage"
+                        ng-options="o as o for o in selected.marriage" required></select>
             </div>
         </div>
         <div class="col-xs-5">
