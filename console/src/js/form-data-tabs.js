@@ -6,7 +6,7 @@ var app = require('./app.js');
 var division_conf = require('../config/division.js');
 var test_data = require('../config/test_data.js');
 app
-    .controller("tabsController", function ($scope, $http) {
+    .controller("tabsController", function ($scope, $http, ngDialog) {
         $scope.tabs = [
             {title: '患者基本信息', content: 'html/form-tabs/tab-patient-info.html'},
             {title: '住院病历记录', content: 'html/form-tabs/tab_hospitalized.html'},
@@ -22,51 +22,67 @@ app
             name: 'Tabs'
         };
 
-        $scope.patient_info = {};
-        $scope.hospitalized = {};
-        $scope.clinical_course = {};
-        $scope.after_surgery = {};
-        $scope.surgery = {};
-        $scope.leave = {};
-        $scope.long_medical_orders = {};
-        $scope.temp_medical_orders = {};
+        //模态对话框
+        $scope.openTimed = function (modalTip, type) {
+            var dialog = ngDialog.open({
+                template: modalTip,
+                plain: true,
+                closeByDocument: false,
+                closeByEscape: false,
+                className: 'ngdialog-theme-default ' + type,
+            });
+            setTimeout(function () {
+                dialog.close();
+            }, 2000);
+        };
 
-        $scope.check_record = [{date: "", content: ""}];
-        $scope.description = [{date: "", content: ""}];
+        $scope.initForm = function(){
+            //表
+            $scope.patient_info = {};
+            $scope.hospitalized = {};
+            $scope.clinical_course = {};
+            $scope.after_surgery = {};
+            $scope.surgery = {};
+            $scope.leave = {};
+            $scope.long_medical_orders = {};
+            $scope.temp_medical_orders = {};
 
-        $scope.long_items = [{
-            start_datetime: "",
-            medical_order: "",
-            start_execute_doctor: "",
-            start_execute_nurse: "",
-            start_execute_datetime: "",
-            stop_datetime: "",
-            stop_execute_doctor: "",
-            stop_execute_nurse: "",
-            stop_execute_datetime: ""
-        }];
+            // 动态增加的条目
+            $scope.check_record = [{date: "", content: ""}];
+            $scope.description = [{date: "", content: ""}];
+            $scope.long_items = [{
+                start_datetime: "",
+                medical_order: "",
+                start_execute_doctor: "",
+                start_execute_nurse: "",
+                start_execute_datetime: "",
+                stop_datetime: "",
+                stop_execute_doctor: "",
+                stop_execute_nurse: "",
+                stop_execute_datetime: ""
+            }];
+            $scope.temp_items = [{
+                start_datetime: "",
+                medical_order: "",
+                start_execute_doctor: "",
+                start_execute_nurse: "",
+                start_execute_datetime: "",
+                checker: "",
+            }];
+        };
 
-        $scope.temp_items = [{
-            start_datetime: "",
-            medical_order: "",
-            start_execute_doctor: "",
-            start_execute_nurse: "",
-            start_execute_datetime: "",
-            checker: "",
-        }];
+        $scope.initForm();
 
-        // for debug
-        //$scope.patient_info = test_data.tbl_patient_info;
-        //$scope.clinical_course = test_data.tbl_clinical_course;
-        //$scope.hospitalized = test_data.tbl_hospitalized;
-        //$scope.surgery = test_data.tbl_surgery;
-        //$scope.after_surgery = test_data.tbl_after_surgery;
-        //$scope.leave = test_data.tbl_leave;
-        //
-        //$scope.check_record = test_data.tbl_clinical_course.check_record;
-        //$scope.long_items = test_data.tbl_long_medical_orders.items;
-        //$scope.temp_items = test_data.tbl_temp_medical_orders.items;
-        //$scope.patient_info.birthday = "x";
+         //for debug
+        $scope.patient_info = test_data.tbl_patient_info;
+        $scope.clinical_course = test_data.tbl_clinical_course;
+        $scope.hospitalized = test_data.tbl_hospitalized;
+        $scope.surgery = test_data.tbl_surgery;
+        $scope.after_surgery = test_data.tbl_after_surgery;
+        $scope.leave = test_data.tbl_leave;
+        $scope.check_record = test_data.tbl_clinical_course.check_record;
+        $scope.long_items = test_data.tbl_long_medical_orders.items;
+        $scope.temp_items = test_data.tbl_temp_medical_orders.items;
 
         $scope.submit = function () {
             $scope.clinical_course["check_record"] = $scope.check_record;
@@ -99,9 +115,13 @@ app
             };
 
             $http(req).then(function (data) {
-                console.log(data)
+                var modalTip = "<p>提交成功</p>";
+                $scope.openTimed(modalTip, "custom-success");
+                $scope.initForm();
             }).catch(function () {
                 console.log("提交失败");
+                var modalTip = "<p>提交失败</p>";
+                $scope.openTimed(modalTip, "custom-fail");
             });
         }
     })

@@ -7,7 +7,7 @@ var app = angular.module('medApp', [
     'ui.bootstrap',
     'ngMessages',
     'ui.bootstrap.datetimepicker',
-    'ngMaterial'
+    'ngDialog'
 ]);
 app.config(['$routeProvider', function ($routeProvider) {
         $routeProvider
@@ -27,7 +27,6 @@ app.config(['$routeProvider', function ($routeProvider) {
                 redirectTo: '/login'
             })
     }])
-
     .run(['$rootScope', 'auth', function ($rootScope, auth) {
         $rootScope.$on('$locationChangeStart', locationChangeStart);
 
@@ -45,7 +44,6 @@ app.config(['$routeProvider', function ($routeProvider) {
                 bindModel: "=ngModel",
             },
             transclude: true,
-            //require: ["^form", "ngModel"],// Array = multiple requires, ? = optional, ^ = check parent elements
             restrict: "E",
             templateUrl: "../html/widget/datepicker/datepicker.html",
             link: function ($scope, iElm, iAttrs, controllers) {
@@ -95,7 +93,7 @@ app.config(['$routeProvider', function ($routeProvider) {
             scope: {
                 bindModel: "=ngModel"
             },
-            transclude: true,
+            //transclude: true,
             //require: ["^form", "ngModel"],// Array = multiple requires, ? = optional, ^ = check parent elements
             restrict: "E",
             templateUrl: "../html/widget/datepicker/datetimepicker.html",
@@ -141,5 +139,6 @@ app.config(['$routeProvider', function ($routeProvider) {
             }
         }
     });
+
 
 module.exports = app;

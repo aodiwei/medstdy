@@ -83,3 +83,15 @@ body {
   padding-left: 25px;
   padding-right: 25px;
 }
+
+
+/*Ä£Ì¬¿ò*/
+.ngdialog.ngdialog-theme-default.custom-success .ngdialog-content {
+    background: #8bc220;
+    color: white;
+}
+
+.ngdialog.ngdialog-theme-default.custom-fail .ngdialog-content {
+    background: yellow;
+    color: black;
+}
