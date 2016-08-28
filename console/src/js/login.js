@@ -2,7 +2,7 @@
 var app = require('./app.js');
 
 app
-    .controller('loginController', function ($scope, $http, $location, fData) {
+    .controller('loginController', function ($scope, $http, $location, fData, modal) {
         $scope.user = {};
         $scope.sign = function () {
             var config = {
@@ -10,12 +10,14 @@ app
                 method: 'POST',
                 params: {user_name: $scope.user.account, password: $scope.user.password}
             };
-            $http(config).success(function () {
+            $http(config).success(function (data) {
                 //alert("登录成功");
-                fData.setAccount($scope.user.account);
+                console.log(data);
+                fData.setUserInfo(data);
+                modal.openTimed("登录成功", modal.type.success);
                 $location.path("/upload-data");
             }).error(function () {
-                alert("登录失败");
+                modal.openTimed("登录失败", modal.type.failed);
             });
         };
     })
@@ -42,26 +44,6 @@ app
             }
         ];
 
-    })
-    .controller('mainController', function ($scope, auth) {
-        auth.auth().then(function(){
-                 $scope.leftView = true;
-                 $scope.isActive = true;
-            }).catch(function(){
-                 $scope.leftView = false;
-                 $scope.isActive = false;
-            });
-        //$scope.leftViewFun = function(){
-        //
-        //};
-        //$scope.leftView = $scope.leftViewFun();
-        //$scope.isActive = $scope.leftViewFun();
-        //if(!res){
-        //    $scope.leftView = false;
-        //    $scope.isActive = false;
-        //}else {
-        //    $scope.leftView = true;
-        //    $scope.isActive = true;
-        //}
     });
+
 

@@ -1,5 +1,5 @@
 <div class="col-sm-3" ng-show="left_nav()" ng-controller="leftNavController">
-    <div class="sidebar-nav">
+    <div class="sidebar-nav letf_nav_layout">
         <div class="navbar navbar-default" role="navigation">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" ng-init="isCollapsed=true"
@@ -21,11 +21,11 @@
                         <img src="img/user-head.png" class="user-avatar"/><br/>
                         <a ng-click="logout()" class="btn btn-white btn-outline btn-rounded btn-sm">Logout</a>
                     </div>
-                    <li ng-class="{active: isActive('/upload-data')}"><a href="#/upload-data">上传数据</a></li>
-                    <li ng-class="{active: isActive('/form-data')}"><a href="#/form-data">录入数据</a></li>
+                    <li ng-class="{active: isActive('/upload-data')}"><a href="#/upload-data"><span class="glyphicon glyphicon-folder-open"></span>&nbsp;&nbsp;&nbsp;上传数据</a></li>
+                    <li ng-class="{active: isActive('/form-data')}"><a href="#/form-data"><span class="glyphicon glyphicon-log-in"></span>&nbsp;&nbsp;&nbsp;录入数据</a></li>
                     <li class="divider"></li>
                     <!--<li ng-class="{active: isActive('/upload-data')}"><a href="#/form-data">Menu Item 3</a></li>-->
-                    <li><a>Reviews <span class="badge">1,118</span></a></li>
+                    <li ng-class="{active: isActive('/register')}" ng-show="role()=='admin'"><a href="#/register"><span class="glyphicon glyphicon-registration-mark"></span>&nbsp;&nbsp;&nbsp;注册账号</a></li>
                 </ul>
             </div>
         </div>

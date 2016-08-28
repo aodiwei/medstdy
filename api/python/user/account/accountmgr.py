@@ -17,7 +17,7 @@ import config
 import define
 from db.dbclass import TbUser, TbCookies
 from logs import LoggerMgr, CustomMgrError
-from tools.utility import Utility
+from tools.utility import Utility, CONST
 log = LoggerMgr.getLogger()
 
 
@@ -67,9 +67,9 @@ class AccountMgr(object):
         """
         p = re.compile(r"^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$")
         if p.match(kwargs["user_name"]):  # email
-            result = self.__db_session.query(TbUser.password, TbUser.uid).filter(TbUser.email == kwargs["user_name"]).first()
+            result = self.__db_session.query(TbUser).filter(TbUser.email == kwargs["user_name"]).first()
         else:
-            result = self.__db_session.query(TbUser.password, TbUser.uid).filter(TbUser.account == kwargs["user_name"]).first()
+            result = self.__db_session.query(TbUser).filter(TbUser.account == kwargs["user_name"]).first()
         if result is None:
             raise CustomMgrError(define.C_CAUSE_accountNotExisted)
         m = hashlib.md5()
@@ -77,7 +77,14 @@ class AccountMgr(object):
         encryopted_password = m.hexdigest()
         if result.password == encryopted_password:
             log.info("{} login success".format(kwargs["user_name"]))
-            return result.uid
+            return {
+                "uid": result.uid,
+                "email": result.email,
+                "account": result.account,
+                "role": result.role,
+                "image": result.image,
+                "create_time": result.create_time.strftime(CONST.LOCAL_FORMAT),
+            }
         else:
             log.warning("{0} login failed with wrong password".format(kwargs["user_name"]))
             return None
@@ -143,9 +150,7 @@ class AccountMgr(object):
         :param uid:
         :return:
         """
-        result = self.__db_session.query(TbUser.account, TbUser.email, TbUser.uid, TbUser.create_time, TbUser.image).\
-            filter(TbUser.uid == uid).first()
-
+        result = self.__db_session.query(TbUser).filter(TbUser.uid == uid).first()
         if result:
             response = {
                 "uid": result.uid,
@@ -153,6 +158,7 @@ class AccountMgr(object):
                 "email": result.email,
                 "create_time": str(result.create_time),
                 "image": result.image,
+                "role": result.role
             }
         else:
             response = None

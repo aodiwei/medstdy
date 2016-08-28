@@ -23,6 +23,10 @@ app.config(['$routeProvider', function ($routeProvider) {
                 templateUrl: 'html/form-tabs/form-data-tabs.html',
                 //controller: 'uploadController'
             })
+            .when('/register', {
+                templateUrl: 'html/admin/register.html',
+                //controller: 'uploadController'
+            })
             .otherwise({
                 redirectTo: '/login'
             })

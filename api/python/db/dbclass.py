@@ -23,6 +23,7 @@ class TbUser(BaseModel):
     account = Column(String(255))
     email = Column(String(50))
     password = Column(String(50))
+    role = Column(String(20))
     image = Column(String(255))
     create_time = Column(DateTime)
 

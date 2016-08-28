@@ -1,0 +1,59 @@
+<form ng-controller="registerController" name="register" ng-submit="registerFun()">
+    <div class="row form-line">
+        <div class="col-xs-6 col-xs-offset-1">
+            <div class="input-group">
+                <span class="input-group-addon">用户名</span>
+                <input type="text" class="form-control" ng-model="register_info.account" required>
+            </div>
+        </div>
+    </div>
+    <div class="row form-line">
+        <div class="col-xs-6 col-xs-offset-1">
+            <div class="input-group">
+                <span class="input-group-addon">邮箱</span>
+                <input type="email" class="form-control" ng-model="register_info.email" name="email" required>
+            </div>
+            <div ng-messages="register.email.$dirty&&register.email.$error" role="alert">
+              <div ng-message="email" style="color: red;">请输入有效邮箱</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row form-line">
+        <div class="col-xs-6 col-xs-offset-1">
+            <div class="input-group">
+                <span class="input-group-addon">密码</span>
+                <input type="password" class="form-control" ng-model="register_info.password" name="password" ng-pattern="/^[a-zA-Z]\w{5,17}$/" required>
+            </div>
+        </div>
+        <div ng-messages="register.password.$dirty&&register.password.$error" role="alert">
+          <div ng-message="pattern" style="color: red;">密码必须是英文字母开头，并由英文字母和数字组成,至少6位</div>
+        </div>
+    </div>
+    <div class="row form-line">
+        <div class="col-xs-6 col-xs-offset-1">
+            <div class="input-group">
+                <span class="input-group-addon">确认密码</span>
+                <input type="password" class="form-control" ng-model="register_info.password_confirm" name="password_confirm" ng-pattern="{{register_info.password}}" required>
+            </div>
+        </div>
+        <div ng-messages="register.password_confirm.$dirty&&register.password_confirm.$error" role="alert">
+          <div ng-message="pattern" style="color: red;">请确认密码一致</div>
+        </div>
+    </div>
+
+    <div class="row form-line">
+        <div class="col-xs-6 col-xs-offset-1">
+            <div class="input-group">
+                <span class="input-group-addon">角色</span>
+                <select class="form-control" ng-model="register_info.role" ng-options="role.value as role.option for role in selected.roles" required></select>
+            </div>
+        </div>
+    </div>
+    <div class="row form-line">
+        <div class="col-xs-offset-6">
+            <button type="submit" class="btn btn-success" ng-disabled="register.$invalid||btnDisable">提交</button>
+        </div>
+    </div>
+
+</form>

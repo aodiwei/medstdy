@@ -1,0 +1,1 @@
+ALTER TABLE tbl_user ADD COLUMN role CHAR(20) NOT NULL DEFAULT "worker";

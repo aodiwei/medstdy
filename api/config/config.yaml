@@ -55,6 +55,7 @@ solr_fields:
   age
   province
   city
+  district
   detail_addr
   marriage
   job

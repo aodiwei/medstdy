@@ -6,37 +6,24 @@ var app = require('./app.js');
 var division_conf = require('../config/division.js');
 var test_data = require('../config/test_data.js');
 app
-    .controller("tabsController", function ($scope, $http, ngDialog) {
+    .controller("tabsController", function ($scope, $http, modal) {
         $scope.tabs = [
-            {title: '患者基本信息', content: 'html/form-tabs/tab-patient-info.html'},
-            {title: '住院病历记录', content: 'html/form-tabs/tab_hospitalized.html'},
-            {title: '首次病程记录表', content: 'html/form-tabs/tab_clinical_course.html'},
-            {title: '手术记录表', content: 'html/form-tabs/tab_surgery.html'},
-            {title: '术后病程', content: 'html/form-tabs/tab_after_surgery.html'},
-            {title: '出院记录表', content: 'html/form-tabs/tab_leave.html'},
-            {title: '长期医嘱记录表', content: 'html/form-tabs/tab_long_medical_orders.html'},
-            {title: '临时医嘱记录表', content: 'html/form-tabs/tab_temp_medical_orders.html'}
+            {title: '患者基本信息', content: 'html/form-tabs/tab-patient-info.html', icon: 'glyphicon-user'},
+            {title: '住院病历记录', content: 'html/form-tabs/tab_hospitalized.html', icon: 'glyphicon-dashboard'},
+            {title: '首次病程记录表', content: 'html/form-tabs/tab_clinical_course.html', icon: 'glyphicon-check'},
+            {title: '手术记录表', content: 'html/form-tabs/tab_surgery.html', icon: 'glyphicon-heart'},
+            {title: '术后病程', content: 'html/form-tabs/tab_after_surgery.html', icon: 'glyphicon-book'},
+            {title: '出院记录表', content: 'html/form-tabs/tab_leave.html', icon: 'glyphicon-edit'},
+            {title: '长期医嘱记录表', content: 'html/form-tabs/tab_long_medical_orders.html', icon: 'glyphicon-list-alt'},
+            {title: '临时医嘱记录表', content: 'html/form-tabs/tab_temp_medical_orders.html', icon: 'glyphicon-list'}
         ];
 
         $scope.model = {
             name: 'Tabs'
         };
 
-        //模态对话框
-        $scope.openTimed = function (modalTip, type) {
-            var dialog = ngDialog.open({
-                template: modalTip,
-                plain: true,
-                closeByDocument: false,
-                closeByEscape: false,
-                className: 'ngdialog-theme-default ' + type,
-            });
-            setTimeout(function () {
-                dialog.close();
-            }, 2000);
-        };
-
         $scope.initForm = function(){
+            $scope.btnDisable = false;
             //表
             $scope.patient_info = {};
             $scope.hospitalized = {};
@@ -85,6 +72,7 @@ app
         $scope.temp_items = test_data.tbl_temp_medical_orders.items;
 
         $scope.submit = function () {
+            $scope.btnDisable = true;
             $scope.clinical_course["check_record"] = $scope.check_record;
             $scope.after_surgery["description"] = $scope.description;
             $scope.long_medical_orders["items"] = $scope.long_items;
@@ -115,13 +103,15 @@ app
             };
 
             $http(req).then(function (data) {
+                $scope.btnDisable = false;
                 var modalTip = "<p>提交成功</p>";
-                $scope.openTimed(modalTip, "custom-success");
+                modal.openTimed(modalTip, modal.type.success);
                 $scope.initForm();
             }).catch(function () {
+                $scope.btnDisable = false;
                 console.log("提交失败");
                 var modalTip = "<p>提交失败</p>";
-                $scope.openTimed(modalTip, "custom-fail");
+                modal.openTimed(modalTip, modal.type.failed);
             });
         }
     })

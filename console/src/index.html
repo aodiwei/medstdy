@@ -21,7 +21,7 @@
 <body>
 
 <div ng-include="'html/nav/top_nav.html'"></div>
-<div class="row">
+<div class="row row-hidden-overflow">
     <div ng-include="'html/nav/left_nav.html'"></div>
     <div ng-controller="contentController">
     <div ng-class="{true: 'col-sm-9', false: 'col-sm-12'}[left_nav()]">

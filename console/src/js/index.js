@@ -20,6 +20,7 @@ require('./upload-data');
 require('./service');
 require('./left_nav');
 require('./form-data-tabs');
+require('./register');
 require('../config/angular-locale_zh-cn');
 require('../config/division.js');
 require('../config/test_data.js');
@@ -31,6 +32,8 @@ require('../html/nav/top_nav.html');
 
 require('../html/login.html');
 require('../html/upload-data.html');
+
+require('../html/admin/register.html');
 
 require('../html/form-tabs/form-data-tabs.html');
 require('../html/form-tabs/tab-patient-info.html');

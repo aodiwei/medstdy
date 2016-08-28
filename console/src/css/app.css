@@ -80,12 +80,22 @@ body {
 }
 
 .edgePadding {
-  padding-left: 25px;
-  padding-right: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 
+.letf_nav_layout {
+    background-color: #333333;
+    padding-bottom: 400px;
+}
 
-/*ģ̬��*/
+@media (max-width: 767px) {
+    .letf_nav_layout {
+        padding-bottom: 0;
+    }
+}
+
+/*ģ̬��*/
 .ngdialog.ngdialog-theme-default.custom-success .ngdialog-content {
     background: #8bc220;
     color: white;

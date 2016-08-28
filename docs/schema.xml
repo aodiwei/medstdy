@@ -12,6 +12,7 @@
     <field name="age" type="int" indexed="true" stored="true" />
     <field name="province" type="text_general" indexed="true" stored="true"/>
     <field name="city" type="text_general" indexed="true" stored="true"/>
+    <field name="district" type="text_general" indexed="true" stored="true"/>
     <field name="detail_addr" type="text_general" indexed="true" stored="true"/>
     <field name="marriage" type="text_general" indexed="true" stored="true"/>
     <field name="job" type="text_general" indexed="true" stored="true"/>

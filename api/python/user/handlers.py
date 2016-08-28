@@ -68,10 +68,21 @@ class RegisterHandler(UserBaseHandler):
         if not p.match(password):
             raise CustomHTTPError(400, "invalid password")
 
+        password_confirm = self.get_argument("password_confirm")
+        if password != password_confirm:
+            raise CustomHTTPError(400, "password confirm failed")
+
         account = self.get_argument("account")
+        role = self.get_argument("role")
         image = self.get_argument("image", None)
 
-        info = {"email": email, "password": password, "account": account, "image": image,}
+        info = {
+            "email": email,
+            "password": password,
+            "account": account,
+            "image": image,
+            "role": role,
+        }
         try:
             user_mgr = AccountMgr(db_session=self.db_session)
             user_mgr.register(**info)
@@ -86,8 +97,8 @@ class LoginHandler(UserBaseHandler):
         info = {"user_name": user_name, "password": password, "timestamp": time.time(),}
         try:
             user_mgr = AccountMgr(db_session=self.db_session)
-            uid = user_mgr.login(**info)
-            if not uid:
+            user_info = user_mgr.login(**info)
+            if not user_info:
                 raise CustomHTTPError(401, error=define.C_EC_auth, cause=define.C_CAUSE_wrongPassword)
         except CustomMgrError, e:
             raise CustomHTTPError(401, error=define.C_EC_auth, cause=define.C_CAUSE_accountNotExisted)
@@ -96,11 +107,13 @@ class LoginHandler(UserBaseHandler):
         self.set_secure_cookie(self.C_COOKIE, rand_str)
         info["cookie"] = rand_str  # self.get_secure_cookie(self.C_COOKIE)
         try:
-            info["uid"] = uid
+            info["uid"] = user_info["uid"]
             info.pop("password")
             user_mgr.cookie_cache(**info)
         except CustomMgrError, e:
             raise CustomHTTPError(401, error=define.C_EC_cacheError, cause=e.message)
+
+        self.write(user_info)
 
 
 class LogoutHandler(UserBaseHandler):
@@ -198,4 +211,10 @@ class AuthHandler(UserBaseHandler):
     """
     @tornado.web.authenticated
     def get(self):
-        pass
+        user = self.get_current_user()
+        user_uid = user.get("uid")
+        user_mgr = AccountMgr(db_session=self.db_session)
+        user_info = user_mgr.get_user_info(user_uid)
+        if not user_info:
+            raise CustomHTTPError(401, error=define.C_EC_userMissing, cause=define.C_CAUSE_accountNotExisted)
+        self.write(user_info)

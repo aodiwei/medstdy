@@ -7,6 +7,7 @@ app
     .controller("leftNavController", function ($scope, $http, $location, fData) {
         $scope.left_nav = fData.getLeftNav;
         $scope.account = fData.getAccount;
+        $scope.role = fData.getRole;
 
         $scope.isActive = function (viewLocation) {
             return viewLocation === $location.path();
