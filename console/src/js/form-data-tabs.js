@@ -61,15 +61,15 @@ app
         $scope.initForm();
 
          //for debug
-        $scope.patient_info = test_data.tbl_patient_info;
-        $scope.clinical_course = test_data.tbl_clinical_course;
-        $scope.hospitalized = test_data.tbl_hospitalized;
-        $scope.surgery = test_data.tbl_surgery;
-        $scope.after_surgery = test_data.tbl_after_surgery;
-        $scope.leave = test_data.tbl_leave;
-        $scope.check_record = test_data.tbl_clinical_course.check_record;
-        $scope.long_items = test_data.tbl_long_medical_orders.items;
-        $scope.temp_items = test_data.tbl_temp_medical_orders.items;
+        //$scope.patient_info = test_data.tbl_patient_info;
+        //$scope.clinical_course = test_data.tbl_clinical_course;
+        //$scope.hospitalized = test_data.tbl_hospitalized;
+        //$scope.surgery = test_data.tbl_surgery;
+        //$scope.after_surgery = test_data.tbl_after_surgery;
+        //$scope.leave = test_data.tbl_leave;
+        //$scope.check_record = test_data.tbl_clinical_course.check_record;
+        //$scope.long_items = test_data.tbl_long_medical_orders.items;
+        //$scope.temp_items = test_data.tbl_temp_medical_orders.items;
 
         $scope.submit = function () {
             $scope.btnDisable = true;
