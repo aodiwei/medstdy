@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <root>
-    <tbl_user_info>
+    <tbl_patient_info>
         <medical_id></medical_id>
         <name></name>
         <identity></identity>
@@ -16,7 +16,7 @@
         <in_date></in_date>
         <out_date></out_date>
         <outpatient></outpatient>
-    </tbl_user_info>
+    </tbl_patient_info>
 
     <tbl_hospitalized>
         <complain></complain>
@@ -57,6 +57,7 @@
         <narcosis_way></narcosis_way>
         <description></description>
         <surgery_date></surgery_date>
+        <instrument_nurses></instrument_nurses>
     </tbl_surgery>
 
     <tbl_after_surgery>
@@ -90,9 +91,9 @@
             <start_execute_nurse></start_execute_nurse>
             <start_execute_datetime></start_execute_datetime>
             <stop_datetime></stop_datetime>
-            <stop__execute_doctor></stop__execute_doctor>
-            <stop__execute_nurse></stop__execute_nurse>
-            <stop__execute_datetime></stop__execute_datetime>
+            <stop_execute_doctor></stop_execute_doctor>
+            <stop_execute_nurse></stop_execute_nurse>
+            <stop_execute_datetime></stop_execute_datetime>
         </item>
         <item>
             .......根据数量增加
