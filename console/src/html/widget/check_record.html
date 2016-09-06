@@ -8,12 +8,16 @@
         </div>
     </div>
     <div class="col-xs-1">
-        <br>
-        <button class="button button-action button-circle button-small button-glow" ng-click="addRecord()"><i
-                class="fa fa-plus"></i></button>
-        <button class="button button-primary button-box button-small"><i>{{$index + 1}}</i></button>
-        <button class="button button-highlight button-circle button-small button-glow"
-                ng-click="delRecord($index)" ng-hide="$index==0">
-            <i class="fa fa-minus"></i></button>
+        <div class="row">
+            <button class="button button-action button-circle button-small button-glow" ng-click="addRecord()"><i class="fa fa-plus"></i></button>
+        </div>
+        <div class="row">
+            <button class="button button-primary button-box button-small"><i>{{$index + 1}}</i></button>
+        </div>
+        <div class="row">
+            <button class="button button-highlight button-circle button-small button-glow"
+                    ng-click="delRecord($index)" ng-hide="$index==0">
+                <i class="fa fa-minus"></i></button>
+        </div>
     </div>
 </div>
