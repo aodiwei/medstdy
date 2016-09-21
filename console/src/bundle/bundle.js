@@ -60,35 +60,37 @@
 	//node_modules
 
 	__webpack_require__(2);
+	__webpack_require__(4);
 	__webpack_require__(6);
 	__webpack_require__(8);
-	__webpack_require__(10);
+	__webpack_require__(9);
 	__webpack_require__(11);
-	__webpack_require__(13);
 	//require('ng-dialog');
 
 	//custom js
+	__webpack_require__(12);
+	__webpack_require__(13);
 	__webpack_require__(14);
 	__webpack_require__(15);
 	__webpack_require__(16);
 	__webpack_require__(17);
-	__webpack_require__(18);
-	__webpack_require__(19);
-	__webpack_require__(22);
-	__webpack_require__(23);
 	__webpack_require__(20);
 	__webpack_require__(21);
+	__webpack_require__(18);
+	__webpack_require__(19);
 
+	__webpack_require__(22);
+
+	__webpack_require__(23);
 	__webpack_require__(24);
 
 	__webpack_require__(25);
 	__webpack_require__(26);
 
 	__webpack_require__(27);
+
 	__webpack_require__(28);
-
 	__webpack_require__(29);
-
 	__webpack_require__(30);
 	__webpack_require__(31);
 	__webpack_require__(32);
@@ -96,25 +98,23 @@
 	__webpack_require__(34);
 	__webpack_require__(35);
 	__webpack_require__(36);
+
 	__webpack_require__(37);
 	__webpack_require__(38);
-
 	__webpack_require__(39);
 	__webpack_require__(40);
 	__webpack_require__(41);
 	__webpack_require__(42);
-	__webpack_require__(43);
-	__webpack_require__(44);
 
-	__webpack_require__(45);
-	__webpack_require__(49);
+	__webpack_require__(43);
+	__webpack_require__(47);
 
 	//ngDialog
+	__webpack_require__(49);
+	__webpack_require__(51);
 	__webpack_require__(53);
 	__webpack_require__(55);
 	__webpack_require__(57);
-	__webpack_require__(59);
-	__webpack_require__(61);
 
 /***/ },
 /* 2 */
@@ -31898,17 +31898,15 @@
 	!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ },
-/* 4 */,
-/* 5 */,
-/* 6 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(7);
+	__webpack_require__(5);
 	module.exports = 'ngRoute';
 
 
 /***/ },
-/* 7 */
+/* 5 */
 /***/ function(module, exports) {
 
 	/**
@@ -32983,16 +32981,16 @@
 
 
 /***/ },
-/* 8 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(9);
+	__webpack_require__(7);
 
 	module.exports = 'ui.bootstrap';
 
 
 /***/ },
-/* 9 */
+/* 7 */
 /***/ function(module, exports) {
 
 	/*
@@ -40465,7 +40463,7 @@
 	angular.module('ui.bootstrap.typeahead').run(function() {!angular.$$csp().noInlineStyle && !angular.$$uibTypeaheadCss && angular.element(document).find('head').prepend('<style type="text/css">[uib-typeahead-popup].dropdown-menu{display:block;}</style>'); angular.$$uibTypeaheadCss = true; });
 
 /***/ },
-/* 10 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -40477,15 +40475,15 @@
 	//# sourceMappingURL=angular-file-upload.min.js.map
 
 /***/ },
-/* 11 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(12);
+	__webpack_require__(10);
 	module.exports = 'ngMessages';
 
 
 /***/ },
-/* 12 */
+/* 10 */
 /***/ function(module, exports) {
 
 	/**
@@ -41230,7 +41228,7 @@
 
 
 /***/ },
-/* 13 */
+/* 11 */
 /***/ function(module, exports) {
 
 	// https://github.com/Gillardo/bootstrap-ui-datetime-picker
@@ -41895,7 +41893,7 @@
 
 
 /***/ },
-/* 14 */
+/* 12 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -42031,12 +42029,12 @@
 	module.exports = app;
 
 /***/ },
-/* 15 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var app = __webpack_require__(14);
+	var app = __webpack_require__(12);
 
 	app.controller('loginController', function ($scope, $http, $location, fData, modal) {
 	    $scope.user = {};
@@ -42076,12 +42074,12 @@
 	});
 
 /***/ },
-/* 16 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var app = __webpack_require__(14);
+	var app = __webpack_require__(12);
 
 	app.controller('uploadController', function ($scope, $location, FileUploader) {
 	    var uploader = $scope.uploader = new FileUploader({
@@ -42134,7 +42132,7 @@
 	});
 
 /***/ },
-/* 17 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -42143,7 +42141,7 @@
 
 	'use strict';
 
-	var app = __webpack_require__(14);
+	var app = __webpack_require__(12);
 
 	app.service('auth', function ($location, $http, $q, fData) {
 	    this.auth = function () {
@@ -42240,7 +42238,7 @@
 	});
 
 /***/ },
-/* 18 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -42248,7 +42246,7 @@
 	 */
 	'use strict';
 
-	var app = __webpack_require__(14);
+	var app = __webpack_require__(12);
 	app.controller("leftNavController", function ($scope, $http, $location, fData) {
 	    $scope.left_nav = fData.getLeftNav;
 	    $scope.account = fData.getAccount;
@@ -42275,7 +42273,7 @@
 	});
 
 /***/ },
-/* 19 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -42283,9 +42281,9 @@
 	 */
 	'use strict';
 
-	var app = __webpack_require__(14);
-	var division_conf = __webpack_require__(20);
-	var test_data = __webpack_require__(21);
+	var app = __webpack_require__(12);
+	var division_conf = __webpack_require__(18);
+	var test_data = __webpack_require__(19);
 	app.controller("tabsController", function ($scope, $http, modal) {
 	    $scope.tabs = [{ title: '患者基本信息', content: 'html/form-tabs/tab-patient-info.html', icon: 'glyphicon-user' }, { title: '住院病历记录', content: 'html/form-tabs/tab_hospitalized.html', icon: 'glyphicon-dashboard' }, { title: '首次病程记录表', content: 'html/form-tabs/tab_clinical_course.html', icon: 'glyphicon-check' }, { title: '手术记录表', content: 'html/form-tabs/tab_surgery.html', icon: 'glyphicon-heart' }, { title: '术后病程', content: 'html/form-tabs/tab_after_surgery.html', icon: 'glyphicon-book' }, { title: '出院记录表', content: 'html/form-tabs/tab_leave.html', icon: 'glyphicon-edit' }, { title: '长期医嘱记录表', content: 'html/form-tabs/tab_long_medical_orders.html', icon: 'glyphicon-list-alt' }, { title: '临时医嘱记录表', content: 'html/form-tabs/tab_temp_medical_orders.html', icon: 'glyphicon-list' }];
 
@@ -42439,7 +42437,7 @@
 	});
 
 /***/ },
-/* 20 */
+/* 18 */
 /***/ function(module, exports) {
 
 	/**
@@ -42845,7 +42843,7 @@
 	module.exports = division;
 
 /***/ },
-/* 21 */
+/* 19 */
 /***/ function(module, exports) {
 
 	/**
@@ -42978,13 +42976,13 @@
 	module.exports = test_data;
 
 /***/ },
-/* 22 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by david ao on 2016/8/27.
 	 */
-	var app = __webpack_require__(14);
+	var app = __webpack_require__(12);
 
 	app.controller("registerController", function ($scope, $http, modal) {
 	    $scope.selected = {
@@ -43025,7 +43023,7 @@
 	});
 
 /***/ },
-/* 23 */
+/* 21 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -43088,14 +43086,14 @@
 	}]);
 
 /***/ },
-/* 24 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by asus on 2016/8/20.
 	 */
 
-	var app = __webpack_require__(14);
+	var app = __webpack_require__(12);
 
 	app.controller("datepickerController", function ($scope) {
 	    var that = this;
@@ -43149,136 +43147,136 @@
 	});
 
 /***/ },
-/* 25 */
+/* 23 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"col-sm-3\" ng-show=\"left_nav()\" ng-controller=\"leftNavController\">\r\n    <div class=\"sidebar-nav letf_nav_layout\">\r\n        <div class=\"navbar navbar-default\" role=\"navigation\">\r\n            <div class=\"navbar-header\">\r\n                <button type=\"button\" class=\"navbar-toggle collapsed\" ng-init=\"isCollapsed=true\"\r\n                        ng-click=\"isCollapsed = !isCollapsed\">\r\n                    <span class=\"sr-only\">Toggle navigation</span>\r\n                    <span class=\"icon-bar\"></span>\r\n                    <span class=\"icon-bar\"></span>\r\n                    <span class=\"icon-bar\"></span>\r\n                </button>\r\n                <span class=\"visible-xs navbar-brand\">Medical Study</span>\r\n            </div>\r\n            <div class=\"navbar-collapse collapse sidebar-navbar-collapse navbar-inverse\"\r\n                 uib-collapse=\"isCollapsed\">\r\n                <ul class=\"nav navbar-nav\">\r\n                    <div class=\"text-center\">\r\n                        <h2 class=\"brand\">Medical Study<br>\r\n                            <small>{{account()}}</small>\r\n                        </h2>\r\n                        <img src=\"img/user-head.png\" class=\"user-avatar\"/><br/>\r\n                        <a ng-click=\"logout()\" class=\"btn btn-white btn-outline btn-rounded btn-sm\">Logout</a>\r\n                    </div>\r\n                    <li ng-class=\"{active: isActive('/upload-data')}\"><a href=\"#/upload-data\"><span class=\"glyphicon glyphicon-folder-open\"></span>&nbsp;&nbsp;&nbsp;上传数据</a></li>\r\n                    <li ng-class=\"{active: isActive('/form-data')}\"><a href=\"#/form-data\"><span class=\"glyphicon glyphicon-log-in\"></span>&nbsp;&nbsp;&nbsp;录入数据</a></li>\r\n                    <li class=\"divider\"></li>\r\n                    <!--<li ng-class=\"{active: isActive('/upload-data')}\"><a href=\"#/form-data\">Menu Item 3</a></li>-->\r\n                    <li ng-class=\"{active: isActive('/register')}\" ng-show=\"role()=='admin'\"><a href=\"#/register\"><span class=\"glyphicon glyphicon-registration-mark\"></span>&nbsp;&nbsp;&nbsp;注册账号</a></li>\r\n                </ul>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ },
-/* 26 */
+/* 24 */
 /***/ function(module, exports) {
 
 	module.exports = "<nav class=\"navbar navbar-inverse navbar-fixed-top navbar-static-top\">\r\n    <div class=\"container\">\r\n        <div class=\"navbar-header\">\r\n            <!--<button type=\"button\" class=\"navbar-toggle collapsed\" ng-init=\"isCollapsed=true\" ng-click=\"isCollapsed = !isCollapsed\">-->\r\n            <!--<span class=\"sr-only\">Toggle navigation</span>-->\r\n            <!--<span class=\"icon-bar\"></span>-->\r\n            <!--<span class=\"icon-bar\"></span>-->\r\n            <!--<span class=\"icon-bar\"></span>-->\r\n            <!--</button>-->\r\n            <!--<a class=\"navbar-brand\" href=\"#\">Medic Study</a>-->\r\n            <a class=\"navbar-brand\" rel=\"home\" href=\"#\" title=\"Medic Study\">\r\n                <img style=\"max-width:100px;;\"\r\n                     src=\"img/logo2.png\">\r\n            </a>\r\n        </div>\r\n        <div id=\"navbar1\" class=\"collapse navbar-collapse\">\r\n            <ul class=\"nav navbar-nav\">\r\n                <li class=\"active\"><a href=\"#\">首页</a></li>\r\n                <!--<li><a href=\"#\">About</a></li>-->\r\n                <!--<li><a href=\"#\">Contact</a></li>-->\r\n            </ul>\r\n        </div>\r\n    </div>\r\n</nav>"
 
 /***/ },
-/* 27 */
+/* 25 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"container\">\r\n    <div class=\"row row-hidden-overflow \">\r\n        <div class=\"col-sm-8 no-padding  \">\r\n            <div ng-controller=\"carouselController\">\r\n                <div uib-carousel active=\"active\" interval=\"myInterval\" no-wrap=\"noWrapSlides\">\r\n                    <div uib-slide ng-repeat=\"slide in slides track by slide.id\" index=\"slide.id\">\r\n                        <img ng-src=\"{{slide.image}}\" style=\"margin:auto;\">\r\n                        <div class=\"carousel-caption\">\r\n                            <!--<h4>Slide {{slide.id}}</h4>-->\r\n                            <p>{{slide.text}}</p>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-sm-4 no-padding col-equal-height\" id=\"login_col\">\r\n            <form class=\"form-horizontal \" id=\"login_form\" ng-controller=\"loginController\" name=\"loginForm\" novalidate>\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputEmail3\" class=\"col-sm-3 control-label\">用 户</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"text\" class=\"form-control\" id=\"inputEmail3\" placeholder=\"Email/用户名\"\r\n                               ng-model=\"user.account\" name=\"account\" required>\r\n                        <span style=\"color:red\" ng-show=\"loginForm.account.$dirty && loginForm.account.$invalid\">\r\n                        <span ng-show=\"loginForm.account.$error.required\">用户名是必须的</span>\r\n                        </span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <!--<label for=\"inputPassword3\" class=\"col-sm-3 control-label\">密 码</label>-->\r\n                    <div class=\"col-sm-8 col-sm-offset-2\">\r\n                        <input type=\"password\" class=\"form-control\" id=\"inputPassword3\" placeholder=\"密码\"\r\n                               ng-model=\"user.password\" name=\"password\" required>\r\n                        <span style=\"color:red\" ng-show=\"loginForm.password.$dirty && loginForm.password.$invalid\">\r\n                        <span ng-show=\"loginForm.password.$error.required\">密码是必须的</span>\r\n                        </span>\r\n                    </div>\r\n                </div>\r\n                <div class=\"form-group\">\r\n                    <div class=\"col-sm-offset-2 col-sm-9\">\r\n                        <button type=\"submit\" class=\"btn btn-success\" ng-click=\"sign()\"\r\n                        ng-disabled=\"loginForm.account.$invalid || loginForm.password.$invalid\">\r\n                            登录\r\n                        </button>\r\n                    </div>\r\n                </div>\r\n            </form>\r\n        </div>\r\n    </div>\r\n</div>\r\n"
 
 /***/ },
-/* 28 */
+/* 26 */
 /***/ function(module, exports) {
 
 	module.exports = "<div  nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, customFilter\">\r\n    <div class=\"container\">\r\n        <div class=\"row\">\r\n            <div class=\"col-md-2\">\r\n                <h3>选择文件</h3>\r\n                <p>可多选</p>\r\n                <!-- Example: nv-file-select=\"\" uploader=\"{Object}\" options=\"{Object}\" filters=\"{String}\" -->\r\n                <!--<input type=\"file\" nv-file-select=\"\" uploader=\"uploader\" multiple/><br/>-->\r\n\r\n                <div class=\"\" style=\";\">\r\n                    <input type=\"file\" nv-file-select=\"\" uploader=\"uploader\"  id=\"upload_file\" style=\"display: none\" multiple/>\r\n                    <button type=\"button\" class=\"btn btn-success\" id=\"upload_file-btn\"\r\n                            Onclick=\"upload_file.click(); apppath.value=upload_file.value;\">选择文件\r\n                    </button>\r\n                </div>\r\n            </div>\r\n\r\n            <div class=\"col-md-6\" style=\"margin-bottom: 40px\">\r\n\r\n                <h3>上传列表</h3>\r\n                <p>文件数量: {{ uploader.queue.length }}</p>\r\n\r\n                <table class=\"table\">\r\n                    <thead>\r\n                    <tr>\r\n                        <th width=\"50%\">文件名</th>\r\n                        <th ng-show=\"uploader.isHTML5\">大小</th>\r\n                        <th ng-show=\"uploader.isHTML5\">进度</th>\r\n                        <th>状态</th>\r\n                        <th>操作</th>\r\n                    </tr>\r\n                    </thead>\r\n                    <tbody>\r\n                    <tr ng-repeat=\"item in uploader.queue\">\r\n                        <td><strong>{{ item.file.name }}</strong></td>\r\n                        <td ng-show=\"uploader.isHTML5\" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>\r\n                        <td ng-show=\"uploader.isHTML5\">\r\n                            <div class=\"progress\" style=\"margin-bottom: 0;\">\r\n                                <div class=\"progress-bar\" role=\"progressbar\"\r\n                                     ng-style=\"{ 'width': item.progress + '%' }\"></div>\r\n                            </div>\r\n                        </td>\r\n                        <td class=\"text-center\">\r\n                            <span ng-show=\"item.isSuccess\"><i class=\"glyphicon glyphicon-ok\"></i></span>\r\n                            <span ng-show=\"item.isCancel\"><i class=\"glyphicon glyphicon-ban-circle\"></i></span>\r\n                            <span ng-show=\"item.isError\"><i class=\"glyphicon glyphicon-remove\"></i></span>\r\n                        </td>\r\n                        <td nowrap>\r\n                            <button type=\"button\" class=\"btn btn-success btn-xs\" ng-click=\"item.upload()\"\r\n                                    ng-disabled=\"item.isReady || item.isUploading || item.isSuccess\">\r\n                                <span class=\"glyphicon glyphicon-upload\"></span> 上传\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-warning btn-xs\" ng-click=\"item.cancel()\"\r\n                                    ng-disabled=\"!item.isUploading\">\r\n                                <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消\r\n                            </button>\r\n                            <button type=\"button\" class=\"btn btn-danger btn-xs\" ng-click=\"item.remove()\">\r\n                                <span class=\"glyphicon glyphicon-trash\"></span> 移除\r\n                            </button>\r\n                        </td>\r\n                    </tr>\r\n                    </tbody>\r\n                </table>\r\n\r\n                <div>\r\n                    <div>\r\n                        上传进度:\r\n                        <div class=\"progress\" style=\"\">\r\n                            <div class=\"progress-bar\" role=\"progressbar\"\r\n                                 ng-style=\"{ 'width': uploader.progress + '%' }\"></div>\r\n                        </div>\r\n                    </div>\r\n                    <button type=\"button\" class=\"btn btn-success btn-s\" ng-click=\"uploader.uploadAll()\"\r\n                            ng-disabled=\"!uploader.getNotUploadedItems().length\">\r\n                        <span class=\"glyphicon glyphicon-upload\"></span> 上传全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-warning btn-s\" ng-click=\"uploader.cancelAll()\"\r\n                            ng-disabled=\"!uploader.isUploading\">\r\n                        <span class=\"glyphicon glyphicon-ban-circle\"></span> 取消全部\r\n                    </button>\r\n                    <button type=\"button\" class=\"btn btn-danger btn-s\" ng-click=\"uploader.clearQueue()\"\r\n                            ng-disabled=\"!uploader.queue.length\">\r\n                        <span class=\"glyphicon glyphicon-trash\"></span> 移除全部\r\n                    </button>\r\n                </div>\r\n\r\n            </div>\r\n\r\n        </div>\r\n\r\n    </div>\r\n\r\n</div>\r\n"
 
 /***/ },
-/* 29 */
+/* 27 */
 /***/ function(module, exports) {
 
 	module.exports = "<form ng-controller=\"registerController\" name=\"register\" ng-submit=\"registerFun()\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-6 col-xs-offset-1\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">用户名</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"register_info.account\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-6 col-xs-offset-1\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">邮箱</span>\r\n                <input type=\"email\" class=\"form-control\" ng-model=\"register_info.email\" name=\"email\" required>\r\n            </div>\r\n            <div ng-messages=\"register.email.$dirty&&register.email.$error\" role=\"alert\">\r\n              <div ng-message=\"email\" style=\"color: red;\">请输入有效邮箱</div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-6 col-xs-offset-1\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">密码</span>\r\n                <input type=\"password\" class=\"form-control\" ng-model=\"register_info.password\" name=\"password\" ng-pattern=\"/^[a-zA-Z]\\w{5,17}$/\" required>\r\n            </div>\r\n        </div>\r\n        <div ng-messages=\"register.password.$dirty&&register.password.$error\" role=\"alert\">\r\n          <div ng-message=\"pattern\" style=\"color: red;\">密码必须是英文字母开头，并由英文字母和数字组成,至少6位</div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-6 col-xs-offset-1\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">确认密码</span>\r\n                <input type=\"password\" class=\"form-control\" ng-model=\"register_info.password_confirm\" name=\"password_confirm\" ng-pattern=\"{{register_info.password}}\" required>\r\n            </div>\r\n        </div>\r\n        <div ng-messages=\"register.password_confirm.$dirty&&register.password_confirm.$error\" role=\"alert\">\r\n          <div ng-message=\"pattern\" style=\"color: red;\">请确认密码一致</div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-6 col-xs-offset-1\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">角色</span>\r\n                <select class=\"form-control\" ng-model=\"register_info.role\" ng-options=\"role.value as role.option for role in selected.roles\" required></select>\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-offset-6\">\r\n            <button type=\"submit\" class=\"btn btn-success\" ng-disabled=\"register.$invalid||btnDisable\">提交</button>\r\n        </div>\r\n    </div>\r\n\r\n</form>"
 
 /***/ },
-/* 30 */
+/* 28 */
 /***/ function(module, exports) {
 
 	module.exports = "<form ng-controller=\"tabsController\" name=\"form_data\" ng-submit=\"submit()\">\r\n    <div class=\"row\">\r\n        <div class=\"col-xs-12\">\r\n            <uib-tabset active=\"active\" type=\"pills\">\r\n                <uib-tab index=\"$index + 1\" ng-repeat=\"tab in tabs\" >\r\n                    <uib-tab-heading>\r\n                    <i class=\"glyphicon {{tab.icon}}\"></i> {{tab.title}}\r\n                    </uib-tab-heading>\r\n                    <ng-include src=\"tab.content\"></ng-include>\r\n                </uib-tab>\r\n            </uib-tabset>\r\n            <button type=\"submit\" class=\"btn btn-success btn-top\" ng-disabled=\"form_data.$invalid||btnDisable\">提交</button>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-8 \">\r\n            <div uib-alert class=\"alert-danger\" ng-show=\"form_data.$invalid\">还未完成数据录入，请检查各数据项是否完成输入</div>\r\n            <div uib-alert class=\"alert-success\" ng-hide=\"form_data.$invalid\">数据输入完成，请检查各数据项无误后点击提交按钮提交数据</div>\r\n        </div>\r\n    </div>\r\n</form>\r\n"
 
 /***/ },
-/* 31 */
+/* 29 */
 /***/ function(module, exports) {
 
 	module.exports = "<div ng-controller=\"tabPatientController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">病案号</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.medical_id\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">姓名</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.name\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">身份证号</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.identity\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">性别</span>\r\n                <select class=\"form-control\" ng-model=\"patient_info.sex\" ng-options=\"o as o for o in selected.sex\"\r\n                        required></select>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">生日</span>\r\n                <date-picker ng-model=\"patient_info.birthday\"></date-picker>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">年龄</span>\r\n                <input type=\"number\" class=\"form-control\" ng-model=\"patient_info.age\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">省份</span>\r\n                <select required class=\"form-control\" ng-model=\"patient_info.province\"\r\n                        ng-options=\"key as key for (key,value) in selected.division\"\r\n                        ng-change=\"city='';\" required>\r\n                    <option value=\"\">省</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">城市</span>\r\n                <select class=\"form-control\" ng-model=\"patient_info.city\"\r\n                        ng-options=\"key as key for (key,value) in selected.division[patient_info.province]\" required>\r\n                    ng-change=\"patient_info.district='';\"\r\n                    <option value=\"\">市</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">县/区</span>\r\n                <select class=\"form-control\" ng-model=\"patient_info.district\"\r\n                        ng-options=\"key for key in selected.division[patient_info.province][patient_info.city]\"\r\n                        required>\r\n                    <option value=\"\">县</option>\r\n                </select>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">详细地址</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.detail_addr\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">婚姻</span>\r\n                <select class=\"form-control\" ng-model=\"patient_info.marriage\"\r\n                        ng-options=\"o as o for o in selected.marriage\" required></select>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">职业</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.job\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院时间</span>\r\n                <datetime-picker ng-model=\"patient_info.in_date\"></datetime-picker>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院时间</span>\r\n                <datetime-picker ng-model=\"patient_info.out_date\"></datetime-picker>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">门诊</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"patient_info.outpatient\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
 
 /***/ },
-/* 32 */
+/* 30 */
 /***/ function(module, exports) {
 
 	module.exports = "<div ng-controller=\"tabClinicalCourseController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">病例特点</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.ill_description\"> </textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">初步诊断</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.init_diag\"></textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">治疗计划</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"clinical_course.treat_plan\"></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">诊断依据</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"clinical_course.gist\" required> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">鉴别诊断</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"clinical_course.antidiastole\" required></textarea>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div ng-repeat=\"item in check_record track by $index\">\r\n        <div ng-include=\"'html/widget/check_record.html'\"></div>\r\n    </div>\r\n\r\n</div>"
 
 /***/ },
-/* 33 */
+/* 31 */
 /***/ function(module, exports) {
 
 	module.exports = "<div ng-controller=\"tabHospitalizedController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">主诉</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.complain\" required> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">现病史</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.present_illness\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">近期</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.recent\" required> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">既往史</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.history_illness\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">家族史</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.family_illness\" required> </textarea>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院诊断</span>\r\n                <textarea rows=\"1\" class=\"form-control\" ng-model=\"hospitalized.admits_diag\" required> </textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">体格检查</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"hospitalized.physical_exam\" required> </textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">整形外科情况</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"hospitalized.surgery\" required> </textarea>\r\n            </div>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">辅助检查</span>\r\n                <textarea rows=\"2\" class=\"form-control\" ng-model=\"hospitalized.assist_exam\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n\r\n</div>\r\n"
 
 /***/ },
-/* 34 */
+/* 32 */
 /***/ function(module, exports) {
 
 	module.exports = "<div ng-controller=\"tabSurgeryController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">手术时间</span>\r\n                <date-picker ng-model=\"surgery.surgery_date\"></date-picker>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">术前诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.before_diag\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">术后诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.later_diag\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">手术名称</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.surgery_name\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">手术医生</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.surgery_doctor\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">麻醉医生</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.narcosis_doctor\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">器械护士</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.instrument_nurses\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">麻醉方式</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"surgery.narcosis_way\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">描述</span>\r\n                <textarea rows=\"5\" class=\"form-control\" ng-model=\"surgery.description\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>"
 
 /***/ },
-/* 35 */
+/* 33 */
 /***/ function(module, exports) {
 
 	module.exports = "<div ng-controller=\"tabAfterSurgeryController\">\r\n    <div ng-repeat=\"item in description track by $index\">\r\n        <div ng-include=\"'html/widget/after_surgery_record.html'\"></div>\r\n    </div>\r\n</div>"
 
 /***/ },
-/* 36 */
+/* 34 */
 /***/ function(module, exports) {
 
 	module.exports = "<div ng-controller=\"tabPatientController\">\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院时间</span>\r\n                <date-picker ng-model=\"leave.in_date\"></date-picker>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院时间</span>\r\n                <date-picker ng-model=\"leave.out_date\"></date-picker>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-10\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">入院病情描述</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"leave.description\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">初步诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"leave.init_diag\" required>\r\n            </div>\r\n        </div>\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院诊断</span>\r\n                <input type=\"text\" class=\"form-control\" ng-model=\"leave.leave_diag\" required>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"row form-line\">\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">治疗过程</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"leave.treatment\" required></textarea>\r\n            </div>\r\n        </div>\r\n\r\n        <div class=\"col-xs-5\">\r\n            <div class=\"input-group\">\r\n                <span class=\"input-group-addon\">出院医嘱</span>\r\n                <textarea rows=\"3\" class=\"form-control\" ng-model=\"leave.advice\" required></textarea>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n</div>"
 
 /***/ },
-/* 37 */
+/* 35 */
 /***/ function(module, exports) {
 
 	module.exports = "<div ng-controller=\"tabTempMedicalOrdersController\">\r\n    <div ng-repeat=\"index in temp_items track by $index\">\r\n        <div ng-include=\"'html/widget/temp_medical_orders.html'\"></div>\r\n    </div>\r\n</div>"
 
 /***/ },
-/* 38 */
+/* 36 */
 /***/ function(module, exports) {
 
 	module.exports = "<div ng-controller=\"tabLongMedicalOrdersController\">\r\n    <div ng-repeat=\"index in long_items track by $index\">\r\n        <div ng-include=\"'html/widget/long_medical_orders.html'\"></div>\r\n    </div>\r\n</div>"
 
 /***/ },
-/* 39 */
+/* 37 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-9\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">查房记录\r\n            </span>\r\n            <datetime-picker ng-model=\"check_record[$index].date\"></datetime-picker>\r\n            <textarea rows=\"3\" class=\"form-control\" ng-model=\"check_record[$index].content\" required></textarea>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <div class=\"row\">\r\n            <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i class=\"fa fa-plus\"></i></button>\r\n        </div>\r\n        <div class=\"row\">\r\n            <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        </div>\r\n        <div class=\"row\">\r\n            <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                    ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n                <i class=\"fa fa-minus\"></i></button>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ },
-/* 40 */
+/* 38 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-9\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">术后病程\r\n            </span>\r\n            <datetime-picker ng-model=\"description[$index].date\"></datetime-picker>\r\n            <textarea rows=\"3\" class=\"form-control\" ng-model=\"description[$index].content\" required></textarea>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <div class=\"row\">\r\n            <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i class=\"fa fa-plus\"></i></button>\r\n        </div>\r\n        <div class=\"row\">\r\n            <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        </div>\r\n        <div class=\"row\">\r\n            <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                    ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n                <i class=\"fa fa-minus\"></i></button>\r\n        </div>\r\n    </div>\r\n</div>"
 
 /***/ },
-/* 41 */
+/* 39 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-5\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始时间</span>\r\n            <datetime-picker ng-model=\"long_items[$index].start_datetime\"></datetime-picker>\r\n\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">医嘱</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].medical_order\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始执行医生</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].start_execute_doctor\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始执行护士</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].start_execute_nurse\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始执行时间</span>\r\n            <datetime-picker ng-model=\"long_items[$index].start_execute_datetime\"></datetime-picker>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"col-xs-4\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止时间</span>\r\n            <datetime-picker ng-model=\"long_items[$index].stop_datetime\"></datetime-picker>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止执行医生</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].stop_execute_doctor\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止执行护士</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"long_items[$index].stop_execute_nurse\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">停止执行时间</span>\r\n            <datetime-picker ng-model=\"long_items[$index].stop_execute_datetime\"></datetime-picker>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <div class=\"row\">\r\n            <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i class=\"fa fa-plus\"></i></button>\r\n        </div>\r\n        <div class=\"row\">\r\n            <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        </div>\r\n        <div class=\"row\">\r\n            <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                    ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n                <i class=\"fa fa-minus\"></i></button>\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
 
 /***/ },
-/* 42 */
+/* 40 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"row form-line\">\r\n    <div class=\"col-xs-5\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">开始时间</span>\r\n            <datetime-picker ng-model=\"temp_items[$index].start_datetime\"></datetime-picker>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">医嘱</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].medical_order\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">执行医生</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].start_execute_doctor\" required>\r\n        </div>\r\n    </div>\r\n\r\n    <div class=\"col-xs-4\">\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">执行护士</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].start_execute_nurse\" required>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">执行时间</span>\r\n            <datetime-picker ng-model=\"temp_items[$index].start_execute_datetime\"></datetime-picker>\r\n        </div>\r\n        <div class=\"input-group\">\r\n            <span class=\"input-group-addon\">核对人</span>\r\n            <input type=\"text\" class=\"form-control\" ng-model=\"temp_items[$index].checker\" required>\r\n        </div>\r\n    </div>\r\n    <div class=\"col-xs-1\">\r\n        <div class=\"row\">\r\n            <button class=\"button button-action button-circle button-small button-glow\" ng-click=\"addRecord()\"><i class=\"fa fa-plus\"></i></button>\r\n        </div>\r\n        <div class=\"row\">\r\n            <button class=\"button button-primary button-box button-small\"><i>{{$index + 1}}</i></button>\r\n        </div>\r\n        <div class=\"row\">\r\n            <button class=\"button button-highlight button-circle button-small button-glow\"\r\n                    ng-click=\"delRecord($index)\" ng-hide=\"$index==0\">\r\n                <i class=\"fa fa-minus\"></i></button>\r\n        </div>\r\n    </div>\r\n\r\n</div>\r\n\r\n"
 
 /***/ },
-/* 43 */
+/* 41 */
 /***/ function(module, exports) {
 
 	module.exports = "<p class=\"input-group\" style=\"margin: 0; width: 100%;\">\r\n    <input type=\"text\" class=\"form-control\" datetime-picker=\"yyyy-MM-dd\" ng-model=\"bindModel\" is-open=\"open\"\r\n           datepicker-options=\"picker_date.calendarOptions\" enable-time=\"picker_date.enableTime\"\r\n           button-bar=\"buttonBar\" required/>\r\n      <span class=\"input-group-btn\">\r\n          <button type=\"button\" class=\"btn btn-default\" ng-click=\"openCalendar($event)\"><i\r\n                  class=\"fa fa-calendar\"></i></button>\r\n      </span>\r\n</p>\r\n"
 
 /***/ },
-/* 44 */
+/* 42 */
 /***/ function(module, exports) {
 
 	module.exports = "<div>\r\n    <p class=\"input-group\" style=\"margin: 0; width: 100%;\">\r\n        <input type=\"text\" class=\"form-control\" datetime-picker ng-model=\"bindModel\" is-open=\"open\"\r\n               datepicker-options=\"picker_datetime.calendarOptions\" button-bar=\"buttonBar\" required/>\r\n      <span class=\"input-group-btn\">\r\n          <button type=\"button\" class=\"btn btn-default\" ng-click=\"openCalendar($event)\"><i\r\n                  class=\"fa fa-calendar\"></i></button>\r\n      </span>\r\n    </p>\r\n</div>\r\n\r\n\r\n<!--<div ng-controller=\"datepickerController as ctrl\">-->\r\n    <!--<p class=\"input-group\" style=\"margin: 0; width: 100%;\">-->\r\n        <!--<input type=\"text\" class=\"form-control\" datetime-picker ng-model=model is-open=\"ctrl.picker_datetime.open\"-->\r\n               <!--datepicker-options=\"ctrl.picker_datetime.calendarOptions\" button-bar=\"buttonBar\"/>-->\r\n      <!--<span class=\"input-group-btn\">-->\r\n          <!--<button type=\"button\" class=\"btn btn-default\" ng-click=\"ctrl.openCalendar($event, 'picker_datetime')\"><i-->\r\n                  <!--class=\"fa fa-calendar\"></i></button>-->\r\n      <!--</span>-->\r\n    <!--</p>-->\r\n<!--</div>-->"
 
 /***/ },
-/* 45 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(46);
+	var content = __webpack_require__(44);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(48)(content, {});
+	var update = __webpack_require__(46)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -43295,10 +43293,10 @@
 	}
 
 /***/ },
-/* 46 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(47)();
+	exports = module.exports = __webpack_require__(45)();
 	// imports
 
 
@@ -43309,7 +43307,7 @@
 
 
 /***/ },
-/* 47 */
+/* 45 */
 /***/ function(module, exports) {
 
 	/*
@@ -43365,7 +43363,7 @@
 
 
 /***/ },
-/* 48 */
+/* 46 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -43617,16 +43615,16 @@
 
 
 /***/ },
-/* 49 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(50);
+	var content = __webpack_require__(48);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(48)(content, {});
+	var update = __webpack_require__(46)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -43643,10 +43641,10 @@
 	}
 
 /***/ },
-/* 50 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(47)();
+	exports = module.exports = __webpack_require__(45)();
 	// imports
 
 
@@ -43657,18 +43655,16 @@
 
 
 /***/ },
-/* 51 */,
-/* 52 */,
-/* 53 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(54);
+	var content = __webpack_require__(50);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(48)(content, {});
+	var update = __webpack_require__(46)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -43685,10 +43681,10 @@
 	}
 
 /***/ },
-/* 54 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(47)();
+	exports = module.exports = __webpack_require__(45)();
 	// imports
 
 
@@ -43699,16 +43695,16 @@
 
 
 /***/ },
-/* 55 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(56);
+	var content = __webpack_require__(52);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(48)(content, {});
+	var update = __webpack_require__(46)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -43725,10 +43721,10 @@
 	}
 
 /***/ },
-/* 56 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(47)();
+	exports = module.exports = __webpack_require__(45)();
 	// imports
 
 
@@ -43739,16 +43735,16 @@
 
 
 /***/ },
-/* 57 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(58);
+	var content = __webpack_require__(54);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(48)(content, {});
+	var update = __webpack_require__(46)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -43765,10 +43761,10 @@
 	}
 
 /***/ },
-/* 58 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(47)();
+	exports = module.exports = __webpack_require__(45)();
 	// imports
 
 
@@ -43779,16 +43775,16 @@
 
 
 /***/ },
-/* 59 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(60);
+	var content = __webpack_require__(56);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(48)(content, {});
+	var update = __webpack_require__(46)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -43805,10 +43801,10 @@
 	}
 
 /***/ },
-/* 60 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(47)();
+	exports = module.exports = __webpack_require__(45)();
 	// imports
 
 
@@ -43819,7 +43815,7 @@
 
 
 /***/ },
-/* 61 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -43831,10 +43827,10 @@
 	(function (root, factory) {
 	    if (typeof module !== 'undefined' && module.exports) {
 	        // CommonJS
-	        module.exports = factory(__webpack_require__(62));
+	        module.exports = factory(__webpack_require__(58));
 	    } else if (true) {
 	        // AMD
-	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(62)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+	        !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(58)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
 	    } else {
 	        // Global Variables
 	        factory(root.angular);
@@ -44559,15 +44555,15 @@
 
 
 /***/ },
-/* 62 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(63);
+	__webpack_require__(59);
 	module.exports = angular;
 
 
 /***/ },
-/* 63 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var require;/**
