@@ -9,17 +9,17 @@ app.controller('AppCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog'
     };
     $scope.menu = [
         {
-            lin: 'state1',
+            lin: '.state1',
             title: 'Dashboard',
             icon: 'dashboard'
         },
         {
-            lin: 'state2',
+            lin: '.state2',
             title: 'Friends',
             icon: 'group'
         },
         {
-            lin: '',
+            lin: '.state2',
             title: 'Messages',
             icon: 'message'
         }
