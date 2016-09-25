@@ -1,47 +1,78 @@
 md-content.md-default-theme {
-  background-color: #eee;
+    background-color: #eee;
 }
 
 md-card {
-  background-color: #fff;
+    background-color: #fff;
 }
+
 md-card h2:first-of-type {
-  margin-top: 0;
+    margin-top: 0;
 }
 
 md-toolbar .md-button.md-default-theme {
-  border-radius: 99%;
+    border-radius: 99%;
 }
 
 h2 {
-  font-weight: 400;
+    font-weight: 400;
 }
 
 .md-toolbar-tools-bottom {
-  font-size: small;
+    font-size: small;
 }
+
 .md-toolbar-tools-bottom:last-child {
-  opacity: 0.8;
+    opacity: 0.8;
 }
 
 md-toolbar:not(.md-hue-1),
 .md-fab {
-  fill: #fff;
+    fill: #fff;
 }
 
 md-sidenav {
-  fill: #737373;
+    fill: #737373;
 }
+
 md-sidenav ng-md-icon {
-  position: relative;
-  top: 5px;
+    position: relative;
+    top: 5px;
 }
 
 .user-avatar {
-  border-radius: 99%;
+    border-radius: 99%;
+}
+
+/*/////////////*/
+.nav-active {
+    background: red;
+}
+
+.nav-click {
+    position: relative;
+}
+
+.cursorPointer {
+    cursor: pointer;
+}
+
+md-sidenav > md-list > md-item > div:focus {
+    outline: none;
+    border: 0;
+    background: red;
+}
+
+.docs-menu .md-button.active {
+  background: #267ED5;
 }
 
 
-.nav-active{
-  background: red;
-}
+
+.inputdemoErrors .inputErrorsApp {
+  min-height: 48px; }
+
+.inputdemoErrors md-input-container > p {
+  font-size: 0.8em;
+  text-align: left;
+  width: 100%; }

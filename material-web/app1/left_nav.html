@@ -10,29 +10,30 @@
         </div>
     </md-toolbar>
     <md-list>
-        <md-item ng-repeat="item in menu" class="nav-active">
-            <md-highlight ui-sref="{{item.lin}}" >
-                <md-item-content md-ink-ripple layout="row" layout-align="start center">
+        <md-item ng-repeat="item in menu" class="cursorPointer">
+            <div ui-sref="{{item.lin}}"  md-ink-ripple='#1400FF' class="nav-click">
+                <md-item-content  layout="row" layout-align="start center">
                     <div class="inset">
                         <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
                     </div>
                     <div class="inset">{{item.title}}
                     </div>
                 </md-item-content>
-            </md-highlight>
+            </div>
         </md-item>
         <md-divider></md-divider>
         <md-subheader>Management</md-subheader>
         <md-item ng-repeat="item in admin">
-            <md-highlight ui-sref=".state1" ui-sref-active="active">
-                <md-item-content md-ink-ripple layout="row" layout-align="start center">
+            <div ui-sref=".state1"  md-ink-ripple='#1400FF' class="nav-click">
+                <md-item-content  layout="row" layout-align="start center">
                     <div class="inset">
                         <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
                     </div>
                     <div class="inset">{{item.title}}
                     </div>
                 </md-item-content>
-            </md-highlight>
+            </div>
         </md-item>
     </md-list>
 </md-sidenav>
+
