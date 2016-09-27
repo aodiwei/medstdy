@@ -1,13 +1,15 @@
 var path = require("path");
 
 module.exports = {
+    resolve: { fallback: path.join(__dirname, "node_modules") },
+    resolveLoader: { fallback: path.join(__dirname, "node_modules")},
     /*entry — name of the top level file or 
      set of files that we want to include
      in our build, can be a single file
      or an array of files. In our build,
      we only pass in our main file (app.js)
      */
-    entry: ["./app1/index.js"],
+    entry: ["./src/js/index.js"],
     /*output — an object containing your output 
      configuration. In our build, we only
      specify the filename key (bundle.js)
@@ -15,7 +17,7 @@ module.exports = {
      Webpack to build.
      */
     output: {
-        path: path.join(__dirname, "/app1/bundle"),
+        path: path.join(__dirname, "/src/bundle"),
         filename: "bundle.js",
     },
     /*
