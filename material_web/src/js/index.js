@@ -1,5 +1,5 @@
 /**
- * Created by asus on 2016/9/17.
+ * Created by asus on 2016/9/28.
  */
 'use strict';
 //node_modules
@@ -22,6 +22,3 @@ require('../html/nav/left_nav.html');
 require('../html/pages/p2.html');
 require('../html/pages/tabs/tabs.html');
 require('../html/pages/tabs/tab-patient-info.html');
-
-//require('../node_modules/angular-material/angular-material.min.css');
-//require('../node_modules/angular-material/angular-material.min.js');
