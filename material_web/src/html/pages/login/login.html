@@ -2,15 +2,16 @@
 <div class="inset" hide-sm></div>
 <div class="inset" hide-sm></div>
 <div class="inset" hide-sm></div>
-<div layout="row" layout-align="center center">
+<div layout="row" layout-align="center center" ng-controller="LoginCtrl">
 <md-card md-theme="" md-theme-watch >
     <md-card-title>
-        <md-card-title-text>
-            <span class="md-headline">登录</span>
+        <md-card-title-text md-theme="dark-purple">
+            <span class="md-headline" >登录</span>
         </md-card-title-text>
     </md-card-title>
     <md-card-content>
-        <form name="loginForm">
+        <md-content layout-padding="" md-theme="dark-blue">
+        <form name="loginForm" >
             <md-input-container class="md-block">
                 <label>账号</label>
                 <md-icon>
@@ -33,8 +34,9 @@
                 </div>
             </md-input-container>
 
-            <md-button class="md-raised md-primary">登录</md-button>
+            <md-button ng-click="submit()" class="md-raised md-primary">登录</md-button>
         </form>
+        </md-content>
     </md-card-content>
 </md-card>
 </div>
