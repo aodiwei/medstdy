@@ -69,10 +69,13 @@
 
 	__webpack_require__(20);
 	__webpack_require__(22);
+	__webpack_require__(26);
+	__webpack_require__(29);
 
 	__webpack_require__(23);
 	__webpack_require__(24);
-	__webpack_require__(25);
+	__webpack_require__(27);
+	__webpack_require__(28);
 
 	//require('../node_modules/angular-material/angular-material.min.css');
 	//require('../node_modules/angular-material/angular-material.min.js');
@@ -37526,7 +37529,6 @@
 
 	// Now load Angular Material
 	__webpack_require__(11);
-	//require('./angular-material.min.css');
 
 	// Export namespace
 	module.exports = 'ngMaterial';
@@ -76452,84 +76454,7 @@
 	/**
 	 * Created by asus on 2016/9/17.
 	 */
-	var app = angular.module('StarterApp', ['ngMaterial', 'ngMdIcons', 'ui.router', 'ngMessages']);
-
-	app.controller('AppCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialog) {
-	    $scope.toggleSidenav = function (menuId) {
-	        $mdSidenav(menuId).toggle();
-	    };
-	    $scope.menu = [{
-	        lin: '.state1',
-	        title: 'Dashboard',
-	        icon: 'dashboard'
-	    }, {
-	        lin: '.state2',
-	        title: 'Friends',
-	        icon: 'group'
-	    }, {
-	        lin: '.state2',
-	        title: 'Messages',
-	        icon: 'message'
-	    }];
-	    $scope.admin = [{
-	        lin: '',
-	        title: 'Trash',
-	        icon: 'delete'
-	    }, {
-	        lin: 'showListBottomSheet($event)',
-	        title: 'Settings',
-	        icon: 'settings'
-	    }];
-	    $scope.activity = [{
-	        what: 'Brunch this weekend?',
-	        who: 'Ali Conners',
-	        when: '3:08PM',
-	        notes: " I'll be in your neighborhood doing errands"
-	    }, {
-	        what: 'Summer BBQ',
-	        who: 'to Alex, Scott, Jennifer',
-	        when: '3:08PM',
-	        notes: "Wish I could come out but I'm out of town this weekend"
-	    }, {
-	        what: 'Oui Oui',
-	        who: 'Sandra Adams',
-	        when: '3:08PM',
-	        notes: "Do you have Paris recommendations? Have you ever been?"
-	    }, {
-	        what: 'Birthday Gift',
-	        who: 'Trevor Hansen',
-	        when: '3:08PM',
-	        notes: "Have any ideas of what we should get Heidi for her birthday?"
-	    }, {
-	        what: 'Recipe to try',
-	        who: 'Brian Holt',
-	        when: '3:08PM',
-	        notes: "We should eat this: Grapefruit, Squash, Corn, and Tomatillo tacos"
-	    }];
-	    $scope.alert = '';
-	    $scope.showListBottomSheet = function ($event) {
-	        $scope.alert = '';
-	        $mdBottomSheet.show({
-	            template: '<md-bottom-sheet class="md-list md-has-header"> <md-subheader>Settings</md-subheader> <md-list> <md-item ng-repeat="item in items"><md-item-content md-ink-ripple flex class="inset"> <a flex aria-label="{{item.name}}" ng-click="listItemClick($index)"> <span class="md-inline-list-icon-label">{{ item.name }}</span> </a></md-item-content> </md-item> </md-list></md-bottom-sheet>',
-	            controller: 'ListBottomSheetCtrl',
-	            targetEvent: $event
-	        }).then(function (clickedItem) {
-	            $scope.alert = clickedItem.name + ' clicked!';
-	        });
-	    };
-
-	    $scope.showAdd = function (ev) {
-	        $mdDialog.show({
-	            controller: DialogController,
-	            template: '<md-dialog aria-label="Mango (Fruit)"> <md-content class="md-padding"> <form name="userForm"> <div layout layout-sm="column"> <md-input-container flex> <label>First Name</label> <input ng-model="user.firstName" placeholder="Placeholder text"> </md-input-container> <md-input-container flex> <label>Last Name</label> <input ng-model="theMax"> </md-input-container> </div> <md-input-container flex> <label>Address</label> <input ng-model="user.address"> </md-input-container> <div layout layout-sm="column"> <md-input-container flex> <label>City</label> <input ng-model="user.city"> </md-input-container> <md-input-container flex> <label>State</label> <input ng-model="user.state"> </md-input-container> <md-input-container flex> <label>Postal Code</label> <input ng-model="user.postalCode"> </md-input-container> </div> <md-input-container flex> <label>Biography</label> <textarea ng-model="user.biography" columns="1" md-maxlength="150"></textarea> </md-input-container> </form> </md-content> <div class="md-actions" layout="row"> <span flex></span> <md-button ng-click="answer(\'not useful\')"> Cancel </md-button> <md-button ng-click="answer(\'useful\')" class="md-primary"> Save </md-button> </div></md-dialog>',
-	            targetEvent: ev
-	        }).then(function (answer) {
-	            $scope.alert = 'You said the information was "' + answer + '".';
-	        }, function () {
-	            $scope.alert = 'You cancelled the dialog.';
-	        });
-	    };
-	}]);
+	var app = angular.module('medApp', ['ngMaterial', 'ngMdIcons', 'ui.router', 'ngMessages']);
 
 	app.controller('ListBottomSheetCtrl', function ($scope, $mdBottomSheet) {
 	    $scope.items = [{ name: 'Share', icon: 'share' }, { name: 'Upload', icon: 'upload' }, { name: 'Copy', icon: 'copy' }, { name: 'Print this page', icon: 'print' }];
@@ -76569,7 +76494,7 @@
 	    $mdThemingProvider.theme('default').primaryPalette('customBlue', {
 	        'default': '500',
 	        'hue-1': '50',
-	        'hue-2': '600',
+	        'hue-2': '100',
 	        'hue-3': 'A100'
 	    }).accentPalette('pink');
 	    $mdThemingProvider.theme('dark-grey').backgroundPalette('grey');
@@ -76581,12 +76506,12 @@
 
 	    //
 	    // For any unmatched url, redirect to /state1
-	    $urlRouterProvider.otherwise("/state1");
+	    $urlRouterProvider.otherwise("/index");
 	    //
 	    // Now set up the states
-	    $stateProvider.state('state1', {
-	        url: "/state1",
-	        templateUrl: "./html/pages/tab-patient-info.html"
+	    $stateProvider.state('index', {
+	        url: "/index",
+	        templateUrl: "./html/pages/login/login.html"
 	    }).state('state2', {
 	        url: "/state2",
 	        templateUrl: "./html/pages/p2.html",
@@ -76596,34 +76521,28 @@
 	    });
 	});
 
-	app.controller("formTabsCtrl", function ($scope) {
-	    $scope.tabs = [{ title: 'One', content: "Tabs will become paginated if there isn't enough room for them." }, { title: 'Two', content: "You can swipe left and right on a mobile device to change tabs." }, { title: 'Three', content: "You can bind the selected tab via the selected attribute on the md-tabs element." }, { title: 'Four', content: "If you set the selected tab binding to -1, it will leave no tab selected." }, { title: 'Five', content: "If you remove a tab, it will try to select a new one." }, { title: 'Six', content: "There's an ink bar that follows the selected tab, you can turn it off if you want." }, {
-	        title: 'Seven',
-	        content: "If you set ng-disabled on a tab, it becomes unselectable. If the currently selected tab becomes disabled, it will try to select the next tab."
-	    }, {
-	        title: 'Eight',
-	        content: "If you look at the source, you're using tabs to look at a demo for tabs. Recursion!"
-	    }, { title: 'Nine', content: "If you set md-theme=\"green\" on the md-tabs element, you'll get green tabs." }, { title: 'Ten', content: "If you're still reading this, you should just go check out the API docs for tabs!" }];
+	//app.controller("formTabsCtrl", function ($scope) {
+	//    $scope.user = {
+	//       title: 'Developer',
+	//       email: 'ipsum@lorem.com',
+	//       firstName: '',
+	//       lastName: '',
+	//       company: 'Google',
+	//       address: '1600 Amphitheatre Pkwy',
+	//       city: 'Mountain View',
+	//       state: 'CA',
+	//       biography: 'Loves kittens, snowboarding, and can type at 130 WPM.\n\nAnd rumor has it she bouldered up Castle Craig!',
+	//       postalCode: '94043'
+	//     };
+	//});
 
-	    $scope.user = {
-	        title: 'Developer',
-	        email: 'ipsum@lorem.com',
-	        firstName: '',
-	        lastName: '',
-	        company: 'Google',
-	        address: '1600 Amphitheatre Pkwy',
-	        city: 'Mountain View',
-	        state: 'CA',
-	        biography: 'Loves kittens, snowboarding, and can type at 130 WPM.\n\nAnd rumor has it she bouldered up Castle Craig!',
-	        postalCode: '94043'
-	    };
-	});
+	module.exports = app;
 
 /***/ },
 /* 23 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-sidenav layout=\"column\" class=\"md-sidenav-left md-whiteframe-z2\" md-component-id=\"left\"\r\n            md-is-locked-open=\"$mdMedia('gt-md')\">\r\n    <md-toolbar class=\"md-tall md-primary\">\r\n        <span flex></span>\r\n        <div layout=\"column\" class=\"md-toolbar-tools-bottom inset\">\r\n            <user-avatar></user-avatar>\r\n            <span></span>\r\n            <div>Firstname Lastname</div>\r\n            <div>email@domainname.com</div>\r\n        </div>\r\n    </md-toolbar>\r\n    <md-list>\r\n        <md-item ng-repeat=\"item in menu\" class=\"cursorPointer\">\r\n            <div ui-sref=\"{{item.lin}}\"  md-ink-ripple='#1400FF' class=\"nav-click\">\r\n                <md-item-content  layout=\"row\" layout-align=\"start center\">\r\n                    <div class=\"inset\">\r\n                        <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\r\n                    </div>\r\n                    <div class=\"inset\">{{item.title}}\r\n                    </div>\r\n                </md-item-content>\r\n            </div>\r\n        </md-item>\r\n        <md-divider></md-divider>\r\n        <md-subheader>Management</md-subheader>\r\n        <md-item ng-repeat=\"item in admin\">\r\n            <div ui-sref=\".state1\"  md-ink-ripple=\"#1400FF\" class=\"nav-click\">\r\n                <md-item-content  layout=\"row\" layout-align=\"start center\">\r\n                    <div class=\"inset\">\r\n                        <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\r\n                    </div>\r\n                    <div class=\"inset\">{{item.title}}\r\n                    </div>\r\n                </md-item-content>\r\n            </div>\r\n        </md-item>\r\n    </md-list>\r\n</md-sidenav>\r\n\r\n"
+	module.exports = "<div ng-controller=\"NavCtrl\">\r\n    <md-sidenav layout=\"column\" class=\"md-sidenav-left md-whiteframe-z2\" md-component-id=\"left\"\r\n                md-is-locked-open=\"$mdMedia('gt-md')\">\r\n        <md-toolbar class=\"md-tall md-primary\">\r\n            <span flex></span>\r\n            <div layout=\"column\" class=\"md-toolbar-tools-bottom inset\">\r\n                <user-avatar></user-avatar>\r\n                <span></span>\r\n                <div>Firstname Lastname</div>\r\n                <div>email@domainname.com</div>\r\n            </div>\r\n        </md-toolbar>\r\n        <md-list>\r\n            <md-item ng-repeat=\"item in menu\" class=\"cursorPointer\">\r\n                <div ui-sref=\"{{item.lin}}\" md-ink-ripple='grey' class=\"nav-click\">\r\n                    <md-item-content layout=\"row\" layout-align=\"start center\">\r\n                        <div class=\"inset\">\r\n                            <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\r\n                        </div>\r\n                        <div class=\"inset\">{{item.title}}\r\n                        </div>\r\n                    </md-item-content>\r\n                </div>\r\n            </md-item>\r\n            <md-divider></md-divider>\r\n            <md-subheader>Management</md-subheader>\r\n            <md-item ng-repeat=\"item in admin\">\r\n                <div ui-sref=\".state1\" md-ink-ripple=\"grey\" class=\"nav-click\">\r\n                    <md-item-content layout=\"row\" layout-align=\"start center\">\r\n                        <div class=\"inset\">\r\n                            <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\r\n                        </div>\r\n                        <div class=\"inset\">{{item.title}}\r\n                        </div>\r\n                    </md-item-content>\r\n                </div>\r\n            </md-item>\r\n        </md-list>\r\n    </md-sidenav>\r\n</div>\r\n"
 
 /***/ },
 /* 24 */
@@ -76632,10 +76551,258 @@
 	module.exports = "<md-tabs md-stretch-tabs class=\"md-primary\" md-selected=\"data.selectedIndex\">\r\n    <md-tab id=\"tab1\" aria-controls=\"tab1-content\">\r\n        Latest\r\n    </md-tab>\r\n    <md-tab id=\"tab2\" aria-controls=\"tab2-content\">\r\n        Favorites\r\n    </md-tab>\r\n</md-tabs>\r\n<div class=\"inset\" hide-sm></div>\r\n<ng-switch on=\"data.selectedIndex\" class=\"tabpanel-container\">\r\n    <div role=\"tabpanel\"\r\n         id=\"tab1-content\"\r\n         aria-labelledby=\"tab1\"\r\n         ng-switch-when=\"0\"\r\n         md-swipe-left=\"next()\"\r\n         md-swipe-right=\"previous()\"\r\n         layout=\"row\" layout-align=\"center center\">\r\n        <md-card flex-gt-sm=\"90\" flex-gt-md=\"80\">\r\n            <md-card-content>\r\n                <h2>Activityxxxxxxxxxxxx</h2>\r\n                <md-list>\r\n                    <md-item ng-repeat=\"item in activity | filter:search\">\r\n                        <md-item-content>\r\n                            <div class=\"md-tile-left inset\" hide-sm>\r\n                                <user-avatar></user-avatar>\r\n                            </div>\r\n                            <div class=\"md-tile-content\">\r\n                                <h3>{{item.what}}</h3>\r\n                                <h4>{{item.who}}</h4>\r\n                                <p>\r\n                                    {{item.notes}}\r\n                                </p>\r\n                            </div>\r\n                        </md-item-content>\r\n                        <md-divider md-inset hide-sm ng-if=\"!$last\"></md-divider>\r\n                        <md-divider hide-gt-sm ng-if=\"!$last\"></md-divider>\r\n                    </md-item>\r\n                    <md-divider></md-divider>\r\n                    <md-item layout class=\"inset\">\r\n                        <md-button layout layout-align=\"start center\" flex class=\"md-primary\">\r\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\"\r\n                                 viewBox=\"0 0 24 24\">\r\n                                <path d=\"M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z\"/>\r\n                            </svg>\r\n                            More\r\n                        </md-button>\r\n                    </md-item>\r\n                </md-list>\r\n            </md-card-content>\r\n        </md-card>\r\n    </div>\r\n    <div role=\"tabpanel\"\r\n         id=\"tab2-content\"\r\n         aria-labelledby=\"tab2\"\r\n         ng-switch-when=\"1\"\r\n         md-swipe-left=\"next()\"\r\n         md-swipe-right=\"previous()\"\r\n         layout=\"row\" layout-align=\"center center\">\r\n        <md-card flex-gt-sm=\"90\" flex-gt-md=\"80\">\r\n            <md-card-content>\r\n                <h2>Favoritesxxxxxxxxx</h2>\r\n                <md-list>\r\n                    <md-item ng-repeat=\"item in activity | filter:search | orderBy:'-what'\">\r\n                        <md-item-content>\r\n                            <div class=\"md-tile-left inset\" hide-sm>\r\n                                <user-avatar></user-avatar>\r\n                            </div>\r\n                            <div class=\"md-tile-content\">\r\n                                <h3>{{item.what}}</h3>\r\n                                <h4>{{item.who}}</h4>\r\n                                <p>\r\n                                    {{item.notes}}\r\n                                </p>\r\n                            </div>\r\n                        </md-item-content>\r\n                        <md-divider md-inset hide-sm ng-if=\"!$last\"></md-divider>\r\n                        <md-divider hide-gt-sm ng-if=\"!$last\"></md-divider>\r\n                    </md-item>\r\n                    <md-divider></md-divider>\r\n                    <md-item layout class=\"inset\">\r\n                        <md-button layout layout-align=\"start center\" flex class=\"md-primary\">\r\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\"\r\n                                 viewBox=\"0 0 24 24\">\r\n                                <path d=\"M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z\"/>\r\n                            </svg>\r\n                            More\r\n                        </md-button>\r\n                    </md-item>\r\n                </md-list>\r\n            </md-card-content>\r\n        </md-card>\r\n    </div>\r\n\r\n</ng-switch>"
 
 /***/ },
-/* 25 */
+/* 25 */,
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by AO.Diwei on 2016/9/28.
+	 */
+	'use strict';
+
+	var app = __webpack_require__(22);
+	//var division_conf = require('../config/division.js');
+	//var test_data = require('../config/test_data.js');
+	app.controller("formTabsCtrl", function ($scope, $http) {
+	    $scope.tabs = [{ title: '患者基本信息', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-user' }, { title: '住院病历记录', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-dashboard' }, { title: '首次病程记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-check' }, { title: '手术记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-heart' }, { title: '术后病程', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-book' }, { title: '出院记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-edit' }, { title: '长期医嘱记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-list-alt' }, { title: '临时医嘱记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-list' }];
+
+	    $scope.model = {
+	        name: 'Tabs'
+	    };
+
+	    $scope.initForm = function () {
+	        $scope.btnDisable = false;
+	        //表
+	        $scope.patient_info = {};
+	        $scope.hospitalized = {};
+	        $scope.clinical_course = {};
+	        $scope.after_surgery = {};
+	        $scope.surgery = {};
+	        $scope.leave = {};
+	        $scope.long_medical_orders = {};
+	        $scope.temp_medical_orders = {};
+
+	        // 动态增加的条目
+	        $scope.check_record = [{ date: "", content: "" }];
+	        $scope.description = [{ date: "", content: "" }];
+	        $scope.long_items = [{
+	            start_datetime: "",
+	            medical_order: "",
+	            start_execute_doctor: "",
+	            start_execute_nurse: "",
+	            start_execute_datetime: "",
+	            stop_datetime: "",
+	            stop_execute_doctor: "",
+	            stop_execute_nurse: "",
+	            stop_execute_datetime: ""
+	        }];
+	        $scope.temp_items = [{
+	            start_datetime: "",
+	            medical_order: "",
+	            start_execute_doctor: "",
+	            start_execute_nurse: "",
+	            start_execute_datetime: "",
+	            checker: ""
+	        }];
+	    };
+
+	    $scope.initForm();
+
+	    //for debug
+	    //$scope.patient_info = test_data.tbl_patient_info;
+	    //$scope.clinical_course = test_data.tbl_clinical_course;
+	    //$scope.hospitalized = test_data.tbl_hospitalized;
+	    //$scope.surgery = test_data.tbl_surgery;
+	    //$scope.after_surgery = test_data.tbl_after_surgery;
+	    //$scope.leave = test_data.tbl_leave;
+	    //$scope.check_record = test_data.tbl_clinical_course.check_record;
+	    //$scope.long_items = test_data.tbl_long_medical_orders.items;
+	    //$scope.temp_items = test_data.tbl_temp_medical_orders.items;
+
+	    $scope.submit = function () {
+	        $scope.btnDisable = true;
+	        $scope.clinical_course["check_record"] = $scope.check_record;
+	        $scope.after_surgery["description"] = $scope.description;
+	        $scope.long_medical_orders["items"] = $scope.long_items;
+	        $scope.temp_medical_orders["items"] = $scope.temp_items;
+
+	        console.log($scope.patient_info.birthday);
+	        console.log($scope.patient_info);
+	        console.log($scope.clinical_course);
+	        console.log($scope.hospitalized);
+	        console.log($scope.surgery);
+	        console.log($scope.leave);
+	        console.log($scope.long_medical_orders);
+	        console.log($scope.temp_medical_orders);
+
+	        var req = {
+	            url: '/data/form-data',
+	            method: 'POST',
+	            params: {
+	                tbl_patient_info: $scope.patient_info,
+	                tbl_hospitalized: $scope.hospitalized,
+	                tbl_clinical_course: $scope.clinical_course,
+	                tbl_after_surgery: $scope.after_surgery,
+	                tbl_surgery: $scope.surgery,
+	                tbl_leave: $scope.leave,
+	                tbl_long_medical_orders: $scope.long_medical_orders,
+	                tbl_temp_medical_orders: $scope.temp_medical_orders
+	            }
+	        };
+
+	        //$http(req).then(function (data) {
+	        //    $scope.btnDisable = false;
+	        //    var modalTip = "<p>提交成功</p>";
+	        //    modal.openTimed(modalTip, modal.type.success);
+	        //    $scope.initForm();
+	        //}).catch(function () {
+	        //    $scope.btnDisable = false;
+	        //    console.log("提交失败");
+	        //    var modalTip = "<p>提交失败</p>";
+	        //    modal.openTimed(modalTip, modal.type.failed);
+	        //});
+	    };
+	});
+	//.controller("tabPatientController", function ($scope) {
+	//    $scope.selected = {
+	//        sex: ['男', '女'],
+	//        division: division_conf,
+	//        marriage: ['已婚', '未婚', '丧偶', '离婚', '其他']
+	//    };
+	//})
+	//
+	//.controller("tabHospitalizedController", function ($scope) {
+	//
+	//})
+	//
+	//.controller("tabClinicalCourseController", function ($scope) {
+	//    $scope.addRecord = function () {
+	//        $scope.check_record.push({date: "", content: ""});
+	//    };
+	//
+	//    $scope.delRecord = function (index) {
+	//        $scope.check_record.splice(index, 1);
+	//    };
+	//})
+	//
+	//.controller("tabSurgeryController", function ($scope) {
+	//
+	//})
+	//
+	//.controller("tabAfterSurgeryController", function ($scope) {
+	//    $scope.addRecord = function () {
+	//        $scope.description.push({date: "", content: ""});
+	//    };
+	//    $scope.delRecord = function (index) {
+	//        $scope.description.splice(index, 1);
+	//    };
+	//})
+	//
+	//.controller("tabLongMedicalOrdersController", function ($scope) {
+	//    $scope.addRecord = function () {
+	//        $scope.long_items.push({
+	//            start_datetime: "",
+	//            medical_order: "",
+	//            start_execute_doctor: "",
+	//            start_execute_nurse: "",
+	//            start_execute_datetime: "",
+	//            stop_datetime: "",
+	//            stop_execute_doctor: "",
+	//            stop_execute_nurse: "",
+	//            stop_execute_datetime: ""
+	//        });
+	//    };
+	//    $scope.delRecord = function (index) {
+	//        $scope.long_items.splice(index, 1);
+	//    };
+	//})
+	//
+	//.controller("tabTempMedicalOrdersController", function ($scope) {
+	//    $scope.addRecord = function () {
+	//        $scope.temp_items.push({
+	//            start_datetime: "",
+	//            medical_order: "",
+	//            start_execute_doctor: "",
+	//            start_execute_nurse: "",
+	//            start_execute_datetime: "",
+	//            checker: ""});
+	//    };
+	//    $scope.delRecord = function (index) {
+	//        $scope.temp_items.splice(index, 1);
+	//    };
+	//});
+
+/***/ },
+/* 27 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"formTabsCtrl\" >\r\n    <form name=\"projectForm\">\r\n    <!--<md-content class=\"md-padding\">-->\r\n    <md-tabs class=\"md-primary\" md-border-bottom md-dynamic-height=\"\" md-border-bottom=\"\">\r\n        <md-tab ng-repeat=\"tab in tabs\"\r\n                label=\"{{tab.title}}\"\r\n                layout=\"row\">\r\n            <div class=\"inset\" hide-sm></div>\r\n            <div layout=\"row\" layout-align=\"center center\">\r\n                <md-card flex-gt-sm=\"90\" flex-gt-md=\"80\">\r\n                    <md-card-content>\r\n                        <div layout=\"row\">\r\n                            <div flex>\r\n                                <md-card md-theme=\"dark-blue\">\r\n                                    <md-input-container>\r\n                                        <label>Client Name</label>\r\n                                        <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                                        <div ng-messages=\"projectForm.clientName.$error\">\r\n                                            <div ng-message=\"required\">必填.</div>\r\n                                        </div>\r\n                                    </md-input-container>\r\n                                </md-card>\r\n                            </div>\r\n                            <div flex>\r\n                                <md-card>\r\n                                    <md-input-container>\r\n                                        <label>Client Name</label>\r\n                                        <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                                        <div ng-messages=\"projectForm.clientName.$error\">\r\n                                            <div ng-message=\"required\">必填.</div>\r\n                                        </div>\r\n                                    </md-input-container>\r\n                                </md-card>\r\n                            </div>\r\n\r\n                            <div flex>\r\n                                   <md-card>\r\n                                       <md-input-container>\r\n                                           <label>Client Name</label>\r\n                                           <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                                           <div ng-messages=\"projectForm.clientName.$error\">\r\n                                               <div ng-message=\"required\">必填.</div>\r\n                                           </div>\r\n                                       </md-input-container>\r\n                                   </md-card>\r\n                               </div>\r\n                        </div>\r\n\r\n                        <div layout=\"row\">\r\n                            <div flex>\r\n                                <md-card>\r\n                                    <md-input-container>\r\n                                        <label>Client Name</label>\r\n                                        <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                                        <div ng-messages=\"projectForm.clientName.$error\">\r\n                                            <div ng-message=\"required\">必填.</div>\r\n                                        </div>\r\n                                    </md-input-container>\r\n                                </md-card>\r\n                            </div>\r\n                            <div flex>\r\n                                <md-card>\r\n                                    <md-input-container>\r\n                                        <label>姓名</label>\r\n                                        <input required name=\"clientName1\" ng-model=\"project.clientName1\">\r\n                                        <div ng-messages=\"projectForm.clientName1.$error\">\r\n                                            <div ng-message=\"required\">必填.</div>\r\n                                        </div>\r\n                                    </md-input-container>\r\n                                </md-card>\r\n                            </div>\r\n                        </div>\r\n\r\n                    </md-card-content>\r\n                </md-card>\r\n\r\n            </div>\r\n        </md-tab>\r\n    </md-tabs>\r\n    </form>\r\n    <!--</md-content>-->\r\n</div>\r\n\r\n"
+	module.exports = "<div ng-controller=\"formTabsCtrl\">\r\n    <md-tabs class=\"md-primary\" md-border-bottom md-dynamic-height=\"\" md-border-bottom=\"\" md-center-tabs md-swipe-content>\r\n        <md-tab ng-repeat=\"tab in tabs\"\r\n                label=\"{{tab.title}}\"\r\n                layout=\"row\">\r\n            <div class=\"inset\" hide-sm></div>\r\n            <div layout=\"row\" layout-align=\"center center\">\r\n                <md-card flex-gt-sm=\"90\" flex-gt-md=\"80\">\r\n                    <md-card-content>\r\n                        <form name=\"projectForm\">\r\n                            <ng-include src=\"tab.content\"></ng-include>\r\n                        </form>\r\n                    </md-card-content>\r\n                </md-card>\r\n            </div>\r\n        </md-tab>\r\n    </md-tabs>\r\n</div>\r\n\r\n"
+
+/***/ },
+/* 28 */
+/***/ function(module, exports) {
+
+	module.exports = "<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>Client Name</label>\r\n                <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                <div ng-messages=\"projectForm.clientName.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>Client Name</label>\r\n                <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                <div ng-messages=\"projectForm.clientName.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>Client Name</label>\r\n                <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                <div ng-messages=\"projectForm.clientName.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n</div>\r\n<!--<div class=\"inset\" hide-sm></div>-->\r\n<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label md-theme=\"dark-orange\">Client Name</label>\r\n                <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                <div ng-messages=\"projectForm.clientName.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>姓名</label>\r\n                <input required name=\"clientName1\" ng-model=\"project.clientName1\">\r\n                <div ng-messages=\"projectForm.clientName1.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n\r\n</div>"
+
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by AO.Diwei on 2016/9/28.
+	 */
+	var app = __webpack_require__(22);
+	app.controller('NavCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialog) {
+	    $scope.toggleSidenav = function (menuId) {
+	        $mdSidenav(menuId).toggle();
+	    };
+	    $scope.menu = [{
+	        lin: '.index',
+	        title: 'Dashboard',
+	        icon: 'dashboard'
+	    }, {
+	        lin: '.state2',
+	        title: 'Friends',
+	        icon: 'group'
+	    }, {
+	        lin: '.state2',
+	        title: 'Messages',
+	        icon: 'message'
+	    }];
+	    $scope.admin = [{
+	        lin: '',
+	        title: 'Trash',
+	        icon: 'delete'
+	    }, {
+	        lin: 'showListBottomSheet($event)',
+	        title: 'Settings',
+	        icon: 'settings'
+	    }];
+
+	    $scope.alert = '';
+	    $scope.showListBottomSheet = function ($event) {
+	        $scope.alert = '';
+	        $mdBottomSheet.show({
+	            template: '<md-bottom-sheet class="md-list md-has-header"> <md-subheader>Settings</md-subheader> <md-list> <md-item ng-repeat="item in items"><md-item-content md-ink-ripple flex class="inset"> <a flex aria-label="{{item.name}}" ng-click="listItemClick($index)"> <span class="md-inline-list-icon-label">{{ item.name }}</span> </a></md-item-content> </md-item> </md-list></md-bottom-sheet>',
+	            controller: 'ListBottomSheetCtrl',
+	            targetEvent: $event
+	        }).then(function (clickedItem) {
+	            $scope.alert = clickedItem.name + ' clicked!';
+	        });
+	    };
+
+	    $scope.showAdd = function (ev) {
+	        $mdDialog.show({
+	            controller: DialogController,
+	            template: '<md-dialog aria-label="Mango (Fruit)"> <md-content class="md-padding"> <form name="userForm"> <div layout layout-sm="column"> <md-input-container flex> <label>First Name</label> <input ng-model="user.firstName" placeholder="Placeholder text"> </md-input-container> <md-input-container flex> <label>Last Name</label> <input ng-model="theMax"> </md-input-container> </div> <md-input-container flex> <label>Address</label> <input ng-model="user.address"> </md-input-container> <div layout layout-sm="column"> <md-input-container flex> <label>City</label> <input ng-model="user.city"> </md-input-container> <md-input-container flex> <label>State</label> <input ng-model="user.state"> </md-input-container> <md-input-container flex> <label>Postal Code</label> <input ng-model="user.postalCode"> </md-input-container> </div> <md-input-container flex> <label>Biography</label> <textarea ng-model="user.biography" columns="1" md-maxlength="150"></textarea> </md-input-container> </form> </md-content> <div class="md-actions" layout="row"> <span flex></span> <md-button ng-click="answer(\'not useful\')"> Cancel </md-button> <md-button ng-click="answer(\'useful\')" class="md-primary"> Save </md-button> </div></md-dialog>',
+	            targetEvent: ev
+	        }).then(function (answer) {
+	            $scope.alert = 'You said the information was "' + answer + '".';
+	        }, function () {
+	            $scope.alert = 'You cancelled the dialog.';
+	        });
+	    };
+	}]);
 
 /***/ }
 /******/ ]);
