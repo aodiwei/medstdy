@@ -4,33 +4,6 @@
 var app = angular.module('medApp', ['ngMaterial', 'ngMdIcons', 'ui.router', 'ngMessages']);
 
 
-
-app.controller('ListBottomSheetCtrl', function ($scope, $mdBottomSheet) {
-    $scope.items = [
-        {name: 'Share', icon: 'share'},
-        {name: 'Upload', icon: 'upload'},
-        {name: 'Copy', icon: 'copy'},
-        {name: 'Print this page', icon: 'print'},
-    ];
-
-    $scope.listItemClick = function ($index) {
-        var clickedItem = $scope.items[$index];
-        $mdBottomSheet.hide(clickedItem);
-    };
-});
-
-function DialogController($scope, $mdDialog) {
-    $scope.hide = function () {
-        $mdDialog.hide();
-    };
-    $scope.cancel = function () {
-        $mdDialog.cancel();
-    };
-    $scope.answer = function (answer) {
-        $mdDialog.hide(answer);
-    };
-};
-
 app.directive('userAvatar', function () {
     return {
         replace: true,
@@ -84,34 +57,51 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise("/index");
     //
     // Now set up the states
+    //$stateProvider
+    //    .state('index', {
+    //        url: "/index",
+    //        templateUrl: "./html/pages/login/login.html",
+    //    })
+    //    .state('main', {
+    //        views: {
+    //            "": {
+    //                url: "/main",
+    //                templateUrl: "./html/main/main.html",
+    //            },
+    //            "tabs@main": {
+    //                url: "/main/tabs",
+    //                templateUrl: "./html/pages/tabs/tabs.html",
+    //            }
+    //        }
+    //    })
+    //    .state('state2', {
+    //        url: "/state2",
+    //        templateUrl: "./html/pages/p2.html",
+    //    })
+
+
     $stateProvider
-        .state('index', {
-            url: "/index",
-            templateUrl: "./html/pages/login/login.html"
-        })
-        .state('state2', {
-            url: "/state2",
-            templateUrl: "./html/pages/p2.html",
-            controller: function ($scope) {
-                $scope.items = ["A", "List", "Of", "Items"];
-            }
-        })
+        .state('home', {
+          url: '/index',
+          views: {
+            '': {
+              templateUrl: './html/pages/login/login.html'
+            },
+            'main@home': {
+              templateUrl: './html/main/main.htm'
+            },
+            //'body@home': {
+            //  templateUrl: './templates/body.html'
+            //},
+            //'footer@home': {
+            //  templateUrl: './templates/assets/footer.html'
+            //}
+          }
+        });
 
 });
 
-//app.controller("formTabsCtrl", function ($scope) {
-//    $scope.user = {
-//       title: 'Developer',
-//       email: 'ipsum@lorem.com',
-//       firstName: '',
-//       lastName: '',
-//       company: 'Google',
-//       address: '1600 Amphitheatre Pkwy',
-//       city: 'Mountain View',
-//       state: 'CA',
-//       biography: 'Loves kittens, snowboarding, and can type at 130 WPM.\n\nAnd rumor has it she bouldered up Castle Craig!',
-//       postalCode: '94043'
-//     };
-//});
+
+
 
 module.exports = app;

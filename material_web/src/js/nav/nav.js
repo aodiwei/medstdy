@@ -13,12 +13,12 @@ app.controller('NavCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog'
             icon: 'dashboard'
         },
         {
-            lin: '.state2',
+            lin: '.main',
             title: 'Friends',
             icon: 'group'
         },
         {
-            lin: '.state2',
+            lin: '.main.form_tabs',
             title: 'Messages',
             icon: 'message'
         }

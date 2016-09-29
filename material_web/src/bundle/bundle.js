@@ -71,11 +71,13 @@
 	__webpack_require__(22);
 	__webpack_require__(23);
 	__webpack_require__(24);
+	__webpack_require__(30);
 
 	__webpack_require__(25);
 	__webpack_require__(26);
 	__webpack_require__(27);
 	__webpack_require__(28);
+	__webpack_require__(29);
 
 /***/ },
 /* 2 */
@@ -37526,6 +37528,7 @@
 
 	// Now load Angular Material
 	__webpack_require__(11);
+	//require('./angular-material.min.css');
 
 	// Export namespace
 	module.exports = 'ngMaterial';
@@ -76453,27 +76456,6 @@
 	 */
 	var app = angular.module('medApp', ['ngMaterial', 'ngMdIcons', 'ui.router', 'ngMessages']);
 
-	app.controller('ListBottomSheetCtrl', function ($scope, $mdBottomSheet) {
-	    $scope.items = [{ name: 'Share', icon: 'share' }, { name: 'Upload', icon: 'upload' }, { name: 'Copy', icon: 'copy' }, { name: 'Print this page', icon: 'print' }];
-
-	    $scope.listItemClick = function ($index) {
-	        var clickedItem = $scope.items[$index];
-	        $mdBottomSheet.hide(clickedItem);
-	    };
-	});
-
-	function DialogController($scope, $mdDialog) {
-	    $scope.hide = function () {
-	        $mdDialog.hide();
-	    };
-	    $scope.cancel = function () {
-	        $mdDialog.cancel();
-	    };
-	    $scope.answer = function (answer) {
-	        $mdDialog.hide(answer);
-	    };
-	};
-
 	app.directive('userAvatar', function () {
 	    return {
 	        replace: true,
@@ -76506,32 +76488,41 @@
 	    $urlRouterProvider.otherwise("/index");
 	    //
 	    // Now set up the states
-	    $stateProvider.state('index', {
-	        url: "/index",
-	        templateUrl: "./html/pages/login/login.html"
-	    }).state('state2', {
-	        url: "/state2",
-	        templateUrl: "./html/pages/p2.html",
-	        controller: function ($scope) {
-	            $scope.items = ["A", "List", "Of", "Items"];
+	    //$stateProvider
+	    //    .state('index', {
+	    //        url: "/index",
+	    //        templateUrl: "./html/pages/login/login.html",
+	    //    })
+	    //    .state('main', {
+	    //        views: {
+	    //            "": {
+	    //                url: "/main",
+	    //                templateUrl: "./html/main/main.html",
+	    //            },
+	    //            "tabs@main": {
+	    //                url: "/main/tabs",
+	    //                templateUrl: "./html/pages/tabs/tabs.html",
+	    //            }
+	    //        }
+	    //    })
+	    //    .state('state2', {
+	    //        url: "/state2",
+	    //        templateUrl: "./html/pages/p2.html",
+	    //    })
+
+
+	    $stateProvider.state('home', {
+	        url: '/index',
+	        views: {
+	            '': {
+	                templateUrl: './html/pages/login/login.html'
+	            },
+	            'main@home': {
+	                templateUrl: './html/main/main.htm'
+	            }
 	        }
 	    });
 	});
-
-	//app.controller("formTabsCtrl", function ($scope) {
-	//    $scope.user = {
-	//       title: 'Developer',
-	//       email: 'ipsum@lorem.com',
-	//       firstName: '',
-	//       lastName: '',
-	//       company: 'Google',
-	//       address: '1600 Amphitheatre Pkwy',
-	//       city: 'Mountain View',
-	//       state: 'CA',
-	//       biography: 'Loves kittens, snowboarding, and can type at 130 WPM.\n\nAnd rumor has it she bouldered up Castle Craig!',
-	//       postalCode: '94043'
-	//     };
-	//});
 
 	module.exports = app;
 
@@ -76733,11 +76724,11 @@
 	        title: 'Dashboard',
 	        icon: 'dashboard'
 	    }, {
-	        lin: '.state2',
+	        lin: '.main',
 	        title: 'Friends',
 	        icon: 'group'
 	    }, {
-	        lin: '.state2',
+	        lin: '.main.form_tabs',
 	        title: 'Messages',
 	        icon: 'message'
 	    }];
@@ -76780,7 +76771,7 @@
 /* 25 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"NavCtrl\">\r\n    <md-sidenav layout=\"column\" class=\"md-sidenav-left md-whiteframe-z2\" md-component-id=\"left\"\r\n                md-is-locked-open=\"$mdMedia('gt-md')\">\r\n        <md-toolbar class=\"md-tall md-primary\">\r\n            <span flex></span>\r\n            <div layout=\"column\" class=\"md-toolbar-tools-bottom inset\">\r\n                <user-avatar></user-avatar>\r\n                <span></span>\r\n                <div>Firstname Lastname</div>\r\n                <div>email@domainname.com</div>\r\n            </div>\r\n        </md-toolbar>\r\n        <md-list>\r\n            <md-item ng-repeat=\"item in menu\" class=\"cursorPointer\">\r\n                <div ui-sref=\"{{item.lin}}\" md-ink-ripple='grey' class=\"nav-click\">\r\n                    <md-item-content layout=\"row\" layout-align=\"start center\">\r\n                        <div class=\"inset\">\r\n                            <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\r\n                        </div>\r\n                        <div class=\"inset\">{{item.title}}\r\n                        </div>\r\n                    </md-item-content>\r\n                </div>\r\n            </md-item>\r\n            <md-divider></md-divider>\r\n            <md-subheader>Management</md-subheader>\r\n            <md-item ng-repeat=\"item in admin\">\r\n                <div ui-sref=\".state1\" md-ink-ripple=\"grey\" class=\"nav-click\">\r\n                    <md-item-content layout=\"row\" layout-align=\"start center\">\r\n                        <div class=\"inset\">\r\n                            <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\r\n                        </div>\r\n                        <div class=\"inset\">{{item.title}}\r\n                        </div>\r\n                    </md-item-content>\r\n                </div>\r\n            </md-item>\r\n        </md-list>\r\n    </md-sidenav>\r\n</div>\r\n"
+	module.exports = "<md-sidenav layout=\"column\" class=\"md-sidenav-left md-whiteframe-z2\" md-component-id=\"left\"\r\n            md-is-locked-open=\"$mdMedia('gt-md')\">\r\n    <md-toolbar class=\"md-tall md-primary\">\r\n        <span flex></span>\r\n        <div layout=\"column\" class=\"md-toolbar-tools-bottom inset\">\r\n            <user-avatar></user-avatar>\r\n            <span></span>\r\n            <div>Firstname Lastname</div>\r\n            <div>email@domainname.com</div>\r\n        </div>\r\n    </md-toolbar>\r\n    <md-list>\r\n        <md-item ng-repeat=\"item in menu\" class=\"cursorPointer\">\r\n            <div ui-sref=\"{{item.lin}}\" md-ink-ripple='grey' class=\"nav-click\">\r\n                <md-item-content layout=\"row\" layout-align=\"start center\">\r\n                    <div class=\"inset\">\r\n                        <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\r\n                    </div>\r\n                    <div class=\"inset\">{{item.title}}\r\n                    </div>\r\n                </md-item-content>\r\n            </div>\r\n        </md-item>\r\n        <md-divider></md-divider>\r\n        <md-subheader>Management</md-subheader>\r\n        <md-item ng-repeat=\"item in admin\">\r\n            <div ui-sref=\".main.tabs\" md-ink-ripple=\"grey\" class=\"nav-click\">\r\n                <md-item-content layout=\"row\" layout-align=\"start center\">\r\n                    <div class=\"inset\">\r\n                        <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\r\n                    </div>\r\n                    <div class=\"inset\">{{item.title}}\r\n                    </div>\r\n                </md-item-content>\r\n            </div>\r\n        </md-item>\r\n    </md-list>\r\n</md-sidenav>\r\n\r\n"
 
 /***/ },
 /* 26 */
@@ -76799,6 +76790,29 @@
 /***/ function(module, exports) {
 
 	module.exports = "<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>Client Name</label>\r\n                <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                <div ng-messages=\"projectForm.clientName.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>Client Name</label>\r\n                <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                <div ng-messages=\"projectForm.clientName.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>Client Name</label>\r\n                <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                <div ng-messages=\"projectForm.clientName.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n</div>\r\n<!--<div class=\"inset\" hide-sm></div>-->\r\n<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label md-theme=\"dark-orange\">Client Name</label>\r\n                <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                <div ng-messages=\"projectForm.clientName.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>姓名</label>\r\n                <input required name=\"clientName1\" ng-model=\"project.clientName1\">\r\n                <div ng-messages=\"projectForm.clientName1.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n\r\n</div>"
+
+/***/ },
+/* 29 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div layout=\"row\" layout-align=\"center center\" ng-controller=\"LoginCtrl\">\r\n<md-card md-theme=\"\" md-theme-watch >\r\n    <md-card-title>\r\n        <md-card-title-text md-theme=\"dark-purple\">\r\n            <span class=\"md-headline\" >登录</span>\r\n        </md-card-title-text>\r\n    </md-card-title>\r\n    <md-card-content>\r\n        <md-content layout-padding=\"\" md-theme=\"dark-blue\">\r\n        <form name=\"loginForm\" >\r\n            <md-input-container class=\"md-block\">\r\n                <label>账号</label>\r\n                <md-icon>\r\n                    <ng-md-icon icon=\"account_circle\"></ng-md-icon>\r\n                </md-icon>\r\n                <input ng-model=\"user.account\" type=\"text\" name=\"account\" required>\r\n                <div ng-messages=\"loginForm.account.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n\r\n            <md-input-container class=\"md-block\">\r\n                <label>密码</label>\r\n                <md-icon>\r\n                    <ng-md-icon icon=\"lock\"></ng-md-icon>\r\n                </md-icon>\r\n                <input ng-model=\"user.name\" type=\"password\" name=\"password\" required>\r\n                <div ng-messages=\"loginForm.password.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n\r\n            <md-button ng-click=\"submit()\" class=\"md-raised md-primary\">登录</md-button>\r\n        </form>\r\n        </md-content>\r\n    </md-card-content>\r\n</md-card>\r\n</div>"
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by asus on 2016/9/28.
+	 */
+	'use strict';
+
+	var app = __webpack_require__(22);
+
+	app.controller("LoginCtrl", function ($scope, $state) {
+	    $scope.submit = function () {
+	        $state.go("main");
+	    };
+	});
 
 /***/ }
 /******/ ]);

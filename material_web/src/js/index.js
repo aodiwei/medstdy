@@ -17,8 +17,10 @@ require('../css/app.css');
 require('./app');
 require('./pages/tabs');
 require('./nav/nav');
+require('./pages/login');
 
 require('../html/nav/left_nav.html');
 require('../html/pages/p2.html');
 require('../html/pages/tabs/tabs.html');
 require('../html/pages/tabs/tab-patient-info.html');
+require('../html/pages/login/login.html');
