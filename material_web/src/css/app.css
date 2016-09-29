@@ -57,11 +57,6 @@ md-sidenav ng-md-icon {
     cursor: pointer;
 }
 
-md-sidenav > md-list > md-item > div:focus {
-    outline: none;
-    border: 0;
-    background: red;
-}
 
 .docs-menu .md-button.active {
   background: #267ED5;

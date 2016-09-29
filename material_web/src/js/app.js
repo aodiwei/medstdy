@@ -3,7 +3,6 @@
  */
 var app = angular.module('medApp', ['ngMaterial', 'ngMdIcons', 'ui.router', 'ngMessages']);
 
-
 app.directive('userAvatar', function () {
     return {
         replace: true,
@@ -52,52 +51,28 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
     //$mdThemingProvider.theme('input', 'default')
     //    .primaryPalette('brown');
 
-    //
-    // For any unmatched url, redirect to /state1
-    $urlRouterProvider.otherwise("/index");
-    //
-    // Now set up the states
-    //$stateProvider
-    //    .state('index', {
-    //        url: "/index",
-    //        templateUrl: "./html/pages/login/login.html",
-    //    })
-    //    .state('main', {
-    //        views: {
-    //            "": {
-    //                url: "/main",
-    //                templateUrl: "./html/main/main.html",
-    //            },
-    //            "tabs@main": {
-    //                url: "/main/tabs",
-    //                templateUrl: "./html/pages/tabs/tabs.html",
-    //            }
-    //        }
-    //    })
-    //    .state('state2', {
-    //        url: "/state2",
-    //        templateUrl: "./html/pages/p2.html",
-    //    })
-
+    $urlRouterProvider
+        .when('/main', '/main/tabs') //设置第二级ui-view默认的显示页面
+        .otherwise("/index");
 
     $stateProvider
-        .state('home', {
-          url: '/index',
-          views: {
-            '': {
-              templateUrl: './html/pages/login/login.html'
-            },
-            'main@home': {
-              templateUrl: './html/main/main.htm'
-            },
-            //'body@home': {
-            //  templateUrl: './templates/body.html'
-            //},
-            //'footer@home': {
-            //  templateUrl: './templates/assets/footer.html'
-            //}
-          }
-        });
+           .state("index", {
+               url: "/index",
+               templateUrl: "./html/pages/login/login.html"
+           })
+           .state("main", {
+               //abstract: true,
+               url:"/main",
+               templateUrl: "./html/main/main.html"
+           })
+           .state("main.tabs", {
+               url:"/tabs",
+               templateUrl: "./html/pages/tabs/tabs.html"
+           })
+            .state("main.admin", {
+                url:"/admin",
+                templateUrl: "./html/pages/p2.html"
+            })
 
 });
 

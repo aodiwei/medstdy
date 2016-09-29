@@ -71,13 +71,13 @@
 	__webpack_require__(22);
 	__webpack_require__(23);
 	__webpack_require__(24);
-	__webpack_require__(30);
-
 	__webpack_require__(25);
+
 	__webpack_require__(26);
 	__webpack_require__(27);
 	__webpack_require__(28);
 	__webpack_require__(29);
+	__webpack_require__(30);
 
 /***/ },
 /* 2 */
@@ -37528,7 +37528,6 @@
 
 	// Now load Angular Material
 	__webpack_require__(11);
-	//require('./angular-material.min.css');
 
 	// Export namespace
 	module.exports = 'ngMaterial';
@@ -76442,7 +76441,7 @@
 
 
 	// module
-	exports.push([module.id, "md-content.md-default-theme {\r\n    background-color: #eee;\r\n}\r\n\r\nmd-card {\r\n    /*background-color: #fff;*/\r\n}\r\n\r\nmd-card h2:first-of-type {\r\n    margin-top: 0;\r\n}\r\n\r\nmd-toolbar .md-button.md-default-theme {\r\n    border-radius: 99%;\r\n}\r\n\r\nh2 {\r\n    font-weight: 400;\r\n}\r\n\r\n.md-toolbar-tools-bottom {\r\n    font-size: small;\r\n}\r\n\r\n.md-toolbar-tools-bottom:last-child {\r\n    opacity: 0.8;\r\n}\r\n\r\nmd-toolbar:not(.md-hue-1),\r\n.md-fab {\r\n    fill: #fff;\r\n}\r\n\r\nmd-sidenav {\r\n    fill: #737373;\r\n}\r\n\r\nmd-sidenav ng-md-icon {\r\n    position: relative;\r\n    top: 5px;\r\n}\r\n\r\n.user-avatar {\r\n    border-radius: 99%;\r\n}\r\n\r\n/*/////////////*/\r\n.nav-active {\r\n    background: red;\r\n}\r\n\r\n.nav-click {\r\n    position: relative;\r\n}\r\n\r\n.cursorPointer {\r\n    cursor: pointer;\r\n}\r\n\r\nmd-sidenav > md-list > md-item > div:focus {\r\n    outline: none;\r\n    border: 0;\r\n    background: red;\r\n}\r\n\r\n.docs-menu .md-button.active {\r\n  background: #267ED5;\r\n}\r\n\r\n\r\n\r\n/*.inputdemoErrors .inputErrorsApp {*/\r\n  /*min-height: 48px; }*/\r\n\r\n/*.inputdemoErrors md-input-container > p {*/\r\n  /*font-size: 0.8em;*/\r\n  /*text-align: left;*/\r\n  /*width: 100%; }*/\r\n", ""]);
+	exports.push([module.id, "md-content.md-default-theme {\r\n    background-color: #eee;\r\n}\r\n\r\nmd-card {\r\n    /*background-color: #fff;*/\r\n}\r\n\r\nmd-card h2:first-of-type {\r\n    margin-top: 0;\r\n}\r\n\r\nmd-toolbar .md-button.md-default-theme {\r\n    border-radius: 99%;\r\n}\r\n\r\nh2 {\r\n    font-weight: 400;\r\n}\r\n\r\n.md-toolbar-tools-bottom {\r\n    font-size: small;\r\n}\r\n\r\n.md-toolbar-tools-bottom:last-child {\r\n    opacity: 0.8;\r\n}\r\n\r\nmd-toolbar:not(.md-hue-1),\r\n.md-fab {\r\n    fill: #fff;\r\n}\r\n\r\nmd-sidenav {\r\n    fill: #737373;\r\n}\r\n\r\nmd-sidenav ng-md-icon {\r\n    position: relative;\r\n    top: 5px;\r\n}\r\n\r\n.user-avatar {\r\n    border-radius: 99%;\r\n}\r\n\r\n/*/////////////*/\r\n.nav-active {\r\n    background: red;\r\n}\r\n\r\n.nav-click {\r\n    position: relative;\r\n}\r\n\r\n.cursorPointer {\r\n    cursor: pointer;\r\n}\r\n\r\n\r\n.docs-menu .md-button.active {\r\n  background: #267ED5;\r\n}\r\n\r\n\r\n\r\n/*.inputdemoErrors .inputErrorsApp {*/\r\n  /*min-height: 48px; }*/\r\n\r\n/*.inputdemoErrors md-input-container > p {*/\r\n  /*font-size: 0.8em;*/\r\n  /*text-align: left;*/\r\n  /*width: 100%; }*/\r\n", ""]);
 
 	// exports
 
@@ -76483,44 +76482,22 @@
 	    //$mdThemingProvider.theme('input', 'default')
 	    //    .primaryPalette('brown');
 
-	    //
-	    // For any unmatched url, redirect to /state1
-	    $urlRouterProvider.otherwise("/index");
-	    //
-	    // Now set up the states
-	    //$stateProvider
-	    //    .state('index', {
-	    //        url: "/index",
-	    //        templateUrl: "./html/pages/login/login.html",
-	    //    })
-	    //    .state('main', {
-	    //        views: {
-	    //            "": {
-	    //                url: "/main",
-	    //                templateUrl: "./html/main/main.html",
-	    //            },
-	    //            "tabs@main": {
-	    //                url: "/main/tabs",
-	    //                templateUrl: "./html/pages/tabs/tabs.html",
-	    //            }
-	    //        }
-	    //    })
-	    //    .state('state2', {
-	    //        url: "/state2",
-	    //        templateUrl: "./html/pages/p2.html",
-	    //    })
+	    $urlRouterProvider.when('/main', '/main/tabs') //���õڶ���ui-viewĬ�ϵ���ʾҳ��
+	    .otherwise("/index");
 
-
-	    $stateProvider.state('home', {
-	        url: '/index',
-	        views: {
-	            '': {
-	                templateUrl: './html/pages/login/login.html'
-	            },
-	            'main@home': {
-	                templateUrl: './html/main/main.htm'
-	            }
-	        }
+	    $stateProvider.state("index", {
+	        url: "/index",
+	        templateUrl: "./html/pages/login/login.html"
+	    }).state("main", {
+	        //abstract: true,
+	        url: "/main",
+	        templateUrl: "./html/main/main.html"
+	    }).state("main.tabs", {
+	        url: "/tabs",
+	        templateUrl: "./html/pages/tabs/tabs.html"
+	    }).state("main.admin", {
+	        url: "/admin",
+	        templateUrl: "./html/pages/p2.html"
 	    });
 	});
 
@@ -76719,27 +76696,24 @@
 	    $scope.toggleSidenav = function (menuId) {
 	        $mdSidenav(menuId).toggle();
 	    };
+	    $scope.close = function () {
+	        $mdSidenav('left').close().then(function () {
+	            //console.debug("close LEFT is done");
+	        });
+	    };
 	    $scope.menu = [{
-	        lin: '.index',
-	        title: 'Dashboard',
+	        lin: '.tabs',
+	        title: '数据录入',
 	        icon: 'dashboard'
 	    }, {
-	        lin: '.main',
+	        lin: '.tabs',
 	        title: 'Friends',
 	        icon: 'group'
-	    }, {
-	        lin: '.main.form_tabs',
-	        title: 'Messages',
-	        icon: 'message'
 	    }];
 	    $scope.admin = [{
-	        lin: '',
-	        title: 'Trash',
-	        icon: 'delete'
-	    }, {
-	        lin: 'showListBottomSheet($event)',
-	        title: 'Settings',
-	        icon: 'settings'
+	        lin: '.admin',
+	        title: '注册管理',
+	        icon: 'group'
 	    }];
 
 	    $scope.alert = '';
@@ -76769,36 +76743,6 @@
 
 /***/ },
 /* 25 */
-/***/ function(module, exports) {
-
-	module.exports = "<md-sidenav layout=\"column\" class=\"md-sidenav-left md-whiteframe-z2\" md-component-id=\"left\"\r\n            md-is-locked-open=\"$mdMedia('gt-md')\">\r\n    <md-toolbar class=\"md-tall md-primary\">\r\n        <span flex></span>\r\n        <div layout=\"column\" class=\"md-toolbar-tools-bottom inset\">\r\n            <user-avatar></user-avatar>\r\n            <span></span>\r\n            <div>Firstname Lastname</div>\r\n            <div>email@domainname.com</div>\r\n        </div>\r\n    </md-toolbar>\r\n    <md-list>\r\n        <md-item ng-repeat=\"item in menu\" class=\"cursorPointer\">\r\n            <div ui-sref=\"{{item.lin}}\" md-ink-ripple='grey' class=\"nav-click\">\r\n                <md-item-content layout=\"row\" layout-align=\"start center\">\r\n                    <div class=\"inset\">\r\n                        <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\r\n                    </div>\r\n                    <div class=\"inset\">{{item.title}}\r\n                    </div>\r\n                </md-item-content>\r\n            </div>\r\n        </md-item>\r\n        <md-divider></md-divider>\r\n        <md-subheader>Management</md-subheader>\r\n        <md-item ng-repeat=\"item in admin\">\r\n            <div ui-sref=\".main.tabs\" md-ink-ripple=\"grey\" class=\"nav-click\">\r\n                <md-item-content layout=\"row\" layout-align=\"start center\">\r\n                    <div class=\"inset\">\r\n                        <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\r\n                    </div>\r\n                    <div class=\"inset\">{{item.title}}\r\n                    </div>\r\n                </md-item-content>\r\n            </div>\r\n        </md-item>\r\n    </md-list>\r\n</md-sidenav>\r\n\r\n"
-
-/***/ },
-/* 26 */
-/***/ function(module, exports) {
-
-	module.exports = "<md-tabs md-stretch-tabs class=\"md-primary\" md-selected=\"data.selectedIndex\">\r\n    <md-tab id=\"tab1\" aria-controls=\"tab1-content\">\r\n        Latest\r\n    </md-tab>\r\n    <md-tab id=\"tab2\" aria-controls=\"tab2-content\">\r\n        Favorites\r\n    </md-tab>\r\n</md-tabs>\r\n<div class=\"inset\" hide-sm></div>\r\n<ng-switch on=\"data.selectedIndex\" class=\"tabpanel-container\">\r\n    <div role=\"tabpanel\"\r\n         id=\"tab1-content\"\r\n         aria-labelledby=\"tab1\"\r\n         ng-switch-when=\"0\"\r\n         md-swipe-left=\"next()\"\r\n         md-swipe-right=\"previous()\"\r\n         layout=\"row\" layout-align=\"center center\">\r\n        <md-card flex-gt-sm=\"90\" flex-gt-md=\"80\">\r\n            <md-card-content>\r\n                <h2>Activityxxxxxxxxxxxx</h2>\r\n                <md-list>\r\n                    <md-item ng-repeat=\"item in activity | filter:search\">\r\n                        <md-item-content>\r\n                            <div class=\"md-tile-left inset\" hide-sm>\r\n                                <user-avatar></user-avatar>\r\n                            </div>\r\n                            <div class=\"md-tile-content\">\r\n                                <h3>{{item.what}}</h3>\r\n                                <h4>{{item.who}}</h4>\r\n                                <p>\r\n                                    {{item.notes}}\r\n                                </p>\r\n                            </div>\r\n                        </md-item-content>\r\n                        <md-divider md-inset hide-sm ng-if=\"!$last\"></md-divider>\r\n                        <md-divider hide-gt-sm ng-if=\"!$last\"></md-divider>\r\n                    </md-item>\r\n                    <md-divider></md-divider>\r\n                    <md-item layout class=\"inset\">\r\n                        <md-button layout layout-align=\"start center\" flex class=\"md-primary\">\r\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\"\r\n                                 viewBox=\"0 0 24 24\">\r\n                                <path d=\"M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z\"/>\r\n                            </svg>\r\n                            More\r\n                        </md-button>\r\n                    </md-item>\r\n                </md-list>\r\n            </md-card-content>\r\n        </md-card>\r\n    </div>\r\n    <div role=\"tabpanel\"\r\n         id=\"tab2-content\"\r\n         aria-labelledby=\"tab2\"\r\n         ng-switch-when=\"1\"\r\n         md-swipe-left=\"next()\"\r\n         md-swipe-right=\"previous()\"\r\n         layout=\"row\" layout-align=\"center center\">\r\n        <md-card flex-gt-sm=\"90\" flex-gt-md=\"80\">\r\n            <md-card-content>\r\n                <h2>Favoritesxxxxxxxxx</h2>\r\n                <md-list>\r\n                    <md-item ng-repeat=\"item in activity | filter:search | orderBy:'-what'\">\r\n                        <md-item-content>\r\n                            <div class=\"md-tile-left inset\" hide-sm>\r\n                                <user-avatar></user-avatar>\r\n                            </div>\r\n                            <div class=\"md-tile-content\">\r\n                                <h3>{{item.what}}</h3>\r\n                                <h4>{{item.who}}</h4>\r\n                                <p>\r\n                                    {{item.notes}}\r\n                                </p>\r\n                            </div>\r\n                        </md-item-content>\r\n                        <md-divider md-inset hide-sm ng-if=\"!$last\"></md-divider>\r\n                        <md-divider hide-gt-sm ng-if=\"!$last\"></md-divider>\r\n                    </md-item>\r\n                    <md-divider></md-divider>\r\n                    <md-item layout class=\"inset\">\r\n                        <md-button layout layout-align=\"start center\" flex class=\"md-primary\">\r\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\"\r\n                                 viewBox=\"0 0 24 24\">\r\n                                <path d=\"M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z\"/>\r\n                            </svg>\r\n                            More\r\n                        </md-button>\r\n                    </md-item>\r\n                </md-list>\r\n            </md-card-content>\r\n        </md-card>\r\n    </div>\r\n\r\n</ng-switch>"
-
-/***/ },
-/* 27 */
-/***/ function(module, exports) {
-
-	module.exports = "<div ng-controller=\"formTabsCtrl\">\r\n    <md-tabs class=\"md-primary\" md-border-bottom md-dynamic-height=\"\" md-border-bottom=\"\" md-center-tabs md-swipe-content>\r\n        <md-tab ng-repeat=\"tab in tabs\"\r\n                label=\"{{tab.title}}\"\r\n                layout=\"row\">\r\n            <div class=\"inset\" hide-sm></div>\r\n            <div layout=\"row\" layout-align=\"center center\">\r\n                <md-card flex-gt-sm=\"90\" flex-gt-md=\"80\">\r\n                    <md-card-content>\r\n                        <form name=\"projectForm\">\r\n                            <ng-include src=\"tab.content\"></ng-include>\r\n                        </form>\r\n                    </md-card-content>\r\n                </md-card>\r\n            </div>\r\n        </md-tab>\r\n    </md-tabs>\r\n</div>\r\n\r\n"
-
-/***/ },
-/* 28 */
-/***/ function(module, exports) {
-
-	module.exports = "<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>Client Name</label>\r\n                <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                <div ng-messages=\"projectForm.clientName.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>Client Name</label>\r\n                <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                <div ng-messages=\"projectForm.clientName.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>Client Name</label>\r\n                <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                <div ng-messages=\"projectForm.clientName.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n</div>\r\n<!--<div class=\"inset\" hide-sm></div>-->\r\n<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label md-theme=\"dark-orange\">Client Name</label>\r\n                <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                <div ng-messages=\"projectForm.clientName.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>姓名</label>\r\n                <input required name=\"clientName1\" ng-model=\"project.clientName1\">\r\n                <div ng-messages=\"projectForm.clientName1.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n\r\n</div>"
-
-/***/ },
-/* 29 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div layout=\"row\" layout-align=\"center center\" ng-controller=\"LoginCtrl\">\r\n<md-card md-theme=\"\" md-theme-watch >\r\n    <md-card-title>\r\n        <md-card-title-text md-theme=\"dark-purple\">\r\n            <span class=\"md-headline\" >登录</span>\r\n        </md-card-title-text>\r\n    </md-card-title>\r\n    <md-card-content>\r\n        <md-content layout-padding=\"\" md-theme=\"dark-blue\">\r\n        <form name=\"loginForm\" >\r\n            <md-input-container class=\"md-block\">\r\n                <label>账号</label>\r\n                <md-icon>\r\n                    <ng-md-icon icon=\"account_circle\"></ng-md-icon>\r\n                </md-icon>\r\n                <input ng-model=\"user.account\" type=\"text\" name=\"account\" required>\r\n                <div ng-messages=\"loginForm.account.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n\r\n            <md-input-container class=\"md-block\">\r\n                <label>密码</label>\r\n                <md-icon>\r\n                    <ng-md-icon icon=\"lock\"></ng-md-icon>\r\n                </md-icon>\r\n                <input ng-model=\"user.name\" type=\"password\" name=\"password\" required>\r\n                <div ng-messages=\"loginForm.password.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n\r\n            <md-button ng-click=\"submit()\" class=\"md-raised md-primary\">登录</md-button>\r\n        </form>\r\n        </md-content>\r\n    </md-card-content>\r\n</md-card>\r\n</div>"
-
-/***/ },
-/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -76813,6 +76757,36 @@
 	        $state.go("main");
 	    };
 	});
+
+/***/ },
+/* 26 */
+/***/ function(module, exports) {
+
+	module.exports = "<md-sidenav layout=\"column\" class=\"md-sidenav-left md-whiteframe-z2\" md-component-id=\"left\"\r\n            md-is-locked-open=\"$mdMedia('gt-md')\">\r\n    <md-toolbar class=\"md-tall md-primary\">\r\n        <span flex></span>\r\n        <div layout=\"column\" class=\"md-toolbar-tools-bottom inset\">\r\n            <user-avatar></user-avatar>\r\n            <span></span>\r\n            <div>Firstname Lastname</div>\r\n            <div>email@domainname.com</div>\r\n        </div>\r\n    </md-toolbar>\r\n    <md-list>\r\n        <md-item ng-repeat=\"item in menu\" class=\"cursorPointer\" ng-click=\"close()\">\r\n            <div ui-sref=\"{{item.lin}}\" md-ink-ripple='grey' class=\"nav-click\">\r\n                <md-item-content layout=\"row\" layout-align=\"start center\">\r\n                    <div class=\"inset\">\r\n                        <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\r\n                    </div>\r\n                    <div class=\"inset\">{{item.title}}\r\n                    </div>\r\n                </md-item-content>\r\n            </div>\r\n        </md-item>\r\n        <md-divider></md-divider>\r\n        <md-subheader>Management</md-subheader>\r\n        <md-item ng-repeat=\"item in admin\" ng-click=\"close()\">\r\n            <div ui-sref=\"{{item.lin}}\" md-ink-ripple=\"grey\" class=\"nav-click\">\r\n                <md-item-content layout=\"row\" layout-align=\"start center\">\r\n                    <div class=\"inset\">\r\n                        <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\r\n                    </div>\r\n                    <div class=\"inset\">{{item.title}}\r\n                    </div>\r\n                </md-item-content>\r\n            </div>\r\n        </md-item>\r\n    </md-list>\r\n</md-sidenav>\r\n\r\n"
+
+/***/ },
+/* 27 */
+/***/ function(module, exports) {
+
+	module.exports = "<md-tabs md-stretch-tabs class=\"md-primary\" md-selected=\"data.selectedIndex\">\r\n    <md-tab id=\"tab1\" aria-controls=\"tab1-content\">\r\n        Latest\r\n    </md-tab>\r\n    <md-tab id=\"tab2\" aria-controls=\"tab2-content\">\r\n        Favorites\r\n    </md-tab>\r\n</md-tabs>\r\n<div class=\"inset\" hide-sm></div>\r\n<ng-switch on=\"data.selectedIndex\" class=\"tabpanel-container\">\r\n    <div role=\"tabpanel\"\r\n         id=\"tab1-content\"\r\n         aria-labelledby=\"tab1\"\r\n         ng-switch-when=\"0\"\r\n         md-swipe-left=\"next()\"\r\n         md-swipe-right=\"previous()\"\r\n         layout=\"row\" layout-align=\"center center\">\r\n        <md-card flex-gt-sm=\"90\" flex-gt-md=\"80\">\r\n            <md-card-content>\r\n                <h2>Activityxxxxxxxxxxxx</h2>\r\n                <md-list>\r\n                    <md-item ng-repeat=\"item in activity | filter:search\">\r\n                        <md-item-content>\r\n                            <div class=\"md-tile-left inset\" hide-sm>\r\n                                <user-avatar></user-avatar>\r\n                            </div>\r\n                            <div class=\"md-tile-content\">\r\n                                <h3>{{item.what}}</h3>\r\n                                <h4>{{item.who}}</h4>\r\n                                <p>\r\n                                    {{item.notes}}\r\n                                </p>\r\n                            </div>\r\n                        </md-item-content>\r\n                        <md-divider md-inset hide-sm ng-if=\"!$last\"></md-divider>\r\n                        <md-divider hide-gt-sm ng-if=\"!$last\"></md-divider>\r\n                    </md-item>\r\n                    <md-divider></md-divider>\r\n                    <md-item layout class=\"inset\">\r\n                        <md-button layout layout-align=\"start center\" flex class=\"md-primary\">\r\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\"\r\n                                 viewBox=\"0 0 24 24\">\r\n                                <path d=\"M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z\"/>\r\n                            </svg>\r\n                            More\r\n                        </md-button>\r\n                    </md-item>\r\n                </md-list>\r\n            </md-card-content>\r\n        </md-card>\r\n    </div>\r\n    <div role=\"tabpanel\"\r\n         id=\"tab2-content\"\r\n         aria-labelledby=\"tab2\"\r\n         ng-switch-when=\"1\"\r\n         md-swipe-left=\"next()\"\r\n         md-swipe-right=\"previous()\"\r\n         layout=\"row\" layout-align=\"center center\">\r\n        <md-card flex-gt-sm=\"90\" flex-gt-md=\"80\">\r\n            <md-card-content>\r\n                <h2>Favoritesxxxxxxxxx</h2>\r\n                <md-list>\r\n                    <md-item ng-repeat=\"item in activity | filter:search | orderBy:'-what'\">\r\n                        <md-item-content>\r\n                            <div class=\"md-tile-left inset\" hide-sm>\r\n                                <user-avatar></user-avatar>\r\n                            </div>\r\n                            <div class=\"md-tile-content\">\r\n                                <h3>{{item.what}}</h3>\r\n                                <h4>{{item.who}}</h4>\r\n                                <p>\r\n                                    {{item.notes}}\r\n                                </p>\r\n                            </div>\r\n                        </md-item-content>\r\n                        <md-divider md-inset hide-sm ng-if=\"!$last\"></md-divider>\r\n                        <md-divider hide-gt-sm ng-if=\"!$last\"></md-divider>\r\n                    </md-item>\r\n                    <md-divider></md-divider>\r\n                    <md-item layout class=\"inset\">\r\n                        <md-button layout layout-align=\"start center\" flex class=\"md-primary\">\r\n                            <svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\"\r\n                                 viewBox=\"0 0 24 24\">\r\n                                <path d=\"M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z\"/>\r\n                            </svg>\r\n                            More\r\n                        </md-button>\r\n                    </md-item>\r\n                </md-list>\r\n            </md-card-content>\r\n        </md-card>\r\n    </div>\r\n\r\n</ng-switch>"
+
+/***/ },
+/* 28 */
+/***/ function(module, exports) {
+
+	module.exports = "<div ng-controller=\"formTabsCtrl\">\r\n    <md-tabs class=\"md-primary\" md-border-bottom md-dynamic-height=\"\" md-border-bottom=\"\" md-center-tabs md-swipe-content>\r\n        <md-tab ng-repeat=\"tab in tabs\"\r\n                label=\"{{tab.title}}\"\r\n                layout=\"row\">\r\n            <div class=\"inset\" hide-sm></div>\r\n            <div layout=\"row\" layout-align=\"center center\">\r\n                <md-card flex-gt-sm=\"90\" flex-gt-md=\"80\">\r\n                    <md-card-content>\r\n                        <form name=\"projectForm\">\r\n                            <ng-include src=\"tab.content\"></ng-include>\r\n                        </form>\r\n                    </md-card-content>\r\n                </md-card>\r\n            </div>\r\n        </md-tab>\r\n    </md-tabs>\r\n</div>\r\n\r\n"
+
+/***/ },
+/* 29 */
+/***/ function(module, exports) {
+
+	module.exports = "<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>Client Name</label>\r\n                <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                <div ng-messages=\"projectForm.clientName.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>Client Name</label>\r\n                <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                <div ng-messages=\"projectForm.clientName.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>Client Name</label>\r\n                <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                <div ng-messages=\"projectForm.clientName.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n</div>\r\n<!--<div class=\"inset\" hide-sm></div>-->\r\n<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label md-theme=\"dark-orange\">Client Name</label>\r\n                <input required name=\"clientName\" ng-model=\"project.clientName\">\r\n                <div ng-messages=\"projectForm.clientName.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>姓名</label>\r\n                <input required name=\"clientName1\" ng-model=\"project.clientName1\">\r\n                <div ng-messages=\"projectForm.clientName1.$error\">\r\n                    <div ng-message=\"required\">必填.</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n\r\n</div>"
+
+/***/ },
+/* 30 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div layout=\"row\" layout-align=\"center center\" ng-controller=\"LoginCtrl\">\r\n<md-card md-theme=\"\" md-theme-watch >\r\n    <md-card-title>\r\n        <md-card-title-text md-theme=\"dark-purple\">\r\n            <span class=\"md-headline\" >登录</span>\r\n        </md-card-title-text>\r\n    </md-card-title>\r\n    <md-card-content>\r\n        <md-content layout-padding=\"\" md-theme=\"dark-blue\">\r\n        <form name=\"loginForm\" >\r\n            <md-input-container class=\"md-block\">\r\n                <label>账号</label>\r\n                <md-icon>\r\n                    <ng-md-icon icon=\"account_circle\"></ng-md-icon>\r\n                </md-icon>\r\n                <input ng-model=\"user.account\" type=\"text\" name=\"account\" required>\r\n                <div ng-messages=\"loginForm.account.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n\r\n            <md-input-container class=\"md-block\">\r\n                <label>密码</label>\r\n                <md-icon>\r\n                    <ng-md-icon icon=\"lock\"></ng-md-icon>\r\n                </md-icon>\r\n                <input ng-model=\"user.name\" type=\"password\" name=\"password\" required>\r\n                <div ng-messages=\"loginForm.password.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n\r\n            <md-button ng-click=\"submit()\" class=\"md-raised md-primary\">登录</md-button>\r\n        </form>\r\n        </md-content>\r\n    </md-card-content>\r\n</md-card>\r\n</div>"
 
 /***/ }
 /******/ ]);
