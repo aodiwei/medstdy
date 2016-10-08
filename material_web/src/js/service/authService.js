@@ -5,7 +5,7 @@
 
 var app = require('../app.js');
 
-app.service('$auth', function ($location, $http, $q, $userInfo) {
+app.service('$auth', function ($location, $http, $q, $userInfo, $state, $commonFun) {
     this.auth = function () {
         var defer = $q.defer();
         var currentUrl = $location.url();
@@ -15,17 +15,17 @@ app.service('$auth', function ($location, $http, $q, $userInfo) {
             return defer.promise;
         }
         var config = {
-            url: "/user/auth",
-            method: "GET"
+            url: '/user/auth',
+            method: 'GET'
         };
         $http(config).then(function (data) {
             $userInfo.setUserInfo(data.data);
-            console.log("server", data.data);
-            console.log($location.absUrl(), "success");
+            console.log('server', data.data);
+            console.log($location.absUrl(), 'success');
             defer.resolve(true);
         }).catch(function () {
-            $location.path("/login");
-            alert("ÇëÏÈµÇÂ¼");
+            $commonFun.showSimpleToast('è¯·ç™»å½•', 'error-toast');
+            $state.go('login');
             defer.reject(false)
         });
         return defer.promise

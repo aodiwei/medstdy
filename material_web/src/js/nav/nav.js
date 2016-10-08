@@ -2,7 +2,7 @@
  * Created by AO.Diwei on 2016/9/28.
  */
 var app = require('../app.js');
-app.controller('NavCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialog) {
+app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $userInfo) {
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
     };
@@ -20,7 +20,7 @@ app.controller('NavCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog'
         },
         {
             lin: '.tabs',
-            title: 'Friends',
+            title: '数据文件上传',
             icon: 'group'
         }
     ];
@@ -31,6 +31,10 @@ app.controller('NavCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog'
             icon: 'group'
         }
     ];
+
+    $scope.userInfo = $userInfo.getUserInfo;
+
+
 
     $scope.alert = '';
     $scope.showListBottomSheet = function ($event) {
@@ -56,4 +60,4 @@ app.controller('NavCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog'
                 $scope.alert = 'You cancelled the dialog.';
             });
     };
-}]);
+});

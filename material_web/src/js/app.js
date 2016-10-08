@@ -1,7 +1,12 @@
 /**
  * Created by asus on 2016/9/17.
  */
-var app = angular.module('medApp', ['ngMaterial', 'ngMdIcons', 'ui.router', 'ngMessages']);
+var app = angular.module('medApp', [
+    'ngMaterial',
+    'ngMdIcons',
+    'ui.router',
+    'ngMessages'
+]);
 
 app.directive('userAvatar', function () {
     return {
@@ -52,31 +57,41 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
     //    .primaryPalette('brown');
 
     $urlRouterProvider
-        .when('/main', '/main/tabs') //设置第二级ui-view默认的显示页面
+        .when('/main', '/main/tabs')
         .otherwise("/login");
 
     $stateProvider
-           .state("login", {
-               url: "/login",
-               templateUrl: "./html/pages/login/login.html"
-           })
-           .state("main", {
-               //abstract: true,
-               url:"/main",
-               templateUrl: "./html/main/main.html"
-           })
-           .state("main.tabs", {
-               url:"/tabs",
-               templateUrl: "./html/pages/tabs/tabs.html"
-           })
-            .state("main.admin", {
-                url:"/admin",
-                templateUrl: "./html/pages/p2.html"
-            })
+        .state("login", {
+            url: "/login",
+            templateUrl: "./html/pages/login/login.html"
+        })
+        .state("main", {
+            //abstract: true,
+            url: "/main",
+            templateUrl: "./html/main/main.html"
+        })
+        .state("main.tabs", {
+            url: "/tabs",
+            templateUrl: "./html/pages/tabs/tabs.html"
+        })
+        .state("main.admin", {
+            url: "/admin",
+            templateUrl: "./html/pages/p2.html"
+        })
 
 });
 
+app.run(['$rootScope', '$auth', function ($rootScope, $auth) {
+    $rootScope.$on('$locationChangeStart', locationChangeStart);
 
+    function locationChangeStart(event) {
+        $auth.auth().then(function () {
+
+        }).catch(function () {
+
+        });
+    }
+}]);
 
 
 module.exports = app;

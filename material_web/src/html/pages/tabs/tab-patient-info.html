@@ -2,10 +2,10 @@
     <div flex>
         <md-card md-whiteframe="5">
             <md-input-container>
-                <label>Client Name</label>
-                <input required name="clientName" ng-model="project.clientName">
-                <div ng-messages="projectForm.clientName.$error">
-                    <div ng-message="required">必填.</div>
+                <label>病案号</label>
+                <input required name="medical_id" ng-model="patient_info.medical_id">
+                <div ng-messages="projectForm.medical_id.$error">
+                    <div ng-message="required">必填</div>
                 </div>
             </md-input-container>
         </md-card>
@@ -13,10 +13,10 @@
     <div flex>
         <md-card md-whiteframe="5">
             <md-input-container>
-                <label>Client Name</label>
-                <input required name="clientName" ng-model="project.clientName">
-                <div ng-messages="projectForm.clientName.$error">
-                    <div ng-message="required">必填.</div>
+                <label>姓名</label>
+                <input required name="name" ng-model="patient_info.name">
+                <div ng-messages="projectForm.name.$error">
+                    <div ng-message="required">必填</div>
                 </div>
             </md-input-container>
         </md-card>
@@ -28,7 +28,7 @@
                 <label>Client Name</label>
                 <input required name="clientName" ng-model="project.clientName">
                 <div ng-messages="projectForm.clientName.$error">
-                    <div ng-message="required">必填.</div>
+                    <div ng-message="required">必填</div>
                 </div>
             </md-input-container>
         </md-card>
@@ -42,7 +42,7 @@
                 <label md-theme="dark-orange">Client Name</label>
                 <input required name="clientName" ng-model="project.clientName">
                 <div ng-messages="projectForm.clientName.$error">
-                    <div ng-message="required">必填.</div>
+                    <div ng-message="required">必填</div>
                 </div>
             </md-input-container>
         </md-card>
@@ -53,7 +53,7 @@
                 <label>姓名</label>
                 <input required name="clientName1" ng-model="project.clientName1">
                 <div ng-messages="projectForm.clientName1.$error">
-                    <div ng-message="required">必填.</div>
+                    <div ng-message="required">必填</div>
                 </div>
             </md-input-container>
         </md-card>
