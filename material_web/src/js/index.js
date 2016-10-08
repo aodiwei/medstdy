@@ -18,6 +18,9 @@ require('./app');
 require('./pages/tabs');
 require('./nav/nav');
 require('./pages/login');
+require('./service/authService');
+require('./service/commonFunService');
+require('./service/dataService');
 
 require('../html/nav/left_nav.html');
 require('../html/pages/p2.html');

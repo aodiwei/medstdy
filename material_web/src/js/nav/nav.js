@@ -6,33 +6,29 @@ app.controller('NavCtrl', ['$scope', '$mdBottomSheet', '$mdSidenav', '$mdDialog'
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
     };
+    $scope.close = function () {
+          $mdSidenav('left').close()
+            .then(function () {
+              //console.debug("close LEFT is done");
+            });
+    };
     $scope.menu = [
         {
-            lin: '.index',
-            title: 'Dashboard',
+            lin: '.tabs',
+            title: '数据录入',
             icon: 'dashboard'
         },
         {
-            lin: '.main',
+            lin: '.tabs',
             title: 'Friends',
             icon: 'group'
-        },
-        {
-            lin: '.main.form_tabs',
-            title: 'Messages',
-            icon: 'message'
         }
     ];
     $scope.admin = [
         {
-            lin: '',
-            title: 'Trash',
-            icon: 'delete'
-        },
-        {
-            lin: 'showListBottomSheet($event)',
-            title: 'Settings',
-            icon: 'settings'
+            lin: '.admin',
+            title: '注册管理',
+            icon: 'group'
         }
     ];
 

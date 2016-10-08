@@ -17,7 +17,7 @@
                 <md-icon>
                     <ng-md-icon icon="account_circle"></ng-md-icon>
                 </md-icon>
-                <input ng-model="user.account" type="text" name="account" required>
+                <input ng-model="user.account" type="text" name="account"  required>
                 <div ng-messages="loginForm.account.$error">
                     <div ng-message="required">必填</div>
                 </div>
@@ -28,13 +28,13 @@
                 <md-icon>
                     <ng-md-icon icon="lock"></ng-md-icon>
                 </md-icon>
-                <input ng-model="user.name" type="password" name="password" required>
+                <input ng-model="user.password" type="password" name="password" required>
                 <div ng-messages="loginForm.password.$error">
                     <div ng-message="required">必填</div>
                 </div>
             </md-input-container>
 
-            <md-button ng-click="submit()" class="md-raised md-primary">登录</md-button>
+            <md-button ng-click="submit()" class="md-raised md-primary" >登录</md-button>
         </form>
         </md-content>
     </md-card-content>
