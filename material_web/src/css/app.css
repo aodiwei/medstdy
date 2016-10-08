@@ -62,12 +62,15 @@ md-sidenav ng-md-icon {
   background: #267ED5;
 }
 
+/*toast±³¾°*/
+md-toast.md-success-toast-theme .md-toast-content {
+    background-color: green;
+}
 
+md-toast.md-error-toast-theme .md-toast-content {
+    background-color: maroon;
+}
 
-/*.inputdemoErrors .inputErrorsApp {*/
-  /*min-height: 48px; }*/
-
-/*.inputdemoErrors md-input-container > p {*/
-  /*font-size: 0.8em;*/
-  /*text-align: left;*/
-  /*width: 100%; }*/
+/*md-toast {*/
+	/*left: calc(50vw - 150px);*/
+/*}*/

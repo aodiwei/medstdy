@@ -53,11 +53,11 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
 
     $urlRouterProvider
         .when('/main', '/main/tabs') //设置第二级ui-view默认的显示页面
-        .otherwise("/index");
+        .otherwise("/login");
 
     $stateProvider
-           .state("index", {
-               url: "/index",
+           .state("login", {
+               url: "/login",
                templateUrl: "./html/pages/login/login.html"
            })
            .state("main", {

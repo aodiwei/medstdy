@@ -72,6 +72,9 @@
 	__webpack_require__(23);
 	__webpack_require__(24);
 	__webpack_require__(25);
+	__webpack_require__(31);
+	__webpack_require__(32);
+	__webpack_require__(33);
 
 	__webpack_require__(26);
 	__webpack_require__(27);
@@ -76441,7 +76444,7 @@
 
 
 	// module
-	exports.push([module.id, "md-content.md-default-theme {\r\n    background-color: #eee;\r\n}\r\n\r\nmd-card {\r\n    /*background-color: #fff;*/\r\n}\r\n\r\nmd-card h2:first-of-type {\r\n    margin-top: 0;\r\n}\r\n\r\nmd-toolbar .md-button.md-default-theme {\r\n    border-radius: 99%;\r\n}\r\n\r\nh2 {\r\n    font-weight: 400;\r\n}\r\n\r\n.md-toolbar-tools-bottom {\r\n    font-size: small;\r\n}\r\n\r\n.md-toolbar-tools-bottom:last-child {\r\n    opacity: 0.8;\r\n}\r\n\r\nmd-toolbar:not(.md-hue-1),\r\n.md-fab {\r\n    fill: #fff;\r\n}\r\n\r\nmd-sidenav {\r\n    fill: #737373;\r\n}\r\n\r\nmd-sidenav ng-md-icon {\r\n    position: relative;\r\n    top: 5px;\r\n}\r\n\r\n.user-avatar {\r\n    border-radius: 99%;\r\n}\r\n\r\n/*/////////////*/\r\n.nav-active {\r\n    background: red;\r\n}\r\n\r\n.nav-click {\r\n    position: relative;\r\n}\r\n\r\n.cursorPointer {\r\n    cursor: pointer;\r\n}\r\n\r\n\r\n.docs-menu .md-button.active {\r\n  background: #267ED5;\r\n}\r\n\r\n\r\n\r\n/*.inputdemoErrors .inputErrorsApp {*/\r\n  /*min-height: 48px; }*/\r\n\r\n/*.inputdemoErrors md-input-container > p {*/\r\n  /*font-size: 0.8em;*/\r\n  /*text-align: left;*/\r\n  /*width: 100%; }*/\r\n", ""]);
+	exports.push([module.id, "md-content.md-default-theme {\r\n    background-color: #eee;\r\n}\r\n\r\nmd-card {\r\n    /*background-color: #fff;*/\r\n}\r\n\r\nmd-card h2:first-of-type {\r\n    margin-top: 0;\r\n}\r\n\r\nmd-toolbar .md-button.md-default-theme {\r\n    border-radius: 99%;\r\n}\r\n\r\nh2 {\r\n    font-weight: 400;\r\n}\r\n\r\n.md-toolbar-tools-bottom {\r\n    font-size: small;\r\n}\r\n\r\n.md-toolbar-tools-bottom:last-child {\r\n    opacity: 0.8;\r\n}\r\n\r\nmd-toolbar:not(.md-hue-1),\r\n.md-fab {\r\n    fill: #fff;\r\n}\r\n\r\nmd-sidenav {\r\n    fill: #737373;\r\n}\r\n\r\nmd-sidenav ng-md-icon {\r\n    position: relative;\r\n    top: 5px;\r\n}\r\n\r\n.user-avatar {\r\n    border-radius: 99%;\r\n}\r\n\r\n/*/////////////*/\r\n.nav-active {\r\n    background: red;\r\n}\r\n\r\n.nav-click {\r\n    position: relative;\r\n}\r\n\r\n.cursorPointer {\r\n    cursor: pointer;\r\n}\r\n\r\n\r\n.docs-menu .md-button.active {\r\n  background: #267ED5;\r\n}\r\n\r\n/*toast����*/\r\nmd-toast.md-success-toast-theme .md-toast-content {\r\n    background-color: green;\r\n}\r\n\r\nmd-toast.md-error-toast-theme .md-toast-content {\r\n    background-color: maroon;\r\n}\r\n\r\n/*md-toast {*/\r\n\t/*left: calc(50vw - 150px);*/\r\n/*}*/\r\n", ""]);
 
 	// exports
 
@@ -76483,10 +76486,10 @@
 	    //    .primaryPalette('brown');
 
 	    $urlRouterProvider.when('/main', '/main/tabs') //���õڶ���ui-viewĬ�ϵ���ʾҳ��
-	    .otherwise("/index");
+	    .otherwise("/login");
 
-	    $stateProvider.state("index", {
-	        url: "/index",
+	    $stateProvider.state("login", {
+	        url: "/login",
 	        templateUrl: "./html/pages/login/login.html"
 	    }).state("main", {
 	        //abstract: true,
@@ -76752,9 +76755,22 @@
 
 	var app = __webpack_require__(22);
 
-	app.controller("LoginCtrl", function ($scope, $state) {
+	app.controller('LoginCtrl', function ($scope, $state, $http, $commonFun, $userInfo) {
+	    $scope.user = {};
 	    $scope.submit = function () {
-	        $state.go("main");
+	        var config = {
+	            url: '/user/login',
+	            method: 'POST',
+	            params: { user_name: $scope.user.account, password: $scope.user.password }
+	        };
+	        $http(config).success(function (data) {
+	            console.log(data);
+	            $userInfo.setUserInfo(data);
+	            $commonFun.showSimpleToast('登录成功', 'success-toast');
+	            $state.go('main');
+	        }).error(function () {
+	            $commonFun.showSimpleToast('登录失败', 'error-toast');
+	        });
 	    };
 	});
 
@@ -76786,7 +76802,110 @@
 /* 30 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div layout=\"row\" layout-align=\"center center\" ng-controller=\"LoginCtrl\">\r\n<md-card md-theme=\"\" md-theme-watch >\r\n    <md-card-title>\r\n        <md-card-title-text md-theme=\"dark-purple\">\r\n            <span class=\"md-headline\" >登录</span>\r\n        </md-card-title-text>\r\n    </md-card-title>\r\n    <md-card-content>\r\n        <md-content layout-padding=\"\" md-theme=\"dark-blue\">\r\n        <form name=\"loginForm\" >\r\n            <md-input-container class=\"md-block\">\r\n                <label>账号</label>\r\n                <md-icon>\r\n                    <ng-md-icon icon=\"account_circle\"></ng-md-icon>\r\n                </md-icon>\r\n                <input ng-model=\"user.account\" type=\"text\" name=\"account\" required>\r\n                <div ng-messages=\"loginForm.account.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n\r\n            <md-input-container class=\"md-block\">\r\n                <label>密码</label>\r\n                <md-icon>\r\n                    <ng-md-icon icon=\"lock\"></ng-md-icon>\r\n                </md-icon>\r\n                <input ng-model=\"user.name\" type=\"password\" name=\"password\" required>\r\n                <div ng-messages=\"loginForm.password.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n\r\n            <md-button ng-click=\"submit()\" class=\"md-raised md-primary\">登录</md-button>\r\n        </form>\r\n        </md-content>\r\n    </md-card-content>\r\n</md-card>\r\n</div>"
+	module.exports = "<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div layout=\"row\" layout-align=\"center center\" ng-controller=\"LoginCtrl\">\r\n<md-card md-theme=\"\" md-theme-watch >\r\n    <md-card-title>\r\n        <md-card-title-text md-theme=\"dark-purple\">\r\n            <span class=\"md-headline\" >登录</span>\r\n        </md-card-title-text>\r\n    </md-card-title>\r\n    <md-card-content>\r\n        <md-content layout-padding=\"\" md-theme=\"dark-blue\">\r\n        <form name=\"loginForm\" >\r\n            <md-input-container class=\"md-block\">\r\n                <label>账号</label>\r\n                <md-icon>\r\n                    <ng-md-icon icon=\"account_circle\"></ng-md-icon>\r\n                </md-icon>\r\n                <input ng-model=\"user.account\" type=\"text\" name=\"account\"  required>\r\n                <div ng-messages=\"loginForm.account.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n\r\n            <md-input-container class=\"md-block\">\r\n                <label>密码</label>\r\n                <md-icon>\r\n                    <ng-md-icon icon=\"lock\"></ng-md-icon>\r\n                </md-icon>\r\n                <input ng-model=\"user.password\" type=\"password\" name=\"password\" required>\r\n                <div ng-messages=\"loginForm.password.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n\r\n            <md-button ng-click=\"submit()\" class=\"md-raised md-primary\" >登录</md-button>\r\n        </form>\r\n        </md-content>\r\n    </md-card-content>\r\n</md-card>\r\n</div>"
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by AO.Diwei on 2016/10/8.
+	 */
+	'use strict';
+
+	var app = __webpack_require__(22);
+
+	app.service('$auth', function ($location, $http, $q, $userInfo) {
+	    this.auth = function () {
+	        var defer = $q.defer();
+	        var currentUrl = $location.url();
+	        if (currentUrl == '/login' || currentUrl == '') {
+	            //console.log(currentUrl, 'ignore auth');
+	            defer.reject(false);
+	            return defer.promise;
+	        }
+	        var config = {
+	            url: "/user/auth",
+	            method: "GET"
+	        };
+	        $http(config).then(function (data) {
+	            $userInfo.setUserInfo(data.data);
+	            console.log("server", data.data);
+	            console.log($location.absUrl(), "success");
+	            defer.resolve(true);
+	        }).catch(function () {
+	            $location.path("/login");
+	            alert("���ȵ�¼");
+	            defer.reject(false);
+	        });
+	        return defer.promise;
+	    };
+	});
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by AO.Diwei on 2016/10/8.
+	 */
+	'use strict';
+
+	var app = __webpack_require__(22);
+
+	app.service("$commonFun", function ($mdToast) {
+	  this.showSimpleToast = function (text, theme) {
+	    $mdToast.show($mdToast.simple().textContent(text).position('bottom right').theme(theme).hideDelay(3000));
+	  };
+	});
+
+/***/ },
+/* 33 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Created by david ao on 2016/8/6.
+	 */
+
+	'use strict';
+
+	var app = __webpack_require__(22);
+
+	app.factory('$userInfo', function () {
+	    var _account = "";
+	    var _role = "worker";
+	    var _user_info = {};
+	    return {
+	        getAccount: function () {
+	            //console.log("get", _account);
+	            return _account;
+	        },
+	        setAccount: function (account) {
+	            _account = account;
+	            //console.log("set", _account);
+	            return _account;
+	        },
+	        getRole: function () {
+	            return _role;
+	        },
+	        setRole: function (role) {
+	            _role = role;
+	            console.log("role", _role);
+	        },
+	        getUserInfo: function () {
+	            return _user_info;
+	        },
+	        setUserInfo: function (user_info) {
+	            for (var key in user_info) {
+	                _user_info[key] = user_info[key];
+	            }
+	            this.setRole(_user_info["role"]);
+	            this.setAccount(_user_info["account"]);
+	            console.log("set user", user_info);
+	        }
+
+	    };
+	});
 
 /***/ }
 /******/ ]);
