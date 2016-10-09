@@ -1,62 +1,189 @@
-<div layout="row">
-    <div flex>
-        <md-card md-whiteframe="5">
-            <md-input-container>
-                <label>病案号</label>
-                <input required name="medical_id" ng-model="patient_info.medical_id">
-                <div ng-messages="projectForm.medical_id.$error">
-                    <div ng-message="required">必填</div>
-                </div>
-            </md-input-container>
-        </md-card>
+<div ng-controller="tabPatientCtrl">
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>病案号</label>
+                    <input required name="medical_id" ng-model="patient_info.medical_id">
+                    <div ng-messages="projectForm.medical_id.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>姓名</label>
+                    <input required name="name" ng-model="patient_info.name">
+                    <div ng-messages="projectForm.name.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>身份证号</label>
+                    <input required name="identity" ng-model="patient_info.identity">
+                    <div ng-messages="projectForm.identity.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
     </div>
-    <div flex>
-        <md-card md-whiteframe="5">
-            <md-input-container>
-                <label>姓名</label>
-                <input required name="name" ng-model="patient_info.name">
-                <div ng-messages="projectForm.name.$error">
-                    <div ng-message="required">必填</div>
-                </div>
-            </md-input-container>
-        </md-card>
+    <!--<div class="inset" hide-sm></div>-->
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>性别</label>
+                    <md-select name="sex" ng-model="patient_info.sex" required>
+                        <md-option ng-value="sex" ng-repeat="sex in selected.sex">{{ sex }}</md-option>
+                    </md-select>
+                    <div ng-messages="projectForm.sex.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>生日</label>
+                    <md-datepicker name="birthday" ng-model="patient_info.birthday" required=""></md-datepicker>
+                    <div ng-messages="projectForm.birthday.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>年龄</label>
+                    <input required name="age" ng-model="patient_info.age" ng-pattern="/^[0-9]{0,2}$/">
+                    <div ng-messages="projectForm.age.$error">
+                        <div ng-message="required">必填</div>
+                        <div ng-message="pattern" class="my-message">请输入1-2位数字</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+
+    </div>
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>省份</label>
+                    <md-select name="province" ng-model="patient_info.province" required>
+                        <md-option ng-value="key" ng-repeat="(key, val) in selected.division">{{ key }}</md-option>
+                    </md-select>
+                    <div ng-messages="projectForm.province.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>城市</label>
+                    <md-select name="city" ng-model="patient_info.city" required>
+                        <md-option ng-value="key" ng-repeat="(key, val) in selected.division[patient_info.province]">{{ key }}</md-option>
+                    </md-select>
+                    <div ng-messages="projectForm.city.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>县/区</label>
+                    <md-select name="district" ng-model="patient_info.district" required>
+                        <md-option ng-value="district" ng-repeat="district in selected.division[patient_info.province][patient_info.city]">
+                            {{ district }}
+                        </md-option>
+                    </md-select>
+                    <div ng-messages="projectForm.district.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
     </div>
 
-    <div flex>
-        <md-card md-whiteframe="5">
-            <md-input-container>
-                <label>Client Name</label>
-                <input required name="clientName" ng-model="project.clientName">
-                <div ng-messages="projectForm.clientName.$error">
-                    <div ng-message="required">必填</div>
-                </div>
-            </md-input-container>
-        </md-card>
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>详细地址</label>
+                    <input required name="detail_addr" ng-model="patient_info.detail_addr">
+                    <div ng-messages="projectForm.detail_addr.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
     </div>
-</div>
-<!--<div class="inset" hide-sm></div>-->
-<div layout="row">
-    <div flex>
-        <md-card md-whiteframe="5">
-            <md-input-container>
-                <label md-theme="dark-orange">Client Name</label>
-                <input required name="clientName" ng-model="project.clientName">
-                <div ng-messages="projectForm.clientName.$error">
-                    <div ng-message="required">必填</div>
-                </div>
-            </md-input-container>
-        </md-card>
+
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container >
+                    <label>婚姻</label>
+                    <md-select name="marriage" ng-model="patient_info.marriage" required>
+                        <md-option ng-value="marriage" ng-repeat="marriage in selected.marriage">{{ marriage }}</md-option>
+                    </md-select>
+                    <div ng-messages="projectForm.marriage.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>职业</label>
+                    <input required name="job" ng-model="patient_info.job">
+                    <div ng-messages="projectForm.job.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>门诊</label>
+                    <input required name="outpatient" ng-model="patient_info.outpatient">
+                    <div ng-messages="projectForm.outpatient.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
     </div>
-    <div flex>
-        <md-card md-whiteframe="5">
-            <md-input-container>
-                <label>姓名</label>
-                <input required name="clientName1" ng-model="project.clientName1">
-                <div ng-messages="projectForm.clientName1.$error">
-                    <div ng-message="required">必填</div>
-                </div>
-            </md-input-container>
-        </md-card>
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container >
+                    <label>入院时间</label>
+                    <input name="in_date" mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
+                    placeholder="Date" min-date="date" ng-model="patient_info.in_date" class=" md-input">
+                    <div ng-messages="projectForm.in_date.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
     </div>
 
 </div>

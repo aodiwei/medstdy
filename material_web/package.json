@@ -19,7 +19,8 @@
     "babel": "^6.5.2",
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.4",
-    "raw-loader": "^0.5.1"
+    "raw-loader": "^0.5.1",
+    "angular-material-datetimepicker": "^1.4.1"
   },
   "devDependencies": {
     "css-loader": "^0.23.1",

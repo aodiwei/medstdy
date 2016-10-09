@@ -5,7 +5,8 @@ var app = angular.module('medApp', [
     'ngMaterial',
     'ngMdIcons',
     'ui.router',
-    'ngMessages'
+    'ngMessages',
+    //'ngMaterialDatePicker'
 ]);
 
 app.directive('userAvatar', function () {
@@ -81,17 +82,22 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
 
 });
 
-app.run(['$rootScope', '$auth', function ($rootScope, $auth) {
-    $rootScope.$on('$locationChangeStart', locationChangeStart);
+app.run(['$rootScope', '$auth', '$state', '$userInfo', '$commonFun',  function ($rootScope, $auth, $state, $userInfo, $commonFun) {
 
-    function locationChangeStart(event) {
-        $auth.auth().then(function () {
-
-        }).catch(function () {
-
-        });
-    }
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        if (toState.name == 'login'){
+            return;// 如果是进入登录界面则允许
+        }
+        var account = $userInfo.getAccount();
+        if(account !== ""){
+            $commonFun.showSimpleToast('请登录', 'error-toast');
+            event.preventDefault();// 取消默认跳转行为
+            $state.go("login");//跳转到登录界面
+        }
+    });
 }]);
+
+
 
 
 module.exports = app;

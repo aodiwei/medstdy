@@ -3,7 +3,7 @@
  */
 'use strict';
 var app = require('../app.js');
-//var division_conf = require('../config/division.js');
+var division_conf = require('../config/division.js');
 //var test_data = require('../config/test_data.js');
 app
     .controller("formTabsCtrl", function ($scope, $http) {
@@ -115,14 +115,14 @@ app
             //});
         }
     })
-    //.controller("tabPatientController", function ($scope) {
-    //    $scope.selected = {
-    //        sex: ['男', '女'],
-    //        division: division_conf,
-    //        marriage: ['已婚', '未婚', '丧偶', '离婚', '其他']
-    //    };
-    //})
-    //
+    .controller("tabPatientCtrl", function ($scope) {
+        $scope.selected = {
+            sex: ['男', '女'],
+            division: division_conf,
+            marriage: ['已婚', '未婚', '丧偶', '离婚', '其他']
+        };
+    })
+
     //.controller("tabHospitalizedController", function ($scope) {
     //
     //})
