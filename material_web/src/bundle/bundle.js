@@ -66,7 +66,7 @@
 	__webpack_require__(16);
 	__webpack_require__(18);
 	__webpack_require__(19);
-	//require('angular-material-datetimepicker');
+	__webpack_require__(20);
 	//require('../../node_modules/angular-material-datetimepicker/js/angular-material-datetimepicker.min.js');
 
 
@@ -37534,6 +37534,7 @@
 
 	// Now load Angular Material
 	__webpack_require__(11);
+	//require('./angular-material.min.css');
 
 	// Export namespace
 	module.exports = 'ngMaterial';
@@ -76413,7 +76414,171 @@
 	})(window, window.angular);
 
 /***/ },
-/* 20 */,
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var gulp = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"gulp\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	 sass = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"gulp-sass\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	 connect = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"gulp-connect\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	 watch = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"gulp-watch\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	 clean = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"del\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	 concat = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"gulp-concat\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	 rename = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"gulp-rename\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	 addStream = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"add-stream\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	 templateCache = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"gulp-angular-templatecache\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	 replaceName = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"gulp-html-replace\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	 mainBowerFiles = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"main-bower-files\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())),
+	 order = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"gulp-order\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+
+	var appConfig = {
+	    app:  'app',
+	    dist: 'dist',
+	    src : 'src'
+	};
+
+
+	gulp.task('connect', function () {
+	  connect.server({
+	    root: 'dist',
+	    port: 8080,
+	    livereload: true,
+		  middleware: function (connect) {
+	      return [connect().use("/bower_components", connect.static("bower_components"))];
+	    }    
+	  });
+	});
+
+	 gulp.task('replaceName', function() {
+	      gulp.src('app/index.html')
+	        .pipe(gulp.dest('dist/'));
+	});
+
+
+	gulp.task('html', function () {
+	  gulp.src('app/**/*.html')
+	    .pipe(replaceName({
+	            'css': ['styles/vendor.min.css','styles/picker.min.css'],
+	            'js': ['scripts/vendor.min.js','scripts/script.min.js']
+	    }))
+	    .pipe(gulp.dest('dist/'))    
+	    .pipe(connect.reload())
+	});
+
+
+	gulp.task('copyjs', function () {
+	  gulp.src([
+	        'app/scripts/app.js',
+	        'app/scripts/**/*.js',
+	        'app/picker/**/*.js',
+	        'app/menu/**/*.js',                        
+	      ])
+	     //.pipe(order())
+	    .pipe(concat('script.min.js'))
+	    .pipe(gulp.dest('dist/scripts/'))
+	    .pipe(connect.reload());
+	});
+
+
+	gulp.task('styles', function() {
+	   gulp.src('app/styles/*.scss')
+	      .pipe(sass())
+	      .pipe(concat('picker.min.css'))
+	      .pipe(gulp.dest('dist/styles/'))
+	    	.pipe(connect.reload());
+	});
+
+	// build vendor js and styles
+
+	gulp.task('vendorJs', function(){  
+
+	  gulp.src(mainBowerFiles('**/*.js'))
+	//  .pipe(uglify())
+	  .pipe(concat('vendor.min.js'))
+	  .pipe(gulp.dest('dist/scripts/'));
+
+
+	});
+
+
+	gulp.task('vendorCss', function(){  
+	  gulp.src(mainBowerFiles('**/*.css'))
+	  .pipe(concat('vendor.min.css'))
+	  .pipe(gulp.dest('dist/styles/'));
+
+	});
+
+
+	// watch task
+	gulp.task('watch', function() {
+	    gulp.watch('app/**/*.html',['html']);
+	    gulp.watch('app/**/*.js',['copyjs']);
+	    gulp.watch('app/styles/*.scss',['styles']);        
+	});
+
+	// clean task
+
+	gulp.task('clean', function() {
+	  return clean(['dist/**/*']);
+	});
+
+
+
+
+
+
+
+
+
+	/*
+
+	  buid task for distribution
+
+	*/
+
+	function prepareTemplates() {
+	  return gulp.src('app/picker/*.html')
+	    .pipe(templateCache(
+	      {
+	        module:'smDateTimeRangePicker',
+	        transformUrl: function(url) {
+	          return 'picker/'+url;
+	        }
+	  }));
+	}
+
+
+
+
+
+	gulp.task('stylePicker', function() {
+	   gulp.src('app/styles/date_picker.scss')
+	      .pipe(sass())
+	      .pipe(rename('picker.css'))
+	      .pipe(gulp.dest('src/'));
+	});
+
+
+	gulp.task('pickerJs', function () {
+	  gulp.src('app/picker/js/*.js')
+	    .pipe(addStream.obj(prepareTemplates()))
+	    .pipe(concat('picker.js'))
+	    .pipe(gulp.dest('src/'));
+	});
+
+	gulp.task('cleanSrc', function() {
+	  return clean(['src/']);
+	});
+
+
+
+	//Watch task
+	gulp.task('default',['clean','html','vendorCss','vendorJs','styles','copyjs','watch','connect']);
+
+	gulp.task('build',['cleanSrc','pickerJs','stylePicker']);
+	 
+
+
+/***/ },
 /* 21 */
 /***/ function(module, exports, __webpack_require__) {
 

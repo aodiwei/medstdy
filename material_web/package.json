@@ -11,16 +11,18 @@
   "dependencies": {
     "angular": "^1.5.8",
     "angular-animate": "^1.5.8",
+    "angular-material": "^1.1.0",
+    "angular-material-datetimepicker": "",
+    "angular-material-icons": "^0.4.0",
     "angular-messages": "^1.5.8",
     "angular-route": "^1.5.8",
-    "angular-material": "^1.1.0",
-    "angular-material-icons": "^0.4.0",
     "angular-ui-router": "^0.2.14",
     "babel": "^6.5.2",
     "babel-core": "^6.5.2",
     "babel-loader": "^6.2.4",
+    "moment": "^2.15.1",
     "raw-loader": "^0.5.1",
-    "angular-material-datetimepicker": "^1.4.1"
+    "smdatetimerangepicker": "^1.6.1"
   },
   "devDependencies": {
     "css-loader": "^0.23.1",
