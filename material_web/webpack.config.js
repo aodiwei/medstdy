@@ -1,8 +1,11 @@
 var path = require("path");
-
+var webpack = require('webpack');
 module.exports = {
-    resolve: { fallback: path.join(__dirname, "node_modules") },
-    resolveLoader: { fallback: path.join(__dirname, "node_modules")},
+
+    plugins: [
+        new webpack.ProvidePlugin({
+            moment: "moment"
+        })],
     /*entry — name of the top level file or 
      set of files that we want to include
      in our build, can be a single file

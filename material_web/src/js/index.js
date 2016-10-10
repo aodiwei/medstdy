@@ -12,9 +12,13 @@ require('../../node_modules/angular-material/angular-material.min.css');
 require('angular-messages');
 require('angular-material-icons');
 require('angular-ui-router');
-//require('../../node_modules/smdatetimerangepicker');
+//require('../../node_modules/moment/moment.js');
+//require('../../node_modules/smdatetimerangepicker/src/picker.css');
+//require('../../node_modules/smdatetimerangepicker/src/picker.js');
 //require('../../node_modules/angular-material-datetimepicker/js/angular-material-datetimepicker.min.js');
-
+require('../third_party/datetimepicker/picker.css');
+require('../third_party/datetimepicker/moment.js');
+require('../third_party/datetimepicker/picker');
 
 require('../css/app.css');
 require('./app');

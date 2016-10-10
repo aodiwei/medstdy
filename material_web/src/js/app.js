@@ -6,7 +6,7 @@ var app = angular.module('medApp', [
     'ngMdIcons',
     'ui.router',
     'ngMessages',
-    //'ngMaterialDatePicker'
+    'smDateTimeRangePicker'
 ]);
 
 app.directive('userAvatar', function () {
@@ -35,7 +35,7 @@ app.directive('userAvatar', function () {
     };
 });
 
-app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
+app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider, pickerProvider) {
     var customBlueMap = $mdThemingProvider.extendPalette('teal', {
         'contrastDefaultColor': 'light',
         'contrastDarkColors': ['50'],
@@ -78,26 +78,52 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
         .state("main.admin", {
             url: "/admin",
             templateUrl: "./html/pages/p2.html"
-        })
+        });
+
+    //datetime picker
+    pickerProvider.setOkLabel('确定');
+    pickerProvider.setCancelLabel('关闭');
+    //  Over ride day names by changing here
+    pickerProvider.setDayHeader('single');  //Options 'single','shortName', 'fullName'
+    pickerProvider.setDaysNames([
+        {'single': '日', 'shortName': '7', 'fullName': '星期日'},
+        {'single': '一', 'shortName': '1', 'fullName': '星期一'},
+        {'single': '二', 'shortName': '2', 'fullName': '星期二'},
+        {'single': '三', 'shortName': '3', 'fullName': '星期三'},
+        {'single': '四', 'shortName': '4', 'fullName': '星期四'},
+        {'single': '五', 'shortName': '5', 'fullName': '星期五'},
+        {'single': '六', 'shortName': '6', 'fullName': '星期六'}
+    ]);
+    // Range Picker Configuration
+    pickerProvider.setDivider('To');
+    pickerProvider.setMonthNames(["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"]);
+    pickerProvider.setRangeDefaultList(['Today',
+        'Last 7 Days',
+        'This Month',
+        'Last Month',
+        'This Quarter',
+        'Year To Date',
+        'This Year',
+        'Custome Range']);
+    pickerProvider.setRangeCustomStartEnd(['Start Date', 'End Date']);
 
 });
 
-app.run(['$rootScope', '$auth', '$state', '$userInfo', '$commonFun',  function ($rootScope, $auth, $state, $userInfo, $commonFun) {
+
+app.run(['$rootScope', '$auth', '$state', '$userInfo', '$commonFun', function ($rootScope, $auth, $state, $userInfo, $commonFun) {
 
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        if (toState.name == 'login'){
+        if (toState.name == 'login') {
             return;// 如果是进入登录界面则允许
         }
         var account = $userInfo.getAccount();
-        if(account !== ""){
+        if (account !== "") {//for debug
             $commonFun.showSimpleToast('请登录', 'error-toast');
             event.preventDefault();// 取消默认跳转行为
             $state.go("login");//跳转到登录界面
         }
     });
 }]);
-
-
 
 
 module.exports = app;

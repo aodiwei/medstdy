@@ -137,7 +137,7 @@
     <div layout="row">
         <div flex>
             <md-card md-whiteframe="5">
-                <md-input-container >
+                <md-input-container>
                     <label>婚姻</label>
                     <md-select name="marriage" ng-model="patient_info.marriage" required>
                         <md-option ng-value="marriage" ng-repeat="marriage in selected.marriage">{{ marriage }}</md-option>
@@ -174,10 +174,21 @@
     <div layout="row">
         <div flex>
             <md-card md-whiteframe="5">
-                <md-input-container >
-                    <label>入院时间</label>
-                    <input name="in_date" mdc-datetime-picker="" date="true" time="true" type="text" id="datetime"
-                    placeholder="Date" min-date="date" ng-model="patient_info.in_date" class=" md-input">
+                <md-input-container>
+                    <!--<label>入院时间</label>-->
+                    <sm-date-time-picker
+                            name="in_date"
+                            fname="in_date"
+                            label="Date of Birth"
+                            ng-model="patient_info.in_date"
+                            flex="50"
+                            flex-sm="100"
+                            flex-xs="100"
+                            is-required="{{true}}"
+                            format="MM-DD-YYYY HH:mm"
+                            mode="date-time"
+                            week-start-day="Monday">
+                    </sm-date-time-picker>
                     <div ng-messages="projectForm.in_date.$error">
                         <div ng-message="required">必填</div>
                     </div>
@@ -185,5 +196,21 @@
             </md-card>
         </div>
     </div>
+
+    <div  layout="row">
+               <sm-date-time-picker
+                   fname="field"
+                   label="Date of Birth"
+                   ng-model="patient_info.in_date"
+                   flex="50"
+                   flex-sm="100"
+                   flex-xs="100"
+                   on-focus
+                   is-required="{{true}}"
+                   format="MM-DD-YYYY HH:mm"
+                   mode="date-time"
+                   week-start-day="Monday">
+               </sm-date-time-picker>
+       </div>
 
 </div>
