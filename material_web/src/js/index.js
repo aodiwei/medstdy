@@ -16,9 +16,15 @@ require('angular-ui-router');
 //require('../../node_modules/smdatetimerangepicker/src/picker.css');
 //require('../../node_modules/smdatetimerangepicker/src/picker.js');
 //require('../../node_modules/angular-material-datetimepicker/js/angular-material-datetimepicker.min.js');
-require('../third_party/datetimepicker/picker.css');
-require('../third_party/datetimepicker/moment.js');
-require('../third_party/datetimepicker/picker');
+//require('../third_party/datetimepicker/picker.css');
+
+//require('../third_party/datetimepicker/datetimepicker.css');
+//require('../third_party/datetimepicker/datetimepicker');
+//require('../third_party/datetimepicker/md-date-time.css');
+//require('../third_party/datetimepicker/datetimepicker');
+
+//require('../../node_modules/sc-date-time/sc-date-time');
+//require('../../node_modules/sc-date-time/sc-date-time.css');
 
 require('../css/app.css');
 require('./app');
