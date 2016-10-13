@@ -22,6 +22,7 @@ module.exports = {
     output: {
         path: path.join(__dirname, "/src/bundle"),
         filename: "bundle.js",
+        publicPath: "/bundle/"
     },
     /*
      相当于"webpack --watch-poll"，用于解决虚拟机下inotify无法传递
@@ -56,14 +57,18 @@ module.exports = {
                 exclude: [/node_modules/],
                 loaders: ["babel-loader"],
             },
+            //{
+            //    test: /\.(jpe?g|png|gif|svg|jpg)$/i,
+            //    // inline base64url for <=1500 images
+            //    loader: 'url-loader?limit=1500&name=img/[name].[hash].[ext]',
+            //},
+            //{
+            //    test: /.(woff(2)?|eot|ttf)(\?[a-z0-9=\.]+)?$/,
+            //    loader: 'url-loader?limit=100000&name=img/[name].[hash].[ext]'
+            //},
             {
-                test: /\.(jpe?g|png|gif|svg|jpg)$/i,
-                // inline base64url for <=1500 images
-                loader: 'url-loader?limit=1500&name=img/[name].[hash].[ext]',
-            },
-            {
-                test: /.(woff(2)?|eot|ttf)(\?[a-z0-9=\.]+)?$/,
-                loader: 'url-loader?limit=100000&name=img/[name].[hash].[ext]'
+                test: /\.(eot|svg|ttf|woff|woff2|png)\w*/,
+                loader: 'file'
             }
         ]
     }

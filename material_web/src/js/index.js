@@ -12,19 +12,12 @@ require('../../node_modules/angular-material/angular-material.min.css');
 require('angular-messages');
 require('angular-material-icons');
 require('angular-ui-router');
-//require('../../node_modules/moment/moment.js');
-//require('../../node_modules/smdatetimerangepicker/src/picker.css');
-//require('../../node_modules/smdatetimerangepicker/src/picker.js');
-//require('../../node_modules/angular-material-datetimepicker/js/angular-material-datetimepicker.min.js');
-//require('../third_party/datetimepicker/picker.css');
+require('font-awesome-webpack');
 
-//require('../third_party/datetimepicker/datetimepicker.css');
-//require('../third_party/datetimepicker/datetimepicker');
-//require('../third_party/datetimepicker/md-date-time.css');
-//require('../third_party/datetimepicker/datetimepicker');
-
-//require('../../node_modules/sc-date-time/sc-date-time');
-//require('../../node_modules/sc-date-time/sc-date-time.css');
+require('../third_party/datetimepicker/md-date-time.css');
+require('../third_party/datetimepicker/md-date-time');
+require('../third_party/datetimepicker/datetimepicker.css');
+require('../third_party/datetimepicker/datetimepicker');
 
 require('../css/app.css');
 require('./app');
