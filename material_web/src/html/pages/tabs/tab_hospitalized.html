@@ -1,0 +1,121 @@
+<div ng-controller="tabHospitalizedCtrl">
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>主诉</label>
+                    <input required name="complain" ng-model="hospitalized.complain">
+                    <div ng-messages="projectForm.complain.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>现病史</label>
+                    <input required name="present_illness" ng-model="hospitalized.present_illness">
+                    <div ng-messages="projectForm.present_illness.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+
+
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>近期</label>
+                    <input required name="recent" ng-model="hospitalized.recent">
+                    <div ng-messages="projectForm.recent.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>既往史</label>
+                    <input required name="history_illness" ng-model="hospitalized.history_illness">
+                    <div ng-messages="projectForm.history_illness.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+
+
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>家族史</label>
+                    <input required name="family_illness" ng-model="hospitalized.family_illness">
+                    <div ng-messages="projectForm.family_illness.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>入院诊断</label>
+                    <input required name="admits_diag" ng-model="hospitalized.admits_diag">
+                    <div ng-messages="projectForm.admits_diag.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>体格检查</label>
+                    <textarea required name="physical_exam" ng-model="hospitalized.physical_exam" rows="5" md-select-on-focus></textarea>
+                    <div ng-messages="projectForm.physical_exam.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>整形外科情况</label>
+                    <textarea required name="surgery" ng-model="hospitalized.surgery" rows="5" md-select-on-focus></textarea>
+                    <div ng-messages="projectForm.surgery.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>辅助检查</label>
+                    <input required name="assist_exam" ng-model="hospitalized.assist_exam">
+                    <div ng-messages="projectForm.assist_exam.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+</div>

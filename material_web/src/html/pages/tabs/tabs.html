@@ -1,5 +1,5 @@
 <div ng-controller="formTabsCtrl">
-    <md-tabs class="md-primary" md-border-bottom md-dynamic-height="" md-border-bottom="" md-center-tabs md-swipe-content>
+    <md-tabs class="md-primary" md-border-bottom md-dynamic-height=""  md-center-tabs md-swipe-content>
         <md-tab ng-repeat="tab in tabs"
                 label="{{tab.title}}"
                 layout="row">
@@ -11,12 +11,6 @@
                             <ng-include src="tab.content"></ng-include>
                         </form>
                     </md-card-content>
-                    <!--<div class="inset" hide-sm></div>-->
-                    <!--<div class="inset" hide-sm></div>-->
-                    <!--<div class="inset" hide-sm></div>-->
-                    <!--<div class="inset" hide-sm></div>-->
-                    <!--<div class="inset" hide-sm></div>-->
-
                 </md-card>
             </div>
         </md-tab>

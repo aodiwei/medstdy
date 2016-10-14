@@ -31,5 +31,7 @@ require('./service/dataService');
 require('../html/nav/left_nav.html');
 require('../html/pages/p2.html');
 require('../html/pages/tabs/tabs.html');
-require('../html/pages/tabs/tab-patient-info.html');
+require('../html/pages/tabs/tab_patient_info.html');
+require('../html/pages/tabs/tab_hospitalized.html');
+require('../html/pages/tabs/tab_clinical_course.html');
 require('../html/pages/login/login.html');

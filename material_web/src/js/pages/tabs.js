@@ -8,9 +8,9 @@ var division_conf = require('../config/division.js');
 app
     .controller("formTabsCtrl", function ($scope, $http) {
         $scope.tabs = [
-            {title: '患者基本信息', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-user'},
-            {title: '住院病历记录', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-dashboard'},
-            {title: '首次病程记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-check'},
+            {title: '患者基本信息', content: 'html/pages/tabs/tab_patient_info.html', icon: 'glyphicon-user'},
+            {title: '住院病历记录', content: 'html/pages/tabs/tab_hospitalized.html', icon: 'glyphicon-dashboard'},
+            {title: '首次病程记录表', content: 'html/pages/tabs/tab_clinical_course.html', icon: 'glyphicon-check'},
             {title: '手术记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-heart'},
             {title: '术后病程', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-book'},
             {title: '出院记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-edit'},
@@ -123,9 +123,9 @@ app
         };
     })
 
-    //.controller("tabHospitalizedController", function ($scope) {
-    //
-    //})
+    .controller("tabHospitalizedCtrl", function ($scope) {
+
+    })
     //
     //.controller("tabClinicalCourseController", function ($scope) {
     //    $scope.addRecord = function () {

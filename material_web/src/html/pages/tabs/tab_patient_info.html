@@ -1,4 +1,4 @@
-<div ng-controller="tabPatientCtrl as vm">
+<div ng-controller="tabPatientCtrl">
     <div layout="row">
         <div flex>
             <md-card md-whiteframe="5">
@@ -53,11 +53,11 @@
         <div flex>
             <md-card md-whiteframe="5">
                 <!--<md-input-container>-->
-                    <!--<label>生日</label>-->
-                    <!--<md-datepicker name="birthday" ng-model="patient_info.birthday" required=""></md-datepicker>-->
-                    <!--<div ng-messages="projectForm.birthday.$error">-->
-                        <!--<div ng-message="required">必填</div>-->
-                    <!--</div>-->
+                <!--<label>生日</label>-->
+                <!--<md-datepicker name="birthday" ng-model="patient_info.birthday" required=""></md-datepicker>-->
+                <!--<div ng-messages="projectForm.birthday.$error">-->
+                <!--<div ng-message="required">必填</div>-->
+                <!--</div>-->
                 <!--</md-input-container>-->
                 <md-datetime-inline init-datatime="patient_info.birthday" datetime-mode="date" placeholder="生日" date-changed="dateChange()">
                 </md-datetime-inline>
@@ -176,23 +176,22 @@
     <div layout="row">
         <div flex>
             <md-card md-whiteframe="5">
-                <md-datetime-inline init-datatime="patient_info.in_date" datetime-mode="datedatetime" placeholder="入院时间" date-changed="dateChange()">
+                <md-datetime-inline init-datatime="patient_info.in_date" datetime-mode="datedatetime" placeholder="入院时间"
+                                    date-changed="dateChange()">
                 </md-datetime-inline>
             </md-card>
         </div>
 
         <div flex>
             <md-card md-whiteframe="5">
-                <md-datetime-inline init-datatime="patient_info.out_date" datetime-mode="datetime" placeholder="出院时间" date-changed="dateChange()">
+                <md-datetime-inline init-datatime="patient_info.out_date" datetime-mode="datetime" placeholder="出院时间"
+                                    date-changed="dateChange()">
                 </md-datetime-inline>
             </md-card>
         </div>
 
 
     </div>
-
-
-
 
 
 </div>
