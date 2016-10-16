@@ -11,11 +11,11 @@ app
             {title: '患者基本信息', content: 'html/pages/tabs/tab_patient_info.html', icon: 'glyphicon-user'},
             {title: '住院病历记录', content: 'html/pages/tabs/tab_hospitalized.html', icon: 'glyphicon-dashboard'},
             {title: '首次病程记录表', content: 'html/pages/tabs/tab_clinical_course.html', icon: 'glyphicon-check'},
-            {title: '手术记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-heart'},
-            {title: '术后病程', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-book'},
-            {title: '出院记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-edit'},
-            {title: '长期医嘱记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-list-alt'},
-            {title: '临时医嘱记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-list'}
+            // {title: '手术记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-heart'},
+            // {title: '术后病程', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-book'},
+            // {title: '出院记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-edit'},
+            // {title: '长期医嘱记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-list-alt'},
+            // {title: '临时医嘱记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-list'}
         ];
 
         $scope.model = {
