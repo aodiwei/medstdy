@@ -1,0 +1,111 @@
+<div>
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-datetime-inline init-datatime="surgery.surgery_date" datetime-mode="date" placeholder="手术时间"
+                                    date-changed="dateChange()">
+                </md-datetime-inline>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>术前诊断</label>
+                    <input required name="before_diag" ng-model="surgery.before_diag">
+                    <div ng-messages="projectForm.before_diag.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>术后诊断</label>
+                    <input required name="later_diag" ng-model="surgery.later_diag">
+                    <div ng-messages="projectForm.later_diag.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>手术名称</label>
+                    <input required name="surgery_name" ng-model="surgery.surgery_name">
+                    <div ng-messages="projectForm.surgery_name.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>手术医生</label>
+                    <input required name="surgery_doctor" ng-model="surgery.surgery_doctor">
+                    <div ng-messages="projectForm.surgery_doctor.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>麻醉医生</label>
+                    <input required name="narcosis_doctor" ng-model="surgery.narcosis_doctor">
+                    <div ng-messages="projectForm.narcosis_doctor.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>器械护士</label>
+                    <input required name="instrument_nurses" ng-model="surgery.instrument_nurses">
+                    <div ng-messages="projectForm.instrument_nurses.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>麻醉方式</label>
+                    <input required name="narcosis_way" ng-model="surgery.narcosis_way">
+                    <div ng-messages="projectForm.narcosis_way.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>描述</label>
+                    <textarea required name="description" ng-model="surgery.description" rows="5"
+                              md-select-on-focus>
+                    </textarea>
+                    <div ng-messages="projectForm.description.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+</div>

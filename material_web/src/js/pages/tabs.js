@@ -11,11 +11,11 @@ app
             {title: '患者基本信息', content: 'html/pages/tabs/tab_patient_info.html', icon: 'glyphicon-user'},
             {title: '住院病历记录', content: 'html/pages/tabs/tab_hospitalized.html', icon: 'glyphicon-dashboard'},
             {title: '首次病程记录表', content: 'html/pages/tabs/tab_clinical_course.html', icon: 'glyphicon-check'},
-            // {title: '手术记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-heart'},
-            // {title: '术后病程', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-book'},
-            // {title: '出院记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-edit'},
-            // {title: '长期医嘱记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-list-alt'},
-            // {title: '临时医嘱记录表', content: 'html/pages/tabs/tab-patient-info.html', icon: 'glyphicon-list'}
+             {title: '手术记录表', content: 'html/pages/tabs/tab_surgery.html', icon: 'glyphicon-heart'},
+             {title: '术后病程', content: 'html/pages/tabs/tab_after_surgery.html', icon: 'glyphicon-book'},
+             {title: '出院记录表', content: 'html/pages/tabs/tab_leave.html', icon: 'glyphicon-edit'},
+             {title: '长期医嘱记录表', content: 'html/pages/tabs/tab_long_medical_orders.html', icon: 'glyphicon-list-alt'},
+             {title: '临时医嘱记录表', content: 'html/pages/tabs/tab_temp_medical_orders.html', icon: 'glyphicon-list'}
         ];
 
         $scope.model = {
@@ -35,7 +35,7 @@ app
             $scope.temp_medical_orders = {};
 
             // 动态增加的条目
-            $scope.check_record = [{date: "", content: ""}];
+            $scope.check_record = [{date: "", content: ""},{date: "", content: ""}];
             $scope.description = [{date: "", content: ""}];
             $scope.long_items = [{
                 start_datetime: "",
@@ -141,45 +141,45 @@ app
     //
     //})
     //
-    //.controller("tabAfterSurgeryController", function ($scope) {
-    //    $scope.addRecord = function () {
-    //        $scope.description.push({date: "", content: ""});
-    //    };
-    //    $scope.delRecord = function (index) {
-    //        $scope.description.splice(index, 1);
-    //    };
-    //})
-    //
-    //.controller("tabLongMedicalOrdersController", function ($scope) {
-    //    $scope.addRecord = function () {
-    //        $scope.long_items.push({
-    //            start_datetime: "",
-    //            medical_order: "",
-    //            start_execute_doctor: "",
-    //            start_execute_nurse: "",
-    //            start_execute_datetime: "",
-    //            stop_datetime: "",
-    //            stop_execute_doctor: "",
-    //            stop_execute_nurse: "",
-    //            stop_execute_datetime: ""
-    //        });
-    //    };
-    //    $scope.delRecord = function (index) {
-    //        $scope.long_items.splice(index, 1);
-    //    };
-    //})
-    //
-    //.controller("tabTempMedicalOrdersController", function ($scope) {
-    //    $scope.addRecord = function () {
-    //        $scope.temp_items.push({
-    //            start_datetime: "",
-    //            medical_order: "",
-    //            start_execute_doctor: "",
-    //            start_execute_nurse: "",
-    //            start_execute_datetime: "",
-    //            checker: ""});
-    //    };
-    //    $scope.delRecord = function (index) {
-    //        $scope.temp_items.splice(index, 1);
-    //    };
-    //});
+    .controller("tabAfterSurgeryCtrl", function ($scope) {
+        $scope.addRecord = function () {
+            $scope.description.push({date: "", content: ""});
+        };
+        $scope.delRecord = function (index) {
+            $scope.description.splice(index, 1);
+        };
+    })
+
+    .controller("tabLongMedicalOrdersCtrl", function ($scope) {
+        $scope.addRecord = function () {
+            $scope.long_items.push({
+                start_datetime: "",
+                medical_order: "",
+                start_execute_doctor: "",
+                start_execute_nurse: "",
+                start_execute_datetime: "",
+                stop_datetime: "",
+                stop_execute_doctor: "",
+                stop_execute_nurse: "",
+                stop_execute_datetime: ""
+            });
+        };
+        $scope.delRecord = function (index) {
+            $scope.long_items.splice(index, 1);
+        };
+    })
+
+    .controller("tabTempMedicalOrdersCtrl", function ($scope) {
+        $scope.addRecord = function () {
+            $scope.temp_items.push({
+                start_datetime: "",
+                medical_order: "",
+                start_execute_doctor: "",
+                start_execute_nurse: "",
+                start_execute_datetime: "",
+                checker: ""});
+        };
+        $scope.delRecord = function (index) {
+            $scope.temp_items.splice(index, 1);
+        };
+    });

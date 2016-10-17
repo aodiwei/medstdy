@@ -28,16 +28,23 @@ require('./service/authService');
 require('./service/commonFunService');
 require('./service/dataService');
 
+require('../html/pages/login/login.html');
+
 require('../html/nav/left_nav.html');
 require('../html/pages/p2.html');
 require('../html/pages/tabs/tabs.html');
 require('../html/pages/tabs/tab_patient_info.html');
 require('../html/pages/tabs/tab_hospitalized.html');
 require('../html/pages/tabs/tab_clinical_course.html');
-require('../html/pages/login/login.html');
+require('../html/pages/tabs/tab_surgery.html');
+require('../html/pages/tabs/tab_after_surgery.html');
+require('../html/pages/tabs/tab_leave.html');
+require('../html/pages/tabs/tab_temp_medical_orders.html');
+require('../html/pages/tabs/tab_long_medical_orders.html');
+
 
 
 require('../html/widget/check_record.html');
-// require('../html/widget/after_surgery_record.html');
-// require('../html/widget/long_medical_orders.html');
-// require('../html/widget/temp_medical_orders.html');
+require('../html/widget/after_surgery_record.html');
+ require('../html/widget/long_medical_orders.html');
+ require('../html/widget/temp_medical_orders.html');
