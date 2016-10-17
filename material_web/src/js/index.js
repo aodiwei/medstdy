@@ -35,3 +35,9 @@ require('../html/pages/tabs/tab_patient_info.html');
 require('../html/pages/tabs/tab_hospitalized.html');
 require('../html/pages/tabs/tab_clinical_course.html');
 require('../html/pages/login/login.html');
+
+
+require('../html/widget/check_record.html');
+// require('../html/widget/after_surgery_record.html');
+// require('../html/widget/long_medical_orders.html');
+// require('../html/widget/temp_medical_orders.html');

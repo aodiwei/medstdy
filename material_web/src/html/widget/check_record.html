@@ -1,0 +1,28 @@
+<div layout="row">
+    <div flex>
+        <md-card md-whiteframe="5">
+
+            <md-datetime-inline init-datatime="check_record[$index].date" datetime-mode="datetime"
+                                placeholder="查房时间"
+                                date-changed="dateChange()">
+            </md-datetime-inline>
+            <md-input-container>
+                <label>查房记录</label>
+
+                <textarea required name="gist" ng-model="check_record[$index].content"  rows="2"
+                          md-select-on-focus>
+                    </textarea>
+                <div ng-messages="projectForm.gist.$error">
+                    <div ng-message="required">必填</div>
+                </div>
+            </md-input-container>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button class="md-raised md-primary" ng-click="addRecord()">增加记录</md-button>
+                <md-button class="md-fab md-mini">
+                    {{$index + 1}}
+                </md-button>
+                <md-button class="md-raised md-warn" ng-click="delRecord($index)" ng-disabled="$index==0">删除记录</md-button>
+            </md-card-actions>
+        </md-card>
+    </div>
+</div>

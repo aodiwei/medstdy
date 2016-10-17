@@ -1,4 +1,4 @@
-<div ng-controller="tabHospitalizedCtrl">
+<div ng-controller="tabClinicalCourseCtrl">
     <div layout="row">
         <div flex>
             <md-card md-whiteframe="5">
@@ -72,31 +72,8 @@
         </div>
     </div>
 
-    <div layout="row">
-        <div flex>
-            <md-card md-whiteframe="5">
-
-                <md-datetime-inline init-datatime="patient_info.out_date" datetime-mode="datetime"
-                                    placeholder="查房时间"
-                                    date-changed="dateChange()">
-                </md-datetime-inline>
-                <md-input-container>
-                    <label>查房记录</label>
-
-                    <textarea required name="gist" ng-model="clinical_course.gist" rows="1"
-                              md-select-on-focus>
-                    </textarea>
-                    <div ng-messages="projectForm.gist.$error">
-                        <div ng-message="required">必填</div>
-                    </div>
-                </md-input-container>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button class="md-raised md-primary">Action 1</md-button>
-                    <md-button class="md-raised md-warn"> Action 2</md-button>
-                </md-card-actions>
-            </md-card>
-        </div>
+    <div ng-repeat="item in check_record track by $index">
+        <div ng-include="'html/widget/check_record.html'"></div>
     </div>
-
 
 </div>

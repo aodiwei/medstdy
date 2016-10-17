@@ -126,16 +126,16 @@ app
     .controller("tabHospitalizedCtrl", function ($scope) {
 
     })
-    //
-    //.controller("tabClinicalCourseController", function ($scope) {
-    //    $scope.addRecord = function () {
-    //        $scope.check_record.push({date: "", content: ""});
-    //    };
-    //
-    //    $scope.delRecord = function (index) {
-    //        $scope.check_record.splice(index, 1);
-    //    };
-    //})
+
+    .controller("tabClinicalCourseCtrl", function ($scope) {
+       $scope.addRecord = function () {
+           $scope.check_record.push({date: "", content: ""});
+       };
+
+       $scope.delRecord = function (index) {
+           $scope.check_record.splice(index, 1);
+       };
+    })
     //
     //.controller("tabSurgeryController", function ($scope) {
     //
