@@ -5,12 +5,15 @@
                 layout="row">
             <div class="inset" hide-sm></div>
             <div layout="row" layout-align="center center" flex-offset="5">
-                <md-card flex  style="margin-bottom: 500px" >
+                <md-card flex style="margin-bottom: 500px">
                     <md-card-content>
                         <form name="projectForm">
                             <ng-include src="tab.content"></ng-include>
                         </form>
                     </md-card-content>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-raised md-primary" ng-click="submit()">提交</md-button>
+                    </md-card-actions>
                 </md-card>
             </div>
         </md-tab>

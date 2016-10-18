@@ -28,6 +28,9 @@ require('./service/authService');
 require('./service/commonFunService');
 require('./service/dataService');
 
+require('./config/division');
+require('./config/test_data');
+
 require('../html/pages/login/login.html');
 
 require('../html/nav/left_nav.html');
