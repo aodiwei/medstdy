@@ -112,6 +112,8 @@
 	__webpack_require__(71);
 	__webpack_require__(72);
 
+	__webpack_require__(77);
+
 	__webpack_require__(73);
 	__webpack_require__(74);
 	__webpack_require__(75);
@@ -77379,7 +77381,7 @@
 	        templateUrl: "./html/pages/tabs/tabs.html"
 	    }).state("main.admin", {
 	        url: "/admin",
-	        templateUrl: "./html/pages/p2.html"
+	        templateUrl: "./html/pages/admin/register.html"
 	    });
 	});
 
@@ -78411,6 +78413,12 @@
 /***/ function(module, exports) {
 
 	module.exports = "<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <div layout=\"row\">\n                <md-datetime-inline flex=\"30\" init-datatime=\"temp_items[$index].start_datetime\" datetime-mode=\"datetime\" placeholder=\"开始时间\"\n                                    date-changed=\"dateChange()\">\n                </md-datetime-inline>\n                <md-input-container flex>\n                    <label>医嘱</label>\n                    <input required name=\"medical_order\" ng-model=\"temp_items[$index].medical_order\">\n                    <div ng-messages=\"projectForm.medical_order.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n                <md-input-container flex>\n                    <label>执行医生</label>\n                    <input required name=\"start_execute_doctor\" ng-model=\"temp_items[$index].start_execute_doctor\">\n                    <div ng-messages=\"projectForm.start_execute_doctor.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n\n            </div>\n\n            <div layout=\"row\">\n                <md-datetime-inline flex=\"30\" init-datatime=\"temp_items[$index].start_execute_datetime\" datetime-mode=\"datetime\"\n                                    placeholder=\"执行时间\"\n                                    date-changed=\"dateChange()\">\n                </md-datetime-inline>\n                <md-input-container flex>\n                    <label>执行护士</label>\n                    <input required name=\"start_execute_nurse\" ng-model=\"temp_items[$index].start_execute_nurse\">\n                    <div ng-messages=\"projectForm.start_execute_nurse.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n                <md-input-container flex>\n                    <label>核对人</label>\n                    <input required name=\"start_execute_doctor\" ng-model=\"temp_items[$index].start_execute_doctor\">\n                    <div ng-messages=\"projectForm.start_execute_doctor.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n\n            </div>\n\n\n\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-raised md-primary\" ng-click=\"addRecord()\">增加记录</md-button>\n                <md-button class=\"md-fab md-mini\">\n                    {{$index + 1}}\n                </md-button>\n                <md-button class=\"md-raised md-warn\" ng-click=\"delRecord($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\n            </md-card-actions>\n\n        </md-card>\n    </div>\n</div>"
+
+/***/ },
+/* 77 */
+/***/ function(module, exports) {
+
+	module.exports = "<div layout=\"row\" layout-align=\"center center\">\n    <md-content >\n        <!--<div flex-xs flex-gt-xs=\"50\" layout=\"column\">-->\n        <md-card>\n            <md-card-title>\n                <md-card-title-text>\n                    <span class=\"md-headline\">注册账号</span>\n                </md-card-title-text>\n            </md-card-title>\n            <md-card-content>\n                <div layout=\"row\">\n                    <div flex>\n                        <md-card md-whiteframe=\"5\">\n                            <md-input-container>\n                                <label>病案号</label>\n                                <input required name=\"medical_id\" ng-model=\"patient_info.medical_id\">\n                                <div ng-messages=\"projectForm.medical_id.$error\">\n                                    <div ng-message=\"required\">必填</div>\n                                </div>\n                            </md-input-container>\n                        </md-card>\n                    </div>\n                </div>\n            </md-card-content>\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\n                <md-button>Action 1</md-button>\n                <md-button>Action 2</md-button>\n            </md-card-actions>\n        </md-card>\n        <!--</div>-->\n    </md-content>\n</div>"
 
 /***/ }
 /******/ ]);

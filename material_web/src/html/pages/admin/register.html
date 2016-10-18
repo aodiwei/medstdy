@@ -1,0 +1,32 @@
+<div layout="row" layout-align="center center">
+    <md-content >
+        <!--<div flex-xs flex-gt-xs="50" layout="column">-->
+        <md-card>
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-headline">注册账号</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <div layout="row">
+                    <div flex>
+                        <md-card md-whiteframe="5">
+                            <md-input-container>
+                                <label>病案号</label>
+                                <input required name="medical_id" ng-model="patient_info.medical_id">
+                                <div ng-messages="projectForm.medical_id.$error">
+                                    <div ng-message="required">必填</div>
+                                </div>
+                            </md-input-container>
+                        </md-card>
+                    </div>
+                </div>
+            </md-card-content>
+            <md-card-actions layout="row" layout-align="end center">
+                <md-button>Action 1</md-button>
+                <md-button>Action 2</md-button>
+            </md-card-actions>
+        </md-card>
+        <!--</div>-->
+    </md-content>
+</div>

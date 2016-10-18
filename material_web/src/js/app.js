@@ -78,7 +78,7 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
         })
         .state("main.admin", {
             url: "/admin",
-            templateUrl: "./html/pages/p2.html"
+            templateUrl: "./html/pages/admin/register.html"
         });
 
 

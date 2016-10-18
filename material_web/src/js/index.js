@@ -45,6 +45,8 @@ require('../html/pages/tabs/tab_leave.html');
 require('../html/pages/tabs/tab_temp_medical_orders.html');
 require('../html/pages/tabs/tab_long_medical_orders.html');
 
+require('../html/pages/admin/register.html');
+
 
 
 require('../html/widget/check_record.html');
