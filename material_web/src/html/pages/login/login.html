@@ -3,41 +3,43 @@
 <div class="inset" hide-sm></div>
 <div class="inset" hide-sm></div>
 <div layout="row" layout-align="center center" ng-controller="LoginCtrl">
-<md-card md-theme="" md-theme-watch >
-    <md-card-title>
-        <md-card-title-text md-theme="dark-purple">
-            <span class="md-headline" >登录</span>
-        </md-card-title-text>
-    </md-card-title>
-    <md-divider></md-divider>
-    <md-card-content>
-        <md-content layout-padding="" md-theme="dark-blue">
-        <form name="loginForm" >
-            <md-input-container class="md-block">
-                <label>账号</label>
-                <md-icon>
-                    <ng-md-icon icon="account_circle"></ng-md-icon>
-                </md-icon>
-                <input ng-model="user.account" type="text" name="account"  required>
-                <div ng-messages="loginForm.account.$error">
-                    <div ng-message="required">必填</div>
-                </div>
-            </md-input-container>
+    <md-card md-theme="" md-theme-watch>
+        <md-card-title>
+            <md-card-title-text md-theme="dark-purple">
+                <span class="md-headline">登录</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-divider></md-divider>
+        <md-card-content>
+            <md-content layout-padding="" md-theme="dark-blue">
+                <form name="loginForm">
+                    <md-input-container class="md-block">
+                        <label>账号</label>
+                        <md-icon>
+                            <ng-md-icon icon="account_circle"></ng-md-icon>
+                        </md-icon>
+                        <input ng-model="user.account" type="text" name="account" required>
+                        <div ng-messages="loginForm.account.$error">
+                            <div ng-message="required">必填</div>
+                        </div>
+                    </md-input-container>
 
-            <md-input-container class="md-block">
-                <label>密码</label>
-                <md-icon>
-                    <ng-md-icon icon="lock"></ng-md-icon>
-                </md-icon>
-                <input ng-model="user.password" type="password" name="password" required>
-                <div ng-messages="loginForm.password.$error">
-                    <div ng-message="required">必填</div>
-                </div>
-            </md-input-container>
+                    <md-input-container class="md-block">
+                        <label>密码</label>
+                        <md-icon>
+                            <ng-md-icon icon="lock"></ng-md-icon>
+                        </md-icon>
+                        <input ng-model="user.password" type="password" name="password" required>
+                        <div ng-messages="loginForm.password.$error">
+                            <div ng-message="required">必填</div>
+                        </div>
+                    </md-input-container>
 
-            <md-button ng-click="submit()" class="md-raised md-primary" >登录</md-button>
-        </form>
-        </md-content>
-    </md-card-content>
-</md-card>
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-raised md-primary">登录</md-button>
+                    </md-card-actions>
+                </form>
+            </md-content>
+        </md-card-content>
+    </md-card>
 </div>

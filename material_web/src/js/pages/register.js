@@ -1,0 +1,39 @@
+/**
+ * Created by david ao on 2016/8/27.
+ */
+var app = require("../app.js");
+
+app.controller("registerCtrl", function($scope, $http, $commonFun){
+    $scope.selected = {
+        roles: [{option:"管理员", value: "admin"}, {option:"数据管理员", value:"worker"}],
+    };
+
+    $scope.btnDisable = false;
+    $scope.register_info = {};
+
+    $scope.registerFun = function(){
+        $scope.btnDisable = true;
+        var req = {
+            url: "/user/register",
+            method: "POST",
+            params: {
+                email: $scope.register_info.email,
+                account: $scope.register_info.account,
+                password: $scope.register_info.password,
+                password_confirm: $scope.register_info.password_confirm,
+                role: $scope.register_info.role,
+                //image: $scope.image,
+            }
+        };
+        console.log(req.params);
+        //return
+        $http(req).then(function (data) {
+            $commonFun.showSimpleToast("注册成功", "success-toast");
+            $scope.register_info = {};
+            $scope.btnDisable = false;
+        }).catch(function () {
+            $commonFun.showSimpleToast("注册失败", "error-toast");
+            $scope.btnDisable = false;
+        });
+    };
+});

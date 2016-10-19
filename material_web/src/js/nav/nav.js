@@ -19,7 +19,7 @@ app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialo
             icon: 'dashboard'
         },
         {
-            lin: '.tabs',
+            lin: '.upload',
             title: '数据文件上传',
             icon: 'group'
         }

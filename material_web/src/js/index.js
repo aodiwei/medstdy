@@ -14,16 +14,22 @@ require('angular-material-icons');
 require('angular-ui-router');
 require('font-awesome-webpack');
 
+//third_party
 require('../third_party/datetimepicker/md-date-time.css');
 require('../third_party/datetimepicker/md-date-time');
 require('../third_party/datetimepicker/datetimepicker.css');
 require('../third_party/datetimepicker/datetimepicker');
 
+//js
 require('../css/app.css');
 require('./app');
-require('./pages/tabs');
 require('./nav/nav');
+
+require('./pages/tabs');
 require('./pages/login');
+require('./pages/register');
+//require('./pages/upload_file');
+
 require('./service/authService');
 require('./service/commonFunService');
 require('./service/dataService');
@@ -31,10 +37,13 @@ require('./service/dataService');
 require('./config/division');
 require('./config/test_data');
 
-require('../html/pages/login/login.html');
-
+//html
 require('../html/nav/left_nav.html');
-require('../html/pages/p2.html');
+
+require('../html/pages/login/login.html');
+require('../html/pages/upload_file/upload_file.html');
+require('../html/pages/admin/register.html');
+
 require('../html/pages/tabs/tabs.html');
 require('../html/pages/tabs/tab_patient_info.html');
 require('../html/pages/tabs/tab_hospitalized.html');
@@ -45,11 +54,7 @@ require('../html/pages/tabs/tab_leave.html');
 require('../html/pages/tabs/tab_temp_medical_orders.html');
 require('../html/pages/tabs/tab_long_medical_orders.html');
 
-require('../html/pages/admin/register.html');
-
-
-
 require('../html/widget/check_record.html');
 require('../html/widget/after_surgery_record.html');
- require('../html/widget/long_medical_orders.html');
- require('../html/widget/temp_medical_orders.html');
+require('../html/widget/long_medical_orders.html');
+require('../html/widget/temp_medical_orders.html');

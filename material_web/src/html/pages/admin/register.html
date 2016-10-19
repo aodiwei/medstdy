@@ -1,32 +1,76 @@
-<div layout="row" layout-align="center center">
-    <md-content >
-        <!--<div flex-xs flex-gt-xs="50" layout="column">-->
-        <md-card>
+<div ng-controller="registerCtrl">
+    <div layout="row" layout-align="start center" flex-offset="10">
+        <md-card  flex-xs="80" flex="40">
             <md-card-title>
-                <md-card-title-text>
+                <md-card-title-text md-theme="dark-purple">
                     <span class="md-headline">注册账号</span>
                 </md-card-title-text>
             </md-card-title>
+            <md-divider></md-divider>
             <md-card-content>
-                <div layout="row">
-                    <div flex>
-                        <md-card md-whiteframe="5">
-                            <md-input-container>
-                                <label>病案号</label>
-                                <input required name="medical_id" ng-model="patient_info.medical_id">
-                                <div ng-messages="projectForm.medical_id.$error">
-                                    <div ng-message="required">必填</div>
-                                </div>
-                            </md-input-container>
-                        </md-card>
-                    </div>
-                </div>
+                <form name="registerForm">
+                    <md-input-container class="md-block">
+                        <label>账号</label>
+                        <md-icon>
+                            <ng-md-icon icon="account_circle"></ng-md-icon>
+                        </md-icon>
+                        <input ng-model="register_info.account" type="text" name="account" required>
+                        <div ng-messages="registerForm.account.$error">
+                            <div ng-message="required">必填</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>邮箱</label>
+                        <md-icon>
+                            <ng-md-icon icon="email"></ng-md-icon>
+                        </md-icon>
+                        <input ng-model="register_info.email" type="text" name="email" required>
+                        <div ng-messages="registerForm.email.$error">
+                            <div ng-message="required">必填</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>密码</label>
+                        <md-icon>
+                            <ng-md-icon icon="lock"></ng-md-icon>
+                        </md-icon>
+                        <input ng-model="register_info.password" type="password" name="password" required>
+                        <div ng-messages="registerForm.password.$error">
+                            <div ng-message="required">必填</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>确认密码</label>
+                        <md-icon>
+                            <ng-md-icon icon="lock"></ng-md-icon>
+                        </md-icon>
+                        <input ng-model="register_info.password2" type="password" name="password2" required>
+                        <div ng-messages="registerForm.password2.$error">
+                            <div ng-message="required">必填</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <label>角色</label>
+                        <md-icon>
+                            <ng-md-icon icon="person"></ng-md-icon>
+                        </md-icon>
+                        <md-select name="role" ng-model="register_info.role" required>
+                            <md-option ng-value="role.value" ng-repeat="role in selected.roles">{{ role.option }}</md-option>
+                        </md-select>
+                        <div ng-messages="registerForm.role.$error">
+                            <div ng-message="required">必填</div>
+                        </div>
+                    </md-input-container>
+
+                    <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-raised md-primary" ng-click="registerFun()">注册</md-button>
+                    </md-card-actions>
+                </form>
             </md-card-content>
-            <md-card-actions layout="row" layout-align="end center">
-                <md-button>Action 1</md-button>
-                <md-button>Action 2</md-button>
-            </md-card-actions>
         </md-card>
-        <!--</div>-->
-    </md-content>
+    </div>
 </div>

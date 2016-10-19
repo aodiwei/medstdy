@@ -7,7 +7,8 @@ var app = angular.module('medApp', [
     'ui.router',
     'ngMessages',
     //'mdDateTime',
-    'mdDatetimeInline'
+    'mdDatetimeInline',
+    'angularFileUpload'
 ]);
 
 app.directive('userAvatar', function () {
@@ -75,6 +76,10 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
         .state("main.tabs", {
             url: "/tabs",
             templateUrl: "./html/pages/tabs/tabs.html"
+        })
+        .state("main.upload", {
+            url: "/upload",
+            templateUrl: "./html/pages/upload_file/upload_file.html"
         })
         .state("main.admin", {
             url: "/admin",
