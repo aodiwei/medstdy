@@ -20,6 +20,8 @@ require('../third_party/datetimepicker/md-date-time');
 require('../third_party/datetimepicker/datetimepicker.css');
 require('../third_party/datetimepicker/datetimepicker');
 
+require('../third_party/upload_file/angular-file-upload');
+
 //js
 require('../css/app.css');
 require('./app');
@@ -28,7 +30,7 @@ require('./nav/nav');
 require('./pages/tabs');
 require('./pages/login');
 require('./pages/register');
-//require('./pages/upload_file');
+require('./pages/upload_file');
 
 require('./service/authService');
 require('./service/commonFunService');

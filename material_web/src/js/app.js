@@ -56,6 +56,7 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
     $mdThemingProvider.theme('dark-orange').backgroundPalette('orange');
     $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple');
     $mdThemingProvider.theme('dark-blue').backgroundPalette('blue');
+    $mdThemingProvider.theme('warning').backgroundPalette('yellow');
     //$mdThemingProvider.theme('input', 'default')
     //    .primaryPalette('brown');
 
