@@ -1,5 +1,5 @@
 <div ng-controller="registerCtrl">
-    <div layout="row" layout-align="start center" flex-offset="10">
+    <div layout="row" layout-align="start center" flex-offset="5">
         <md-card  flex-xs="80" flex="40">
             <md-card-title>
                 <md-card-title-text md-theme="dark-purple">
@@ -25,9 +25,10 @@
                         <md-icon>
                             <ng-md-icon icon="email"></ng-md-icon>
                         </md-icon>
-                        <input ng-model="register_info.email" type="text" name="email" required>
+                        <input ng-model="register_info.email" type="email" name="email" required>
                         <div ng-messages="registerForm.email.$error">
                             <div ng-message="required">必填</div>
+                            <div ng-message="email">请输入有效邮箱</div>
                         </div>
                     </md-input-container>
 
@@ -36,9 +37,10 @@
                         <md-icon>
                             <ng-md-icon icon="lock"></ng-md-icon>
                         </md-icon>
-                        <input ng-model="register_info.password" type="password" name="password" required>
+                        <input ng-model="register_info.password" type="password" name="password" ng-pattern="/^[a-zA-Z]\w{5,17}$/" required>
                         <div ng-messages="registerForm.password.$error">
                             <div ng-message="required">必填</div>
+                            <div ng-message="pattern" >密码必须是英文字母开头，并由英文字母和数字组成,至少6位</div>
                         </div>
                     </md-input-container>
 
@@ -47,9 +49,10 @@
                         <md-icon>
                             <ng-md-icon icon="lock"></ng-md-icon>
                         </md-icon>
-                        <input ng-model="register_info.password2" type="password" name="password2" required>
+                        <input ng-model="register_info.password2" type="password" name="password2" ng-pattern="{{register_info.password}}"  required>
                         <div ng-messages="registerForm.password2.$error">
                             <div ng-message="required">必填</div>
+                            <div ng-message="pattern" >请确认密码一致</div>
                         </div>
                     </md-input-container>
 
@@ -67,7 +70,7 @@
                     </md-input-container>
 
                     <md-card-actions layout="row" layout-align="end center">
-                        <md-button class="md-raised md-primary" ng-click="registerFun()">注册</md-button>
+                        <md-button class="md-raised md-primary" ng-click="registerFun()" ng-disabled="registerForm.$invalid||btnDisable">注册</md-button>
                     </md-card-actions>
                 </form>
             </md-card-content>

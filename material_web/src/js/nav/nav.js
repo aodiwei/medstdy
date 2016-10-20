@@ -2,7 +2,7 @@
  * Created by AO.Diwei on 2016/9/28.
  */
 var app = require('../app.js');
-app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $userInfo) {
+app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $userInfo, $location) {
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
     };
@@ -12,6 +12,12 @@ app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialo
               //console.debug("close LEFT is done");
             });
     };
+
+    $scope.isActive = function (viewLocation) {
+        console.log(viewLocation, $location.path());
+        return viewLocation === $location.path();
+    };
+
     $scope.menu = [
         {
             lin: '.tabs',
@@ -21,7 +27,7 @@ app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialo
         {
             lin: '.upload',
             title: '数据文件上传',
-            icon: 'group'
+            icon: 'cloud_upload'
         }
     ];
     $scope.admin = [

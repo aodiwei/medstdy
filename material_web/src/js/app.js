@@ -8,7 +8,8 @@ var app = angular.module('medApp', [
     'ngMessages',
     //'mdDateTime',
     'mdDatetimeInline',
-    'angularFileUpload'
+    'angularFileUpload',
+    'md.data.table'
 ]);
 
 app.directive('userAvatar', function () {
