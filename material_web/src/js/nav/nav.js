@@ -2,7 +2,7 @@
  * Created by AO.Diwei on 2016/9/28.
  */
 var app = require('../app.js');
-app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $userInfo, $location) {
+app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $userInfo, $state) {
     $scope.toggleSidenav = function (menuId) {
         $mdSidenav(menuId).toggle();
     };
@@ -13,26 +13,28 @@ app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialo
             });
     };
 
-    $scope.isActive = function (viewLocation) {
-        console.log(viewLocation, $location.path());
-        return viewLocation === $location.path();
-    };
+    $scope.$state = $state;
+
+    // $scope.isActive = function (viewLocation) {
+    //     console.log(viewLocation, $location.path());
+    //     return viewLocation === $location.path();
+    // };
 
     $scope.menu = [
         {
-            lin: '.tabs',
+            lin: 'main.tabs',
             title: '数据录入',
             icon: 'dashboard'
         },
         {
-            lin: '.upload',
+            lin: 'main.upload',
             title: '数据文件上传',
             icon: 'cloud_upload'
         }
     ];
     $scope.admin = [
         {
-            lin: '.admin',
+            lin: 'main.admin',
             title: '注册管理',
             icon: 'group'
         }

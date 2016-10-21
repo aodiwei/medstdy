@@ -46,7 +46,7 @@ md-sidenav ng-md-icon {
 
 /*/////////////*/
 .nav-active {
-    background: red;
+    background: #2ed5b3;
 }
 
 .nav-click {
@@ -58,11 +58,7 @@ md-sidenav ng-md-icon {
 }
 
 
-.docs-menu .md-button.active {
-  background: #267ED5;
-}
-
-/*toast±³¾°*/
+/*toastï¿½ï¿½ï¿½ï¿½*/
 md-toast.md-success-toast-theme .md-toast-content {
     background-color: green;
 }

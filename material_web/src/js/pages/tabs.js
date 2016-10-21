@@ -18,10 +18,6 @@ app
             {title: '临时医嘱记录表', content: 'html/pages/tabs/tab_temp_medical_orders.html', icon: 'glyphicon-list'}
         ];
 
-        $scope.model = {
-            name: 'Tabs'
-        };
-
         $scope.initForm = function () {
             $scope.btnDisable = false;
             //表
@@ -61,16 +57,16 @@ app
         $scope.initForm();
 
         //for debug
-        $scope.patient_info = test_data.tbl_patient_info;
-        $scope.clinical_course = test_data.tbl_clinical_course;
-        $scope.hospitalized = test_data.tbl_hospitalized;
-        $scope.surgery = test_data.tbl_surgery;
-        $scope.after_surgery = test_data.tbl_after_surgery;
-        $scope.leave = test_data.tbl_leave;
-        $scope.check_record = test_data.tbl_clinical_course.check_record;
-        $scope.description = test_data.tbl_after_surgery.description;
-        $scope.long_items = test_data.tbl_long_medical_orders.items;
-        $scope.temp_items = test_data.tbl_temp_medical_orders.items;
+        // $scope.patient_info = test_data.tbl_patient_info;
+        // $scope.clinical_course = test_data.tbl_clinical_course;
+        // $scope.hospitalized = test_data.tbl_hospitalized;
+        // $scope.surgery = test_data.tbl_surgery;
+        // $scope.after_surgery = test_data.tbl_after_surgery;
+        // $scope.leave = test_data.tbl_leave;
+        // $scope.check_record = test_data.tbl_clinical_course.check_record;
+        // $scope.description = test_data.tbl_after_surgery.description;
+        // $scope.long_items = test_data.tbl_long_medical_orders.items;
+        // $scope.temp_items = test_data.tbl_temp_medical_orders.items;
 
         $scope.submit = function () {
             $scope.btnDisable = true;

@@ -80,55 +80,55 @@
 	__webpack_require__(31);
 	__webpack_require__(32);
 	__webpack_require__(33);
-	__webpack_require__(81);
-	__webpack_require__(83);
-
-	//third_party
 	__webpack_require__(44);
 	__webpack_require__(46);
-	__webpack_require__(47);
-	__webpack_require__(49);
 
+	//third_party
+	__webpack_require__(48);
 	__webpack_require__(50);
-
-	//js
 	__webpack_require__(51);
 	__webpack_require__(53);
+
 	__webpack_require__(54);
 
+	//js
 	__webpack_require__(55);
+	__webpack_require__(57);
 	__webpack_require__(58);
-	__webpack_require__(59);
-	__webpack_require__(60);
 
-	__webpack_require__(61);
+	__webpack_require__(59);
 	__webpack_require__(62);
 	__webpack_require__(63);
-
-	__webpack_require__(56);
-	__webpack_require__(57);
-
-	//html
 	__webpack_require__(64);
 
 	__webpack_require__(65);
 	__webpack_require__(66);
 	__webpack_require__(67);
 
+	__webpack_require__(60);
+	__webpack_require__(61);
+
+	//html
 	__webpack_require__(68);
+
 	__webpack_require__(69);
 	__webpack_require__(70);
 	__webpack_require__(71);
+
 	__webpack_require__(72);
 	__webpack_require__(73);
 	__webpack_require__(74);
 	__webpack_require__(75);
 	__webpack_require__(76);
-
 	__webpack_require__(77);
 	__webpack_require__(78);
 	__webpack_require__(79);
 	__webpack_require__(80);
+
+	__webpack_require__(81);
+	__webpack_require__(82);
+	__webpack_require__(83);
+	__webpack_require__(84);
 
 /***/ },
 /* 15 */
@@ -76825,10 +76825,1553 @@
 /* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
+	// support for Browserify
+
+	__webpack_require__(23);
+	__webpack_require__(45);
+
+	module.exports = 'md.data.table';
+
+
+/***/ },
+/* 45 */
+/***/ function(module, exports) {
+
+	/*
+	 * Angular Material Data Table
+	 * https://github.com/daniel-nagy/md-data-table
+	 * @license MIT
+	 * v0.10.9
+	 */
+	(function (window, angular, undefined) {
+	'use strict';
+
+	angular.module('md.table.templates', ['md-table-pagination.html', 'md-table-progress.html', 'arrow-up.svg', 'navigate-before.svg', 'navigate-first.svg', 'navigate-last.svg', 'navigate-next.svg']);
+
+	angular.module('md-table-pagination.html', []).run(['$templateCache', function($templateCache) {
+	  $templateCache.put('md-table-pagination.html',
+	    '<div class="page-select" ng-if="$pagination.showPageSelect()">\n' +
+	    '  <div class="label">{{$pagination.label.page}}</div>\n' +
+	    '\n' +
+	    '  <md-select virtual-page-select total="{{$pagination.pages()}}" class="md-table-select" ng-model="$pagination.page" md-container-class="md-pagination-select" ng-change="$pagination.onPaginationChange()" ng-disabled="$pagination.disabled" aria-label="Page">\n' +
+	    '    <md-content>\n' +
+	    '      <md-option ng-repeat="page in $pageSelect.pages" ng-value="page">{{page}}</md-option>\n' +
+	    '    </md-content>\n' +
+	    '  </md-select>\n' +
+	    '</div>\n' +
+	    '\n' +
+	    '<div class="limit-select" ng-if="$pagination.limitOptions">\n' +
+	    '  <div class="label">{{$pagination.label.rowsPerPage}}</div>\n' +
+	    '\n' +
+	    '  <md-select class="md-table-select" ng-model="$pagination.limit" md-container-class="md-pagination-select" ng-disabled="$pagination.disabled" aria-label="Rows" placeholder="{{ $pagination.limitOptions[0] }}">\n' +
+	    '    <md-option ng-repeat="option in $pagination.limitOptions" ng-value="option.value ? $pagination.eval(option.value) : option">{{::option.label ? option.label : option}}</md-option>\n' +
+	    '  </md-select>\n' +
+	    '</div>\n' +
+	    '\n' +
+	    '<div class="buttons">\n' +
+	    '  <div class="label">{{$pagination.min()}} - {{$pagination.max()}} {{$pagination.label.of}} {{$pagination.total}}</div>\n' +
+	    '\n' +
+	    '  <md-button class="md-icon-button" type="button" ng-if="$pagination.showBoundaryLinks()" ng-click="$pagination.first()" ng-disabled="$pagination.disabled || !$pagination.hasPrevious()" aria-label="First">\n' +
+	    '    <md-icon md-svg-icon="navigate-first.svg"></md-icon>\n' +
+	    '  </md-button>\n' +
+	    '\n' +
+	    '  <md-button class="md-icon-button" type="button" ng-click="$pagination.previous()" ng-disabled="$pagination.disabled || !$pagination.hasPrevious()" aria-label="Previous">\n' +
+	    '    <md-icon md-svg-icon="navigate-before.svg"></md-icon>\n' +
+	    '  </md-button>\n' +
+	    '\n' +
+	    '  <md-button class="md-icon-button" type="button" ng-click="$pagination.next()" ng-disabled="$pagination.disabled || !$pagination.hasNext()" aria-label="Next">\n' +
+	    '    <md-icon md-svg-icon="navigate-next.svg"></md-icon>\n' +
+	    '  </md-button>\n' +
+	    '\n' +
+	    '  <md-button class="md-icon-button" type="button" ng-if="$pagination.showBoundaryLinks()" ng-click="$pagination.last()" ng-disabled="$pagination.disabled || !$pagination.hasNext()" aria-label="Last">\n' +
+	    '    <md-icon md-svg-icon="navigate-last.svg"></md-icon>\n' +
+	    '  </md-button>\n' +
+	    '</div>');
+	}]);
+
+	angular.module('md-table-progress.html', []).run(['$templateCache', function($templateCache) {
+	  $templateCache.put('md-table-progress.html',
+	    '<tr>\n' +
+	    '  <th colspan="{{columnCount()}}">\n' +
+	    '    <md-progress-linear ng-show="deferred()" md-mode="indeterminate"></md-progress-linear>\n' +
+	    '  </th>\n' +
+	    '</tr>');
+	}]);
+
+	angular.module('arrow-up.svg', []).run(['$templateCache', function($templateCache) {
+	  $templateCache.put('arrow-up.svg',
+	    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>');
+	}]);
+
+	angular.module('navigate-before.svg', []).run(['$templateCache', function($templateCache) {
+	  $templateCache.put('navigate-before.svg',
+	    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>');
+	}]);
+
+	angular.module('navigate-first.svg', []).run(['$templateCache', function($templateCache) {
+	  $templateCache.put('navigate-first.svg',
+	    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7 6 v12 h2 v-12 h-2z M17.41 7.41L16 6l-6 6 6 6 1.41-1.41L12.83 12z"/></svg>');
+	}]);
+
+	angular.module('navigate-last.svg', []).run(['$templateCache', function($templateCache) {
+	  $templateCache.put('navigate-last.svg',
+	    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15 6 v12 h2 v-12 h-2z M8 6L6.59 7.41 11.17 12l-4.58 4.59L8 18l6-6z"/></svg>');
+	}]);
+
+	angular.module('navigate-next.svg', []).run(['$templateCache', function($templateCache) {
+	  $templateCache.put('navigate-next.svg',
+	    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>');
+	}]);
+
+
+	angular.module('md.data.table', ['md.table.templates']);
+
+	angular.module('md.data.table').directive('mdBody', mdBody);
+
+	function mdBody() {
+
+	  function compile(tElement) {
+	    tElement.addClass('md-body');
+	  }
+
+	  return {
+	    compile: compile,
+	    restrict: 'A'
+	  };
+	}
+
+	angular.module('md.data.table').directive('mdCell', mdCell);
+
+	function mdCell() {
+	  
+	  function compile(tElement) {
+	    var select = tElement.find('md-select');
+	    
+	    if(select.length) {
+	      select.addClass('md-table-select').attr('md-container-class', 'md-table-select');
+	    }
+	    
+	    tElement.addClass('md-cell');
+	    
+	    return postLink;
+	  }
+	  
+	  // empty controller to be bind properties to in postLink function
+	  function Controller() {
+	    
+	  }
+	  
+	  function postLink(scope, element, attrs, ctrls) {
+	    var select = element.find('md-select');
+	    var cellCtrl = ctrls.shift();
+	    var tableCtrl = ctrls.shift();
+	    
+	    if(attrs.ngClick) {
+	      element.addClass('md-clickable');
+	    }
+	    
+	    if(select.length) {
+	      select.on('click', function (event) {
+	        event.stopPropagation();
+	      });
+	      
+	      element.addClass('md-clickable').on('click', function (event) {
+	        event.stopPropagation();
+	        select[0].click();
+	      });
+	    }
+	    
+	    cellCtrl.getTable = tableCtrl.getElement;
+	    
+	    function getColumn() {
+	      return tableCtrl.$$columns[getIndex()];
+	    }
+	    
+	    function getIndex() {
+	      return Array.prototype.indexOf.call(element.parent().children(), element[0]);
+	    }
+	    
+	    scope.$watch(getColumn, function (column) {
+	      if(!column) {
+	        return;
+	      }
+	      
+	      if(column.numeric) {
+	        element.addClass('md-numeric');
+	      } else {
+	        element.removeClass('md-numeric');
+	      }
+	    });
+	  }
+	  
+	  return {
+	    controller: Controller,
+	    compile: compile,
+	    require: ['mdCell', '^^mdTable'],
+	    restrict: 'A'
+	  };
+	}
+
+	angular.module('md.data.table').directive('mdColumn', mdColumn);
+
+	function mdColumn($compile, $mdUtil) {
+
+	  function compile(tElement) {
+	    tElement.addClass('md-column');
+	    return postLink;
+	  }
+
+	  function postLink(scope, element, attrs, ctrls) {
+	    var headCtrl = ctrls.shift();
+	    var tableCtrl = ctrls.shift();
+
+	    function attachSortIcon() {
+	      var sortIcon = angular.element('<md-icon md-svg-icon="arrow-up.svg">');
+
+	      $compile(sortIcon.addClass('md-sort-icon').attr('ng-class', 'getDirection()'))(scope);
+
+	      if(element.hasClass('md-numeric')) {
+	        element.prepend(sortIcon);
+	      } else {
+	        element.append(sortIcon);
+	      }
+	    }
+
+	    function detachSortIcon() {
+	      Array.prototype.some.call(element.find('md-icon'), function (icon) {
+	        return icon.classList.contains('md-sort-icon') && element[0].removeChild(icon);
+	      });
+	    }
+
+	    function disableSorting() {
+	      detachSortIcon();
+	      element.removeClass('md-sort').off('click', setOrder);
+	    }
+
+	    function enableSorting() {
+	      attachSortIcon();
+	      element.addClass('md-sort').on('click', setOrder);
+	    }
+
+	    function getIndex() {
+	      return Array.prototype.indexOf.call(element.parent().children(), element[0]);
+	    }
+
+	    function isActive() {
+	      return scope.orderBy && (headCtrl.order === scope.orderBy || headCtrl.order === '-' + scope.orderBy);
+	    }
+
+	    function isNumeric() {
+	      return attrs.mdNumeric === '' || scope.numeric;
+	    }
+
+	    function setOrder() {
+	      scope.$applyAsync(function () {
+	        if(isActive()) {
+	          headCtrl.order = scope.getDirection() === 'md-asc' ? '-' + scope.orderBy : scope.orderBy;
+	        } else {
+	          headCtrl.order = scope.getDirection() === 'md-asc' ? scope.orderBy : '-' + scope.orderBy;
+	        }
+
+	        if(angular.isFunction(headCtrl.onReorder)) {
+	          $mdUtil.nextTick(function () {
+	            headCtrl.onReorder(headCtrl.order);
+	          });
+	        }
+	      });
+	    }
+
+	    function updateColumn(index, column) {
+	      tableCtrl.$$columns[index] = column;
+
+	      if(column.numeric) {
+	        element.addClass('md-numeric');
+	      } else {
+	        element.removeClass('md-numeric');
+	      }
+	    }
+
+	    scope.getDirection = function () {
+	      if(isActive()) {
+	        return headCtrl.order.charAt(0) === '-' ? 'md-desc' : 'md-asc';
+	      }
+
+	      return attrs.mdDesc === '' || scope.$eval(attrs.mdDesc) ? 'md-desc' : 'md-asc';
+	    };
+
+	    scope.$watch(isActive, function (active) {
+	      if(active) {
+	        element.addClass('md-active');
+	      } else {
+	        element.removeClass('md-active');
+	      }
+	    });
+
+	    scope.$watch(getIndex, function (index) {
+	      updateColumn(index, {'numeric': isNumeric()});
+	    });
+
+	    scope.$watch(isNumeric, function (numeric) {
+	      updateColumn(getIndex(), {'numeric': numeric});
+	    });
+
+	    scope.$watch('orderBy', function (orderBy) {
+	      if(orderBy) {
+	        if(!element.hasClass('md-sort')) {
+	          enableSorting();
+	        }
+	      } else if(element.hasClass('md-sort')) {
+	        disableSorting();
+	      }
+	    });
+	  }
+
+	  return {
+	    compile: compile,
+	    require: ['^^mdHead', '^^mdTable'],
+	    restrict: 'A',
+	    scope: {
+	      numeric: '=?mdNumeric',
+	      orderBy: '@?mdOrderBy'
+	    }
+	  };
+	}
+
+	mdColumn.$inject = ['$compile', '$mdUtil'];
+
+	angular.module('md.data.table')
+	  .decorator('$controller', controllerDecorator)
+	  .factory('$mdEditDialog', mdEditDialog);
+
+	/*
+	 * A decorator for ng.$controller to optionally bind properties to the
+	 * controller before invoking the constructor. Stolen from the ngMock.
+	 *
+	 * https://docs.angularjs.org/api/ngMock/service/$controller
+	 */
+	function controllerDecorator($delegate) {
+	  return function(expression, locals, later, ident) {
+	    if(later && typeof later === 'object') {
+	      var create = $delegate(expression, locals, true, ident);
+	      angular.extend(create.instance, later);
+	      return create();
+	    }
+	    return $delegate(expression, locals, later, ident);
+	  };
+	}
+
+	controllerDecorator.$inject = ['$delegate'];
+	  
+	function mdEditDialog($compile, $controller, $document, $mdUtil, $q, $rootScope, $templateCache, $templateRequest, $window) {
+	  /* jshint validthis: true */
+	  
+	  var ESCAPE = 27;
+	  
+	  var busy = false;
+	  var body = angular.element($document.prop('body'));
+	  
+	  /*
+	   * bindToController
+	   * controller
+	   * controllerAs
+	   * locals
+	   * resolve
+	   * scope
+	   * targetEvent
+	   * template
+	   * templateUrl
+	   */
+	  var defaultOptions = {
+	    clickOutsideToClose: true,
+	    disableScroll: true,
+	    escToClose: true,
+	    focusOnOpen: true
+	  };
+	  
+	  function build(template, options) {
+	    var scope = $rootScope.$new();
+	    var element = $compile(template)(scope);
+	    var backdrop = $mdUtil.createBackdrop(scope, 'md-edit-dialog-backdrop');
+	    var controller;
+	    
+	    if(options.controller) {
+	      controller = getController(options, scope, {$element: element, $scope: scope});
+	    } else {
+	      angular.extend(scope, options.scope);
+	    }
+	    
+	    if(options.disableScroll) {
+	      disableScroll(element);
+	    }
+	    
+	    body.prepend(backdrop).append(element.addClass('md-whiteframe-1dp'));
+	    
+	    positionDialog(element, options.target);
+	    
+	    if(options.focusOnOpen) {
+	      focusOnOpen(element);
+	    }
+	    
+	    if(options.clickOutsideToClose) {
+	      backdrop.on('click', function () {
+	        element.remove();
+	      });
+	    }
+	    
+	    if(options.escToClose) {
+	      escToClose(element);
+	    }
+	    
+	    element.on('$destroy', function () {
+	      busy = false;
+	      backdrop.remove();
+	    });
+	    
+	    return controller;
+	  }
+	  
+	  function disableScroll(element) {
+	    var restoreScroll = $mdUtil.disableScrollAround(element, body);
+	    
+	    element.on('$destroy', function () {
+	      restoreScroll();
+	    });
+	  }
+	  
+	  function getController(options, scope, inject) {
+	    if(!options.controller) {
+	      return;
+	    }
+	    
+	    if(options.resolve) {
+	      angular.extend(inject, options.resolve);
+	    }
+	    
+	    if(options.locals) {
+	      angular.extend(inject, options.locals);
+	    }
+	    
+	    if(options.controllerAs) {
+	      scope[options.controllerAs] = {};
+	      
+	      if(options.bindToController) {
+	        angular.extend(scope[options.controllerAs], options.scope);
+	      } else {
+	        angular.extend(scope, options.scope);
+	      }
+	    } else {
+	      angular.extend(scope, options.scope);
+	    }
+	    
+	    if(options.bindToController) {
+	      return $controller(options.controller, inject, scope[options.controllerAs]);
+	    } else {
+	      return $controller(options.controller, inject);
+	    }
+	  }
+	  
+	  function getTemplate(options) {
+	    return $q(function (resolve, reject) {
+	      var template = options.template;
+	      
+	      function illegalType(type) {
+	        reject('Unexpected template value. Expected a string; received a ' + type + '.');
+	      }
+	      
+	      if(template) {
+	        return angular.isString(template) ? resolve(template) : illegalType(typeof template);
+	      }
+	      
+	      if(options.templateUrl) {
+	        template = $templateCache.get(options.templateUrl);
+	        
+	        if(template) {
+	          return resolve(template);
+	        }
+	        
+	        var success = function (template) {
+	          return resolve(template);
+	        };
+	        
+	        var error = function () {
+	          return reject('Error retrieving template from URL.');
+	        };
+	        
+	        return $templateRequest(options.templateUrl).then(success, error);
+	      }
+	      
+	      reject('Template not provided.');
+	    });
+	  }
+	  
+	  function logError(error) {
+	    busy = false;
+	    console.error(error);
+	  }
+	  
+	  function escToClose(element) {
+	    var keyup = function (event) {
+	      if(event.keyCode === ESCAPE) {
+	        element.remove();
+	      }
+	    };
+	    
+	    body.on('keyup', keyup);
+	    
+	    element.on('$destroy', function () {
+	      body.off('keyup', keyup);
+	    });
+	  }
+
+	  function focusOnOpen(element) {
+	    $mdUtil.nextTick(function () {
+	      var autofocus = $mdUtil.findFocusTarget(element);
+	      
+	      if(autofocus) {
+	        autofocus.focus();
+	      }
+	    }, false);
+	  }
+
+	  function positionDialog(element, target) {
+	    var table = angular.element(target).controller('mdCell').getTable();
+	    
+	    var getHeight = function () {
+	      return element.prop('clientHeight');
+	    };
+	    
+	    var getSize = function () {
+	      return {
+	        width: getWidth(),
+	        height: getHeight()
+	      };
+	    };
+	    
+	    var getTableBounds = function () {
+	      var parent = table.parent();
+	      
+	      if(parent.prop('tagName') === 'MD-TABLE-CONTAINER') {
+	        return parent[0].getBoundingClientRect();
+	      } else {
+	        return table[0].getBoundingClientRect();
+	      }
+	    };
+	    
+	    var getWidth = function () {
+	      return element.prop('clientWidth');
+	    };
+	    
+	    var reposition = function () {
+	      var size = getSize();
+	      var cellBounds = target.getBoundingClientRect();
+	      var tableBounds = getTableBounds();
+	      
+	      if(size.width > tableBounds.right - cellBounds.left) {
+	        element.css('left', tableBounds.right - size.width + 'px');
+	      } else {
+	        element.css('left', cellBounds.left + 'px');
+	      }
+	      
+	      if(size.height > tableBounds.bottom - cellBounds.top) {
+	        element.css('top', tableBounds.bottom - size.height + 'px');
+	      } else {
+	        element.css('top', cellBounds.top + 1 + 'px');
+	      }
+	      
+	      element.css('minWidth', cellBounds.width + 'px');
+	    };
+	    
+	    var watchWidth = $rootScope.$watch(getWidth, reposition);
+	    var watchHeight = $rootScope.$watch(getHeight, reposition);
+	    
+	    $window.addEventListener('resize', reposition);
+	    
+	    element.on('$destroy', function () {
+	      watchWidth();
+	      watchHeight();
+	      
+	      $window.removeEventListener('resize', reposition);
+	    });
+	  }
+	  
+	  function preset(size, options) {
+	    
+	    function getAttrs() {
+	      var attrs = 'type="' + (options.type || 'text') + '"';
+	      
+	      for(var attr in options.validators) {
+	        attrs += ' ' + attr + '="' + options.validators[attr] + '"';
+	      }
+	      
+	      return attrs;
+	    }
+	    
+	    return {
+	      controller: ['$element', '$q', 'save', '$scope', function ($element, $q, save, $scope) {
+	        function update() {
+	          if($scope.editDialog.$invalid) {
+	            return $q.reject();
+	          }
+	          
+	          if(angular.isFunction(save)) {
+	            return $q.when(save($scope.editDialog.input));
+	          }
+	          
+	          return $q.resolve();
+	        }
+	        
+	        this.dismiss = function () {
+	          $element.remove();
+	        };
+	        
+	        this.getInput = function () {
+	          return $scope.editDialog.input;
+	        };
+	        
+	        $scope.dismiss = this.dismiss;
+	        
+	        $scope.submit = function () {
+	          update().then(function () {
+	            $scope.dismiss();
+	          });
+	        };
+	      }],
+	      locals: {
+	        save: options.save
+	      },
+	      scope: {
+	        cancel: options.cancel || 'Cancel',
+	        messages: options.messages,
+	        model: options.modelValue,
+	        ok: options.ok || 'Save',
+	        placeholder: options.placeholder,
+	        title: options.title,
+	        size: size
+	      },
+	      template:
+	        '<md-edit-dialog>' +
+	          '<div layout="column" class="md-content">' +
+	            '<div ng-if="size === \'large\'" class="md-title">{{title || \'Edit\'}}</div>' +
+	            '<form name="editDialog" layout="column" ng-submit="submit(model)">' +
+	              '<md-input-container md-no-float>' +
+	                '<input name="input" ng-model="model" md-autofocus placeholder="{{placeholder}} "' + getAttrs() + '>' +
+	                '<div ng-messages="editDialog.input.$error">' +
+	                  '<div ng-repeat="(key, message) in messages" ng-message="{{key}}">{{message}}</div>' +
+	                '</div>' +
+	              '</md-input-container>' +
+	            '</form>' +
+	          '</div>' +
+	          '<div ng-if="size === \'large\'" layout="row" layout-align="end" class="md-actions">' +
+	            '<md-button class="md-primary" ng-click="dismiss()">{{cancel}}</md-button>' +
+	            '<md-button class="md-primary" ng-click="submit()">{{ok}}</md-button>' +
+	          '</div>' +
+	        '</md-edit-dialog>'
+	    };
+	  }
+	  
+	  this.show = function (options) {
+	    if(busy) {
+	      return $q.reject();
+	    }
+	    
+	    busy = true;
+	    options = angular.extend({}, defaultOptions, options);
+	    
+	    if(!options.targetEvent) {
+	      return logError('options.targetEvent is required to align the dialog with the table cell.');
+	    }
+	    
+	    if(!options.targetEvent.currentTarget.classList.contains('md-cell')) {
+	      return logError('The event target must be a table cell.');
+	    }
+	    
+	    if(options.bindToController && !options.controllerAs) {
+	      return logError('You must define options.controllerAs when options.bindToController is true.');
+	    }
+	    
+	    options.target = options.targetEvent.currentTarget;
+	    
+	    var promise = getTemplate(options);
+	    var promises = [promise];
+	    
+	    for(var prop in options.resolve) {
+	      promise = options.resolve[prop];
+	      promises.push($q.when(angular.isFunction(promise) ? promise() : promise));
+	    }
+	    
+	    promise = $q.all(promises);
+	    
+	    promise['catch'](logError);
+	    
+	    return promise.then(function (results) {
+	      var template = results.shift();
+	      
+	      for(var prop in options.resolve) {
+	        options.resolve[prop] = results.shift();
+	      }
+	      
+	      return build(template, options);
+	    });
+	  };
+	  
+	  this.small = function (options) {
+	    return this.show(angular.extend({}, options, preset('small', options)));
+	  }.bind(this);
+	  
+	  this.large = function (options) {
+	    return this.show(angular.extend({}, options, preset('large', options)));
+	  }.bind(this);
+	  
+	  return this;
+	}
+
+	mdEditDialog.$inject = ['$compile', '$controller', '$document', '$mdUtil', '$q', '$rootScope', '$templateCache', '$templateRequest', '$window'];
+
+
+	angular.module('md.data.table').directive('mdFoot', mdFoot);
+
+	function mdFoot() {
+
+	  function compile(tElement) {
+	    tElement.addClass('md-foot');
+	  }
+
+	  return {
+	    compile: compile,
+	    restrict: 'A'
+	  };
+	}
+
+	angular.module('md.data.table').directive('mdHead', mdHead);
+
+	function mdHead($compile) {
+
+	  function compile(tElement) {
+	    tElement.addClass('md-head');
+	    return postLink;
+	  }
+	  
+	  // empty controller to be bind scope properties to
+	  function Controller() {
+	    
+	  }
+	  
+	  function postLink(scope, element, attrs, tableCtrl) {
+	    // because scope.$watch is unpredictable
+	    var oldValue = new Array(2);
+	    
+	    function addCheckboxColumn() {
+	      element.children().prepend('<th class="md-column md-checkbox-column">');
+	    }
+	    
+	    function attatchCheckbox() {
+	      element.prop('lastElementChild').firstElementChild.appendChild($compile(createCheckBox())(scope)[0]);
+	    }
+	    
+	    function createCheckBox() {
+	      return angular.element('<md-checkbox>').attr({
+	        'aria-label': 'Select All',
+	        'ng-click': 'toggleAll()',
+	        'ng-checked': 'allSelected()',
+	        'ng-disabled': '!getSelectableRows().length'
+	      });
+	    }
+	    
+	    function detachCheckbox() {
+	      var cell = element.prop('lastElementChild').firstElementChild;
+	      
+	      if(cell.classList.contains('md-checkbox-column')) {
+	        angular.element(cell).empty();
+	      }
+	    }
+	    
+	    function enableRowSelection() {
+	      return tableCtrl.$$rowSelect;
+	    }
+	    
+	    function mdSelectCtrl(row) {
+	      return angular.element(row).controller('mdSelect');
+	    }
+	    
+	    function removeCheckboxColumn() {
+	      Array.prototype.some.call(element.find('th'), function (cell) {
+	        return cell.classList.contains('md-checkbox-column') && cell.remove();
+	      });
+	    }
+	    
+	    scope.allSelected = function () {
+	      var rows = scope.getSelectableRows();
+	      
+	      return rows.length && rows.every(function (row) {
+	        return row.isSelected();
+	      });
+	    };
+	    
+	    scope.getSelectableRows = function () {
+	      return tableCtrl.getBodyRows().map(mdSelectCtrl).filter(function (ctrl) {
+	        return ctrl && !ctrl.disabled;
+	      });
+	    };
+	    
+	    scope.selectAll = function () {
+	      tableCtrl.getBodyRows().map(mdSelectCtrl).forEach(function (ctrl) {
+	        if(ctrl && !ctrl.isSelected()) {
+	          ctrl.select();
+	        }
+	      });
+	    };
+	    
+	    scope.toggleAll = function () {
+	      return scope.allSelected() ? scope.unSelectAll() : scope.selectAll();
+	    };
+	    
+	    scope.unSelectAll = function () {
+	      tableCtrl.getBodyRows().map(mdSelectCtrl).forEach(function (ctrl) {
+	        if(ctrl && ctrl.isSelected()) {
+	          ctrl.deselect();
+	        }
+	      });
+	    };
+	    
+	    scope.$watchGroup([enableRowSelection, tableCtrl.enableMultiSelect], function (newValue) {
+	      if(newValue[0] !== oldValue[0]) {
+	        if(newValue[0]) {
+	          addCheckboxColumn();
+	          
+	          if(newValue[1]) {
+	            attatchCheckbox();
+	          }
+	        } else {
+	          removeCheckboxColumn();
+	        }
+	      } else if(newValue[0] && newValue[1] !== oldValue[1]) {
+	        if(newValue[1]) {
+	          attatchCheckbox();
+	        } else {
+	          detachCheckbox();
+	        }
+	      }
+	      
+	      angular.copy(newValue, oldValue);
+	    });
+	  }
+	  
+	  return {
+	    bindToController: true,
+	    compile: compile,
+	    controller: Controller,
+	    controllerAs: '$mdHead',
+	    require: '^^mdTable',
+	    restrict: 'A',
+	    scope: {
+	      order: '=?mdOrder',
+	      onReorder: '=?mdOnReorder'
+	    }
+	  };
+	}
+
+	mdHead.$inject = ['$compile'];
+
+	angular.module('md.data.table').directive('mdRow', mdRow);
+
+	function mdRow() {
+
+	  function compile(tElement) {
+	    tElement.addClass('md-row');
+	    return postLink;
+	  }
+	  
+	  function postLink(scope, element, attrs, tableCtrl) {
+	    function enableRowSelection() {
+	      return tableCtrl.$$rowSelect;
+	    }
+	    
+	    function isBodyRow() {
+	      return tableCtrl.getBodyRows().indexOf(element[0]) !== -1;
+	    }
+	    
+	    function isChild(node) {
+	      return element[0].contains(node[0]);
+	    }
+	    
+	    if(isBodyRow()) {
+	      var cell = angular.element('<td class="md-cell">');
+	      
+	      scope.$watch(enableRowSelection, function (enable) {
+	        // if a row is not selectable, prepend an empty cell to it
+	        if(enable && !attrs.mdSelect) {
+	          if(!isChild(cell)) {
+	            element.prepend(cell);
+	          }
+	          return;
+	        }
+	        
+	        if(isChild(cell)) {
+	          cell.remove();
+	        }
+	      });
+	    }
+	  }
+
+	  return {
+	    compile: compile,
+	    require: '^^mdTable',
+	    restrict: 'A'
+	  };
+	}
+
+	angular.module('md.data.table').directive('mdSelect', mdSelect);
+
+	function mdSelect($compile, $parse) {
+
+	  // empty controller to bind scope properties to
+	  function Controller() {
+
+	  }
+
+	  function postLink(scope, element, attrs, ctrls) {
+	    var self = ctrls.shift();
+	    var tableCtrl = ctrls.shift();
+	    var getId = $parse(attrs.mdSelectId);
+
+	    self.id = getId(self.model);
+
+	    if(tableCtrl.$$rowSelect && self.id) {
+	      if(tableCtrl.$$hash.has(self.id)) {
+	        var index = tableCtrl.selected.indexOf(tableCtrl.$$hash.get(self.id));
+
+	        // if the item is no longer selected remove it
+	        if(index === -1) {
+	          tableCtrl.$$hash.purge(self.id);
+	        }
+
+	        // if the item is not a reference to the current model update the reference
+	        else if(!tableCtrl.$$hash.equals(self.id, self.model)) {
+	          tableCtrl.$$hash.update(self.id, self.model);
+	          tableCtrl.selected.splice(index, 1, self.model);
+	        }
+
+	      } else {
+
+	        // check if the item has been selected
+	        tableCtrl.selected.some(function (item, index) {
+	          if(getId(item) === self.id) {
+	            tableCtrl.$$hash.update(self.id, self.model);
+	            tableCtrl.selected.splice(index, 1, self.model);
+
+	            return true;
+	          }
+	        });
+	      }
+	    }
+
+	    self.isSelected = function () {
+	      if(!tableCtrl.$$rowSelect) {
+	        return false;
+	      }
+
+	      if(self.id) {
+	        return tableCtrl.$$hash.has(self.id);
+	      }
+
+	      return tableCtrl.selected.indexOf(self.model) !== -1;
+	    };
+
+	    self.select = function () {
+	      if(self.disabled) {
+	        return;
+	      }
+
+	      if(tableCtrl.enableMultiSelect()) {
+	        tableCtrl.selected.push(self.model);
+	      } else {
+	        tableCtrl.selected.splice(0, tableCtrl.selected.length, self.model);
+	      }
+
+	      if(angular.isFunction(self.onSelect)) {
+	        self.onSelect(self.model);
+	      }
+	    };
+
+	    self.deselect = function () {
+	      if(self.disabled) {
+	        return;
+	      }
+
+	      tableCtrl.selected.splice(tableCtrl.selected.indexOf(self.model), 1);
+
+	      if(angular.isFunction(self.onDeselect)) {
+	        self.onDeselect(self.model);
+	      }
+	    };
+
+	    self.toggle = function (event) {
+	      if(event && event.stopPropagation) {
+	        event.stopPropagation();
+	      }
+
+	      return self.isSelected() ? self.deselect() : self.select();
+	    };
+
+	    function autoSelect() {
+	      return attrs.mdAutoSelect === '' || self.autoSelect;
+	    }
+
+	    function createCheckbox() {
+	      var checkbox = angular.element('<md-checkbox>').attr({
+	        'aria-label': 'Select Row',
+	        'ng-click': '$mdSelect.toggle($event)',
+	        'ng-checked': '$mdSelect.isSelected()',
+	        'ng-disabled': '$mdSelect.disabled'
+	      });
+
+	      return angular.element('<td class="md-cell md-checkbox-cell">').append($compile(checkbox)(scope));
+	    }
+
+	    function disableSelection() {
+	      Array.prototype.some.call(element.children(), function (child) {
+	        return child.classList.contains('md-checkbox-cell') && element[0].removeChild(child);
+	      });
+
+	      if(autoSelect()) {
+	        element.off('click', toggle);
+	      }
+	    }
+
+	    function enableSelection() {
+	      element.prepend(createCheckbox());
+
+	      if(autoSelect()) {
+	        element.on('click', toggle);
+	      }
+	    }
+
+	    function enableRowSelection() {
+	      return tableCtrl.$$rowSelect;
+	    }
+
+	    function onSelectChange(selected) {
+	      if(!self.id) {
+	        return;
+	      }
+
+	      if(tableCtrl.$$hash.has(self.id)) {
+	        // check if the item has been deselected
+	        if(selected.indexOf(tableCtrl.$$hash.get(self.id)) === -1) {
+	          tableCtrl.$$hash.purge(self.id);
+	        }
+
+	        return;
+	      }
+
+	      // check if the item has been selected
+	      if(selected.indexOf(self.model) !== -1) {
+	        tableCtrl.$$hash.update(self.id, self.model);
+	      }
+	    }
+
+	    function toggle(event) {
+	      scope.$applyAsync(function () {
+	        self.toggle(event);
+	      });
+	    }
+
+	    scope.$watch(enableRowSelection, function (enable) {
+	      if(enable) {
+	        enableSelection();
+	      } else {
+	        disableSelection();
+	      }
+	    });
+
+	    scope.$watch(autoSelect, function (newValue, oldValue) {
+	      if(newValue === oldValue) {
+	        return;
+	      }
+
+	      if(tableCtrl.$$rowSelect && newValue) {
+	        element.on('click', toggle);
+	      } else {
+	        element.off('click', toggle);
+	      }
+	    });
+
+	    scope.$watch(self.isSelected, function (isSelected) {
+	      return isSelected ? element.addClass('md-selected') : element.removeClass('md-selected');
+	    });
+
+	    scope.$watch(tableCtrl.enableMultiSelect, function (multiple) {
+	      if(tableCtrl.$$rowSelect && !multiple) {
+	        // remove all but the first selected item
+	        tableCtrl.selected.splice(1);
+	      }
+	    });
+
+	    tableCtrl.registerModelChangeListener(onSelectChange);
+
+	    element.on('$destroy', function () {
+	      tableCtrl.removeModelChangeListener(onSelectChange);
+	    });
+	  }
+
+	  return {
+	    bindToController: true,
+	    controller: Controller,
+	    controllerAs: '$mdSelect',
+	    link: postLink,
+	    require: ['mdSelect', '^^mdTable'],
+	    restrict: 'A',
+	    scope: {
+	      model: '=mdSelect',
+	      disabled: '=ngDisabled',
+	      onSelect: '=?mdOnSelect',
+	      onDeselect: '=?mdOnDeselect',
+	      autoSelect: '=mdAutoSelect'
+	    }
+	  };
+	}
+
+	mdSelect.$inject = ['$compile', '$parse'];
+
+	angular.module('md.data.table').directive('mdTable', mdTable);
+
+	function Hash() {
+	  var keys = {};
+	  
+	  this.equals = function (key, item) {
+	    return keys[key] === item;
+	  };
+
+	  this.get = function (key) {
+	    return keys[key];
+	  };
+	  
+	  this.has = function (key) {
+	    return keys.hasOwnProperty(key);
+	  };
+
+	  this.purge = function (key) {
+	    delete keys[key];
+	  };
+	  
+	  this.update = function (key, item) {
+	    keys[key] = item;
+	  };
+	}
+
+	function mdTable() {
+	  
+	  function compile(tElement, tAttrs) {
+	    tElement.addClass('md-table');
+	    
+	    if(tAttrs.hasOwnProperty('mdProgress')) {
+	      var body = tElement.find('tbody')[0];
+	      var progress = angular.element('<thead class="md-table-progress">');
+	      
+	      if(body) {
+	        tElement[0].insertBefore(progress[0], body);
+	      }
+	    }
+	  }
+	  
+	  function Controller($attrs, $element, $q, $scope) {
+	    var self = this;
+	    var queue = [];
+	    var watchListener;
+	    var modelChangeListeners = [];
+	    
+	    self.$$hash = new Hash();
+	    self.$$columns = {};
+	    
+	    function enableRowSelection() {
+	      self.$$rowSelect = true;
+	      
+	      watchListener = $scope.$watchCollection('$mdTable.selected', function (selected) {
+	        modelChangeListeners.forEach(function (listener) {
+	          listener(selected);
+	        });
+	      });
+	      
+	      $element.addClass('md-row-select');
+	    }
+	    
+	    function disableRowSelection() {
+	      self.$$rowSelect = false;
+	      
+	      if(angular.isFunction(watchListener)) {
+	        watchListener();
+	      }
+	      
+	      $element.removeClass('md-row-select');
+	    }
+	    
+	    function resolvePromises() {
+	      if(!queue.length) {
+	        return $scope.$applyAsync();
+	      }
+	      
+	      queue[0]['finally'](function () {
+	        queue.shift();
+	        resolvePromises();
+	      });
+	    }
+	    
+	    function rowSelect() {
+	      return $attrs.mdRowSelect === '' || self.rowSelect;
+	    }
+	    
+	    function validateModel() {
+	      if(!self.selected) {
+	        return console.error('Row selection: ngModel is not defined.');
+	      }
+	      
+	      if(!angular.isArray(self.selected)) {
+	        return console.error('Row selection: Expected an array. Recived ' + typeof self.selected + '.');
+	      }
+	      
+	      return true;
+	    }
+	    
+	    self.columnCount = function () {
+	      return self.getRows($element[0]).reduce(function (count, row) {
+	        return row.cells.length > count ? row.cells.length : count;
+	      }, 0);
+	    };
+	    
+	    self.getRows = function (element) {
+	      return Array.prototype.filter.call(element.rows, function (row) {
+	        return !row.classList.contains('ng-leave');
+	      });
+	    };
+	    
+	    self.getBodyRows = function () {
+	      return Array.prototype.reduce.call($element.prop('tBodies'), function (result, tbody) {
+	        return result.concat(self.getRows(tbody));
+	      }, []);
+	    };
+	    
+	    self.getElement = function () {
+	      return $element;
+	    };
+	    
+	    self.getHeaderRows = function () {
+	      return self.getRows($element.prop('tHead'));
+	    };
+	    
+	    self.enableMultiSelect = function () {
+	      return $attrs.multiple === '' || $scope.$eval($attrs.multiple);
+	    };
+	    
+	    self.waitingOnPromise = function () {
+	      return !!queue.length;
+	    };
+	    
+	    self.queuePromise = function (promise) {
+	      if(!promise) {
+	        return;
+	      }
+	      
+	      if(queue.push(angular.isArray(promise) ? $q.all(promise) : $q.when(promise)) === 1) {
+	        resolvePromises();
+	      }
+	    };
+	    
+	    self.registerModelChangeListener = function (listener) {
+	      modelChangeListeners.push(listener);
+	    };
+	    
+	    self.removeModelChangeListener = function (listener) {
+	      var index = modelChangeListeners.indexOf(listener);
+	      
+	      if(index !== -1) {
+	        modelChangeListeners.splice(index, 1);
+	      }
+	    };
+	    
+	    if($attrs.hasOwnProperty('mdProgress')) {
+	      $scope.$watch('$mdTable.progress', self.queuePromise);
+	    }
+	    
+	    $scope.$watch(rowSelect, function (enable) {
+	      if(enable && !!validateModel()) {
+	        enableRowSelection();
+	      } else {
+	        disableRowSelection();
+	      }
+	    });
+	  }
+	  
+	  Controller.$inject = ['$attrs', '$element', '$q', '$scope'];
+	  
+	  return {
+	    bindToController: true,
+	    compile: compile,
+	    controller: Controller,
+	    controllerAs: '$mdTable',
+	    restrict: 'A',
+	    scope: {
+	      progress: '=?mdProgress',
+	      selected: '=ngModel',
+	      rowSelect: '=mdRowSelect'
+	    }
+	  };
+	}
+
+	angular.module('md.data.table').directive('mdTablePagination', mdTablePagination);
+
+	function mdTablePagination() {
+
+	  function compile(tElement) {
+	    tElement.addClass('md-table-pagination');
+	  }
+
+	  function Controller($attrs, $mdUtil, $scope) {
+	    var self = this;
+	    var defaultLabel = {
+	      page: 'Page:',
+	      rowsPerPage: 'Rows per page:',
+	      of: 'of'
+	    };
+
+	    self.label = angular.copy(defaultLabel);
+
+	    function isPositive(number) {
+	      return parseInt(number, 10) > 0;
+	    }
+
+	    self.eval = function (expression) {
+	      return $scope.$eval(expression);
+	    };
+
+	    self.first = function () {
+	      self.page = 1;
+	      self.onPaginationChange();
+	    };
+
+	    self.hasNext = function () {
+	      return self.page * self.limit < self.total;
+	    };
+
+	    self.hasPrevious = function () {
+	      return self.page > 1;
+	    };
+
+	    self.last = function () {
+	      self.page = self.pages();
+	      self.onPaginationChange();
+	    };
+
+	    self.max = function () {
+	      return self.hasNext() ? self.page * self.limit : self.total;
+	    };
+
+	    self.min = function () {
+	      return isPositive(self.total) ? self.page * self.limit - self.limit + 1 : 0;
+	    };
+
+	    self.next = function () {
+	      self.page++;
+	      self.onPaginationChange();
+	    };
+
+	    self.onPaginationChange = function () {
+	      if(angular.isFunction(self.onPaginate)) {
+	        $mdUtil.nextTick(function () {
+	          self.onPaginate(self.page, self.limit);
+	        });
+	      }
+	    };
+
+	    self.pages = function () {
+	      return isPositive(self.total) ? Math.ceil(self.total / (isPositive(self.limit) ? self.limit : 1)) : 1;
+	    };
+
+	    self.previous = function () {
+	      self.page--;
+	      self.onPaginationChange();
+	    };
+
+	    self.showBoundaryLinks = function () {
+	      return $attrs.mdBoundaryLinks === '' || self.boundaryLinks;
+	    };
+
+	    self.showPageSelect = function () {
+	      return $attrs.mdPageSelect === '' || self.pageSelect;
+	    };
+
+	    $scope.$watch('$pagination.limit', function (newValue, oldValue) {
+	      if(isNaN(newValue) || isNaN(oldValue) || newValue === oldValue) {
+	        return;
+	      }
+
+	      // find closest page from previous min
+	      self.page = Math.floor(((self.page * oldValue - oldValue) + newValue) / (isPositive(newValue) ? newValue : 1));
+	      self.onPaginationChange();
+	    });
+
+	    $attrs.$observe('mdLabel', function (label) {
+	      angular.extend(self.label, defaultLabel, $scope.$eval(label));
+	    });
+
+	    $scope.$watch('$pagination.total', function (newValue, oldValue) {
+	      if(isNaN(newValue) || newValue === oldValue) {
+	        return;
+	      }
+
+	      if(self.page > self.pages()) {
+	        self.last();
+	      }
+	    });
+	  }
+
+	  Controller.$inject = ['$attrs', '$mdUtil', '$scope'];
+
+	  return {
+	    bindToController: {
+	      boundaryLinks: '=?mdBoundaryLinks',
+	      disabled: '=ngDisabled',
+	      limit: '=mdLimit',
+	      page: '=mdPage',
+	      pageSelect: '=?mdPageSelect',
+	      onPaginate: '=?mdOnPaginate',
+	      limitOptions: '=?mdLimitOptions',
+	      total: '@mdTotal'
+	    },
+	    compile: compile,
+	    controller: Controller,
+	    controllerAs: '$pagination',
+	    restrict: 'E',
+	    scope: {},
+	    templateUrl: 'md-table-pagination.html'
+	  };
+	}
+
+	angular.module('md.data.table').directive('mdTableProgress', mdTableProgress);
+
+	function mdTableProgress() {
+
+	  function postLink(scope, element, attrs, tableCtrl) {
+	    scope.columnCount = tableCtrl.columnCount;
+	    scope.deferred = tableCtrl.waitingOnPromise;
+	  }
+
+	  return {
+	    link: postLink,
+	    require: '^^mdTable',
+	    restrict: 'C',
+	    scope: {},
+	    templateUrl: 'md-table-progress.html'
+	  };
+	}
+
+	angular.module('md.data.table').directive('virtualPageSelect', virtualPageSelect);
+
+	function virtualPageSelect() {
+
+	  function Controller($element, $scope) {
+	    var self = this;
+	    var content = $element.find('md-content');
+
+	    self.pages = [];
+
+	    function getMin(pages, total) {
+	      return Math.min(pages, isFinite(total) && isPositive(total) ? total : 1);
+	    }
+
+	    function isPositive(number) {
+	      return number > 0;
+	    }
+
+	    function setPages(max) {
+	      if(self.pages.length > max) {
+	        return self.pages.splice(max);
+	      }
+
+	      for(var i = self.pages.length; i < max; i++) {
+	        self.pages.push(i + 1);
+	      }
+	    }
+
+	    content.on('scroll', function () {
+	      if((content.prop('clientHeight') + content.prop('scrollTop')) >= content.prop('scrollHeight')) {
+	        $scope.$applyAsync(function () {
+	          setPages(getMin(self.pages.length + 10, self.total));
+	        });
+	      }
+	    });
+
+	    $scope.$watch('$pageSelect.total', function (total) {
+	      setPages(getMin(Math.max(self.pages.length, 10), total));
+	    });
+
+	    $scope.$watch('$pagination.page', function (page) {
+	      for(var i = self.pages.length; i < page; i++) {
+	        self.pages.push(i + 1);
+	      }
+	    });
+	  }
+
+	  Controller.$inject = ['$element', '$scope'];
+
+	  return {
+	    bindToController: {
+	      total: '@'
+	    },
+	    controller: Controller,
+	    controllerAs: '$pageSelect'
+	  };
+	}
+
+	})(window, angular);
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(45);
+	var content = __webpack_require__(47);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(28)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../css-loader/index.js!./md-data-table.css", function() {
+				var newContent = require("!!./../../css-loader/index.js!./md-data-table.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 47 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(27)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "md-backdrop.md-edit-dialog-backdrop {\n  z-index: 80;\n}\nmd-edit-dialog {\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-direction: column;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  position: fixed;\n  z-index: 81;\n  background-color: #f9f9f9;\n  border-radius: 2px;\n  cursor: default;\n}\nmd-edit-dialog > .md-content {\n  padding: 16px 24px 0;\n}\nmd-edit-dialog > .md-content .md-title {\n  color: rgba(0, 0, 0, 0.87);\n  margin-bottom: 8px;\n}\nmd-edit-dialog > .md-content md-input-container {\n  margin: 0;\n  font-size: 13px;\n}\nmd-edit-dialog > .md-content md-input-container input {\n  float: none;\n}\nmd-edit-dialog > .md-content md-input-container .md-errors-spacer {\n  min-height: auto;\n  min-width: auto;\n  color: rgba(0, 0, 0, 0.54);\n}\nmd-edit-dialog > .md-content md-input-container .md-errors-spacer .md-char-counter {\n  padding: 5px 2px 5px 0;\n}\nmd-edit-dialog > .md-content md-input-container [ng-message] {\n  padding: 5px 0 5px 2px;\n}\nmd-edit-dialog > .md-actions {\n  margin: 0 16px 8px;\n}\nmd-edit-dialog > .md-actions .md-button {\n  margin: 0;\n  min-width: initial;\n}\nmd-edit-dialog > .md-actions .md-button + .md-button {\n  margin-left: 8px;\n}\n.md-table-pagination {\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-justify-content: flex-end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  -webkit-flex-wrap: wrap-reverse;\n      -ms-flex-wrap: wrap-reverse;\n          flex-wrap: wrap-reverse;\n  box-sizing: border-box;\n  padding: 0 24px;\n  font-size: 12px;\n  color: rgba(0, 0, 0, 0.54);\n  border-top: 1px rgba(0, 0, 0, 0.12) solid;\n}\n.md-table-pagination md-select {\n  -webkit-justify-content: flex-end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  min-width: 64px;\n}\n.md-table-pagination md-select:not([disabled]):focus .md-select-value {\n  color: rgba(0, 0, 0, 0.54);\n}\n.md-table-pagination md-select .md-select-value {\n  -webkit-flex: 0 0 auto;\n      -ms-flex: 0 0 auto;\n          flex: 0 0 auto;\n}\n.md-table-pagination md-select .md-select-value span.md-select-icon {\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  text-align: center;\n  margin-right: -6px !important;\n}\n.md-table-pagination md-select .md-select-value span.md-select-icon:after {\n  top: initial;\n  -webkit-transform: scaleY(0.5) scaleX(1);\n          transform: scaleY(0.5) scaleX(1);\n}\n.md-table-pagination > * {\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  height: 56px;\n}\n.md-table-pagination > .buttons:not(:first-child),\n.md-table-pagination > .limit-select:not(:first-child) {\n  margin-left: 32px;\n}\n.md-table-pagination > .buttons {\n  margin-right: -16px;\n}\n.md-table-pagination > .buttons > .md-button.md-icon-button {\n  margin: 0;\n}\n.md-table-pagination > .buttons > .label + .md-button.md-icon-button {\n  margin-left: 20px;\n}\nmd-select.md-table-select {\n  margin: 0;\n}\nmd-select.md-table-select > .md-select-value {\n  padding: 0;\n  min-width: 0;\n  min-height: 24px;\n  border-bottom: 0 !important;\n}\nmd-select.md-table-select > .md-select-value > span {\n  display: block;\n  height: auto;\n  -webkit-transform: none !important;\n          transform: none !important;\n}\nmd-select.md-table-select > .md-select-value > span > .md-text {\n  display: inherit;\n  height: inherit;\n  -webkit-transform: inherit;\n          transform: inherit;\n}\nmd-select.md-table-select > .md-select-value > span.md-select-icon {\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  height: 24px;\n  margin: 0;\n}\nmd-select.md-table-select > .md-select-value > span.md-select-icon:after {\n  top: initial;\n}\n.md-select-menu-container.md-table-select,\n.md-select-menu-container.md-pagination-select {\n  margin-left: -2px;\n  border-radius: 2px;\n}\n.md-select-menu-container.md-table-select md-select-menu,\n.md-select-menu-container.md-pagination-select md-select-menu,\n.md-select-menu-container.md-table-select md-content,\n.md-select-menu-container.md-pagination-select md-content {\n  border-radius: inherit;\n}\n.md-select-menu-container.md-table-select md-content,\n.md-select-menu-container.md-pagination-select md-content {\n  padding: 0;\n}\n.md-select-menu-container.md-table-select .md-text {\n  font-size: 13px;\n}\n.md-select-menu-container.md-pagination-select .md-text {\n  font-size: 12px;\n}\nmd-toolbar.md-table-toolbar {\n  box-shadow: none;\n}\nmd-toolbar.md-table-toolbar.md-default-theme:not(.md-menu-toolbar).md-default,\nmd-toolbar.md-table-toolbar:not(.md-menu-toolbar).md-default {\n  background-color: #ffffff;\n  color: rgba(0, 0, 0, 0.87);\n}\nmd-toolbar.md-table-toolbar.md-default-theme:not(.md-menu-toolbar).md-default .md-button,\nmd-toolbar.md-table-toolbar:not(.md-menu-toolbar).md-default .md-button {\n  color: rgba(0, 0, 0, 0.87);\n}\n@media only screen and (max-width: 959px) and (min-width: 0) and (orientation: landscape) {\n  md-toolbar.md-table-toolbar .md-toolbar-tools {\n    height: 64px;\n    max-height: initial;\n  }\n}\nmd-toolbar.md-table-toolbar .md-toolbar-tools {\n  padding: 0 24px;\n}\nmd-toolbar.md-table-toolbar .md-toolbar-tools md-icon {\n  color: rgba(0, 0, 0, 0.54);\n}\nmd-toolbar.md-table-toolbar .md-toolbar-tools > .md-button.md-icon-button {\n  margin: 0;\n}\nmd-toolbar.md-table-toolbar .md-toolbar-tools > .md-button.md-icon-button:first-child {\n  margin-left: -12px;\n}\nmd-toolbar.md-table-toolbar .md-toolbar-tools > .md-button.md-icon-button:last-child {\n  margin-right: -12px;\n}\nmd-card > md-toolbar.md-table-toolbar:first-child,\nmd-card > md-table-container:first-child {\n  border-top-left-radius: 2px;\n  border-top-right-radius: 2px;\n}\nmd-card > md-toolbar.md-table-toolbar:last-child,\nmd-card > md-table-container:last-child {\n  border-bottom-left-radius: 2px;\n  border-bottom-right-radius: 2px;\n}\nmd-table-container {\n  display: block;\n  max-width: 100%;\n  overflow-x: auto;\n  -webkit-overflow-scrolling: touch;\n}\ntable.md-table {\n  width: 100%;\n  border-spacing: 0;\n  overflow: hidden;\n}\ntable.md-table thead.md-head > tr.md-row {\n  height: 56px;\n}\ntable.md-table tbody.md-body > tr.md-row,\ntable.md-table tfoot.md-foot > tr.md-row {\n  height: 48px;\n}\ntable.md-table thead.md-head + .md-table-progress md-progress-linear {\n  top: -3px;\n}\ntable.md-table .md-table-progress th {\n  padding: 0;\n}\ntable.md-table .md-table-progress th md-progress-linear {\n  height: 0;\n  transition: opacity 1s;\n}\ntable.md-table .md-table-progress th md-progress-linear.ng-hide {\n  opacity: 0;\n}\ntable.md-table .md-table-progress th md-progress-linear > .md-container {\n  height: 3px;\n  top: 0;\n  transition: none;\n}\ntable.md-table .md-table-progress th md-progress-linear > .md-container > .md-bar {\n  height: 3px;\n}\ntable.md-table th.md-column {\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 12px;\n  font-weight: bold;\n  white-space: nowrap;\n}\ntable.md-table th.md-column.md-sort {\n  cursor: pointer;\n}\ntable.md-table th.md-column md-icon {\n  height: 16px;\n  width: 16px;\n  font-size: 16px !important;\n  line-height: 16px !important;\n}\ntable.md-table th.md-column md-icon.md-sort-icon {\n  color: rgba(0, 0, 0, 0.26);\n  opacity: 0;\n  transition: -webkit-transform 0.25s, opacity 0.25s;\n  transition: transform 0.25s, opacity 0.25s;\n}\ntable.md-table th.md-column md-icon.md-sort-icon.md-asc {\n  -webkit-transform: rotate(0deg);\n          transform: rotate(0deg);\n}\ntable.md-table th.md-column md-icon.md-sort-icon.md-desc {\n  -webkit-transform: rotate(180deg);\n          transform: rotate(180deg);\n}\ntable.md-table th.md-column md-icon:not(:first-child) {\n  margin-left: 8px;\n}\ntable.md-table th.md-column md-icon:not(:last-child) {\n  margin-right: 8px;\n}\ntable.md-table th.md-column.md-active,\ntable.md-table th.md-column.md-active md-icon {\n  color: rgba(0, 0, 0, 0.87);\n}\ntable.md-table th.md-column:hover md-icon.md-sort-icon,\ntable.md-table th.md-column.md-active md-icon.md-sort-icon {\n  opacity: 1;\n}\ntable.md-table tr.md-row[ng\\:repeat].ng-leave,\ntable.md-table tr.md-row[ng-repeat].ng-leave,\ntable.md-table tr.md-row[x-ng-repeat].ng-leave,\ntable.md-table tr.md-row[data-ng-repeat].ng-leave {\n  display: none;\n}\ntable.md-table.md-row-select tbody.md-body > tr.md-row {\n  transition: background-color 0.2s;\n}\ntable.md-table.md-row-select tbody.md-body > tr.md-row:not([disabled]):hover {\n  background-color: #eeeeee !important;\n}\ntable.md-table.md-row-select tbody.md-body > tr.md-row.md-selected {\n  background-color: #f5f5f5;\n}\ntable.md-table.md-row-select td.md-cell:first-child,\ntable.md-table.md-row-select th.md-column:first-child {\n  width: 20px;\n  padding: 0 0 0 24px;\n}\ntable.md-table.md-row-select td.md-cell:nth-child(2),\ntable.md-table.md-row-select th.md-column:nth-child(2) {\n  padding: 0 24px;\n}\ntable.md-table.md-row-select td.md-cell:nth-child(n+3):nth-last-child(n+2),\ntable.md-table.md-row-select th.md-column:nth-child(n+3):nth-last-child(n+2) {\n  padding: 0 56px 0 0;\n}\ntable.md-table:not(.md-row-select) td.md-cell:first-child,\ntable.md-table:not(.md-row-select) th.md-column:first-child {\n  padding: 0 24px;\n}\ntable.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2),\ntable.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {\n  padding: 0 56px 0 0;\n}\ntable.md-table td.md-cell,\ntable.md-table th.md-column {\n  vertical-align: middle;\n  text-align: left;\n}\ntable.md-table td.md-cell > *,\ntable.md-table th.md-column > * {\n  vertical-align: middle;\n}\ntable.md-table td.md-cell:last-child,\ntable.md-table th.md-column:last-child {\n  padding: 0 24px 0 0;\n}\ntable.md-table td.md-cell.md-clickable,\ntable.md-table th.md-column.md-clickable {\n  cursor: pointer;\n}\ntable.md-table td.md-cell.md-clickable:focus,\ntable.md-table th.md-column.md-clickable:focus {\n  outline: none;\n}\ntable.md-table td.md-cell.md-numeric,\ntable.md-table th.md-column.md-numeric {\n  text-align: right;\n}\ntable.md-table td.md-cell md-checkbox,\ntable.md-table th.md-column md-checkbox {\n  margin: 0;\n  width: 20px;\n}\ntable.md-table td.md-cell {\n  color: rgba(0, 0, 0, 0.87);\n  font-size: 13px;\n  border-top: 1px rgba(0, 0, 0, 0.12) solid;\n}\ntable.md-table td.md-cell.md-numeric md-select {\n  -webkit-justify-content: flex-end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n}\ntable.md-table td.md-cell.md-numeric md-select .md-select-value {\n  -webkit-flex: 0 0 auto;\n      -ms-flex: 0 0 auto;\n          flex: 0 0 auto;\n}\ntable.md-table td.md-cell.md-placeholder {\n  color: rgba(0, 0, 0, 0.26);\n}\ntable.md-table td.md-cell md-select > .md-select-value > span.md-select-icon {\n  -webkit-justify-content: flex-end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  color: rgba(0, 0, 0, 0.54);\n  width: 18px;\n  text-align: right;\n}\ntable.md-table td.md-cell md-select > .md-select-value > span.md-select-icon:after {\n  -webkit-transform: scaleY(0.4) scaleX(0.8);\n          transform: scaleY(0.4) scaleX(0.8);\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(49);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(28)(content, {});
@@ -76848,7 +78391,7 @@
 	}
 
 /***/ },
-/* 45 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(27)();
@@ -76862,7 +78405,7 @@
 
 
 /***/ },
-/* 46 */
+/* 50 */
 /***/ function(module, exports) {
 
 	/*
@@ -77160,13 +78703,13 @@
 	}]);
 
 /***/ },
-/* 47 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(48);
+	var content = __webpack_require__(52);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(28)(content, {});
@@ -77186,7 +78729,7 @@
 	}
 
 /***/ },
-/* 48 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(27)();
@@ -77200,7 +78743,7 @@
 
 
 /***/ },
-/* 49 */
+/* 53 */
 /***/ function(module, exports) {
 
 	(function () {
@@ -77301,7 +78844,7 @@
 	})();
 
 /***/ },
-/* 50 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -79279,13 +80822,13 @@
 	//# sourceMappingURL=angular-file-upload.js.map
 
 /***/ },
-/* 51 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(52);
+	var content = __webpack_require__(56);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(28)(content, {});
@@ -79305,7 +80848,7 @@
 	}
 
 /***/ },
-/* 52 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(27)();
@@ -79313,13 +80856,13 @@
 
 
 	// module
-	exports.push([module.id, "md-content.md-default-theme {\r\n    background-color: #eee;\r\n}\r\n\r\nmd-card {\r\n    /*background-color: #fff;*/\r\n}\r\n\r\nmd-card h2:first-of-type {\r\n    margin-top: 0;\r\n}\r\n\r\nmd-toolbar .md-button.md-default-theme {\r\n    border-radius: 99%;\r\n}\r\n\r\nh2 {\r\n    font-weight: 400;\r\n}\r\n\r\n.md-toolbar-tools-bottom {\r\n    font-size: small;\r\n}\r\n\r\n.md-toolbar-tools-bottom:last-child {\r\n    opacity: 0.8;\r\n}\r\n\r\nmd-toolbar:not(.md-hue-1),\r\n.md-fab {\r\n    fill: #fff;\r\n}\r\n\r\nmd-sidenav {\r\n    fill: #737373;\r\n}\r\n\r\nmd-sidenav ng-md-icon {\r\n    position: relative;\r\n    top: 5px;\r\n}\r\n\r\n.user-avatar {\r\n    border-radius: 99%;\r\n}\r\n\r\n/*/////////////*/\r\n.nav-active {\r\n    background: red;\r\n}\r\n\r\n.nav-click {\r\n    position: relative;\r\n}\r\n\r\n.cursorPointer {\r\n    cursor: pointer;\r\n}\r\n\r\n\r\n.docs-menu .md-button.active {\r\n  background: #267ED5;\r\n}\r\n\r\n/*toast����*/\r\nmd-toast.md-success-toast-theme .md-toast-content {\r\n    background-color: green;\r\n}\r\n\r\nmd-toast.md-error-toast-theme .md-toast-content {\r\n    background-color: maroon;\r\n}\r\n\r\n/*md-toast {*/\r\n\t/*left: calc(50vw - 150px);*/\r\n/*}*/\r\n", ""]);
+	exports.push([module.id, "md-content.md-default-theme {\n    background-color: #eee;\n}\n\nmd-card {\n    /*background-color: #fff;*/\n}\n\nmd-card h2:first-of-type {\n    margin-top: 0;\n}\n\nmd-toolbar .md-button.md-default-theme {\n    border-radius: 99%;\n}\n\nh2 {\n    font-weight: 400;\n}\n\n.md-toolbar-tools-bottom {\n    font-size: small;\n}\n\n.md-toolbar-tools-bottom:last-child {\n    opacity: 0.8;\n}\n\nmd-toolbar:not(.md-hue-1),\n.md-fab {\n    fill: #fff;\n}\n\nmd-sidenav {\n    fill: #737373;\n}\n\nmd-sidenav ng-md-icon {\n    position: relative;\n    top: 5px;\n}\n\n.user-avatar {\n    border-radius: 99%;\n}\n\n/*/////////////*/\n.nav-active {\n    background: #2ed5b3;\n}\n\n.nav-click {\n    position: relative;\n}\n\n.cursorPointer {\n    cursor: pointer;\n}\n\n\n/*toast����*/\nmd-toast.md-success-toast-theme .md-toast-content {\n    background-color: green;\n}\n\nmd-toast.md-error-toast-theme .md-toast-content {\n    background-color: maroon;\n}\n\n/*md-toast {*/\n\t/*left: calc(50vw - 150px);*/\n/*}*/\n", ""]);
 
 	// exports
 
 
 /***/ },
-/* 53 */
+/* 57 */
 /***/ function(module, exports) {
 
 	/**
@@ -79385,7 +80928,7 @@
 	            return; // 如果是进入登录界面则允许
 	        }
 	        var account = $userInfo.getAccount();
-	        if (account !== "") {
+	        if (account == "") {
 	            //for debug
 	            $commonFun.showSimpleToast('请登录', 'error-toast');
 	            event.preventDefault(); // 取消默认跳转行为
@@ -79397,14 +80940,14 @@
 	module.exports = app;
 
 /***/ },
-/* 54 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by AO.Diwei on 2016/9/28.
 	 */
-	var app = __webpack_require__(53);
-	app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $userInfo, $location) {
+	var app = __webpack_require__(57);
+	app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $userInfo, $state) {
 	    $scope.toggleSidenav = function (menuId) {
 	        $mdSidenav(menuId).toggle();
 	    };
@@ -79414,22 +80957,24 @@
 	        });
 	    };
 
-	    $scope.isActive = function (viewLocation) {
-	        console.log(viewLocation, $location.path());
-	        return viewLocation === $location.path();
-	    };
+	    $scope.$state = $state;
+
+	    // $scope.isActive = function (viewLocation) {
+	    //     console.log(viewLocation, $location.path());
+	    //     return viewLocation === $location.path();
+	    // };
 
 	    $scope.menu = [{
-	        lin: '.tabs',
+	        lin: 'main.tabs',
 	        title: '数据录入',
 	        icon: 'dashboard'
 	    }, {
-	        lin: '.upload',
+	        lin: 'main.upload',
 	        title: '数据文件上传',
 	        icon: 'cloud_upload'
 	    }];
 	    $scope.admin = [{
-	        lin: '.admin',
+	        lin: 'main.admin',
 	        title: '注册管理',
 	        icon: 'group'
 	    }];
@@ -79462,7 +81007,7 @@
 	});
 
 /***/ },
-/* 55 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -79470,15 +81015,11 @@
 	 */
 	'use strict';
 
-	var app = __webpack_require__(53);
-	var division_conf = __webpack_require__(56);
-	var test_data = __webpack_require__(57);
+	var app = __webpack_require__(57);
+	var division_conf = __webpack_require__(60);
+	var test_data = __webpack_require__(61);
 	app.controller("formTabsCtrl", function ($scope, $http, $commonFun) {
 	    $scope.tabs = [{ title: '患者基本信息', content: 'html/pages/tabs/tab_patient_info.html', icon: 'glyphicon-user' }, { title: '住院病历记录', content: 'html/pages/tabs/tab_hospitalized.html', icon: 'glyphicon-dashboard' }, { title: '首次病程记录表', content: 'html/pages/tabs/tab_clinical_course.html', icon: 'glyphicon-check' }, { title: '手术记录表', content: 'html/pages/tabs/tab_surgery.html', icon: 'glyphicon-heart' }, { title: '术后病程', content: 'html/pages/tabs/tab_after_surgery.html', icon: 'glyphicon-book' }, { title: '出院记录表', content: 'html/pages/tabs/tab_leave.html', icon: 'glyphicon-edit' }, { title: '长期医嘱记录表', content: 'html/pages/tabs/tab_long_medical_orders.html', icon: 'glyphicon-list-alt' }, { title: '临时医嘱记录表', content: 'html/pages/tabs/tab_temp_medical_orders.html', icon: 'glyphicon-list' }];
-
-	    $scope.model = {
-	        name: 'Tabs'
-	    };
 
 	    $scope.initForm = function () {
 	        $scope.btnDisable = false;
@@ -79519,16 +81060,16 @@
 	    $scope.initForm();
 
 	    //for debug
-	    $scope.patient_info = test_data.tbl_patient_info;
-	    $scope.clinical_course = test_data.tbl_clinical_course;
-	    $scope.hospitalized = test_data.tbl_hospitalized;
-	    $scope.surgery = test_data.tbl_surgery;
-	    $scope.after_surgery = test_data.tbl_after_surgery;
-	    $scope.leave = test_data.tbl_leave;
-	    $scope.check_record = test_data.tbl_clinical_course.check_record;
-	    $scope.description = test_data.tbl_after_surgery.description;
-	    $scope.long_items = test_data.tbl_long_medical_orders.items;
-	    $scope.temp_items = test_data.tbl_temp_medical_orders.items;
+	    // $scope.patient_info = test_data.tbl_patient_info;
+	    // $scope.clinical_course = test_data.tbl_clinical_course;
+	    // $scope.hospitalized = test_data.tbl_hospitalized;
+	    // $scope.surgery = test_data.tbl_surgery;
+	    // $scope.after_surgery = test_data.tbl_after_surgery;
+	    // $scope.leave = test_data.tbl_leave;
+	    // $scope.check_record = test_data.tbl_clinical_course.check_record;
+	    // $scope.description = test_data.tbl_after_surgery.description;
+	    // $scope.long_items = test_data.tbl_long_medical_orders.items;
+	    // $scope.temp_items = test_data.tbl_temp_medical_orders.items;
 
 	    $scope.submit = function () {
 	        $scope.btnDisable = true;
@@ -79631,7 +81172,7 @@
 	});
 
 /***/ },
-/* 56 */
+/* 60 */
 /***/ function(module, exports) {
 
 	/**
@@ -80037,7 +81578,7 @@
 	module.exports = division;
 
 /***/ },
-/* 57 */
+/* 61 */
 /***/ function(module, exports) {
 
 	/**
@@ -80171,7 +81712,7 @@
 	module.exports = test_data;
 
 /***/ },
-/* 58 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80179,7 +81720,7 @@
 	 */
 	'use strict';
 
-	var app = __webpack_require__(53);
+	var app = __webpack_require__(57);
 
 	app.controller('LoginCtrl', function ($scope, $state, $http, $commonFun, $userInfo) {
 	    $scope.user = {};
@@ -80201,13 +81742,13 @@
 	});
 
 /***/ },
-/* 59 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by david ao on 2016/8/27.
 	 */
-	var app = __webpack_require__(53);
+	var app = __webpack_require__(57);
 
 	app.controller("registerCtrl", function ($scope, $http, $commonFun) {
 	    $scope.selected = {
@@ -80244,13 +81785,13 @@
 	});
 
 /***/ },
-/* 60 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by AO.Diwei on 2016/10/19.
 	 */
-	var app = __webpack_require__(53);
+	var app = __webpack_require__(57);
 	app.controller('uploadCtrl', function ($scope, FileUploader, $commonFun) {
 	    var uploader = $scope.uploader = new FileUploader({
 	        url: '/data/upload-file'
@@ -80303,7 +81844,7 @@
 	});
 
 /***/ },
-/* 61 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80311,7 +81852,7 @@
 	 */
 	'use strict';
 
-	var app = __webpack_require__(53);
+	var app = __webpack_require__(57);
 
 	app.service('$auth', function ($location, $http, $q, $userInfo, $state, $commonFun) {
 	    this.auth = function () {
@@ -80354,7 +81895,7 @@
 	});
 
 /***/ },
-/* 62 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80362,7 +81903,7 @@
 	 */
 	'use strict';
 
-	var app = __webpack_require__(53);
+	var app = __webpack_require__(57);
 
 	app.service("$commonFun", function ($mdToast) {
 	  this.showSimpleToast = function (text, theme) {
@@ -80372,7 +81913,7 @@
 	});
 
 /***/ },
-/* 63 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80381,7 +81922,7 @@
 
 	'use strict';
 
-	var app = __webpack_require__(53);
+	var app = __webpack_require__(57);
 
 	app.factory('$userInfo', function () {
 	    var _account = "";
@@ -80420,1649 +81961,106 @@
 	});
 
 /***/ },
-/* 64 */
-/***/ function(module, exports) {
-
-	module.exports = "<md-sidenav layout=\"column\" class=\"md-sidenav-left md-whiteframe-z2\" md-component-id=\"left\"\r\n            md-is-locked-open=\"$mdMedia('gt-md')\">\r\n    <md-toolbar class=\"md-tall md-primary\">\r\n        <span flex></span>\r\n        <div layout=\"column\" class=\"md-toolbar-tools-bottom inset\">\r\n            <user-avatar></user-avatar>\r\n            <span></span>\r\n            <div>{{userInfo().account}}</div>\r\n            <div>{{userInfo().email}}</div>\r\n        </div>\r\n    </md-toolbar>\r\n    <md-list>\r\n        <md-item ng-repeat=\"item in menu\" class=\"cursorPointer\" ng-click=\"close()\">\r\n            <div ui-sref=\"{{item.lin}}\" md-ink-ripple='grey' class=\"nav-click\" ng-class=\"{true: 'nav-active', false: 'inactive'}[isActive('{{item.lin}}')]\">\r\n                <md-item-content layout=\"row\" layout-align=\"start center\">\r\n                    <div class=\"inset\">\r\n                        <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\r\n                    </div>\r\n                    <div class=\"inset\">{{item.title}}\r\n                    </div>\r\n                </md-item-content>\r\n            </div>\r\n        </md-item>\r\n        <md-divider></md-divider>\r\n        <md-subheader>Management</md-subheader>\r\n        <md-item ng-repeat=\"item in admin\" ng-click=\"close()\">\r\n            <div ui-sref=\"{{item.lin}}\" md-ink-ripple=\"grey\" class=\"nav-click\" ng-class=\"{true: 'nav-active', false: 'inactive'}[isActive('{{item.lin}}')]\">\r\n                <md-item-content layout=\"row\" layout-align=\"start center\">\r\n                    <div class=\"inset\">\r\n                        <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\r\n                    </div>\r\n                    <div class=\"inset\">{{item.title}}\r\n                    </div>\r\n                </md-item-content>\r\n            </div>\r\n        </md-item>\r\n    </md-list>\r\n</md-sidenav>\r\n\r\n"
-
-/***/ },
-/* 65 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div class=\"inset\" hide-sm></div>\r\n<div layout=\"row\" layout-align=\"center center\" ng-controller=\"LoginCtrl\">\r\n    <md-card md-theme=\"\" md-theme-watch>\r\n        <md-card-title>\r\n            <md-card-title-text md-theme=\"dark-purple\">\r\n                <span class=\"md-headline\">登录</span>\r\n            </md-card-title-text>\r\n        </md-card-title>\r\n        <md-divider></md-divider>\r\n        <md-card-content>\r\n            <md-content layout-padding=\"\" md-theme=\"dark-blue\">\r\n                <form name=\"loginForm\">\r\n                    <md-input-container class=\"md-block\">\r\n                        <label>账号</label>\r\n                        <md-icon>\r\n                            <ng-md-icon icon=\"account_circle\"></ng-md-icon>\r\n                        </md-icon>\r\n                        <input ng-model=\"user.account\" type=\"text\" name=\"account\" required>\r\n                        <div ng-messages=\"loginForm.account.$error\">\r\n                            <div ng-message=\"required\">必填</div>\r\n                        </div>\r\n                    </md-input-container>\r\n\r\n                    <md-input-container class=\"md-block\">\r\n                        <label>密码</label>\r\n                        <md-icon>\r\n                            <ng-md-icon icon=\"lock\"></ng-md-icon>\r\n                        </md-icon>\r\n                        <input ng-model=\"user.password\" type=\"password\" name=\"password\" required>\r\n                        <div ng-messages=\"loginForm.password.$error\">\r\n                            <div ng-message=\"required\">必填</div>\r\n                        </div>\r\n                    </md-input-container>\r\n\r\n                    <md-card-actions layout=\"row\" layout-align=\"end center\">\r\n                        <md-button class=\"md-raised md-primary\">登录</md-button>\r\n                    </md-card-actions>\r\n                </form>\r\n            </md-content>\r\n        </md-card-content>\r\n    </md-card>\r\n</div>"
-
-/***/ },
-/* 66 */
-/***/ function(module, exports) {
-
-	module.exports = "<div ng-controller=\"uploadCtrl\" nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, customFilter\">\r\n    <div layout=\"row\" layout-align=\"start center\" flex-offset=\"5\">\r\n        <md-card flex>\r\n            <md-card-title>\r\n                <md-card-title-text md-theme=\"dark-purple\">\r\n                    <span class=\"md-headline\">上传文件</span>\r\n                </md-card-title-text>\r\n            </md-card-title>\r\n            <md-divider></md-divider>\r\n            <md-card-content>\r\n                <div layout=\"row\">\r\n                    <div flex>\r\n                        <input class=\"ng-hide\" id=\"input-file-id\" multiple type=\"file\" nv-file-select=\"\" uploader=\"uploader\"/>\r\n                        <label for=\"input-file-id\" class=\"md-button md-raised md-primary\">选择文件(可多选)[{{ uploader.queue.length }}]</label>\r\n                        <md-table-container>\r\n                            <table md-table multiple>\r\n                                <thead md-head>\r\n                                <tr md-row>\r\n                                    <th md-column >文件名</th>\r\n                                    <th md-column md-numeric ng-show=\"uploader.isHTML5\">大小</th>\r\n                                    <th md-column md-numeric ng-show=\"uploader.isHTML5\">进度</th>\r\n                                    <th md-column md-numeric>状态</th>\r\n                                    <th md-column >操作</th>\r\n                                </tr>\r\n                                </thead>\r\n                                <tbody md-body>\r\n                                <tr md-row ng-repeat=\"item in uploader.queue\">\r\n                                    <td md-cell><strong>{{ item.file.name }}</strong></td>\r\n                                    <td md-cell ng-show=\"uploader.isHTML5\" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>\r\n                                    <td md-cell ng-show=\"uploader.isHTML5\">\r\n                                        <md-progress-linear md-mode=\"determinate\" value=\"{{item.progress}}\"></md-progress-linear>\r\n                                    </td>\r\n                                    <td md-cell class=\"text-center\">\r\n                                        <span ng-show=\"item.isSuccess\">\r\n                                            <md-icon>\r\n                                                <ng-md-icon icon=\"done\"></ng-md-icon>\r\n                                            </md-icon>\r\n                                        </span>\r\n                                        <span ng-show=\"item.isCancel\">\r\n                                            <md-icon>\r\n                                                <ng-md-icon icon=\"undo\"></ng-md-icon>\r\n                                            </md-icon>\r\n                                        </span>\r\n                                        <span ng-show=\"item.isError\">\r\n                                            <md-icon>\r\n                                                <ng-md-icon icon=\"clear\"></ng-md-icon>\r\n                                            </md-icon>\r\n                                        </span>\r\n                                    </td>\r\n                                    <td md-cell>\r\n                                        <md-button class=\"md-raised md-primary\" ng-click=\"item.upload()\"\r\n                                                   ng-disabled=\"item.isReady || item.isUploading || item.isSuccess\">\r\n                                            <md-icon>\r\n                                                <ng-md-icon icon=\"cloud_upload\"></ng-md-icon>\r\n                                            </md-icon>\r\n                                            上传\r\n                                        </md-button>\r\n                                        <md-button class=\"md-raised md-warn md-hue-2\" ng-click=\"item.cancel()\"\r\n                                                   ng-disabled=\"!item.isUploading\">\r\n                                            <md-icon>\r\n                                                <ng-md-icon icon=\"cloud_off\"></ng-md-icon>\r\n                                            </md-icon>\r\n                                            取消\r\n                                        </md-button>\r\n                                        <md-button class=\"md-raised md-warn\" ng-click=\"item.remove()\">\r\n                                            <md-icon>\r\n                                                <ng-md-icon icon=\"delete\"></ng-md-icon>\r\n                                            </md-icon>\r\n                                            移除\r\n                                        </md-button>\r\n                                    </td>\r\n                                </tr>\r\n                                </tbody>\r\n                            </table>\r\n                        </md-table-container>\r\n                        <div>\r\n                            <div>\r\n                                上传进度:\r\n                                <md-progress-linear md-mode=\"determinate\" value=\"{{uploader.progress}}\"></md-progress-linear>\r\n                            </div>\r\n                            <md-button class=\"md-raised md-primary\" ng-click=\"uploader.uploadAll()\"\r\n                                       ng-disabled=\"!uploader.getNotUploadedItems().length\">\r\n                                <md-icon>\r\n                                    <ng-md-icon icon=\"cloud_upload\"></ng-md-icon>\r\n                                </md-icon>\r\n                                上传全部\r\n                            </md-button>\r\n                            <md-button class=\"md-raised md-warn md-hue-2\" ng-click=\"uploader.cancelAll()\"\r\n                                       ng-disabled=\"!uploader.isUploading\">\r\n                                <md-icon>\r\n                                    <ng-md-icon icon=\"cloud_off\"></ng-md-icon>\r\n                                </md-icon>\r\n                                取消全部\r\n                            </md-button>\r\n                            <md-button class=\"md-raised md-warn\" ng-click=\"uploader.clearQueue()\"\r\n                                       ng-disabled=\"!uploader.queue.length\">\r\n                                <md-icon>\r\n                                    <ng-md-icon icon=\"delete\"></ng-md-icon>\r\n                                </md-icon>\r\n                                移除全部\r\n                            </md-button>\r\n                        </div>\r\n                    </div>\r\n                </div>\r\n\r\n\r\n            </md-card-content>\r\n        </md-card>\r\n    </div>\r\n</div>\r\n\r\n"
-
-/***/ },
-/* 67 */
-/***/ function(module, exports) {
-
-	module.exports = "<div ng-controller=\"registerCtrl\">\r\n    <div layout=\"row\" layout-align=\"start center\" flex-offset=\"5\">\r\n        <md-card  flex-xs=\"80\" flex=\"40\">\r\n            <md-card-title>\r\n                <md-card-title-text md-theme=\"dark-purple\">\r\n                    <span class=\"md-headline\">注册账号</span>\r\n                </md-card-title-text>\r\n            </md-card-title>\r\n            <md-divider></md-divider>\r\n            <md-card-content>\r\n                <form name=\"registerForm\">\r\n                    <md-input-container class=\"md-block\">\r\n                        <label>账号</label>\r\n                        <md-icon>\r\n                            <ng-md-icon icon=\"account_circle\"></ng-md-icon>\r\n                        </md-icon>\r\n                        <input ng-model=\"register_info.account\" type=\"text\" name=\"account\" required>\r\n                        <div ng-messages=\"registerForm.account.$error\">\r\n                            <div ng-message=\"required\">必填</div>\r\n                        </div>\r\n                    </md-input-container>\r\n\r\n                    <md-input-container class=\"md-block\">\r\n                        <label>邮箱</label>\r\n                        <md-icon>\r\n                            <ng-md-icon icon=\"email\"></ng-md-icon>\r\n                        </md-icon>\r\n                        <input ng-model=\"register_info.email\" type=\"email\" name=\"email\" required>\r\n                        <div ng-messages=\"registerForm.email.$error\">\r\n                            <div ng-message=\"required\">必填</div>\r\n                            <div ng-message=\"email\">请输入有效邮箱</div>\r\n                        </div>\r\n                    </md-input-container>\r\n\r\n                    <md-input-container class=\"md-block\">\r\n                        <label>密码</label>\r\n                        <md-icon>\r\n                            <ng-md-icon icon=\"lock\"></ng-md-icon>\r\n                        </md-icon>\r\n                        <input ng-model=\"register_info.password\" type=\"password\" name=\"password\" ng-pattern=\"/^[a-zA-Z]\\w{5,17}$/\" required>\r\n                        <div ng-messages=\"registerForm.password.$error\">\r\n                            <div ng-message=\"required\">必填</div>\r\n                            <div ng-message=\"pattern\" >密码必须是英文字母开头，并由英文字母和数字组成,至少6位</div>\r\n                        </div>\r\n                    </md-input-container>\r\n\r\n                    <md-input-container class=\"md-block\">\r\n                        <label>确认密码</label>\r\n                        <md-icon>\r\n                            <ng-md-icon icon=\"lock\"></ng-md-icon>\r\n                        </md-icon>\r\n                        <input ng-model=\"register_info.password2\" type=\"password\" name=\"password2\" ng-pattern=\"{{register_info.password}}\"  required>\r\n                        <div ng-messages=\"registerForm.password2.$error\">\r\n                            <div ng-message=\"required\">必填</div>\r\n                            <div ng-message=\"pattern\" >请确认密码一致</div>\r\n                        </div>\r\n                    </md-input-container>\r\n\r\n                    <md-input-container class=\"md-block\">\r\n                        <label>角色</label>\r\n                        <md-icon>\r\n                            <ng-md-icon icon=\"person\"></ng-md-icon>\r\n                        </md-icon>\r\n                        <md-select name=\"role\" ng-model=\"register_info.role\" required>\r\n                            <md-option ng-value=\"role.value\" ng-repeat=\"role in selected.roles\">{{ role.option }}</md-option>\r\n                        </md-select>\r\n                        <div ng-messages=\"registerForm.role.$error\">\r\n                            <div ng-message=\"required\">必填</div>\r\n                        </div>\r\n                    </md-input-container>\r\n\r\n                    <md-card-actions layout=\"row\" layout-align=\"end center\">\r\n                        <md-button class=\"md-raised md-primary\" ng-click=\"registerFun()\" ng-disabled=\"registerForm.$invalid||btnDisable\">注册</md-button>\r\n                    </md-card-actions>\r\n                </form>\r\n            </md-card-content>\r\n        </md-card>\r\n    </div>\r\n</div>"
-
-/***/ },
 /* 68 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"formTabsCtrl\">\r\n    <md-tabs class=\"md-primary\" md-dynamic-height md-swipe-content>\r\n        <md-tab ng-repeat=\"tab in tabs\"\r\n                label=\"{{tab.title}}\"\r\n                layout=\"row\">\r\n            <div class=\"inset\" hide-sm></div>\r\n            <div layout=\"row\" layout-align=\"center center\" flex-offset=\"5\">\r\n                <md-card flex style=\"margin-bottom: 500px\">\r\n                    <md-card-content>\r\n                        <form name=\"projectForm\">\r\n                            <ng-include src=\"tab.content\"></ng-include>\r\n                        </form>\r\n                    </md-card-content>\r\n                    <md-card-actions layout=\"row\" layout-align=\"end center\">\r\n                        <md-button class=\"md-raised md-primary\" ng-click=\"submit()\">提交</md-button>\r\n                    </md-card-actions>\r\n                </md-card>\r\n            </div>\r\n        </md-tab>\r\n    </md-tabs>\r\n</div>\r\n\r\n"
+	module.exports = "<md-sidenav layout=\"column\" class=\"md-sidenav-left md-whiteframe-z2\" md-component-id=\"left\"\n            md-is-locked-open=\"$mdMedia('gt-md')\">\n    <md-toolbar class=\"md-tall md-primary\">\n        <span flex></span>\n        <div layout=\"column\" class=\"md-toolbar-tools-bottom inset\">\n            <user-avatar></user-avatar>\n            <span></span>\n            <div>{{userInfo().account}}</div>\n            <div>{{userInfo().email}}</div>\n        </div>\n    </md-toolbar>\n    <md-list>\n        <md-item ng-repeat=\"item in menu\" class=\"cursorPointer\" ng-click=\"close()\">\n            <div ui-sref=\"{{item.lin}}\" md-ink-ripple='grey' class=\"nav-click\" ng-class=\"{'nav-active': $state.includes('{{item.lin}}')}\">\n                <md-item-content layout=\"row\" layout-align=\"start center\">\n                    <div class=\"inset\">\n                        <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\n                    </div>\n                    <div class=\"inset\">{{item.title}}\n                    </div>\n                </md-item-content>\n            </div>\n        </md-item>\n        <md-divider></md-divider>\n        <md-subheader>管理</md-subheader>\n        <md-item ng-repeat=\"item in admin\" ng-click=\"close()\">\n            <div ui-sref=\"{{item.lin}}\" md-ink-ripple=\"grey\" class=\"nav-click\" ng-class=\"{'nav-active': $state.includes('{{item.lin}}')}\">\n                <md-item-content layout=\"row\" layout-align=\"start center\">\n                    <div class=\"inset\">\n                        <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\n                    </div>\n                    <div class=\"inset\">{{item.title}}\n                    </div>\n                </md-item-content>\n            </div>\n        </md-item>\n    </md-list>\n</md-sidenav>\n\n"
 
 /***/ },
 /* 69 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabPatientCtrl\">\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>病案号</label>\r\n                    <input required name=\"medical_id\" ng-model=\"patient_info.medical_id\">\r\n                    <div ng-messages=\"projectForm.medical_id.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>姓名</label>\r\n                    <input required name=\"name\" ng-model=\"patient_info.name\">\r\n                    <div ng-messages=\"projectForm.name.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>身份证号</label>\r\n                    <input required name=\"identity\" ng-model=\"patient_info.identity\">\r\n                    <div ng-messages=\"projectForm.identity.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n    <!--<div class=\"inset\" hide-sm></div>-->\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>性别</label>\r\n                    <md-select name=\"sex\" ng-model=\"patient_info.sex\" required>\r\n                        <md-option ng-value=\"sex\" ng-repeat=\"sex in selected.sex\">{{ sex }}</md-option>\r\n                    </md-select>\r\n                    <div ng-messages=\"projectForm.sex.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <!--<md-input-container>-->\r\n                <!--<label>生日</label>-->\r\n                <!--<md-datepicker name=\"birthday\" ng-model=\"patient_info.birthday\" required=\"\"></md-datepicker>-->\r\n                <!--<div ng-messages=\"projectForm.birthday.$error\">-->\r\n                <!--<div ng-message=\"required\">必填</div>-->\r\n                <!--</div>-->\r\n                <!--</md-input-container>-->\r\n                <md-datetime-inline init-datatime=\"patient_info.birthday\" datetime-mode=\"date\" placeholder=\"生日\" date-changed=\"dateChange()\">\r\n                </md-datetime-inline>\r\n            </md-card>\r\n        </div>\r\n\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>年龄</label>\r\n                    <input required name=\"age\" ng-model=\"patient_info.age\" ng-pattern=\"/^[0-9]{0,2}$/\">\r\n                    <div ng-messages=\"projectForm.age.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                        <div ng-message=\"pattern\" class=\"my-message\">请输入1-2位数字</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n\r\n    </div>\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>省份</label>\r\n                    <md-select name=\"province\" ng-model=\"patient_info.province\" required>\r\n                        <md-option ng-value=\"key\" ng-repeat=\"(key, val) in selected.division\">{{ key }}</md-option>\r\n                    </md-select>\r\n                    <div ng-messages=\"projectForm.province.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>城市</label>\r\n                    <md-select name=\"city\" ng-model=\"patient_info.city\" required>\r\n                        <md-option ng-value=\"key\" ng-repeat=\"(key, val) in selected.division[patient_info.province]\">{{ key }}</md-option>\r\n                    </md-select>\r\n                    <div ng-messages=\"projectForm.city.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>县/区</label>\r\n                    <md-select name=\"district\" ng-model=\"patient_info.district\" required>\r\n                        <md-option ng-value=\"district\" ng-repeat=\"district in selected.division[patient_info.province][patient_info.city]\">\r\n                            {{ district }}\r\n                        </md-option>\r\n                    </md-select>\r\n                    <div ng-messages=\"projectForm.district.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>详细地址</label>\r\n                    <input required name=\"detail_addr\" ng-model=\"patient_info.detail_addr\">\r\n                    <div ng-messages=\"projectForm.detail_addr.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>婚姻</label>\r\n                    <md-select name=\"marriage\" ng-model=\"patient_info.marriage\" required>\r\n                        <md-option ng-value=\"marriage\" ng-repeat=\"marriage in selected.marriage\">{{ marriage }}</md-option>\r\n                    </md-select>\r\n                    <div ng-messages=\"projectForm.marriage.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>职业</label>\r\n                    <input required name=\"job\" ng-model=\"patient_info.job\">\r\n                    <div ng-messages=\"projectForm.job.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>门诊</label>\r\n                    <input required name=\"outpatient\" ng-model=\"patient_info.outpatient\">\r\n                    <div ng-messages=\"projectForm.outpatient.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-datetime-inline init-datatime=\"patient_info.in_date\" datetime-mode=\"datetime\" placeholder=\"入院时间\"\r\n                                    date-changed=\"dateChange()\">\r\n                </md-datetime-inline>\r\n            </md-card>\r\n        </div>\r\n\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-datetime-inline init-datatime=\"patient_info.out_date\" datetime-mode=\"datetime\" placeholder=\"出院时间\"\r\n                                    date-changed=\"dateChange()\">\r\n                </md-datetime-inline>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n\r\n</div>"
+	module.exports = "<div class=\"inset\" hide-sm></div>\n<div class=\"inset\" hide-sm></div>\n<div class=\"inset\" hide-sm></div>\n<div class=\"inset\" hide-sm></div>\n<div layout=\"row\" layout-align=\"center center\" ng-controller=\"LoginCtrl\">\n    <md-card md-theme=\"\" md-theme-watch>\n        <md-card-title>\n            <md-card-title-text md-theme=\"dark-purple\">\n                <span class=\"md-headline\">登录</span>\n            </md-card-title-text>\n        </md-card-title>\n        <md-divider></md-divider>\n        <md-card-content>\n            <md-content layout-padding=\"\" md-theme=\"dark-blue\">\n                <form name=\"loginForm\">\n                    <md-input-container class=\"md-block\">\n                        <label>账号</label>\n                        <md-icon>\n                            <ng-md-icon icon=\"account_circle\"></ng-md-icon>\n                        </md-icon>\n                        <input ng-model=\"user.account\" type=\"text\" name=\"account\" required>\n                        <div ng-messages=\"loginForm.account.$error\">\n                            <div ng-message=\"required\">必填</div>\n                        </div>\n                    </md-input-container>\n\n                    <md-input-container class=\"md-block\">\n                        <label>密码</label>\n                        <md-icon>\n                            <ng-md-icon icon=\"lock\"></ng-md-icon>\n                        </md-icon>\n                        <input ng-model=\"user.password\" type=\"password\" name=\"password\" required>\n                        <div ng-messages=\"loginForm.password.$error\">\n                            <div ng-message=\"required\">必填</div>\n                        </div>\n                    </md-input-container>\n\n                    <md-card-actions layout=\"row\" layout-align=\"end center\">\n                        <md-button class=\"md-raised md-primary\" ng-click=\"submit()\">登录</md-button>\n                    </md-card-actions>\n                </form>\n            </md-content>\n        </md-card-content>\n    </md-card>\n</div>"
 
 /***/ },
 /* 70 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabHospitalizedCtrl\">\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>主诉</label>\r\n                    <input required name=\"complain\" ng-model=\"hospitalized.complain\">\r\n                    <div ng-messages=\"projectForm.complain.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>现病史</label>\r\n                    <input required name=\"present_illness\" ng-model=\"hospitalized.present_illness\">\r\n                    <div ng-messages=\"projectForm.present_illness.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>近期</label>\r\n                    <input required name=\"recent\" ng-model=\"hospitalized.recent\">\r\n                    <div ng-messages=\"projectForm.recent.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>既往史</label>\r\n                    <input required name=\"history_illness\" ng-model=\"hospitalized.history_illness\">\r\n                    <div ng-messages=\"projectForm.history_illness.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>家族史</label>\r\n                    <input required name=\"family_illness\" ng-model=\"hospitalized.family_illness\">\r\n                    <div ng-messages=\"projectForm.family_illness.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>入院诊断</label>\r\n                    <input required name=\"admits_diag\" ng-model=\"hospitalized.admits_diag\">\r\n                    <div ng-messages=\"projectForm.admits_diag.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>体格检查</label>\r\n                    <textarea required name=\"physical_exam\" ng-model=\"hospitalized.physical_exam\" rows=\"5\" md-select-on-focus></textarea>\r\n                    <div ng-messages=\"projectForm.physical_exam.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>整形外科情况</label>\r\n                    <textarea required name=\"surgery\" ng-model=\"hospitalized.surgery\" rows=\"5\" md-select-on-focus></textarea>\r\n                    <div ng-messages=\"projectForm.surgery.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>辅助检查</label>\r\n                    <input required name=\"assist_exam\" ng-model=\"hospitalized.assist_exam\">\r\n                    <div ng-messages=\"projectForm.assist_exam.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"uploadCtrl\" nv-file-drop=\"\" uploader=\"uploader\" filters=\"queueLimit, customFilter\">\n    <div layout=\"row\" layout-align=\"start center\" flex-offset=\"5\">\n        <md-card flex>\n            <md-card-title>\n                <md-card-title-text md-theme=\"dark-purple\">\n                    <span class=\"md-headline\">上传文件</span>\n                </md-card-title-text>\n            </md-card-title>\n            <md-divider></md-divider>\n            <md-card-content>\n                <div layout=\"row\">\n                    <div flex>\n                        <input class=\"ng-hide\" id=\"input-file-id\" multiple type=\"file\" nv-file-select=\"\" uploader=\"uploader\"/>\n                        <label for=\"input-file-id\" class=\"md-button md-raised md-primary\">选择文件(可多选)[{{ uploader.queue.length }}]</label>\n                        <md-table-container>\n                            <table md-table multiple>\n                                <thead md-head>\n                                <tr md-row>\n                                    <th md-column >文件名</th>\n                                    <th md-column md-numeric ng-show=\"uploader.isHTML5\">大小</th>\n                                    <th md-column md-numeric ng-show=\"uploader.isHTML5\">进度</th>\n                                    <th md-column md-numeric>状态</th>\n                                    <th md-column >操作</th>\n                                </tr>\n                                </thead>\n                                <tbody md-body>\n                                <tr md-row ng-repeat=\"item in uploader.queue\">\n                                    <td md-cell><strong>{{ item.file.name }}</strong></td>\n                                    <td md-cell ng-show=\"uploader.isHTML5\" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>\n                                    <td md-cell ng-show=\"uploader.isHTML5\">\n                                        <md-progress-linear md-mode=\"determinate\" value=\"{{item.progress}}\"></md-progress-linear>\n                                    </td>\n                                    <td md-cell class=\"text-center\">\n                                        <span ng-show=\"item.isSuccess\">\n                                            <md-icon>\n                                                <ng-md-icon icon=\"done\"></ng-md-icon>\n                                            </md-icon>\n                                        </span>\n                                        <span ng-show=\"item.isCancel\">\n                                            <md-icon>\n                                                <ng-md-icon icon=\"undo\"></ng-md-icon>\n                                            </md-icon>\n                                        </span>\n                                        <span ng-show=\"item.isError\">\n                                            <md-icon>\n                                                <ng-md-icon icon=\"clear\"></ng-md-icon>\n                                            </md-icon>\n                                        </span>\n                                    </td>\n                                    <td md-cell>\n                                        <md-button class=\"md-raised md-primary\" ng-click=\"item.upload()\"\n                                                   ng-disabled=\"item.isReady || item.isUploading || item.isSuccess\">\n                                            <md-icon>\n                                                <ng-md-icon icon=\"cloud_upload\"></ng-md-icon>\n                                            </md-icon>\n                                            上传\n                                        </md-button>\n                                        <md-button class=\"md-raised md-warn md-hue-2\" ng-click=\"item.cancel()\"\n                                                   ng-disabled=\"!item.isUploading\">\n                                            <md-icon>\n                                                <ng-md-icon icon=\"cloud_off\"></ng-md-icon>\n                                            </md-icon>\n                                            取消\n                                        </md-button>\n                                        <md-button class=\"md-raised md-warn\" ng-click=\"item.remove()\">\n                                            <md-icon>\n                                                <ng-md-icon icon=\"delete\"></ng-md-icon>\n                                            </md-icon>\n                                            移除\n                                        </md-button>\n                                    </td>\n                                </tr>\n                                </tbody>\n                            </table>\n                        </md-table-container>\n                        <div>\n                            <div>\n                                上传进度:\n                                <md-progress-linear md-mode=\"determinate\" value=\"{{uploader.progress}}\"></md-progress-linear>\n                            </div>\n                            <md-button class=\"md-raised md-primary\" ng-click=\"uploader.uploadAll()\"\n                                       ng-disabled=\"!uploader.getNotUploadedItems().length\">\n                                <md-icon>\n                                    <ng-md-icon icon=\"cloud_upload\"></ng-md-icon>\n                                </md-icon>\n                                上传全部\n                            </md-button>\n                            <md-button class=\"md-raised md-warn md-hue-2\" ng-click=\"uploader.cancelAll()\"\n                                       ng-disabled=\"!uploader.isUploading\">\n                                <md-icon>\n                                    <ng-md-icon icon=\"cloud_off\"></ng-md-icon>\n                                </md-icon>\n                                取消全部\n                            </md-button>\n                            <md-button class=\"md-raised md-warn\" ng-click=\"uploader.clearQueue()\"\n                                       ng-disabled=\"!uploader.queue.length\">\n                                <md-icon>\n                                    <ng-md-icon icon=\"delete\"></ng-md-icon>\n                                </md-icon>\n                                移除全部\n                            </md-button>\n                        </div>\n                    </div>\n                </div>\n\n\n            </md-card-content>\n        </md-card>\n    </div>\n</div>\n\n"
 
 /***/ },
 /* 71 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabClinicalCourseCtrl\">\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>病例特点</label>\r\n                    <textarea required name=\"ill_description\" ng-model=\"clinical_course.ill_description\" rows=\"5\"\r\n                              md-select-on-focus>\r\n                    </textarea>\r\n                    <div ng-messages=\"projectForm.ill_description.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>初步诊断</label>\r\n                    <textarea required name=\"init_diag\" ng-model=\"clinical_course.init_diag\" rows=\"5\"\r\n                              md-select-on-focus>\r\n                    </textarea>\r\n                    <div ng-messages=\"projectForm.init_diag.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>治疗计划</label>\r\n                    <textarea required name=\"treat_plan\" ng-model=\"clinical_course.treat_plan\" rows=\"5\"\r\n                              md-select-on-focus>\r\n                    </textarea>\r\n                    <div ng-messages=\"projectForm.treat_plan.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>诊断依据</label>\r\n                    <textarea required name=\"gist\" ng-model=\"clinical_course.gist\" rows=\"1\"\r\n                              md-select-on-focus>\r\n                    </textarea>\r\n                    <div ng-messages=\"projectForm.gist.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>鉴别诊断</label>\r\n                    <textarea required name=\"antidiastole\" ng-model=\"clinical_course.antidiastole\" rows=\"1\"\r\n                              md-select-on-focus>\r\n                    </textarea>\r\n                    <div ng-messages=\"projectForm.antidiastole.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n    <div ng-repeat=\"item in check_record track by $index\">\r\n        <div ng-include=\"'html/widget/check_record.html'\"></div>\r\n    </div>\r\n\r\n</div>"
+	module.exports = "<div ng-controller=\"registerCtrl\">\n    <div layout=\"row\" layout-align=\"start center\" flex-offset=\"5\">\n        <md-card  flex-xs=\"80\" flex=\"40\">\n            <md-card-title>\n                <md-card-title-text md-theme=\"dark-purple\">\n                    <span class=\"md-headline\">注册账号</span>\n                </md-card-title-text>\n            </md-card-title>\n            <md-divider></md-divider>\n            <md-card-content>\n                <form name=\"registerForm\">\n                    <md-input-container class=\"md-block\">\n                        <label>账号</label>\n                        <md-icon>\n                            <ng-md-icon icon=\"account_circle\"></ng-md-icon>\n                        </md-icon>\n                        <input ng-model=\"register_info.account\" type=\"text\" name=\"account\" required>\n                        <div ng-messages=\"registerForm.account.$error\">\n                            <div ng-message=\"required\">必填</div>\n                        </div>\n                    </md-input-container>\n\n                    <md-input-container class=\"md-block\">\n                        <label>邮箱</label>\n                        <md-icon>\n                            <ng-md-icon icon=\"email\"></ng-md-icon>\n                        </md-icon>\n                        <input ng-model=\"register_info.email\" type=\"email\" name=\"email\" required>\n                        <div ng-messages=\"registerForm.email.$error\">\n                            <div ng-message=\"required\">必填</div>\n                            <div ng-message=\"email\">请输入有效邮箱</div>\n                        </div>\n                    </md-input-container>\n\n                    <md-input-container class=\"md-block\">\n                        <label>密码</label>\n                        <md-icon>\n                            <ng-md-icon icon=\"lock\"></ng-md-icon>\n                        </md-icon>\n                        <input ng-model=\"register_info.password\" type=\"password\" name=\"password\" ng-pattern=\"/^[a-zA-Z]\\w{5,17}$/\" required>\n                        <div ng-messages=\"registerForm.password.$error\">\n                            <div ng-message=\"required\">必填</div>\n                            <div ng-message=\"pattern\" >密码必须是英文字母开头，并由英文字母和数字组成,至少6位</div>\n                        </div>\n                    </md-input-container>\n\n                    <md-input-container class=\"md-block\">\n                        <label>确认密码</label>\n                        <md-icon>\n                            <ng-md-icon icon=\"lock\"></ng-md-icon>\n                        </md-icon>\n                        <input ng-model=\"register_info.password_confirm\" type=\"password\" name=\"password_confirm\" ng-pattern=\"{{register_info.password}}\"  required>\n                        <div ng-messages=\"registerForm.password_confirm.$error\">\n                            <div ng-message=\"required\">必填</div>\n                            <div ng-message=\"pattern\" >请确认密码一致</div>\n                        </div>\n                    </md-input-container>\n\n                    <md-input-container class=\"md-block\">\n                        <label>角色</label>\n                        <md-icon>\n                            <ng-md-icon icon=\"person\"></ng-md-icon>\n                        </md-icon>\n                        <md-select name=\"role\" ng-model=\"register_info.role\" required>\n                            <md-option ng-value=\"role.value\" ng-repeat=\"role in selected.roles\">{{ role.option }}</md-option>\n                        </md-select>\n                        <div ng-messages=\"registerForm.role.$error\">\n                            <div ng-message=\"required\">必填</div>\n                        </div>\n                    </md-input-container>\n\n                    <md-card-actions layout=\"row\" layout-align=\"end center\">\n                        <md-button class=\"md-raised md-primary\" ng-click=\"registerFun()\" ng-disabled=\"registerForm.$invalid||btnDisable\">注册</md-button>\n                    </md-card-actions>\n                </form>\n            </md-card-content>\n        </md-card>\n    </div>\n</div>"
 
 /***/ },
 /* 72 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-datetime-inline init-datatime=\"surgery.surgery_date\" datetime-mode=\"date\" placeholder=\"手术时间\"\r\n                                    date-changed=\"dateChange()\">\r\n                </md-datetime-inline>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>术前诊断</label>\r\n                    <input required name=\"before_diag\" ng-model=\"surgery.before_diag\">\r\n                    <div ng-messages=\"projectForm.before_diag.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>术后诊断</label>\r\n                    <input required name=\"later_diag\" ng-model=\"surgery.later_diag\">\r\n                    <div ng-messages=\"projectForm.later_diag.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>手术名称</label>\r\n                    <input required name=\"surgery_name\" ng-model=\"surgery.surgery_name\">\r\n                    <div ng-messages=\"projectForm.surgery_name.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>手术医生</label>\r\n                    <input required name=\"surgery_doctor\" ng-model=\"surgery.surgery_doctor\">\r\n                    <div ng-messages=\"projectForm.surgery_doctor.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>麻醉医生</label>\r\n                    <input required name=\"narcosis_doctor\" ng-model=\"surgery.narcosis_doctor\">\r\n                    <div ng-messages=\"projectForm.narcosis_doctor.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>器械护士</label>\r\n                    <input required name=\"instrument_nurses\" ng-model=\"surgery.instrument_nurses\">\r\n                    <div ng-messages=\"projectForm.instrument_nurses.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>麻醉方式</label>\r\n                    <input required name=\"narcosis_way\" ng-model=\"surgery.narcosis_way\">\r\n                    <div ng-messages=\"projectForm.narcosis_way.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>描述</label>\r\n                    <textarea required name=\"description\" ng-model=\"surgery.description\" rows=\"5\"\r\n                              md-select-on-focus>\r\n                    </textarea>\r\n                    <div ng-messages=\"projectForm.description.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"formTabsCtrl\">\n    <md-tabs class=\"md-primary\" md-dynamic-height md-swipe-content>\n        <md-tab ng-repeat=\"tab in tabs\"\n                label=\"{{tab.title}}\"\n                layout=\"row\">\n            <div class=\"inset\" hide-sm></div>\n            <div layout=\"row\" layout-align=\"center center\" flex-offset=\"5\">\n                <md-card flex style=\"margin-bottom: 500px\">\n                    <md-card-content>\n                        <form name=\"projectForm\">\n                            <ng-include src=\"tab.content\"></ng-include>\n                        </form>\n                    </md-card-content>\n                    <md-card-actions layout=\"row\" layout-align=\"end center\">\n                        <md-button class=\"md-raised md-primary\" ng-click=\"submit()\">提交</md-button>\n                    </md-card-actions>\n                </md-card>\n            </div>\n        </md-tab>\n    </md-tabs>\n</div>\n\n"
 
 /***/ },
 /* 73 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabAfterSurgeryCtrl\">\r\n    <div ng-repeat=\"item in description track by $index\">\r\n        <div ng-include=\"'html/widget/after_surgery_record.html'\"></div>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"tabPatientCtrl\">\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>病案号</label>\n                    <input required name=\"medical_id\" ng-model=\"patient_info.medical_id\">\n                    <div ng-messages=\"projectForm.medical_id.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>姓名</label>\n                    <input required name=\"name\" ng-model=\"patient_info.name\">\n                    <div ng-messages=\"projectForm.name.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>身份证号</label>\n                    <input required name=\"identity\" ng-model=\"patient_info.identity\">\n                    <div ng-messages=\"projectForm.identity.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n    <!--<div class=\"inset\" hide-sm></div>-->\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>性别</label>\n                    <md-select name=\"sex\" ng-model=\"patient_info.sex\" required>\n                        <md-option ng-value=\"sex\" ng-repeat=\"sex in selected.sex\">{{ sex }}</md-option>\n                    </md-select>\n                    <div ng-messages=\"projectForm.sex.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <!--<md-input-container>-->\n                <!--<label>生日</label>-->\n                <!--<md-datepicker name=\"birthday\" ng-model=\"patient_info.birthday\" required=\"\"></md-datepicker>-->\n                <!--<div ng-messages=\"projectForm.birthday.$error\">-->\n                <!--<div ng-message=\"required\">必填</div>-->\n                <!--</div>-->\n                <!--</md-input-container>-->\n                <md-datetime-inline init-datatime=\"patient_info.birthday\" datetime-mode=\"date\" placeholder=\"生日\" date-changed=\"dateChange()\">\n                </md-datetime-inline>\n            </md-card>\n        </div>\n\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>年龄</label>\n                    <input required name=\"age\" ng-model=\"patient_info.age\" ng-pattern=\"/^[0-9]{0,2}$/\">\n                    <div ng-messages=\"projectForm.age.$error\">\n                        <div ng-message=\"required\">必填</div>\n                        <div ng-message=\"pattern\" class=\"my-message\">请输入1-2位数字</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n\n    </div>\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>省份</label>\n                    <md-select name=\"province\" ng-model=\"patient_info.province\" required>\n                        <md-option ng-value=\"key\" ng-repeat=\"(key, val) in selected.division\">{{ key }}</md-option>\n                    </md-select>\n                    <div ng-messages=\"projectForm.province.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>城市</label>\n                    <md-select name=\"city\" ng-model=\"patient_info.city\" required>\n                        <md-option ng-value=\"key\" ng-repeat=\"(key, val) in selected.division[patient_info.province]\">{{ key }}</md-option>\n                    </md-select>\n                    <div ng-messages=\"projectForm.city.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>县/区</label>\n                    <md-select name=\"district\" ng-model=\"patient_info.district\" required>\n                        <md-option ng-value=\"district\" ng-repeat=\"district in selected.division[patient_info.province][patient_info.city]\">\n                            {{ district }}\n                        </md-option>\n                    </md-select>\n                    <div ng-messages=\"projectForm.district.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>详细地址</label>\n                    <input required name=\"detail_addr\" ng-model=\"patient_info.detail_addr\">\n                    <div ng-messages=\"projectForm.detail_addr.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>婚姻</label>\n                    <md-select name=\"marriage\" ng-model=\"patient_info.marriage\" required>\n                        <md-option ng-value=\"marriage\" ng-repeat=\"marriage in selected.marriage\">{{ marriage }}</md-option>\n                    </md-select>\n                    <div ng-messages=\"projectForm.marriage.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>职业</label>\n                    <input required name=\"job\" ng-model=\"patient_info.job\">\n                    <div ng-messages=\"projectForm.job.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>门诊</label>\n                    <input required name=\"outpatient\" ng-model=\"patient_info.outpatient\">\n                    <div ng-messages=\"projectForm.outpatient.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-datetime-inline init-datatime=\"patient_info.in_date\" datetime-mode=\"datetime\" placeholder=\"入院时间\"\n                                    date-changed=\"dateChange()\">\n                </md-datetime-inline>\n            </md-card>\n        </div>\n\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-datetime-inline init-datatime=\"patient_info.out_date\" datetime-mode=\"datetime\" placeholder=\"出院时间\"\n                                    date-changed=\"dateChange()\">\n                </md-datetime-inline>\n            </md-card>\n        </div>\n    </div>\n\n\n</div>"
 
 /***/ },
 /* 74 */
 /***/ function(module, exports) {
 
-	module.exports = "<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-datetime-inline init-datatime=\"leave.in_date\" datetime-mode=\"date\" placeholder=\"入院时间\"\r\n                                date-changed=\"dateChange()\">\r\n            </md-datetime-inline>\r\n        </md-card>\r\n    </div>\r\n\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-datetime-inline init-datatime=\"leave.out_date\" datetime-mode=\"date\" placeholder=\"出院时间\"\r\n                                date-changed=\"dateChange()\">\r\n            </md-datetime-inline>\r\n        </md-card>\r\n    </div>\r\n</div>\r\n\r\n<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>入院病情描述</label>\r\n                <textarea required name=\"description\" ng-model=\"leave.description\" rows=\"1\" md-select-on-focus></textarea>\r\n                <div ng-messages=\"projectForm.description.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n</div>\r\n\r\n<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>初步诊断</label>\r\n                <input required name=\"init_diag\" ng-model=\"leave.init_diag\">\r\n                <div ng-messages=\"projectForm.init_diag.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>出院诊断</label>\r\n                <input required name=\"leave_diag\" ng-model=\"leave.leave_diag\">\r\n                <div ng-messages=\"projectForm.leave_diag.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n</div>\r\n\r\n<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>治疗过程</label>\r\n                <textarea required name=\"treatment\" ng-model=\"leave.treatment\" rows=\"2\" md-select-on-focus></textarea>\r\n                <div ng-messages=\"projectForm.treatment.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>出院医嘱</label>\r\n                <textarea required name=\"advice\" ng-model=\"leave.advice\" rows=\"2\" md-select-on-focus></textarea>\r\n                <div ng-messages=\"projectForm.advice.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"tabHospitalizedCtrl\">\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>主诉</label>\n                    <input required name=\"complain\" ng-model=\"hospitalized.complain\">\n                    <div ng-messages=\"projectForm.complain.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>现病史</label>\n                    <input required name=\"present_illness\" ng-model=\"hospitalized.present_illness\">\n                    <div ng-messages=\"projectForm.present_illness.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>近期</label>\n                    <input required name=\"recent\" ng-model=\"hospitalized.recent\">\n                    <div ng-messages=\"projectForm.recent.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>既往史</label>\n                    <input required name=\"history_illness\" ng-model=\"hospitalized.history_illness\">\n                    <div ng-messages=\"projectForm.history_illness.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>家族史</label>\n                    <input required name=\"family_illness\" ng-model=\"hospitalized.family_illness\">\n                    <div ng-messages=\"projectForm.family_illness.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>入院诊断</label>\n                    <input required name=\"admits_diag\" ng-model=\"hospitalized.admits_diag\">\n                    <div ng-messages=\"projectForm.admits_diag.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>体格检查</label>\n                    <textarea required name=\"physical_exam\" ng-model=\"hospitalized.physical_exam\" rows=\"5\" md-select-on-focus></textarea>\n                    <div ng-messages=\"projectForm.physical_exam.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>整形外科情况</label>\n                    <textarea required name=\"surgery\" ng-model=\"hospitalized.surgery\" rows=\"5\" md-select-on-focus></textarea>\n                    <div ng-messages=\"projectForm.surgery.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>辅助检查</label>\n                    <input required name=\"assist_exam\" ng-model=\"hospitalized.assist_exam\">\n                    <div ng-messages=\"projectForm.assist_exam.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n</div>"
 
 /***/ },
 /* 75 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabTempMedicalOrdersCtrl\">\r\n    <div ng-repeat=\"index in temp_items track by $index\">\r\n        <div ng-include=\"'html/widget/temp_medical_orders.html'\"></div>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"tabClinicalCourseCtrl\">\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>病例特点</label>\n                    <textarea required name=\"ill_description\" ng-model=\"clinical_course.ill_description\" rows=\"5\"\n                              md-select-on-focus>\n                    </textarea>\n                    <div ng-messages=\"projectForm.ill_description.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>初步诊断</label>\n                    <textarea required name=\"init_diag\" ng-model=\"clinical_course.init_diag\" rows=\"5\"\n                              md-select-on-focus>\n                    </textarea>\n                    <div ng-messages=\"projectForm.init_diag.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>治疗计划</label>\n                    <textarea required name=\"treat_plan\" ng-model=\"clinical_course.treat_plan\" rows=\"5\"\n                              md-select-on-focus>\n                    </textarea>\n                    <div ng-messages=\"projectForm.treat_plan.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>诊断依据</label>\n                    <textarea required name=\"gist\" ng-model=\"clinical_course.gist\" rows=\"1\"\n                              md-select-on-focus>\n                    </textarea>\n                    <div ng-messages=\"projectForm.gist.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>鉴别诊断</label>\n                    <textarea required name=\"antidiastole\" ng-model=\"clinical_course.antidiastole\" rows=\"1\"\n                              md-select-on-focus>\n                    </textarea>\n                    <div ng-messages=\"projectForm.antidiastole.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n    <div ng-repeat=\"item in check_record track by $index\">\n        <div ng-include=\"'html/widget/check_record.html'\"></div>\n    </div>\n\n</div>"
 
 /***/ },
 /* 76 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"tabLongMedicalOrdersCtrl\">\r\n    <div ng-repeat=\"index in long_items track by $index\">\r\n        <div ng-include=\"'html/widget/long_medical_orders.html'\"></div>\r\n    </div>\r\n</div>"
+	module.exports = "<div>\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-datetime-inline init-datatime=\"surgery.surgery_date\" datetime-mode=\"date\" placeholder=\"手术时间\"\n                                    date-changed=\"dateChange()\">\n                </md-datetime-inline>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>术前诊断</label>\n                    <input required name=\"before_diag\" ng-model=\"surgery.before_diag\">\n                    <div ng-messages=\"projectForm.before_diag.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>术后诊断</label>\n                    <input required name=\"later_diag\" ng-model=\"surgery.later_diag\">\n                    <div ng-messages=\"projectForm.later_diag.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>手术名称</label>\n                    <input required name=\"surgery_name\" ng-model=\"surgery.surgery_name\">\n                    <div ng-messages=\"projectForm.surgery_name.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>手术医生</label>\n                    <input required name=\"surgery_doctor\" ng-model=\"surgery.surgery_doctor\">\n                    <div ng-messages=\"projectForm.surgery_doctor.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>麻醉医生</label>\n                    <input required name=\"narcosis_doctor\" ng-model=\"surgery.narcosis_doctor\">\n                    <div ng-messages=\"projectForm.narcosis_doctor.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>器械护士</label>\n                    <input required name=\"instrument_nurses\" ng-model=\"surgery.instrument_nurses\">\n                    <div ng-messages=\"projectForm.instrument_nurses.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>麻醉方式</label>\n                    <input required name=\"narcosis_way\" ng-model=\"surgery.narcosis_way\">\n                    <div ng-messages=\"projectForm.narcosis_way.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>描述</label>\n                    <textarea required name=\"description\" ng-model=\"surgery.description\" rows=\"5\"\n                              md-select-on-focus>\n                    </textarea>\n                    <div ng-messages=\"projectForm.description.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n</div>"
 
 /***/ },
 /* 77 */
 /***/ function(module, exports) {
 
-	module.exports = "<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-datetime-inline init-datatime=\"check_record[$index].date\" datetime-mode=\"datetime\"\r\n                                placeholder=\"查房时间\"\r\n                                date-changed=\"dateChange()\">\r\n            </md-datetime-inline>\r\n            <md-input-container>\r\n                <label>查房记录</label>\r\n                <textarea required name=\"gist\" ng-model=\"check_record[$index].content\"  rows=\"2\"\r\n                          md-select-on-focus>\r\n                    </textarea>\r\n                <div ng-messages=\"projectForm.gist.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\r\n                <md-button class=\"md-raised md-primary\" ng-click=\"addRecord()\">增加记录</md-button>\r\n                <md-button class=\"md-fab md-mini\">\r\n                    {{$index + 1}}\r\n                </md-button>\r\n                <md-button class=\"md-raised md-warn\" ng-click=\"delRecord($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\r\n            </md-card-actions>\r\n        </md-card>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"tabAfterSurgeryCtrl\">\n    <div ng-repeat=\"item in description track by $index\">\n        <div ng-include=\"'html/widget/after_surgery_record.html'\"></div>\n    </div>\n</div>"
 
 /***/ },
 /* 78 */
 /***/ function(module, exports) {
 
-	module.exports = "<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-datetime-inline init-datatime=\"description[$index].date\" datetime-mode=\"datetime\"\r\n                                placeholder=\"时间\"\r\n                                date-changed=\"dateChange()\">\r\n            </md-datetime-inline>\r\n            <md-input-container>\r\n                <label>术后病程</label>\r\n                <textarea required name=\"content\" ng-model=\"description[$index].content\"  rows=\"2\"\r\n                          md-select-on-focus>\r\n                    </textarea>\r\n                <div ng-messages=\"projectForm.content.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\r\n                <md-button class=\"md-raised md-primary\" ng-click=\"addRecord()\">增加记录</md-button>\r\n                <md-button class=\"md-fab md-mini\">\r\n                    {{$index + 1}}\r\n                </md-button>\r\n                <md-button class=\"md-raised md-warn\" ng-click=\"delRecord($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\r\n            </md-card-actions>\r\n        </md-card>\r\n    </div>\r\n</div>"
+	module.exports = "<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <md-datetime-inline init-datatime=\"leave.in_date\" datetime-mode=\"date\" placeholder=\"入院时间\"\n                                date-changed=\"dateChange()\">\n            </md-datetime-inline>\n        </md-card>\n    </div>\n\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <md-datetime-inline init-datatime=\"leave.out_date\" datetime-mode=\"date\" placeholder=\"出院时间\"\n                                date-changed=\"dateChange()\">\n            </md-datetime-inline>\n        </md-card>\n    </div>\n</div>\n\n<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <md-input-container>\n                <label>入院病情描述</label>\n                <textarea required name=\"description\" ng-model=\"leave.description\" rows=\"1\" md-select-on-focus></textarea>\n                <div ng-messages=\"projectForm.description.$error\">\n                    <div ng-message=\"required\">必填</div>\n                </div>\n            </md-input-container>\n        </md-card>\n    </div>\n</div>\n\n<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <md-input-container>\n                <label>初步诊断</label>\n                <input required name=\"init_diag\" ng-model=\"leave.init_diag\">\n                <div ng-messages=\"projectForm.init_diag.$error\">\n                    <div ng-message=\"required\">必填</div>\n                </div>\n            </md-input-container>\n        </md-card>\n    </div>\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <md-input-container>\n                <label>出院诊断</label>\n                <input required name=\"leave_diag\" ng-model=\"leave.leave_diag\">\n                <div ng-messages=\"projectForm.leave_diag.$error\">\n                    <div ng-message=\"required\">必填</div>\n                </div>\n            </md-input-container>\n        </md-card>\n    </div>\n</div>\n\n<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <md-input-container>\n                <label>治疗过程</label>\n                <textarea required name=\"treatment\" ng-model=\"leave.treatment\" rows=\"2\" md-select-on-focus></textarea>\n                <div ng-messages=\"projectForm.treatment.$error\">\n                    <div ng-message=\"required\">必填</div>\n                </div>\n            </md-input-container>\n        </md-card>\n    </div>\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <md-input-container>\n                <label>出院医嘱</label>\n                <textarea required name=\"advice\" ng-model=\"leave.advice\" rows=\"2\" md-select-on-focus></textarea>\n                <div ng-messages=\"projectForm.advice.$error\">\n                    <div ng-message=\"required\">必填</div>\n                </div>\n            </md-input-container>\n        </md-card>\n    </div>\n</div>"
 
 /***/ },
 /* 79 */
 /***/ function(module, exports) {
 
-	module.exports = "<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <div layout=\"row\">\r\n                <md-datetime-inline flex=\"30\" init-datatime=\"long_items[$index].start_datetime\" datetime-mode=\"datetime\" placeholder=\"开始时间\"\r\n                                    date-changed=\"dateChange()\">\r\n                </md-datetime-inline>\r\n                <md-input-container flex>\r\n                    <label>医嘱</label>\r\n                    <input required name=\"medical_order\" ng-model=\"long_items[$index].medical_order\">\r\n                    <div ng-messages=\"projectForm.medical_order.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n\r\n            </div>\r\n\r\n            <div layout=\"row\">\r\n                <md-datetime-inline flex=\"30\" init-datatime=\"long_items[$index].start_execute_datetime\" datetime-mode=\"datetime\"\r\n                                    placeholder=\"开始执行时间\"\r\n                                    date-changed=\"dateChange()\">\r\n                </md-datetime-inline>\r\n                <md-input-container flex>\r\n                    <label>开始执行医生</label>\r\n                    <input required name=\"start_execute_doctor\" ng-model=\"long_items[$index].start_execute_doctor\">\r\n                    <div ng-messages=\"projectForm.start_execute_doctor.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n                <md-input-container flex>\r\n                    <label>开始执行护士</label>\r\n                    <input required name=\"start_execute_nurse\" ng-model=\"long_items[$index].start_execute_nurse\">\r\n                    <div ng-messages=\"projectForm.start_execute_nurse.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </div>\r\n\r\n            <div layout=\"row\">\r\n                <md-datetime-inline flex=\"30\" init-datatime=\"long_items[$index].stop_datetime\" datetime-mode=\"datetime\"\r\n                                    placeholder=\"停止时间\"\r\n                                    date-changed=\"dateChange()\">\r\n                </md-datetime-inline>\r\n                <md-input-container flex>\r\n                    <label>停止执行医生</label>\r\n                    <input required name=\"stop_execute_doctor\" ng-model=\"long_items[$index].stop_execute_doctor\">\r\n                    <div ng-messages=\"projectForm.stop_execute_doctor.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n                <md-input-container flex>\r\n                    <label>停止执行护士</label>\r\n                    <input required name=\"stop_execute_nurse\" ng-model=\"long_items[$index].stop_execute_nurse\">\r\n                    <div ng-messages=\"projectForm.stop_execute_nurse.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </div>\r\n\r\n            <md-datetime-inline  init-datatime=\"long_items[$index].stop_execute_datetime\" datetime-mode=\"datetime\"\r\n                                placeholder=\"停止执行时间\"\r\n                                date-changed=\"dateChange()\">\r\n            </md-datetime-inline>\r\n\r\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\r\n                <md-button class=\"md-raised md-primary\" ng-click=\"addRecord()\">增加记录</md-button>\r\n                <md-button class=\"md-fab md-mini\">\r\n                    {{$index + 1}}\r\n                </md-button>\r\n                <md-button class=\"md-raised md-warn\" ng-click=\"delRecord($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\r\n            </md-card-actions>\r\n\r\n        </md-card>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"tabTempMedicalOrdersCtrl\">\n    <div ng-repeat=\"index in temp_items track by $index\">\n        <div ng-include=\"'html/widget/temp_medical_orders.html'\"></div>\n    </div>\n</div>"
 
 /***/ },
 /* 80 */
 /***/ function(module, exports) {
 
-	module.exports = "<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <div layout=\"row\">\r\n                <md-datetime-inline flex=\"30\" init-datatime=\"temp_items[$index].start_datetime\" datetime-mode=\"datetime\" placeholder=\"开始时间\"\r\n                                    date-changed=\"dateChange()\">\r\n                </md-datetime-inline>\r\n                <md-input-container flex>\r\n                    <label>医嘱</label>\r\n                    <input required name=\"medical_order\" ng-model=\"temp_items[$index].medical_order\">\r\n                    <div ng-messages=\"projectForm.medical_order.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n                <md-input-container flex>\r\n                    <label>执行医生</label>\r\n                    <input required name=\"start_execute_doctor\" ng-model=\"temp_items[$index].start_execute_doctor\">\r\n                    <div ng-messages=\"projectForm.start_execute_doctor.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n\r\n            </div>\r\n\r\n            <div layout=\"row\">\r\n                <md-datetime-inline flex=\"30\" init-datatime=\"temp_items[$index].start_execute_datetime\" datetime-mode=\"datetime\"\r\n                                    placeholder=\"执行时间\"\r\n                                    date-changed=\"dateChange()\">\r\n                </md-datetime-inline>\r\n                <md-input-container flex>\r\n                    <label>执行护士</label>\r\n                    <input required name=\"start_execute_nurse\" ng-model=\"temp_items[$index].start_execute_nurse\">\r\n                    <div ng-messages=\"projectForm.start_execute_nurse.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n                <md-input-container flex>\r\n                    <label>核对人</label>\r\n                    <input required name=\"start_execute_doctor\" ng-model=\"temp_items[$index].start_execute_doctor\">\r\n                    <div ng-messages=\"projectForm.start_execute_doctor.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n\r\n            </div>\r\n\r\n\r\n\r\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\r\n                <md-button class=\"md-raised md-primary\" ng-click=\"addRecord()\">增加记录</md-button>\r\n                <md-button class=\"md-fab md-mini\">\r\n                    {{$index + 1}}\r\n                </md-button>\r\n                <md-button class=\"md-raised md-warn\" ng-click=\"delRecord($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\r\n            </md-card-actions>\r\n\r\n        </md-card>\r\n    </div>\r\n</div>"
+	module.exports = "<div ng-controller=\"tabLongMedicalOrdersCtrl\">\n    <div ng-repeat=\"index in long_items track by $index\">\n        <div ng-include=\"'html/widget/long_medical_orders.html'\"></div>\n    </div>\n</div>"
 
 /***/ },
 /* 81 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	// support for Browserify
-
-	__webpack_require__(23);
-	__webpack_require__(82);
-
-	module.exports = 'md.data.table';
-
+	module.exports = "<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <md-datetime-inline init-datatime=\"check_record[$index].date\" datetime-mode=\"datetime\"\n                                placeholder=\"查房时间\"\n                                date-changed=\"dateChange()\">\n            </md-datetime-inline>\n            <md-input-container>\n                <label>查房记录</label>\n                <textarea required name=\"gist\" ng-model=\"check_record[$index].content\"  rows=\"2\"\n                          md-select-on-focus>\n                    </textarea>\n                <div ng-messages=\"projectForm.gist.$error\">\n                    <div ng-message=\"required\">必填</div>\n                </div>\n            </md-input-container>\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-raised md-primary\" ng-click=\"addRecord()\">增加记录</md-button>\n                <md-button class=\"md-fab md-mini\">\n                    {{$index + 1}}\n                </md-button>\n                <md-button class=\"md-raised md-warn\" ng-click=\"delRecord($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\n            </md-card-actions>\n        </md-card>\n    </div>\n</div>"
 
 /***/ },
 /* 82 */
 /***/ function(module, exports) {
 
-	/*
-	 * Angular Material Data Table
-	 * https://github.com/daniel-nagy/md-data-table
-	 * @license MIT
-	 * v0.10.9
-	 */
-	(function (window, angular, undefined) {
-	'use strict';
-
-	angular.module('md.table.templates', ['md-table-pagination.html', 'md-table-progress.html', 'arrow-up.svg', 'navigate-before.svg', 'navigate-first.svg', 'navigate-last.svg', 'navigate-next.svg']);
-
-	angular.module('md-table-pagination.html', []).run(['$templateCache', function($templateCache) {
-	  $templateCache.put('md-table-pagination.html',
-	    '<div class="page-select" ng-if="$pagination.showPageSelect()">\n' +
-	    '  <div class="label">{{$pagination.label.page}}</div>\n' +
-	    '\n' +
-	    '  <md-select virtual-page-select total="{{$pagination.pages()}}" class="md-table-select" ng-model="$pagination.page" md-container-class="md-pagination-select" ng-change="$pagination.onPaginationChange()" ng-disabled="$pagination.disabled" aria-label="Page">\n' +
-	    '    <md-content>\n' +
-	    '      <md-option ng-repeat="page in $pageSelect.pages" ng-value="page">{{page}}</md-option>\n' +
-	    '    </md-content>\n' +
-	    '  </md-select>\n' +
-	    '</div>\n' +
-	    '\n' +
-	    '<div class="limit-select" ng-if="$pagination.limitOptions">\n' +
-	    '  <div class="label">{{$pagination.label.rowsPerPage}}</div>\n' +
-	    '\n' +
-	    '  <md-select class="md-table-select" ng-model="$pagination.limit" md-container-class="md-pagination-select" ng-disabled="$pagination.disabled" aria-label="Rows" placeholder="{{ $pagination.limitOptions[0] }}">\n' +
-	    '    <md-option ng-repeat="option in $pagination.limitOptions" ng-value="option.value ? $pagination.eval(option.value) : option">{{::option.label ? option.label : option}}</md-option>\n' +
-	    '  </md-select>\n' +
-	    '</div>\n' +
-	    '\n' +
-	    '<div class="buttons">\n' +
-	    '  <div class="label">{{$pagination.min()}} - {{$pagination.max()}} {{$pagination.label.of}} {{$pagination.total}}</div>\n' +
-	    '\n' +
-	    '  <md-button class="md-icon-button" type="button" ng-if="$pagination.showBoundaryLinks()" ng-click="$pagination.first()" ng-disabled="$pagination.disabled || !$pagination.hasPrevious()" aria-label="First">\n' +
-	    '    <md-icon md-svg-icon="navigate-first.svg"></md-icon>\n' +
-	    '  </md-button>\n' +
-	    '\n' +
-	    '  <md-button class="md-icon-button" type="button" ng-click="$pagination.previous()" ng-disabled="$pagination.disabled || !$pagination.hasPrevious()" aria-label="Previous">\n' +
-	    '    <md-icon md-svg-icon="navigate-before.svg"></md-icon>\n' +
-	    '  </md-button>\n' +
-	    '\n' +
-	    '  <md-button class="md-icon-button" type="button" ng-click="$pagination.next()" ng-disabled="$pagination.disabled || !$pagination.hasNext()" aria-label="Next">\n' +
-	    '    <md-icon md-svg-icon="navigate-next.svg"></md-icon>\n' +
-	    '  </md-button>\n' +
-	    '\n' +
-	    '  <md-button class="md-icon-button" type="button" ng-if="$pagination.showBoundaryLinks()" ng-click="$pagination.last()" ng-disabled="$pagination.disabled || !$pagination.hasNext()" aria-label="Last">\n' +
-	    '    <md-icon md-svg-icon="navigate-last.svg"></md-icon>\n' +
-	    '  </md-button>\n' +
-	    '</div>');
-	}]);
-
-	angular.module('md-table-progress.html', []).run(['$templateCache', function($templateCache) {
-	  $templateCache.put('md-table-progress.html',
-	    '<tr>\n' +
-	    '  <th colspan="{{columnCount()}}">\n' +
-	    '    <md-progress-linear ng-show="deferred()" md-mode="indeterminate"></md-progress-linear>\n' +
-	    '  </th>\n' +
-	    '</tr>');
-	}]);
-
-	angular.module('arrow-up.svg', []).run(['$templateCache', function($templateCache) {
-	  $templateCache.put('arrow-up.svg',
-	    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg>');
-	}]);
-
-	angular.module('navigate-before.svg', []).run(['$templateCache', function($templateCache) {
-	  $templateCache.put('navigate-before.svg',
-	    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>');
-	}]);
-
-	angular.module('navigate-first.svg', []).run(['$templateCache', function($templateCache) {
-	  $templateCache.put('navigate-first.svg',
-	    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M7 6 v12 h2 v-12 h-2z M17.41 7.41L16 6l-6 6 6 6 1.41-1.41L12.83 12z"/></svg>');
-	}]);
-
-	angular.module('navigate-last.svg', []).run(['$templateCache', function($templateCache) {
-	  $templateCache.put('navigate-last.svg',
-	    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M15 6 v12 h2 v-12 h-2z M8 6L6.59 7.41 11.17 12l-4.58 4.59L8 18l6-6z"/></svg>');
-	}]);
-
-	angular.module('navigate-next.svg', []).run(['$templateCache', function($templateCache) {
-	  $templateCache.put('navigate-next.svg',
-	    '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>');
-	}]);
-
-
-	angular.module('md.data.table', ['md.table.templates']);
-
-	angular.module('md.data.table').directive('mdBody', mdBody);
-
-	function mdBody() {
-
-	  function compile(tElement) {
-	    tElement.addClass('md-body');
-	  }
-
-	  return {
-	    compile: compile,
-	    restrict: 'A'
-	  };
-	}
-
-	angular.module('md.data.table').directive('mdCell', mdCell);
-
-	function mdCell() {
-	  
-	  function compile(tElement) {
-	    var select = tElement.find('md-select');
-	    
-	    if(select.length) {
-	      select.addClass('md-table-select').attr('md-container-class', 'md-table-select');
-	    }
-	    
-	    tElement.addClass('md-cell');
-	    
-	    return postLink;
-	  }
-	  
-	  // empty controller to be bind properties to in postLink function
-	  function Controller() {
-	    
-	  }
-	  
-	  function postLink(scope, element, attrs, ctrls) {
-	    var select = element.find('md-select');
-	    var cellCtrl = ctrls.shift();
-	    var tableCtrl = ctrls.shift();
-	    
-	    if(attrs.ngClick) {
-	      element.addClass('md-clickable');
-	    }
-	    
-	    if(select.length) {
-	      select.on('click', function (event) {
-	        event.stopPropagation();
-	      });
-	      
-	      element.addClass('md-clickable').on('click', function (event) {
-	        event.stopPropagation();
-	        select[0].click();
-	      });
-	    }
-	    
-	    cellCtrl.getTable = tableCtrl.getElement;
-	    
-	    function getColumn() {
-	      return tableCtrl.$$columns[getIndex()];
-	    }
-	    
-	    function getIndex() {
-	      return Array.prototype.indexOf.call(element.parent().children(), element[0]);
-	    }
-	    
-	    scope.$watch(getColumn, function (column) {
-	      if(!column) {
-	        return;
-	      }
-	      
-	      if(column.numeric) {
-	        element.addClass('md-numeric');
-	      } else {
-	        element.removeClass('md-numeric');
-	      }
-	    });
-	  }
-	  
-	  return {
-	    controller: Controller,
-	    compile: compile,
-	    require: ['mdCell', '^^mdTable'],
-	    restrict: 'A'
-	  };
-	}
-
-	angular.module('md.data.table').directive('mdColumn', mdColumn);
-
-	function mdColumn($compile, $mdUtil) {
-
-	  function compile(tElement) {
-	    tElement.addClass('md-column');
-	    return postLink;
-	  }
-
-	  function postLink(scope, element, attrs, ctrls) {
-	    var headCtrl = ctrls.shift();
-	    var tableCtrl = ctrls.shift();
-
-	    function attachSortIcon() {
-	      var sortIcon = angular.element('<md-icon md-svg-icon="arrow-up.svg">');
-
-	      $compile(sortIcon.addClass('md-sort-icon').attr('ng-class', 'getDirection()'))(scope);
-
-	      if(element.hasClass('md-numeric')) {
-	        element.prepend(sortIcon);
-	      } else {
-	        element.append(sortIcon);
-	      }
-	    }
-
-	    function detachSortIcon() {
-	      Array.prototype.some.call(element.find('md-icon'), function (icon) {
-	        return icon.classList.contains('md-sort-icon') && element[0].removeChild(icon);
-	      });
-	    }
-
-	    function disableSorting() {
-	      detachSortIcon();
-	      element.removeClass('md-sort').off('click', setOrder);
-	    }
-
-	    function enableSorting() {
-	      attachSortIcon();
-	      element.addClass('md-sort').on('click', setOrder);
-	    }
-
-	    function getIndex() {
-	      return Array.prototype.indexOf.call(element.parent().children(), element[0]);
-	    }
-
-	    function isActive() {
-	      return scope.orderBy && (headCtrl.order === scope.orderBy || headCtrl.order === '-' + scope.orderBy);
-	    }
-
-	    function isNumeric() {
-	      return attrs.mdNumeric === '' || scope.numeric;
-	    }
-
-	    function setOrder() {
-	      scope.$applyAsync(function () {
-	        if(isActive()) {
-	          headCtrl.order = scope.getDirection() === 'md-asc' ? '-' + scope.orderBy : scope.orderBy;
-	        } else {
-	          headCtrl.order = scope.getDirection() === 'md-asc' ? scope.orderBy : '-' + scope.orderBy;
-	        }
-
-	        if(angular.isFunction(headCtrl.onReorder)) {
-	          $mdUtil.nextTick(function () {
-	            headCtrl.onReorder(headCtrl.order);
-	          });
-	        }
-	      });
-	    }
-
-	    function updateColumn(index, column) {
-	      tableCtrl.$$columns[index] = column;
-
-	      if(column.numeric) {
-	        element.addClass('md-numeric');
-	      } else {
-	        element.removeClass('md-numeric');
-	      }
-	    }
-
-	    scope.getDirection = function () {
-	      if(isActive()) {
-	        return headCtrl.order.charAt(0) === '-' ? 'md-desc' : 'md-asc';
-	      }
-
-	      return attrs.mdDesc === '' || scope.$eval(attrs.mdDesc) ? 'md-desc' : 'md-asc';
-	    };
-
-	    scope.$watch(isActive, function (active) {
-	      if(active) {
-	        element.addClass('md-active');
-	      } else {
-	        element.removeClass('md-active');
-	      }
-	    });
-
-	    scope.$watch(getIndex, function (index) {
-	      updateColumn(index, {'numeric': isNumeric()});
-	    });
-
-	    scope.$watch(isNumeric, function (numeric) {
-	      updateColumn(getIndex(), {'numeric': numeric});
-	    });
-
-	    scope.$watch('orderBy', function (orderBy) {
-	      if(orderBy) {
-	        if(!element.hasClass('md-sort')) {
-	          enableSorting();
-	        }
-	      } else if(element.hasClass('md-sort')) {
-	        disableSorting();
-	      }
-	    });
-	  }
-
-	  return {
-	    compile: compile,
-	    require: ['^^mdHead', '^^mdTable'],
-	    restrict: 'A',
-	    scope: {
-	      numeric: '=?mdNumeric',
-	      orderBy: '@?mdOrderBy'
-	    }
-	  };
-	}
-
-	mdColumn.$inject = ['$compile', '$mdUtil'];
-
-	angular.module('md.data.table')
-	  .decorator('$controller', controllerDecorator)
-	  .factory('$mdEditDialog', mdEditDialog);
-
-	/*
-	 * A decorator for ng.$controller to optionally bind properties to the
-	 * controller before invoking the constructor. Stolen from the ngMock.
-	 *
-	 * https://docs.angularjs.org/api/ngMock/service/$controller
-	 */
-	function controllerDecorator($delegate) {
-	  return function(expression, locals, later, ident) {
-	    if(later && typeof later === 'object') {
-	      var create = $delegate(expression, locals, true, ident);
-	      angular.extend(create.instance, later);
-	      return create();
-	    }
-	    return $delegate(expression, locals, later, ident);
-	  };
-	}
-
-	controllerDecorator.$inject = ['$delegate'];
-	  
-	function mdEditDialog($compile, $controller, $document, $mdUtil, $q, $rootScope, $templateCache, $templateRequest, $window) {
-	  /* jshint validthis: true */
-	  
-	  var ESCAPE = 27;
-	  
-	  var busy = false;
-	  var body = angular.element($document.prop('body'));
-	  
-	  /*
-	   * bindToController
-	   * controller
-	   * controllerAs
-	   * locals
-	   * resolve
-	   * scope
-	   * targetEvent
-	   * template
-	   * templateUrl
-	   */
-	  var defaultOptions = {
-	    clickOutsideToClose: true,
-	    disableScroll: true,
-	    escToClose: true,
-	    focusOnOpen: true
-	  };
-	  
-	  function build(template, options) {
-	    var scope = $rootScope.$new();
-	    var element = $compile(template)(scope);
-	    var backdrop = $mdUtil.createBackdrop(scope, 'md-edit-dialog-backdrop');
-	    var controller;
-	    
-	    if(options.controller) {
-	      controller = getController(options, scope, {$element: element, $scope: scope});
-	    } else {
-	      angular.extend(scope, options.scope);
-	    }
-	    
-	    if(options.disableScroll) {
-	      disableScroll(element);
-	    }
-	    
-	    body.prepend(backdrop).append(element.addClass('md-whiteframe-1dp'));
-	    
-	    positionDialog(element, options.target);
-	    
-	    if(options.focusOnOpen) {
-	      focusOnOpen(element);
-	    }
-	    
-	    if(options.clickOutsideToClose) {
-	      backdrop.on('click', function () {
-	        element.remove();
-	      });
-	    }
-	    
-	    if(options.escToClose) {
-	      escToClose(element);
-	    }
-	    
-	    element.on('$destroy', function () {
-	      busy = false;
-	      backdrop.remove();
-	    });
-	    
-	    return controller;
-	  }
-	  
-	  function disableScroll(element) {
-	    var restoreScroll = $mdUtil.disableScrollAround(element, body);
-	    
-	    element.on('$destroy', function () {
-	      restoreScroll();
-	    });
-	  }
-	  
-	  function getController(options, scope, inject) {
-	    if(!options.controller) {
-	      return;
-	    }
-	    
-	    if(options.resolve) {
-	      angular.extend(inject, options.resolve);
-	    }
-	    
-	    if(options.locals) {
-	      angular.extend(inject, options.locals);
-	    }
-	    
-	    if(options.controllerAs) {
-	      scope[options.controllerAs] = {};
-	      
-	      if(options.bindToController) {
-	        angular.extend(scope[options.controllerAs], options.scope);
-	      } else {
-	        angular.extend(scope, options.scope);
-	      }
-	    } else {
-	      angular.extend(scope, options.scope);
-	    }
-	    
-	    if(options.bindToController) {
-	      return $controller(options.controller, inject, scope[options.controllerAs]);
-	    } else {
-	      return $controller(options.controller, inject);
-	    }
-	  }
-	  
-	  function getTemplate(options) {
-	    return $q(function (resolve, reject) {
-	      var template = options.template;
-	      
-	      function illegalType(type) {
-	        reject('Unexpected template value. Expected a string; received a ' + type + '.');
-	      }
-	      
-	      if(template) {
-	        return angular.isString(template) ? resolve(template) : illegalType(typeof template);
-	      }
-	      
-	      if(options.templateUrl) {
-	        template = $templateCache.get(options.templateUrl);
-	        
-	        if(template) {
-	          return resolve(template);
-	        }
-	        
-	        var success = function (template) {
-	          return resolve(template);
-	        };
-	        
-	        var error = function () {
-	          return reject('Error retrieving template from URL.');
-	        };
-	        
-	        return $templateRequest(options.templateUrl).then(success, error);
-	      }
-	      
-	      reject('Template not provided.');
-	    });
-	  }
-	  
-	  function logError(error) {
-	    busy = false;
-	    console.error(error);
-	  }
-	  
-	  function escToClose(element) {
-	    var keyup = function (event) {
-	      if(event.keyCode === ESCAPE) {
-	        element.remove();
-	      }
-	    };
-	    
-	    body.on('keyup', keyup);
-	    
-	    element.on('$destroy', function () {
-	      body.off('keyup', keyup);
-	    });
-	  }
-
-	  function focusOnOpen(element) {
-	    $mdUtil.nextTick(function () {
-	      var autofocus = $mdUtil.findFocusTarget(element);
-	      
-	      if(autofocus) {
-	        autofocus.focus();
-	      }
-	    }, false);
-	  }
-
-	  function positionDialog(element, target) {
-	    var table = angular.element(target).controller('mdCell').getTable();
-	    
-	    var getHeight = function () {
-	      return element.prop('clientHeight');
-	    };
-	    
-	    var getSize = function () {
-	      return {
-	        width: getWidth(),
-	        height: getHeight()
-	      };
-	    };
-	    
-	    var getTableBounds = function () {
-	      var parent = table.parent();
-	      
-	      if(parent.prop('tagName') === 'MD-TABLE-CONTAINER') {
-	        return parent[0].getBoundingClientRect();
-	      } else {
-	        return table[0].getBoundingClientRect();
-	      }
-	    };
-	    
-	    var getWidth = function () {
-	      return element.prop('clientWidth');
-	    };
-	    
-	    var reposition = function () {
-	      var size = getSize();
-	      var cellBounds = target.getBoundingClientRect();
-	      var tableBounds = getTableBounds();
-	      
-	      if(size.width > tableBounds.right - cellBounds.left) {
-	        element.css('left', tableBounds.right - size.width + 'px');
-	      } else {
-	        element.css('left', cellBounds.left + 'px');
-	      }
-	      
-	      if(size.height > tableBounds.bottom - cellBounds.top) {
-	        element.css('top', tableBounds.bottom - size.height + 'px');
-	      } else {
-	        element.css('top', cellBounds.top + 1 + 'px');
-	      }
-	      
-	      element.css('minWidth', cellBounds.width + 'px');
-	    };
-	    
-	    var watchWidth = $rootScope.$watch(getWidth, reposition);
-	    var watchHeight = $rootScope.$watch(getHeight, reposition);
-	    
-	    $window.addEventListener('resize', reposition);
-	    
-	    element.on('$destroy', function () {
-	      watchWidth();
-	      watchHeight();
-	      
-	      $window.removeEventListener('resize', reposition);
-	    });
-	  }
-	  
-	  function preset(size, options) {
-	    
-	    function getAttrs() {
-	      var attrs = 'type="' + (options.type || 'text') + '"';
-	      
-	      for(var attr in options.validators) {
-	        attrs += ' ' + attr + '="' + options.validators[attr] + '"';
-	      }
-	      
-	      return attrs;
-	    }
-	    
-	    return {
-	      controller: ['$element', '$q', 'save', '$scope', function ($element, $q, save, $scope) {
-	        function update() {
-	          if($scope.editDialog.$invalid) {
-	            return $q.reject();
-	          }
-	          
-	          if(angular.isFunction(save)) {
-	            return $q.when(save($scope.editDialog.input));
-	          }
-	          
-	          return $q.resolve();
-	        }
-	        
-	        this.dismiss = function () {
-	          $element.remove();
-	        };
-	        
-	        this.getInput = function () {
-	          return $scope.editDialog.input;
-	        };
-	        
-	        $scope.dismiss = this.dismiss;
-	        
-	        $scope.submit = function () {
-	          update().then(function () {
-	            $scope.dismiss();
-	          });
-	        };
-	      }],
-	      locals: {
-	        save: options.save
-	      },
-	      scope: {
-	        cancel: options.cancel || 'Cancel',
-	        messages: options.messages,
-	        model: options.modelValue,
-	        ok: options.ok || 'Save',
-	        placeholder: options.placeholder,
-	        title: options.title,
-	        size: size
-	      },
-	      template:
-	        '<md-edit-dialog>' +
-	          '<div layout="column" class="md-content">' +
-	            '<div ng-if="size === \'large\'" class="md-title">{{title || \'Edit\'}}</div>' +
-	            '<form name="editDialog" layout="column" ng-submit="submit(model)">' +
-	              '<md-input-container md-no-float>' +
-	                '<input name="input" ng-model="model" md-autofocus placeholder="{{placeholder}} "' + getAttrs() + '>' +
-	                '<div ng-messages="editDialog.input.$error">' +
-	                  '<div ng-repeat="(key, message) in messages" ng-message="{{key}}">{{message}}</div>' +
-	                '</div>' +
-	              '</md-input-container>' +
-	            '</form>' +
-	          '</div>' +
-	          '<div ng-if="size === \'large\'" layout="row" layout-align="end" class="md-actions">' +
-	            '<md-button class="md-primary" ng-click="dismiss()">{{cancel}}</md-button>' +
-	            '<md-button class="md-primary" ng-click="submit()">{{ok}}</md-button>' +
-	          '</div>' +
-	        '</md-edit-dialog>'
-	    };
-	  }
-	  
-	  this.show = function (options) {
-	    if(busy) {
-	      return $q.reject();
-	    }
-	    
-	    busy = true;
-	    options = angular.extend({}, defaultOptions, options);
-	    
-	    if(!options.targetEvent) {
-	      return logError('options.targetEvent is required to align the dialog with the table cell.');
-	    }
-	    
-	    if(!options.targetEvent.currentTarget.classList.contains('md-cell')) {
-	      return logError('The event target must be a table cell.');
-	    }
-	    
-	    if(options.bindToController && !options.controllerAs) {
-	      return logError('You must define options.controllerAs when options.bindToController is true.');
-	    }
-	    
-	    options.target = options.targetEvent.currentTarget;
-	    
-	    var promise = getTemplate(options);
-	    var promises = [promise];
-	    
-	    for(var prop in options.resolve) {
-	      promise = options.resolve[prop];
-	      promises.push($q.when(angular.isFunction(promise) ? promise() : promise));
-	    }
-	    
-	    promise = $q.all(promises);
-	    
-	    promise['catch'](logError);
-	    
-	    return promise.then(function (results) {
-	      var template = results.shift();
-	      
-	      for(var prop in options.resolve) {
-	        options.resolve[prop] = results.shift();
-	      }
-	      
-	      return build(template, options);
-	    });
-	  };
-	  
-	  this.small = function (options) {
-	    return this.show(angular.extend({}, options, preset('small', options)));
-	  }.bind(this);
-	  
-	  this.large = function (options) {
-	    return this.show(angular.extend({}, options, preset('large', options)));
-	  }.bind(this);
-	  
-	  return this;
-	}
-
-	mdEditDialog.$inject = ['$compile', '$controller', '$document', '$mdUtil', '$q', '$rootScope', '$templateCache', '$templateRequest', '$window'];
-
-
-	angular.module('md.data.table').directive('mdFoot', mdFoot);
-
-	function mdFoot() {
-
-	  function compile(tElement) {
-	    tElement.addClass('md-foot');
-	  }
-
-	  return {
-	    compile: compile,
-	    restrict: 'A'
-	  };
-	}
-
-	angular.module('md.data.table').directive('mdHead', mdHead);
-
-	function mdHead($compile) {
-
-	  function compile(tElement) {
-	    tElement.addClass('md-head');
-	    return postLink;
-	  }
-	  
-	  // empty controller to be bind scope properties to
-	  function Controller() {
-	    
-	  }
-	  
-	  function postLink(scope, element, attrs, tableCtrl) {
-	    // because scope.$watch is unpredictable
-	    var oldValue = new Array(2);
-	    
-	    function addCheckboxColumn() {
-	      element.children().prepend('<th class="md-column md-checkbox-column">');
-	    }
-	    
-	    function attatchCheckbox() {
-	      element.prop('lastElementChild').firstElementChild.appendChild($compile(createCheckBox())(scope)[0]);
-	    }
-	    
-	    function createCheckBox() {
-	      return angular.element('<md-checkbox>').attr({
-	        'aria-label': 'Select All',
-	        'ng-click': 'toggleAll()',
-	        'ng-checked': 'allSelected()',
-	        'ng-disabled': '!getSelectableRows().length'
-	      });
-	    }
-	    
-	    function detachCheckbox() {
-	      var cell = element.prop('lastElementChild').firstElementChild;
-	      
-	      if(cell.classList.contains('md-checkbox-column')) {
-	        angular.element(cell).empty();
-	      }
-	    }
-	    
-	    function enableRowSelection() {
-	      return tableCtrl.$$rowSelect;
-	    }
-	    
-	    function mdSelectCtrl(row) {
-	      return angular.element(row).controller('mdSelect');
-	    }
-	    
-	    function removeCheckboxColumn() {
-	      Array.prototype.some.call(element.find('th'), function (cell) {
-	        return cell.classList.contains('md-checkbox-column') && cell.remove();
-	      });
-	    }
-	    
-	    scope.allSelected = function () {
-	      var rows = scope.getSelectableRows();
-	      
-	      return rows.length && rows.every(function (row) {
-	        return row.isSelected();
-	      });
-	    };
-	    
-	    scope.getSelectableRows = function () {
-	      return tableCtrl.getBodyRows().map(mdSelectCtrl).filter(function (ctrl) {
-	        return ctrl && !ctrl.disabled;
-	      });
-	    };
-	    
-	    scope.selectAll = function () {
-	      tableCtrl.getBodyRows().map(mdSelectCtrl).forEach(function (ctrl) {
-	        if(ctrl && !ctrl.isSelected()) {
-	          ctrl.select();
-	        }
-	      });
-	    };
-	    
-	    scope.toggleAll = function () {
-	      return scope.allSelected() ? scope.unSelectAll() : scope.selectAll();
-	    };
-	    
-	    scope.unSelectAll = function () {
-	      tableCtrl.getBodyRows().map(mdSelectCtrl).forEach(function (ctrl) {
-	        if(ctrl && ctrl.isSelected()) {
-	          ctrl.deselect();
-	        }
-	      });
-	    };
-	    
-	    scope.$watchGroup([enableRowSelection, tableCtrl.enableMultiSelect], function (newValue) {
-	      if(newValue[0] !== oldValue[0]) {
-	        if(newValue[0]) {
-	          addCheckboxColumn();
-	          
-	          if(newValue[1]) {
-	            attatchCheckbox();
-	          }
-	        } else {
-	          removeCheckboxColumn();
-	        }
-	      } else if(newValue[0] && newValue[1] !== oldValue[1]) {
-	        if(newValue[1]) {
-	          attatchCheckbox();
-	        } else {
-	          detachCheckbox();
-	        }
-	      }
-	      
-	      angular.copy(newValue, oldValue);
-	    });
-	  }
-	  
-	  return {
-	    bindToController: true,
-	    compile: compile,
-	    controller: Controller,
-	    controllerAs: '$mdHead',
-	    require: '^^mdTable',
-	    restrict: 'A',
-	    scope: {
-	      order: '=?mdOrder',
-	      onReorder: '=?mdOnReorder'
-	    }
-	  };
-	}
-
-	mdHead.$inject = ['$compile'];
-
-	angular.module('md.data.table').directive('mdRow', mdRow);
-
-	function mdRow() {
-
-	  function compile(tElement) {
-	    tElement.addClass('md-row');
-	    return postLink;
-	  }
-	  
-	  function postLink(scope, element, attrs, tableCtrl) {
-	    function enableRowSelection() {
-	      return tableCtrl.$$rowSelect;
-	    }
-	    
-	    function isBodyRow() {
-	      return tableCtrl.getBodyRows().indexOf(element[0]) !== -1;
-	    }
-	    
-	    function isChild(node) {
-	      return element[0].contains(node[0]);
-	    }
-	    
-	    if(isBodyRow()) {
-	      var cell = angular.element('<td class="md-cell">');
-	      
-	      scope.$watch(enableRowSelection, function (enable) {
-	        // if a row is not selectable, prepend an empty cell to it
-	        if(enable && !attrs.mdSelect) {
-	          if(!isChild(cell)) {
-	            element.prepend(cell);
-	          }
-	          return;
-	        }
-	        
-	        if(isChild(cell)) {
-	          cell.remove();
-	        }
-	      });
-	    }
-	  }
-
-	  return {
-	    compile: compile,
-	    require: '^^mdTable',
-	    restrict: 'A'
-	  };
-	}
-
-	angular.module('md.data.table').directive('mdSelect', mdSelect);
-
-	function mdSelect($compile, $parse) {
-
-	  // empty controller to bind scope properties to
-	  function Controller() {
-
-	  }
-
-	  function postLink(scope, element, attrs, ctrls) {
-	    var self = ctrls.shift();
-	    var tableCtrl = ctrls.shift();
-	    var getId = $parse(attrs.mdSelectId);
-
-	    self.id = getId(self.model);
-
-	    if(tableCtrl.$$rowSelect && self.id) {
-	      if(tableCtrl.$$hash.has(self.id)) {
-	        var index = tableCtrl.selected.indexOf(tableCtrl.$$hash.get(self.id));
-
-	        // if the item is no longer selected remove it
-	        if(index === -1) {
-	          tableCtrl.$$hash.purge(self.id);
-	        }
-
-	        // if the item is not a reference to the current model update the reference
-	        else if(!tableCtrl.$$hash.equals(self.id, self.model)) {
-	          tableCtrl.$$hash.update(self.id, self.model);
-	          tableCtrl.selected.splice(index, 1, self.model);
-	        }
-
-	      } else {
-
-	        // check if the item has been selected
-	        tableCtrl.selected.some(function (item, index) {
-	          if(getId(item) === self.id) {
-	            tableCtrl.$$hash.update(self.id, self.model);
-	            tableCtrl.selected.splice(index, 1, self.model);
-
-	            return true;
-	          }
-	        });
-	      }
-	    }
-
-	    self.isSelected = function () {
-	      if(!tableCtrl.$$rowSelect) {
-	        return false;
-	      }
-
-	      if(self.id) {
-	        return tableCtrl.$$hash.has(self.id);
-	      }
-
-	      return tableCtrl.selected.indexOf(self.model) !== -1;
-	    };
-
-	    self.select = function () {
-	      if(self.disabled) {
-	        return;
-	      }
-
-	      if(tableCtrl.enableMultiSelect()) {
-	        tableCtrl.selected.push(self.model);
-	      } else {
-	        tableCtrl.selected.splice(0, tableCtrl.selected.length, self.model);
-	      }
-
-	      if(angular.isFunction(self.onSelect)) {
-	        self.onSelect(self.model);
-	      }
-	    };
-
-	    self.deselect = function () {
-	      if(self.disabled) {
-	        return;
-	      }
-
-	      tableCtrl.selected.splice(tableCtrl.selected.indexOf(self.model), 1);
-
-	      if(angular.isFunction(self.onDeselect)) {
-	        self.onDeselect(self.model);
-	      }
-	    };
-
-	    self.toggle = function (event) {
-	      if(event && event.stopPropagation) {
-	        event.stopPropagation();
-	      }
-
-	      return self.isSelected() ? self.deselect() : self.select();
-	    };
-
-	    function autoSelect() {
-	      return attrs.mdAutoSelect === '' || self.autoSelect;
-	    }
-
-	    function createCheckbox() {
-	      var checkbox = angular.element('<md-checkbox>').attr({
-	        'aria-label': 'Select Row',
-	        'ng-click': '$mdSelect.toggle($event)',
-	        'ng-checked': '$mdSelect.isSelected()',
-	        'ng-disabled': '$mdSelect.disabled'
-	      });
-
-	      return angular.element('<td class="md-cell md-checkbox-cell">').append($compile(checkbox)(scope));
-	    }
-
-	    function disableSelection() {
-	      Array.prototype.some.call(element.children(), function (child) {
-	        return child.classList.contains('md-checkbox-cell') && element[0].removeChild(child);
-	      });
-
-	      if(autoSelect()) {
-	        element.off('click', toggle);
-	      }
-	    }
-
-	    function enableSelection() {
-	      element.prepend(createCheckbox());
-
-	      if(autoSelect()) {
-	        element.on('click', toggle);
-	      }
-	    }
-
-	    function enableRowSelection() {
-	      return tableCtrl.$$rowSelect;
-	    }
-
-	    function onSelectChange(selected) {
-	      if(!self.id) {
-	        return;
-	      }
-
-	      if(tableCtrl.$$hash.has(self.id)) {
-	        // check if the item has been deselected
-	        if(selected.indexOf(tableCtrl.$$hash.get(self.id)) === -1) {
-	          tableCtrl.$$hash.purge(self.id);
-	        }
-
-	        return;
-	      }
-
-	      // check if the item has been selected
-	      if(selected.indexOf(self.model) !== -1) {
-	        tableCtrl.$$hash.update(self.id, self.model);
-	      }
-	    }
-
-	    function toggle(event) {
-	      scope.$applyAsync(function () {
-	        self.toggle(event);
-	      });
-	    }
-
-	    scope.$watch(enableRowSelection, function (enable) {
-	      if(enable) {
-	        enableSelection();
-	      } else {
-	        disableSelection();
-	      }
-	    });
-
-	    scope.$watch(autoSelect, function (newValue, oldValue) {
-	      if(newValue === oldValue) {
-	        return;
-	      }
-
-	      if(tableCtrl.$$rowSelect && newValue) {
-	        element.on('click', toggle);
-	      } else {
-	        element.off('click', toggle);
-	      }
-	    });
-
-	    scope.$watch(self.isSelected, function (isSelected) {
-	      return isSelected ? element.addClass('md-selected') : element.removeClass('md-selected');
-	    });
-
-	    scope.$watch(tableCtrl.enableMultiSelect, function (multiple) {
-	      if(tableCtrl.$$rowSelect && !multiple) {
-	        // remove all but the first selected item
-	        tableCtrl.selected.splice(1);
-	      }
-	    });
-
-	    tableCtrl.registerModelChangeListener(onSelectChange);
-
-	    element.on('$destroy', function () {
-	      tableCtrl.removeModelChangeListener(onSelectChange);
-	    });
-	  }
-
-	  return {
-	    bindToController: true,
-	    controller: Controller,
-	    controllerAs: '$mdSelect',
-	    link: postLink,
-	    require: ['mdSelect', '^^mdTable'],
-	    restrict: 'A',
-	    scope: {
-	      model: '=mdSelect',
-	      disabled: '=ngDisabled',
-	      onSelect: '=?mdOnSelect',
-	      onDeselect: '=?mdOnDeselect',
-	      autoSelect: '=mdAutoSelect'
-	    }
-	  };
-	}
-
-	mdSelect.$inject = ['$compile', '$parse'];
-
-	angular.module('md.data.table').directive('mdTable', mdTable);
-
-	function Hash() {
-	  var keys = {};
-	  
-	  this.equals = function (key, item) {
-	    return keys[key] === item;
-	  };
-
-	  this.get = function (key) {
-	    return keys[key];
-	  };
-	  
-	  this.has = function (key) {
-	    return keys.hasOwnProperty(key);
-	  };
-
-	  this.purge = function (key) {
-	    delete keys[key];
-	  };
-	  
-	  this.update = function (key, item) {
-	    keys[key] = item;
-	  };
-	}
-
-	function mdTable() {
-	  
-	  function compile(tElement, tAttrs) {
-	    tElement.addClass('md-table');
-	    
-	    if(tAttrs.hasOwnProperty('mdProgress')) {
-	      var body = tElement.find('tbody')[0];
-	      var progress = angular.element('<thead class="md-table-progress">');
-	      
-	      if(body) {
-	        tElement[0].insertBefore(progress[0], body);
-	      }
-	    }
-	  }
-	  
-	  function Controller($attrs, $element, $q, $scope) {
-	    var self = this;
-	    var queue = [];
-	    var watchListener;
-	    var modelChangeListeners = [];
-	    
-	    self.$$hash = new Hash();
-	    self.$$columns = {};
-	    
-	    function enableRowSelection() {
-	      self.$$rowSelect = true;
-	      
-	      watchListener = $scope.$watchCollection('$mdTable.selected', function (selected) {
-	        modelChangeListeners.forEach(function (listener) {
-	          listener(selected);
-	        });
-	      });
-	      
-	      $element.addClass('md-row-select');
-	    }
-	    
-	    function disableRowSelection() {
-	      self.$$rowSelect = false;
-	      
-	      if(angular.isFunction(watchListener)) {
-	        watchListener();
-	      }
-	      
-	      $element.removeClass('md-row-select');
-	    }
-	    
-	    function resolvePromises() {
-	      if(!queue.length) {
-	        return $scope.$applyAsync();
-	      }
-	      
-	      queue[0]['finally'](function () {
-	        queue.shift();
-	        resolvePromises();
-	      });
-	    }
-	    
-	    function rowSelect() {
-	      return $attrs.mdRowSelect === '' || self.rowSelect;
-	    }
-	    
-	    function validateModel() {
-	      if(!self.selected) {
-	        return console.error('Row selection: ngModel is not defined.');
-	      }
-	      
-	      if(!angular.isArray(self.selected)) {
-	        return console.error('Row selection: Expected an array. Recived ' + typeof self.selected + '.');
-	      }
-	      
-	      return true;
-	    }
-	    
-	    self.columnCount = function () {
-	      return self.getRows($element[0]).reduce(function (count, row) {
-	        return row.cells.length > count ? row.cells.length : count;
-	      }, 0);
-	    };
-	    
-	    self.getRows = function (element) {
-	      return Array.prototype.filter.call(element.rows, function (row) {
-	        return !row.classList.contains('ng-leave');
-	      });
-	    };
-	    
-	    self.getBodyRows = function () {
-	      return Array.prototype.reduce.call($element.prop('tBodies'), function (result, tbody) {
-	        return result.concat(self.getRows(tbody));
-	      }, []);
-	    };
-	    
-	    self.getElement = function () {
-	      return $element;
-	    };
-	    
-	    self.getHeaderRows = function () {
-	      return self.getRows($element.prop('tHead'));
-	    };
-	    
-	    self.enableMultiSelect = function () {
-	      return $attrs.multiple === '' || $scope.$eval($attrs.multiple);
-	    };
-	    
-	    self.waitingOnPromise = function () {
-	      return !!queue.length;
-	    };
-	    
-	    self.queuePromise = function (promise) {
-	      if(!promise) {
-	        return;
-	      }
-	      
-	      if(queue.push(angular.isArray(promise) ? $q.all(promise) : $q.when(promise)) === 1) {
-	        resolvePromises();
-	      }
-	    };
-	    
-	    self.registerModelChangeListener = function (listener) {
-	      modelChangeListeners.push(listener);
-	    };
-	    
-	    self.removeModelChangeListener = function (listener) {
-	      var index = modelChangeListeners.indexOf(listener);
-	      
-	      if(index !== -1) {
-	        modelChangeListeners.splice(index, 1);
-	      }
-	    };
-	    
-	    if($attrs.hasOwnProperty('mdProgress')) {
-	      $scope.$watch('$mdTable.progress', self.queuePromise);
-	    }
-	    
-	    $scope.$watch(rowSelect, function (enable) {
-	      if(enable && !!validateModel()) {
-	        enableRowSelection();
-	      } else {
-	        disableRowSelection();
-	      }
-	    });
-	  }
-	  
-	  Controller.$inject = ['$attrs', '$element', '$q', '$scope'];
-	  
-	  return {
-	    bindToController: true,
-	    compile: compile,
-	    controller: Controller,
-	    controllerAs: '$mdTable',
-	    restrict: 'A',
-	    scope: {
-	      progress: '=?mdProgress',
-	      selected: '=ngModel',
-	      rowSelect: '=mdRowSelect'
-	    }
-	  };
-	}
-
-	angular.module('md.data.table').directive('mdTablePagination', mdTablePagination);
-
-	function mdTablePagination() {
-
-	  function compile(tElement) {
-	    tElement.addClass('md-table-pagination');
-	  }
-
-	  function Controller($attrs, $mdUtil, $scope) {
-	    var self = this;
-	    var defaultLabel = {
-	      page: 'Page:',
-	      rowsPerPage: 'Rows per page:',
-	      of: 'of'
-	    };
-
-	    self.label = angular.copy(defaultLabel);
-
-	    function isPositive(number) {
-	      return parseInt(number, 10) > 0;
-	    }
-
-	    self.eval = function (expression) {
-	      return $scope.$eval(expression);
-	    };
-
-	    self.first = function () {
-	      self.page = 1;
-	      self.onPaginationChange();
-	    };
-
-	    self.hasNext = function () {
-	      return self.page * self.limit < self.total;
-	    };
-
-	    self.hasPrevious = function () {
-	      return self.page > 1;
-	    };
-
-	    self.last = function () {
-	      self.page = self.pages();
-	      self.onPaginationChange();
-	    };
-
-	    self.max = function () {
-	      return self.hasNext() ? self.page * self.limit : self.total;
-	    };
-
-	    self.min = function () {
-	      return isPositive(self.total) ? self.page * self.limit - self.limit + 1 : 0;
-	    };
-
-	    self.next = function () {
-	      self.page++;
-	      self.onPaginationChange();
-	    };
-
-	    self.onPaginationChange = function () {
-	      if(angular.isFunction(self.onPaginate)) {
-	        $mdUtil.nextTick(function () {
-	          self.onPaginate(self.page, self.limit);
-	        });
-	      }
-	    };
-
-	    self.pages = function () {
-	      return isPositive(self.total) ? Math.ceil(self.total / (isPositive(self.limit) ? self.limit : 1)) : 1;
-	    };
-
-	    self.previous = function () {
-	      self.page--;
-	      self.onPaginationChange();
-	    };
-
-	    self.showBoundaryLinks = function () {
-	      return $attrs.mdBoundaryLinks === '' || self.boundaryLinks;
-	    };
-
-	    self.showPageSelect = function () {
-	      return $attrs.mdPageSelect === '' || self.pageSelect;
-	    };
-
-	    $scope.$watch('$pagination.limit', function (newValue, oldValue) {
-	      if(isNaN(newValue) || isNaN(oldValue) || newValue === oldValue) {
-	        return;
-	      }
-
-	      // find closest page from previous min
-	      self.page = Math.floor(((self.page * oldValue - oldValue) + newValue) / (isPositive(newValue) ? newValue : 1));
-	      self.onPaginationChange();
-	    });
-
-	    $attrs.$observe('mdLabel', function (label) {
-	      angular.extend(self.label, defaultLabel, $scope.$eval(label));
-	    });
-
-	    $scope.$watch('$pagination.total', function (newValue, oldValue) {
-	      if(isNaN(newValue) || newValue === oldValue) {
-	        return;
-	      }
-
-	      if(self.page > self.pages()) {
-	        self.last();
-	      }
-	    });
-	  }
-
-	  Controller.$inject = ['$attrs', '$mdUtil', '$scope'];
-
-	  return {
-	    bindToController: {
-	      boundaryLinks: '=?mdBoundaryLinks',
-	      disabled: '=ngDisabled',
-	      limit: '=mdLimit',
-	      page: '=mdPage',
-	      pageSelect: '=?mdPageSelect',
-	      onPaginate: '=?mdOnPaginate',
-	      limitOptions: '=?mdLimitOptions',
-	      total: '@mdTotal'
-	    },
-	    compile: compile,
-	    controller: Controller,
-	    controllerAs: '$pagination',
-	    restrict: 'E',
-	    scope: {},
-	    templateUrl: 'md-table-pagination.html'
-	  };
-	}
-
-	angular.module('md.data.table').directive('mdTableProgress', mdTableProgress);
-
-	function mdTableProgress() {
-
-	  function postLink(scope, element, attrs, tableCtrl) {
-	    scope.columnCount = tableCtrl.columnCount;
-	    scope.deferred = tableCtrl.waitingOnPromise;
-	  }
-
-	  return {
-	    link: postLink,
-	    require: '^^mdTable',
-	    restrict: 'C',
-	    scope: {},
-	    templateUrl: 'md-table-progress.html'
-	  };
-	}
-
-	angular.module('md.data.table').directive('virtualPageSelect', virtualPageSelect);
-
-	function virtualPageSelect() {
-
-	  function Controller($element, $scope) {
-	    var self = this;
-	    var content = $element.find('md-content');
-
-	    self.pages = [];
-
-	    function getMin(pages, total) {
-	      return Math.min(pages, isFinite(total) && isPositive(total) ? total : 1);
-	    }
-
-	    function isPositive(number) {
-	      return number > 0;
-	    }
-
-	    function setPages(max) {
-	      if(self.pages.length > max) {
-	        return self.pages.splice(max);
-	      }
-
-	      for(var i = self.pages.length; i < max; i++) {
-	        self.pages.push(i + 1);
-	      }
-	    }
-
-	    content.on('scroll', function () {
-	      if((content.prop('clientHeight') + content.prop('scrollTop')) >= content.prop('scrollHeight')) {
-	        $scope.$applyAsync(function () {
-	          setPages(getMin(self.pages.length + 10, self.total));
-	        });
-	      }
-	    });
-
-	    $scope.$watch('$pageSelect.total', function (total) {
-	      setPages(getMin(Math.max(self.pages.length, 10), total));
-	    });
-
-	    $scope.$watch('$pagination.page', function (page) {
-	      for(var i = self.pages.length; i < page; i++) {
-	        self.pages.push(i + 1);
-	      }
-	    });
-	  }
-
-	  Controller.$inject = ['$element', '$scope'];
-
-	  return {
-	    bindToController: {
-	      total: '@'
-	    },
-	    controller: Controller,
-	    controllerAs: '$pageSelect'
-	  };
-	}
-
-	})(window, angular);
+	module.exports = "<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <md-datetime-inline init-datatime=\"description[$index].date\" datetime-mode=\"datetime\"\n                                placeholder=\"时间\"\n                                date-changed=\"dateChange()\">\n            </md-datetime-inline>\n            <md-input-container>\n                <label>术后病程</label>\n                <textarea required name=\"content\" ng-model=\"description[$index].content\"  rows=\"2\"\n                          md-select-on-focus>\n                    </textarea>\n                <div ng-messages=\"projectForm.content.$error\">\n                    <div ng-message=\"required\">必填</div>\n                </div>\n            </md-input-container>\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-raised md-primary\" ng-click=\"addRecord()\">增加记录</md-button>\n                <md-button class=\"md-fab md-mini\">\n                    {{$index + 1}}\n                </md-button>\n                <md-button class=\"md-raised md-warn\" ng-click=\"delRecord($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\n            </md-card-actions>\n        </md-card>\n    </div>\n</div>"
 
 /***/ },
 /* 83 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(84);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(28)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../css-loader/index.js!./md-data-table.css", function() {
-				var newContent = require("!!./../../css-loader/index.js!./md-data-table.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
+	module.exports = "<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <div layout=\"row\">\n                <md-datetime-inline flex=\"30\" init-datatime=\"long_items[$index].start_datetime\" datetime-mode=\"datetime\" placeholder=\"开始时间\"\n                                    date-changed=\"dateChange()\">\n                </md-datetime-inline>\n                <md-input-container flex>\n                    <label>医嘱</label>\n                    <input required name=\"medical_order\" ng-model=\"long_items[$index].medical_order\">\n                    <div ng-messages=\"projectForm.medical_order.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n\n            </div>\n\n            <div layout=\"row\">\n                <md-datetime-inline flex=\"30\" init-datatime=\"long_items[$index].start_execute_datetime\" datetime-mode=\"datetime\"\n                                    placeholder=\"开始执行时间\"\n                                    date-changed=\"dateChange()\">\n                </md-datetime-inline>\n                <md-input-container flex>\n                    <label>开始执行医生</label>\n                    <input required name=\"start_execute_doctor\" ng-model=\"long_items[$index].start_execute_doctor\">\n                    <div ng-messages=\"projectForm.start_execute_doctor.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n                <md-input-container flex>\n                    <label>开始执行护士</label>\n                    <input required name=\"start_execute_nurse\" ng-model=\"long_items[$index].start_execute_nurse\">\n                    <div ng-messages=\"projectForm.start_execute_nurse.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </div>\n\n            <div layout=\"row\">\n                <md-datetime-inline flex=\"30\" init-datatime=\"long_items[$index].stop_datetime\" datetime-mode=\"datetime\"\n                                    placeholder=\"停止时间\"\n                                    date-changed=\"dateChange()\">\n                </md-datetime-inline>\n                <md-input-container flex>\n                    <label>停止执行医生</label>\n                    <input required name=\"stop_execute_doctor\" ng-model=\"long_items[$index].stop_execute_doctor\">\n                    <div ng-messages=\"projectForm.stop_execute_doctor.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n                <md-input-container flex>\n                    <label>停止执行护士</label>\n                    <input required name=\"stop_execute_nurse\" ng-model=\"long_items[$index].stop_execute_nurse\">\n                    <div ng-messages=\"projectForm.stop_execute_nurse.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </div>\n\n            <md-datetime-inline  init-datatime=\"long_items[$index].stop_execute_datetime\" datetime-mode=\"datetime\"\n                                placeholder=\"停止执行时间\"\n                                date-changed=\"dateChange()\">\n            </md-datetime-inline>\n\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-raised md-primary\" ng-click=\"addRecord()\">增加记录</md-button>\n                <md-button class=\"md-fab md-mini\">\n                    {{$index + 1}}\n                </md-button>\n                <md-button class=\"md-raised md-warn\" ng-click=\"delRecord($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\n            </md-card-actions>\n\n        </md-card>\n    </div>\n</div>"
 
 /***/ },
 /* 84 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	exports = module.exports = __webpack_require__(27)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "md-backdrop.md-edit-dialog-backdrop {\n  z-index: 80;\n}\nmd-edit-dialog {\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-flex-direction: column;\n      -ms-flex-direction: column;\n          flex-direction: column;\n  position: fixed;\n  z-index: 81;\n  background-color: #f9f9f9;\n  border-radius: 2px;\n  cursor: default;\n}\nmd-edit-dialog > .md-content {\n  padding: 16px 24px 0;\n}\nmd-edit-dialog > .md-content .md-title {\n  color: rgba(0, 0, 0, 0.87);\n  margin-bottom: 8px;\n}\nmd-edit-dialog > .md-content md-input-container {\n  margin: 0;\n  font-size: 13px;\n}\nmd-edit-dialog > .md-content md-input-container input {\n  float: none;\n}\nmd-edit-dialog > .md-content md-input-container .md-errors-spacer {\n  min-height: auto;\n  min-width: auto;\n  color: rgba(0, 0, 0, 0.54);\n}\nmd-edit-dialog > .md-content md-input-container .md-errors-spacer .md-char-counter {\n  padding: 5px 2px 5px 0;\n}\nmd-edit-dialog > .md-content md-input-container [ng-message] {\n  padding: 5px 0 5px 2px;\n}\nmd-edit-dialog > .md-actions {\n  margin: 0 16px 8px;\n}\nmd-edit-dialog > .md-actions .md-button {\n  margin: 0;\n  min-width: initial;\n}\nmd-edit-dialog > .md-actions .md-button + .md-button {\n  margin-left: 8px;\n}\n.md-table-pagination {\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-justify-content: flex-end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  -webkit-flex-wrap: wrap-reverse;\n      -ms-flex-wrap: wrap-reverse;\n          flex-wrap: wrap-reverse;\n  box-sizing: border-box;\n  padding: 0 24px;\n  font-size: 12px;\n  color: rgba(0, 0, 0, 0.54);\n  border-top: 1px rgba(0, 0, 0, 0.12) solid;\n}\n.md-table-pagination md-select {\n  -webkit-justify-content: flex-end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  min-width: 64px;\n}\n.md-table-pagination md-select:not([disabled]):focus .md-select-value {\n  color: rgba(0, 0, 0, 0.54);\n}\n.md-table-pagination md-select .md-select-value {\n  -webkit-flex: 0 0 auto;\n      -ms-flex: 0 0 auto;\n          flex: 0 0 auto;\n}\n.md-table-pagination md-select .md-select-value span.md-select-icon {\n  -webkit-justify-content: center;\n      -ms-flex-pack: center;\n          justify-content: center;\n  text-align: center;\n  margin-right: -6px !important;\n}\n.md-table-pagination md-select .md-select-value span.md-select-icon:after {\n  top: initial;\n  -webkit-transform: scaleY(0.5) scaleX(1);\n          transform: scaleY(0.5) scaleX(1);\n}\n.md-table-pagination > * {\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  height: 56px;\n}\n.md-table-pagination > .buttons:not(:first-child),\n.md-table-pagination > .limit-select:not(:first-child) {\n  margin-left: 32px;\n}\n.md-table-pagination > .buttons {\n  margin-right: -16px;\n}\n.md-table-pagination > .buttons > .md-button.md-icon-button {\n  margin: 0;\n}\n.md-table-pagination > .buttons > .label + .md-button.md-icon-button {\n  margin-left: 20px;\n}\nmd-select.md-table-select {\n  margin: 0;\n}\nmd-select.md-table-select > .md-select-value {\n  padding: 0;\n  min-width: 0;\n  min-height: 24px;\n  border-bottom: 0 !important;\n}\nmd-select.md-table-select > .md-select-value > span {\n  display: block;\n  height: auto;\n  -webkit-transform: none !important;\n          transform: none !important;\n}\nmd-select.md-table-select > .md-select-value > span > .md-text {\n  display: inherit;\n  height: inherit;\n  -webkit-transform: inherit;\n          transform: inherit;\n}\nmd-select.md-table-select > .md-select-value > span.md-select-icon {\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  height: 24px;\n  margin: 0;\n}\nmd-select.md-table-select > .md-select-value > span.md-select-icon:after {\n  top: initial;\n}\n.md-select-menu-container.md-table-select,\n.md-select-menu-container.md-pagination-select {\n  margin-left: -2px;\n  border-radius: 2px;\n}\n.md-select-menu-container.md-table-select md-select-menu,\n.md-select-menu-container.md-pagination-select md-select-menu,\n.md-select-menu-container.md-table-select md-content,\n.md-select-menu-container.md-pagination-select md-content {\n  border-radius: inherit;\n}\n.md-select-menu-container.md-table-select md-content,\n.md-select-menu-container.md-pagination-select md-content {\n  padding: 0;\n}\n.md-select-menu-container.md-table-select .md-text {\n  font-size: 13px;\n}\n.md-select-menu-container.md-pagination-select .md-text {\n  font-size: 12px;\n}\nmd-toolbar.md-table-toolbar {\n  box-shadow: none;\n}\nmd-toolbar.md-table-toolbar.md-default-theme:not(.md-menu-toolbar).md-default,\nmd-toolbar.md-table-toolbar:not(.md-menu-toolbar).md-default {\n  background-color: #ffffff;\n  color: rgba(0, 0, 0, 0.87);\n}\nmd-toolbar.md-table-toolbar.md-default-theme:not(.md-menu-toolbar).md-default .md-button,\nmd-toolbar.md-table-toolbar:not(.md-menu-toolbar).md-default .md-button {\n  color: rgba(0, 0, 0, 0.87);\n}\n@media only screen and (max-width: 959px) and (min-width: 0) and (orientation: landscape) {\n  md-toolbar.md-table-toolbar .md-toolbar-tools {\n    height: 64px;\n    max-height: initial;\n  }\n}\nmd-toolbar.md-table-toolbar .md-toolbar-tools {\n  padding: 0 24px;\n}\nmd-toolbar.md-table-toolbar .md-toolbar-tools md-icon {\n  color: rgba(0, 0, 0, 0.54);\n}\nmd-toolbar.md-table-toolbar .md-toolbar-tools > .md-button.md-icon-button {\n  margin: 0;\n}\nmd-toolbar.md-table-toolbar .md-toolbar-tools > .md-button.md-icon-button:first-child {\n  margin-left: -12px;\n}\nmd-toolbar.md-table-toolbar .md-toolbar-tools > .md-button.md-icon-button:last-child {\n  margin-right: -12px;\n}\nmd-card > md-toolbar.md-table-toolbar:first-child,\nmd-card > md-table-container:first-child {\n  border-top-left-radius: 2px;\n  border-top-right-radius: 2px;\n}\nmd-card > md-toolbar.md-table-toolbar:last-child,\nmd-card > md-table-container:last-child {\n  border-bottom-left-radius: 2px;\n  border-bottom-right-radius: 2px;\n}\nmd-table-container {\n  display: block;\n  max-width: 100%;\n  overflow-x: auto;\n  -webkit-overflow-scrolling: touch;\n}\ntable.md-table {\n  width: 100%;\n  border-spacing: 0;\n  overflow: hidden;\n}\ntable.md-table thead.md-head > tr.md-row {\n  height: 56px;\n}\ntable.md-table tbody.md-body > tr.md-row,\ntable.md-table tfoot.md-foot > tr.md-row {\n  height: 48px;\n}\ntable.md-table thead.md-head + .md-table-progress md-progress-linear {\n  top: -3px;\n}\ntable.md-table .md-table-progress th {\n  padding: 0;\n}\ntable.md-table .md-table-progress th md-progress-linear {\n  height: 0;\n  transition: opacity 1s;\n}\ntable.md-table .md-table-progress th md-progress-linear.ng-hide {\n  opacity: 0;\n}\ntable.md-table .md-table-progress th md-progress-linear > .md-container {\n  height: 3px;\n  top: 0;\n  transition: none;\n}\ntable.md-table .md-table-progress th md-progress-linear > .md-container > .md-bar {\n  height: 3px;\n}\ntable.md-table th.md-column {\n  color: rgba(0, 0, 0, 0.54);\n  font-size: 12px;\n  font-weight: bold;\n  white-space: nowrap;\n}\ntable.md-table th.md-column.md-sort {\n  cursor: pointer;\n}\ntable.md-table th.md-column md-icon {\n  height: 16px;\n  width: 16px;\n  font-size: 16px !important;\n  line-height: 16px !important;\n}\ntable.md-table th.md-column md-icon.md-sort-icon {\n  color: rgba(0, 0, 0, 0.26);\n  opacity: 0;\n  transition: -webkit-transform 0.25s, opacity 0.25s;\n  transition: transform 0.25s, opacity 0.25s;\n}\ntable.md-table th.md-column md-icon.md-sort-icon.md-asc {\n  -webkit-transform: rotate(0deg);\n          transform: rotate(0deg);\n}\ntable.md-table th.md-column md-icon.md-sort-icon.md-desc {\n  -webkit-transform: rotate(180deg);\n          transform: rotate(180deg);\n}\ntable.md-table th.md-column md-icon:not(:first-child) {\n  margin-left: 8px;\n}\ntable.md-table th.md-column md-icon:not(:last-child) {\n  margin-right: 8px;\n}\ntable.md-table th.md-column.md-active,\ntable.md-table th.md-column.md-active md-icon {\n  color: rgba(0, 0, 0, 0.87);\n}\ntable.md-table th.md-column:hover md-icon.md-sort-icon,\ntable.md-table th.md-column.md-active md-icon.md-sort-icon {\n  opacity: 1;\n}\ntable.md-table tr.md-row[ng\\:repeat].ng-leave,\ntable.md-table tr.md-row[ng-repeat].ng-leave,\ntable.md-table tr.md-row[x-ng-repeat].ng-leave,\ntable.md-table tr.md-row[data-ng-repeat].ng-leave {\n  display: none;\n}\ntable.md-table.md-row-select tbody.md-body > tr.md-row {\n  transition: background-color 0.2s;\n}\ntable.md-table.md-row-select tbody.md-body > tr.md-row:not([disabled]):hover {\n  background-color: #eeeeee !important;\n}\ntable.md-table.md-row-select tbody.md-body > tr.md-row.md-selected {\n  background-color: #f5f5f5;\n}\ntable.md-table.md-row-select td.md-cell:first-child,\ntable.md-table.md-row-select th.md-column:first-child {\n  width: 20px;\n  padding: 0 0 0 24px;\n}\ntable.md-table.md-row-select td.md-cell:nth-child(2),\ntable.md-table.md-row-select th.md-column:nth-child(2) {\n  padding: 0 24px;\n}\ntable.md-table.md-row-select td.md-cell:nth-child(n+3):nth-last-child(n+2),\ntable.md-table.md-row-select th.md-column:nth-child(n+3):nth-last-child(n+2) {\n  padding: 0 56px 0 0;\n}\ntable.md-table:not(.md-row-select) td.md-cell:first-child,\ntable.md-table:not(.md-row-select) th.md-column:first-child {\n  padding: 0 24px;\n}\ntable.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2),\ntable.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {\n  padding: 0 56px 0 0;\n}\ntable.md-table td.md-cell,\ntable.md-table th.md-column {\n  vertical-align: middle;\n  text-align: left;\n}\ntable.md-table td.md-cell > *,\ntable.md-table th.md-column > * {\n  vertical-align: middle;\n}\ntable.md-table td.md-cell:last-child,\ntable.md-table th.md-column:last-child {\n  padding: 0 24px 0 0;\n}\ntable.md-table td.md-cell.md-clickable,\ntable.md-table th.md-column.md-clickable {\n  cursor: pointer;\n}\ntable.md-table td.md-cell.md-clickable:focus,\ntable.md-table th.md-column.md-clickable:focus {\n  outline: none;\n}\ntable.md-table td.md-cell.md-numeric,\ntable.md-table th.md-column.md-numeric {\n  text-align: right;\n}\ntable.md-table td.md-cell md-checkbox,\ntable.md-table th.md-column md-checkbox {\n  margin: 0;\n  width: 20px;\n}\ntable.md-table td.md-cell {\n  color: rgba(0, 0, 0, 0.87);\n  font-size: 13px;\n  border-top: 1px rgba(0, 0, 0, 0.12) solid;\n}\ntable.md-table td.md-cell.md-numeric md-select {\n  -webkit-justify-content: flex-end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n}\ntable.md-table td.md-cell.md-numeric md-select .md-select-value {\n  -webkit-flex: 0 0 auto;\n      -ms-flex: 0 0 auto;\n          flex: 0 0 auto;\n}\ntable.md-table td.md-cell.md-placeholder {\n  color: rgba(0, 0, 0, 0.26);\n}\ntable.md-table td.md-cell md-select > .md-select-value > span.md-select-icon {\n  -webkit-justify-content: flex-end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n  color: rgba(0, 0, 0, 0.54);\n  width: 18px;\n  text-align: right;\n}\ntable.md-table td.md-cell md-select > .md-select-value > span.md-select-icon:after {\n  -webkit-transform: scaleY(0.4) scaleX(0.8);\n          transform: scaleY(0.4) scaleX(0.8);\n}\n", ""]);
-
-	// exports
-
+	module.exports = "<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <div layout=\"row\">\n                <md-datetime-inline flex=\"30\" init-datatime=\"temp_items[$index].start_datetime\" datetime-mode=\"datetime\" placeholder=\"开始时间\"\n                                    date-changed=\"dateChange()\">\n                </md-datetime-inline>\n                <md-input-container flex>\n                    <label>医嘱</label>\n                    <input required name=\"medical_order\" ng-model=\"temp_items[$index].medical_order\">\n                    <div ng-messages=\"projectForm.medical_order.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n                <md-input-container flex>\n                    <label>执行医生</label>\n                    <input required name=\"start_execute_doctor\" ng-model=\"temp_items[$index].start_execute_doctor\">\n                    <div ng-messages=\"projectForm.start_execute_doctor.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n\n            </div>\n\n            <div layout=\"row\">\n                <md-datetime-inline flex=\"30\" init-datatime=\"temp_items[$index].start_execute_datetime\" datetime-mode=\"datetime\"\n                                    placeholder=\"执行时间\"\n                                    date-changed=\"dateChange()\">\n                </md-datetime-inline>\n                <md-input-container flex>\n                    <label>执行护士</label>\n                    <input required name=\"start_execute_nurse\" ng-model=\"temp_items[$index].start_execute_nurse\">\n                    <div ng-messages=\"projectForm.start_execute_nurse.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n                <md-input-container flex>\n                    <label>核对人</label>\n                    <input required name=\"start_execute_doctor\" ng-model=\"temp_items[$index].start_execute_doctor\">\n                    <div ng-messages=\"projectForm.start_execute_doctor.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n\n            </div>\n\n\n\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-raised md-primary\" ng-click=\"addRecord()\">增加记录</md-button>\n                <md-button class=\"md-fab md-mini\">\n                    {{$index + 1}}\n                </md-button>\n                <md-button class=\"md-raised md-warn\" ng-click=\"delRecord($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\n            </md-card-actions>\n\n        </md-card>\n    </div>\n</div>"
 
 /***/ }
 /******/ ]);

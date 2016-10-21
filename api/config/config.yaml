@@ -41,6 +41,7 @@ logger_user:
 # data server
 data_server:
   data_file_path_win:  D:/data_file/
+  data_file_path_mac: /Users/David/data_file/
   data_file_path: /home/MedLogic/data_file/
 
 logger_data:

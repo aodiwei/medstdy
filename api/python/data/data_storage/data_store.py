@@ -31,8 +31,11 @@ class DataStorage(object):
         self._mongodb = Instances.get_mongo_inst()
         self._solr = Instances.get_solr_inst()
         conf = Utility.conf_get("data_server")
-        if 'Windows' in platform.system():
+        plat = platform.system()
+        if 'Windows' in plat:
             self.data_file_path = conf.get("data_file_path_win")
+        elif "Darwin" in plat:
+            self.data_file_path = conf.get("data_file_path_mac")
         else:
             self.data_file_path = conf.get("data_file_path")
         self.xml_path = os.path.join(self.data_file_path, "xml")

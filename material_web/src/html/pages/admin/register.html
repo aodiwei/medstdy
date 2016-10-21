@@ -49,8 +49,8 @@
                         <md-icon>
                             <ng-md-icon icon="lock"></ng-md-icon>
                         </md-icon>
-                        <input ng-model="register_info.password2" type="password" name="password2" ng-pattern="{{register_info.password}}"  required>
-                        <div ng-messages="registerForm.password2.$error">
+                        <input ng-model="register_info.password_confirm" type="password" name="password_confirm" ng-pattern="{{register_info.password}}"  required>
+                        <div ng-messages="registerForm.password_confirm.$error">
                             <div ng-message="required">必填</div>
                             <div ng-message="pattern" >请确认密码一致</div>
                         </div>

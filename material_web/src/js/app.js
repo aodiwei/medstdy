@@ -100,7 +100,7 @@ app.run(['$rootScope', '$auth', '$state', '$userInfo', '$commonFun', function ($
             return;// 如果是进入登录界面则允许
         }
         var account = $userInfo.getAccount();
-        if (account !== "") {//for debug
+        if (account == "") {//for debug
             $commonFun.showSimpleToast('请登录', 'error-toast');
             event.preventDefault();// 取消默认跳转行为
             $state.go("login");//跳转到登录界面
