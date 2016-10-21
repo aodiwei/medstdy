@@ -8,14 +8,14 @@ var test_data = require('../config/test_data.js');
 app
     .controller("formTabsCtrl", function ($scope, $http, $commonFun) {
         $scope.tabs = [
-            {title: '患者基本信息', content: 'html/pages/tabs/tab_patient_info.html', icon: 'glyphicon-user'},
-            {title: '住院病历记录', content: 'html/pages/tabs/tab_hospitalized.html', icon: 'glyphicon-dashboard'},
-            {title: '首次病程记录表', content: 'html/pages/tabs/tab_clinical_course.html', icon: 'glyphicon-check'},
-            {title: '手术记录表', content: 'html/pages/tabs/tab_surgery.html', icon: 'glyphicon-heart'},
-            {title: '术后病程', content: 'html/pages/tabs/tab_after_surgery.html', icon: 'glyphicon-book'},
-            {title: '出院记录表', content: 'html/pages/tabs/tab_leave.html', icon: 'glyphicon-edit'},
-            {title: '长期医嘱记录表', content: 'html/pages/tabs/tab_long_medical_orders.html', icon: 'glyphicon-list-alt'},
-            {title: '临时医嘱记录表', content: 'html/pages/tabs/tab_temp_medical_orders.html', icon: 'glyphicon-list'}
+            {title: '患者基本信息', content: 'html/pages/tabs/tab_patient_info.html', status: false},
+            {title: '住院病历记录', content: 'html/pages/tabs/tab_hospitalized.html', status: false},
+            {title: '首次病程记录表', content: 'html/pages/tabs/tab_clinical_course.html', status: false},
+            {title: '手术记录表', content: 'html/pages/tabs/tab_surgery.html', status: false},
+            {title: '术后病程', content: 'html/pages/tabs/tab_after_surgery.html', status: false},
+            {title: '出院记录表', content: 'html/pages/tabs/tab_leave.html', status: false},
+            {title: '长期医嘱记录表', content: 'html/pages/tabs/tab_long_medical_orders.html', status: false},
+            {title: '临时医嘱记录表', content: 'html/pages/tabs/tab_temp_medical_orders.html', status: false}
         ];
 
         $scope.initForm = function () {
@@ -54,6 +54,15 @@ app
             }];
         };
 
+        $scope.tab_status =function(){
+            var status = true;
+            for(var x in $scope.tabs){
+                //console.log(x, $scope.tabs[x], $scope.tabs[x].status);
+                status = $scope.tabs[x].status && status;
+            }
+            return status;
+        };
+
         $scope.initForm();
 
         //for debug
@@ -69,6 +78,12 @@ app
         // $scope.temp_items = test_data.tbl_temp_medical_orders.items;
 
         $scope.submit = function () {
+            //判断表单是否填好
+            if(!$scope.tab_status()){
+                $commonFun.showSimpleToast("提交失败，请检查表单，确认数据是否完整录入", "error-toast");
+                return;
+            }
+
             $scope.btnDisable = true;
             $scope.clinical_course["check_record"] = $scope.check_record;
             $scope.after_surgery["description"] = $scope.description;

@@ -13,7 +13,7 @@ app.service("$commonFun", function($mdToast){
             .textContent(text)
             .position('bottom right')
             .theme(theme)
-            .hideDelay(3000)
+            .hideDelay(5000)
         );
       };
 });

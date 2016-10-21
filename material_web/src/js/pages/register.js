@@ -3,7 +3,7 @@
  */
 var app = require("../app.js");
 
-app.controller("registerCtrl", function($scope, $http, $commonFun){
+app.controller("registerCtrl", function($scope, $http, $state, $commonFun){
     $scope.selected = {
         roles: [{option:"管理员", value: "admin"}, {option:"数据管理员", value:"worker"}],
     };
@@ -25,14 +25,14 @@ app.controller("registerCtrl", function($scope, $http, $commonFun){
                 //image: $scope.image,
             }
         };
-        console.log(req.params);
-        //return
+
         $http(req).then(function (data) {
             $commonFun.showSimpleToast("注册成功", "success-toast");
-            $scope.register_info = {};
+            $state.reload();
             $scope.btnDisable = false;
-        }).catch(function () {
-            $commonFun.showSimpleToast("注册失败", "error-toast");
+        }).catch(function (data) {
+            $commonFun.showSimpleToast("注册失败:" + data.data.error, "error-toast");
+            //$commonFun.showSimpleToast(data.data.error, "error-toast");
             $scope.btnDisable = false;
         });
     };

@@ -9,9 +9,20 @@
                     <md-card-content>
                         <form name="projectForm">
                             <ng-include src="tab.content"></ng-include>
+                            <span ng-hide="true">{{tab.status=!projectForm.$invalid}}</span>
                         </form>
                     </md-card-content>
                     <md-card-actions layout="row" layout-align="end center">
+                        <md-button class="md-fab md-mini md-primary" ng-show="tab.status">
+                            <md-icon>
+                                <ng-md-icon icon="check_circle"></ng-md-icon>
+                            </md-icon>
+                        </md-button>
+                        <md-button class="md-fab md-mini md-warn" ng-show="!tab.status">
+                            <md-icon>
+                                <ng-md-icon icon="error"></ng-md-icon>
+                            </md-icon>
+                        </md-button>
                         <md-button class="md-raised md-primary" ng-click="submit()">提交</md-button>
                     </md-card-actions>
                 </md-card>
