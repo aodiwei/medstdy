@@ -1,6 +1,6 @@
-<md-sidenav layout="column" class="md-sidenav-left md-whiteframe-z2" md-component-id="left"
+<md-sidenav layout="column" class="md-sidenav-left md-whiteframe-18dp" md-component-id="left"
             md-is-locked-open="$mdMedia('gt-md')">
-    <md-toolbar class="md-tall md-primary">
+    <md-toolbar class="md-tall md-primary md-hue-1">
         <span flex></span>
         <div layout="column" class="md-toolbar-tools-bottom inset">
             <user-avatar></user-avatar>
@@ -10,8 +10,8 @@
         </div>
     </md-toolbar>
     <md-list>
-        <md-item ng-repeat="item in menu" class="cursorPointer" ng-click="close()">
-            <div ui-sref="{{item.lin}}" md-ink-ripple='grey' class="nav-click" ng-class="{'nav-active': $state.includes('{{item.lin}}')}">
+        <md-item ng-repeat="item in menu" ng-click="close()">
+            <div ui-sref="{{item.lin}}"  ng-class="{'nav-active': $state.includes('{{item.lin}}')}">
                 <md-item-content layout="row" layout-align="start center">
                     <div class="inset">
                         <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
@@ -24,7 +24,7 @@
         <md-divider></md-divider>
         <md-subheader>管理</md-subheader>
         <md-item ng-repeat="item in admin" ng-click="close()">
-            <div ui-sref="{{item.lin}}" md-ink-ripple="grey" class="nav-click" ng-class="{'nav-active': $state.includes('{{item.lin}}')}">
+            <div ui-sref="{{item.lin}}" ng-class="{'nav-active': $state.includes('{{item.lin}}')}">
                 <md-item-content layout="row" layout-align="start center">
                     <div class="inset">
                         <ng-md-icon icon="{{item.icon}}"></ng-md-icon>

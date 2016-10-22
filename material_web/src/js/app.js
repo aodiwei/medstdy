@@ -48,8 +48,8 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
     $mdThemingProvider.theme('default')
         .primaryPalette('customBlue', {
             'default': '500',
-            'hue-1': '50',
-            'hue-2': '100',
+            'hue-1': '600',
+            'hue-2': '800',
             'hue-3': 'A100',
         })
         .accentPalette('pink');

@@ -17,8 +17,8 @@ app.controller('LoginCtrl', function ($scope, $state, $http, $commonFun, $userIn
             $userInfo.setUserInfo(data);
             $commonFun.showSimpleToast('登录成功', 'success-toast');
             $state.go('main');
-        }).error(function () {
-            $commonFun.showSimpleToast('登录失败', 'error-toast');
+        }).error(function (data) {
+            $commonFun.showSimpleToast('登录失败，请检查用户名或密码', 'error-toast');
         });
     };
 
