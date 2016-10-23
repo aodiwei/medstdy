@@ -57,7 +57,6 @@ md-sidenav ng-md-icon {
     cursor: pointer;
 }
 
-
 /*toast����*/
 md-toast.md-success-toast-theme .md-toast-content {
     background-color: green;
@@ -68,5 +67,12 @@ md-toast.md-error-toast-theme .md-toast-content {
 }
 
 /*md-toast {*/
-	/*left: calc(50vw - 150px);*/
+/*left: calc(50vw - 150px);*/
 /*}*/
+
+.login_body {
+    background-image: url("../img/s3.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

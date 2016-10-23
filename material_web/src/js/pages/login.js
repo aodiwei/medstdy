@@ -23,3 +23,7 @@ app.controller('LoginCtrl', function ($scope, $state, $http, $commonFun, $userIn
     };
 
 });
+
+app.controller('bodyCtrl', function ($scope, $state) {
+    $scope.$state = $state;
+});

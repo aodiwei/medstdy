@@ -24,7 +24,7 @@
 
 
 </head>
-<body ng-cloak layout="column">
+<body ng-controller="bodyCtrl" ng-cloak layout="column" ng-class="{'login_body': $state.includes('login')}">
 
 <div ui-view=""></div>
 

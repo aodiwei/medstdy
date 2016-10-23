@@ -48,21 +48,21 @@
                                         </span>
                                     </td>
                                     <td md-cell>
-                                        <md-button class="md-raised md-primary" ng-click="item.upload()"
+                                        <md-button class="md-raised md-mini md-primary" ng-click="item.upload()"
                                                    ng-disabled="item.isReady || item.isUploading || item.isSuccess">
                                             <md-icon>
                                                 <ng-md-icon icon="cloud_upload"></ng-md-icon>
                                             </md-icon>
                                             上传
                                         </md-button>
-                                        <md-button class="md-raised md-warn md-hue-2" ng-click="item.cancel()"
+                                        <md-button class="md-raised md-mini md-warn md-hue-2" ng-click="item.cancel()"
                                                    ng-disabled="!item.isUploading">
                                             <md-icon>
                                                 <ng-md-icon icon="cloud_off"></ng-md-icon>
                                             </md-icon>
                                             取消
                                         </md-button>
-                                        <md-button class="md-raised md-warn" ng-click="item.remove()">
+                                        <md-button class="md-raised md-mini md-warn" ng-click="item.remove()">
                                             <md-icon>
                                                 <ng-md-icon icon="delete"></ng-md-icon>
                                             </md-icon>
