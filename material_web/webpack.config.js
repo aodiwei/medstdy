@@ -1,11 +1,11 @@
 var path = require("path");
 var webpack = require('webpack');
+var commonsPlugin = new webpack.optimize.CommonsChunkPlugin('common.js');
 module.exports = {
 
     plugins: [
-        new webpack.ProvidePlugin({
-            moment: "moment"
-        })],
+        commonsPlugin
+    ],
     /*entry — name of the top level file or 
      set of files that we want to include
      in our build, can be a single file
@@ -23,6 +23,11 @@ module.exports = {
         path: path.join(__dirname, "/src/bundle"),
         filename: "bundle.js",
         publicPath: "/bundle/"
+    },
+    devServer: {
+        port: 80,
+        contentBase: './src',
+        historyApiFallback: true
     },
     /*
      相当于"webpack --watch-poll"，用于解决虚拟机下inotify无法传递

@@ -3,8 +3,8 @@
  */
 'use strict';
 var app = require('../app.js');
-var division_conf = require('../config/division.js');
-var test_data = require('../config/test_data.js');
+// var division_conf = require('../config/division.js');
+// var test_data = require('../config/test_data.js');
 app
     .controller("formTabsCtrl", function ($scope, $http, $commonFun) {
         $scope.tabs = [
@@ -31,7 +31,7 @@ app
             $scope.temp_medical_orders = {};
 
             // 动态增加的条目
-            $scope.check_record = [{date: "", content: ""}, {date: "", content: ""}];
+            $scope.check_record = [{date: "", content: ""}];
             $scope.description = [{date: "", content: ""}];
             $scope.long_items = [{
                 start_datetime: "",
@@ -84,20 +84,19 @@ app
                 return;
             }
 
-            $scope.btnDisable = true;
             $scope.clinical_course["check_record"] = $scope.check_record;
             $scope.after_surgery["description"] = $scope.description;
             $scope.long_medical_orders["items"] = $scope.long_items;
             $scope.temp_medical_orders["items"] = $scope.temp_items;
 
-            console.log($scope.patient_info.birthday);
-            console.log($scope.patient_info);
-            console.log($scope.clinical_course);
-            console.log($scope.hospitalized);
-            console.log($scope.surgery);
-            console.log($scope.leave);
-            console.log($scope.long_medical_orders);
-            console.log($scope.temp_medical_orders);
+            // console.log($scope.patient_info.birthday);
+            // console.log($scope.patient_info);
+            // console.log($scope.clinical_course);
+            // console.log($scope.hospitalized);
+            // console.log($scope.surgery);
+            // console.log($scope.leave);
+            // console.log($scope.long_medical_orders);
+            // console.log($scope.temp_medical_orders);
 
             var req = {
                 url: '/data/form-data',
@@ -123,44 +122,33 @@ app
                 $commonFun.showSimpleToast("提交失败", "error-toast");
             });
         }
-    })
-    .controller("tabPatientCtrl", function ($scope) {
+
+        //patient
         $scope.selected = {
             sex: ['男', '女'],
-            division: division_conf,
+            // division: division_conf,
             marriage: ['已婚', '未婚', '丧偶', '离婚', '其他']
         };
-    })
 
-    .controller("tabHospitalizedCtrl", function ($scope) {
-
-    })
-
-    .controller("tabClinicalCourseCtrl", function ($scope) {
-        $scope.addRecord = function () {
+        //clinical course
+        $scope.addCheckItem = function () {
             $scope.check_record.push({date: "", content: ""});
         };
 
-        $scope.delRecord = function (index) {
+        $scope.delCheckItem = function (index) {
             $scope.check_record.splice(index, 1);
         };
-    })
-    //
-    //.controller("tabSurgeryController", function ($scope) {
-    //
-    //})
-    //
-    .controller("tabAfterSurgeryCtrl", function ($scope) {
-        $scope.addRecord = function () {
+
+        //After Surgery
+        $scope.addDesItem = function () {
             $scope.description.push({date: "", content: ""});
         };
-        $scope.delRecord = function (index) {
+        $scope.delDesItem = function (index) {
             $scope.description.splice(index, 1);
         };
-    })
 
-    .controller("tabLongMedicalOrdersCtrl", function ($scope) {
-        $scope.addRecord = function () {
+        //Long Medical Orders
+        $scope.addLongItem = function () {
             $scope.long_items.push({
                 start_datetime: "",
                 medical_order: "",
@@ -173,13 +161,12 @@ app
                 stop_execute_datetime: ""
             });
         };
-        $scope.delRecord = function (index) {
+        $scope.delLongItem = function (index) {
             $scope.long_items.splice(index, 1);
         };
-    })
 
-    .controller("tabTempMedicalOrdersCtrl", function ($scope) {
-        $scope.addRecord = function () {
+        //Temp Medical Orders
+        $scope.addTempItem = function () {
             $scope.temp_items.push({
                 start_datetime: "",
                 medical_order: "",
@@ -189,7 +176,8 @@ app
                 checker: ""
             });
         };
-        $scope.delRecord = function (index) {
+        $scope.delTempItem = function (index) {
             $scope.temp_items.splice(index, 1);
         };
+
     });

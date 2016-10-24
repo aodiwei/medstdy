@@ -1,5 +1,6 @@
 <md-sidenav layout="column" class="md-sidenav-left md-whiteframe-18dp" md-component-id="left"
-            md-is-locked-open="$mdMedia('gt-md')">
+            md-is-locked-open="$mdMedia('gt-md')"
+            md-no-ink>
     <md-toolbar class="md-tall md-primary md-hue-1">
         <span flex></span>
         <div layout="column" class="md-toolbar-tools-bottom inset">
@@ -11,7 +12,7 @@
     </md-toolbar>
     <md-list>
         <md-item ng-repeat="item in menu" ng-click="close()">
-            <div ui-sref="{{item.lin}}"  ng-class="{'nav-active': $state.includes('{{item.lin}}')}">
+            <div ui-sref="{{item.lin}}" ng-class="{'nav-active': $state.includes('{{item.lin}}')}">
                 <md-item-content layout="row" layout-align="start center">
                     <div class="inset">
                         <ng-md-icon icon="{{item.icon}}"></ng-md-icon>

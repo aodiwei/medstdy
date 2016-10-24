@@ -63,11 +63,11 @@
             </md-datetime-inline>
 
             <md-card-actions layout="row" layout-align="end center">
-                <md-button class="md-raised md-primary" ng-click="addRecord()">增加记录</md-button>
+                <md-button class="md-raised md-primary" ng-click="addLongItem()">增加记录</md-button>
                 <md-button class="md-fab md-mini">
                     {{$index + 1}}
                 </md-button>
-                <md-button class="md-raised md-warn" ng-click="delRecord($index)" ng-disabled="$index==0">删除记录</md-button>
+                <md-button class="md-raised md-warn" ng-click="delLongItem()($index)" ng-disabled="$index==0">删除记录</md-button>
             </md-card-actions>
 
         </md-card>
