@@ -22,19 +22,21 @@
                 </md-item-content>
             </div>
         </md-item>
-        <md-divider></md-divider>
-        <md-subheader>管理</md-subheader>
-        <md-item ng-repeat="item in admin" ng-click="close()">
-            <div ui-sref="{{item.lin}}" ng-class="{'nav-active': $state.includes('{{item.lin}}')}">
-                <md-item-content layout="row" layout-align="start center">
-                    <div class="inset">
-                        <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
-                    </div>
-                    <div class="inset">{{item.title}}
-                    </div>
-                </md-item-content>
-            </div>
-        </md-item>
+        <div ng-show="userInfo().role=='admin'">
+            <md-divider></md-divider>
+            <md-subheader>管理</md-subheader>
+            <md-item ng-repeat="item in admin" ng-click="close()">
+                <div ui-sref="{{item.lin}}" ng-class="{'nav-active': $state.includes('{{item.lin}}')}">
+                    <md-item-content layout="row" layout-align="start center">
+                        <div class="inset">
+                            <ng-md-icon icon="{{item.icon}}"></ng-md-icon>
+                        </div>
+                        <div class="inset">{{item.title}}
+                        </div>
+                    </md-item-content>
+                </div>
+            </md-item>
+        </div>
     </md-list>
 </md-sidenav>
 

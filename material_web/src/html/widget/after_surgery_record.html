@@ -7,12 +7,12 @@
             </md-datetime-inline>
             <md-input-container>
                 <label>术后病程</label>
-                <textarea required name="content" ng-model="description[$index].content"  rows="2"
+                <textarea name="content" ng-model="description[$index].content"  rows="2"
                           md-select-on-focus>
                     </textarea>
-                <div ng-messages="projectForm.content.$error">
-                    <div ng-message="required">必填</div>
-                </div>
+                <!--<div ng-messages="projectForm.content.$error">-->
+                    <!--<div ng-message="required">必填</div>-->
+                <!--</div>-->
             </md-input-container>
             <md-card-actions layout="row" layout-align="end center">
                 <md-button class="md-raised md-primary" ng-click="addDesItem()">增加记录</md-button>

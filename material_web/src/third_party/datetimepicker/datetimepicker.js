@@ -144,7 +144,7 @@
                 '<form name="dateForm">',
                 ' <md-input-container md-no-float class="md-block" ng-click="vm.showPicker($event)">',
                 '<label>{{vm.placeholder}}</label>',
-                '   <input ng-model="initDatatime" name="initDatatime" readonly required>',
+                '   <input ng-model="initDatatime" name="initDatatime" readonly>',
                 ' </md-input-container>',
                 ' <div class="datatime-picker-wrap" ng-class="vm.isShowPicker ? \'show\' : \'\'">',
                 '   <div class="show-date" ng-click="vm.datetime=\'date\'" ng-class="vm.datetime === \'time\' ? \'show\' : \'\'">',
@@ -157,9 +157,6 @@
                 '   </div>',
                 '   <time-date-picker class="datatime-picker {{ vm.datetime }}" ng-model="vm.dateValue" ',
                 '     display-twentyfour="true" on-save="vm.save($value)" display-mode="full" on-cancel="vm.cancel()"></time-date-picker>',
-                '<div ng-messages="dateForm.initDatatime.$error">',
-                ' <div ng-message="required">必填</div>',
-                '</div>',
                 ' </div>',
                 '</form>',
                 '</div>'

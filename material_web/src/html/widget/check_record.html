@@ -7,12 +7,12 @@
             </md-datetime-inline>
             <md-input-container>
                 <label>查房记录</label>
-                <textarea required name="gist" ng-model="check_record[$index].content"  rows="2"
+                <textarea name="gist" ng-model="check_record[$index].content"  rows="2"
                           md-select-on-focus>
                     </textarea>
-                <div ng-messages="projectForm.gist.$error">
-                    <div ng-message="required">必填</div>
-                </div>
+                <!--<div ng-messages="projectForm.gist.$error">-->
+                    <!--<div ng-message="required">必填</div>-->
+                <!--</div>-->
             </md-input-container>
             <md-card-actions layout="row" layout-align="end center">
                 <md-button class="md-raised md-primary" ng-click="addCheckItem()">增加记录</md-button>

@@ -4,15 +4,15 @@
 'use strict';
 var app = require('../app.js');
 // var division_conf = require('../config/division.js');
-// var test_data = require('../config/test_data.js');
+var test_data = require('../config/test_data.js');
 app
     .controller("formTabsCtrl", function ($scope, $http, $commonFun) {
         $scope.tabs = [
-            {title: '患者基本信息', content: 'html/pages/tabs/tab_patient_info.html', status: false},
+            // {title: '患者基本信息', content: 'html/pages/tabs/tab_patient_info.html', status: false},
             {title: '住院病历记录', content: 'html/pages/tabs/tab_hospitalized.html', status: false},
             {title: '首次病程记录表', content: 'html/pages/tabs/tab_clinical_course.html', status: false},
             {title: '手术记录表', content: 'html/pages/tabs/tab_surgery.html', status: false},
-            {title: '术后病程', content: 'html/pages/tabs/tab_after_surgery.html', status: false},
+            {title: '术后病程表', content: 'html/pages/tabs/tab_after_surgery.html', status: false},
             {title: '出院记录表', content: 'html/pages/tabs/tab_leave.html', status: false},
             {title: '长期医嘱记录表', content: 'html/pages/tabs/tab_long_medical_orders.html', status: false},
             {title: '临时医嘱记录表', content: 'html/pages/tabs/tab_temp_medical_orders.html', status: false}
