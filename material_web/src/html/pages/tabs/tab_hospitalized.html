@@ -1,16 +1,16 @@
 <div>
     <div layout="row">
-        <div flex>
-            <md-card md-whiteframe="5">
-                <md-input-container>
-                    <label>病案号</label>
-                    <input required name="medical_id" ng-model="patient_info.medical_id">
-                    <div ng-messages="projectForm.medical_id.$error">
-                        <div ng-message="required">必填</div>
-                    </div>
-                </md-input-container>
-            </md-card>
-        </div>
+        <!--<div flex>-->
+            <!--<md-card md-whiteframe="5">-->
+                <!--<md-input-container>-->
+                    <!--<label>病案号</label>-->
+                    <!--<input required name="medical_id" ng-model="patient_info.medical_id">-->
+                    <!--<div ng-messages="projectForm.medical_id.$error">-->
+                        <!--<div ng-message="required">必填</div>-->
+                    <!--</div>-->
+                <!--</md-input-container>-->
+            <!--</md-card>-->
+        <!--</div>-->
 
         <div flex>
             <md-card md-whiteframe="5">
@@ -69,7 +69,7 @@
         <div flex>
             <md-card md-whiteframe="5">
                 <md-input-container>
-                    <label>入院诊断</label>
+                    <label>入院诊断(请用英文','分隔多个诊断)</label>
                     <input name="admits_diag" ng-model="hospitalized.admits_diag">
                     <!--<div ng-messages="projectForm.admits_diag.$error">-->
                         <!--<div ng-message="required">必填</div>-->

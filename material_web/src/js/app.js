@@ -79,9 +79,13 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
             url: "/tabs",
             templateUrl: "./html/pages/tabs/tabs.html"
         })
-        .state("main.upload", {
-            url: "/upload",
-            templateUrl: "./html/pages/upload_file/upload_file.html"
+        .state("main.upload_xml", {
+            url: "/upload_xml",
+            templateUrl: "./html/pages/upload_file/upload_xml.html"
+        })
+        .state("main.upload_csv", {
+            url: "/upload_csv",
+            templateUrl: "./html/pages/upload_file/upload_csv.html"
         })
         .state("main.admin", {
             url: "/admin",
@@ -89,13 +93,12 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
         });
 
 
-
 });
 
 
- app.run(['$rootScope', '$auth', '$state', '$userInfo', '$commonFun', function ($rootScope, $auth, $state, $userInfo, $commonFun) {
+app.run(['$rootScope', '$auth', '$state', '$userInfo', '$commonFun', function ($rootScope, $auth, $state, $userInfo, $commonFun) {
 
-     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
         if (toState.name == 'login') {
             return;// 如果是进入登录界面则允许
         }
@@ -105,8 +108,8 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
             event.preventDefault();// 取消默认跳转行为
             $state.go("login");//跳转到登录界面
         }
-     });
- }]);
+    });
+}]);
 
 
 module.exports = app;

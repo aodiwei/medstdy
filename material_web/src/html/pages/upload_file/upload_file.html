@@ -1,111 +1,116 @@
-<div ng-controller="uploadCtrl" nv-file-drop="" uploader="uploader" filters="queueLimit, customFilter">
-    <div layout="row" layout-align="start center" flex-offset="5">
-        <md-card flex>
-            <md-card-title>
-                <md-card-title-text md-theme="dark-purple">
-                    <span class="md-headline">上传文件</span>
-                </md-card-title-text>
-            </md-card-title>
-            <md-divider></md-divider>
-            <md-card-content>
-                <div layout="row">
-                    <div flex>
-                        <input class="ng-hide" id="input-file-id" multiple type="file" nv-file-select="" uploader="uploader"/>
-                        <label for="input-file-id" class="md-button md-raised md-primary">选择文件(可多选)[{{ uploader.queue.length }}]</label>
-                        <md-table-container>
-                            <table md-table multiple>
-                                <thead md-head>
-                                <tr md-row>
-                                    <th md-column >文件名</th>
-                                    <th md-column md-numeric ng-show="uploader.isHTML5">大小</th>
-                                    <th md-column md-numeric ng-show="uploader.isHTML5">进度</th>
-                                    <th md-column md-numeric>状态</th>
-                                    <th md-column >操作</th>
-                                </tr>
-                                </thead>
-                                <tbody md-body>
-                                <tr md-row ng-repeat="item in uploader.queue">
-                                    <td md-cell><strong>{{ item.file.name }}</strong></td>
-                                    <td md-cell ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }} MB</td>
-                                    <td md-cell ng-show="uploader.isHTML5">
-                                        <md-progress-linear md-mode="determinate" value="{{item.progress}}"></md-progress-linear>
-                                    </td>
-                                    <td md-cell class="text-center">
+<div layout="row" layout-align="start center" flex-offset="5">
+    <md-card flex>
+        <md-card-title>
+            <md-card-title-text md-theme="dark-purple">
+                <span class="md-headline">上传文件</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-divider></md-divider>
+        <md-card-content>
+            <div layout="row">
+                <div flex>
+                    <input class="ng-hide" id="input-file-id" multiple type="file" nv-file-select=""
+                           uploader="uploader"/>
+                    <label for="input-file-id" class="md-button md-raised md-primary">选择文件(可多选)[{{ uploader.queue.length
+                        }}]</label>
+                    <md-table-container>
+                        <table md-table multiple>
+                            <thead md-head>
+                            <tr md-row>
+                                <th md-column>文件名</th>
+                                <th md-column md-numeric ng-show="uploader.isHTML5">大小</th>
+                                <th md-column md-numeric ng-show="uploader.isHTML5">进度</th>
+                                <th md-column md-numeric>状态</th>
+                                <th md-column>操作</th>
+                            </tr>
+                            </thead>
+                            <tbody md-body>
+                            <tr md-row ng-repeat="item in uploader.queue">
+                                <td md-cell><strong>{{ item.file.name }}</strong></td>
+                                <td md-cell ng-show="uploader.isHTML5" nowrap>{{ item.file.size/1024/1024|number:2 }}
+                                    MB
+                                </td>
+                                <td md-cell ng-show="uploader.isHTML5">
+                                    <md-progress-linear md-mode="determinate"
+                                                        value="{{item.progress}}"></md-progress-linear>
+                                </td>
+                                <td md-cell class="text-center">
                                         <span ng-show="item.isSuccess">
                                             <md-icon>
                                                 <ng-md-icon icon="done"></ng-md-icon>
                                             </md-icon>
                                         </span>
-                                        <span ng-show="item.isCancel">
+                                    <span ng-show="item.isCancel">
                                             <md-icon>
                                                 <ng-md-icon icon="undo"></ng-md-icon>
                                             </md-icon>
                                         </span>
-                                        <span ng-show="item.isError">
+                                    <span ng-show="item.isError">
                                             <md-icon>
                                                 <ng-md-icon icon="clear"></ng-md-icon>
                                             </md-icon>
                                         </span>
-                                    </td>
-                                    <td md-cell>
-                                        <md-button class="md-raised md-mini md-primary" ng-click="item.upload()"
-                                                   ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-                                            <md-icon>
-                                                <ng-md-icon icon="cloud_upload"></ng-md-icon>
-                                            </md-icon>
-                                            上传
-                                        </md-button>
-                                        <md-button class="md-raised md-mini md-warn md-hue-2" ng-click="item.cancel()"
-                                                   ng-disabled="!item.isUploading">
-                                            <md-icon>
-                                                <ng-md-icon icon="cloud_off"></ng-md-icon>
-                                            </md-icon>
-                                            取消
-                                        </md-button>
-                                        <md-button class="md-raised md-mini md-warn" ng-click="item.remove()">
-                                            <md-icon>
-                                                <ng-md-icon icon="delete"></ng-md-icon>
-                                            </md-icon>
-                                            移除
-                                        </md-button>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </md-table-container>
+                                </td>
+                                <td md-cell>
+                                    <md-button class="md-raised md-mini md-primary" ng-click="item.upload()"
+                                               ng-disabled="item.isReady || item.isUploading || item.isSuccess">
+                                        <md-icon>
+                                            <ng-md-icon icon="cloud_upload"></ng-md-icon>
+                                        </md-icon>
+                                        上传
+                                    </md-button>
+                                    <md-button class="md-raised md-mini md-warn md-hue-2" ng-click="item.cancel()"
+                                               ng-disabled="!item.isUploading">
+                                        <md-icon>
+                                            <ng-md-icon icon="cloud_off"></ng-md-icon>
+                                        </md-icon>
+                                        取消
+                                    </md-button>
+                                    <md-button class="md-raised md-mini md-warn" ng-click="item.remove()">
+                                        <md-icon>
+                                            <ng-md-icon icon="delete"></ng-md-icon>
+                                        </md-icon>
+                                        移除
+                                    </md-button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </md-table-container>
+                    <div>
                         <div>
-                            <div>
-                                上传进度:
-                                <md-progress-linear md-mode="determinate" value="{{uploader.progress}}"></md-progress-linear>
-                            </div>
-                            <md-button class="md-raised md-primary" ng-click="uploader.uploadAll()"
-                                       ng-disabled="!uploader.getNotUploadedItems().length">
-                                <md-icon>
-                                    <ng-md-icon icon="cloud_upload"></ng-md-icon>
-                                </md-icon>
-                                上传全部
-                            </md-button>
-                            <md-button class="md-raised md-warn md-hue-2" ng-click="uploader.cancelAll()"
-                                       ng-disabled="!uploader.isUploading">
-                                <md-icon>
-                                    <ng-md-icon icon="cloud_off"></ng-md-icon>
-                                </md-icon>
-                                取消全部
-                            </md-button>
-                            <md-button class="md-raised md-warn" ng-click="uploader.clearQueue()"
-                                       ng-disabled="!uploader.queue.length">
-                                <md-icon>
-                                    <ng-md-icon icon="delete"></ng-md-icon>
-                                </md-icon>
-                                移除全部
-                            </md-button>
+                            上传进度:
+                            <md-progress-linear md-mode="determinate"
+                                                value="{{uploader.progress}}"></md-progress-linear>
                         </div>
+                        <md-button class="md-raised md-primary" ng-click="uploader.uploadAll()"
+                                   ng-disabled="!uploader.getNotUploadedItems().length">
+                            <md-icon>
+                                <ng-md-icon icon="cloud_upload"></ng-md-icon>
+                            </md-icon>
+                            上传全部
+                        </md-button>
+                        <md-button class="md-raised md-warn md-hue-2" ng-click="uploader.cancelAll()"
+                                   ng-disabled="!uploader.isUploading">
+                            <md-icon>
+                                <ng-md-icon icon="cloud_off"></ng-md-icon>
+                            </md-icon>
+                            取消全部
+                        </md-button>
+                        <md-button class="md-raised md-warn" ng-click="uploader.clearQueue()"
+                                   ng-disabled="!uploader.queue.length">
+                            <md-icon>
+                                <ng-md-icon icon="delete"></ng-md-icon>
+                            </md-icon>
+                            移除全部
+                        </md-button>
                     </div>
                 </div>
+            </div>
 
 
-            </md-card-content>
-        </md-card>
-    </div>
+        </md-card-content>
+    </md-card>
 </div>
+
 

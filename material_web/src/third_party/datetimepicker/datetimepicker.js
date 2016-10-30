@@ -137,14 +137,15 @@
                 initDatatime: '=',
                 placeholder: '@',
                 dateChanged: '&',
-                datetimeMode: '@'
+                datetimeMode: '@',
+                required: '@'
             },
             template: [
                 '<div class="datatime-picker-inline">',
                 '<form name="dateForm">',
                 ' <md-input-container md-no-float class="md-block" ng-click="vm.showPicker($event)">',
                 '<label>{{vm.placeholder}}</label>',
-                '   <input ng-model="initDatatime" name="initDatatime" readonly>',
+                '   <input ng-model="initDatatime" name="initDatatime" readonly ng-required="{{ vm.required }}">',
                 ' </md-input-container>',
                 ' <div class="datatime-picker-wrap" ng-class="vm.isShowPicker ? \'show\' : \'\'">',
                 '   <div class="show-date" ng-click="vm.datetime=\'date\'" ng-class="vm.datetime === \'time\' ? \'show\' : \'\'">',
@@ -175,6 +176,7 @@
             vm.dateValue = $scope.initDatatime;
 
             vm.datetime = 'date';
+            vm.required = $scope.required;
 
             var format = 'yyyy-MM-dd HH:mm:ss';
 

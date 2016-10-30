@@ -8,7 +8,7 @@ var test_data = require('../config/test_data.js');
 app
     .controller("formTabsCtrl", function ($scope, $http, $commonFun) {
         $scope.tabs = [
-            // {title: '患者基本信息', content: 'html/pages/tabs/tab_patient_info.html', status: false},
+            {title: '患者基本信息', content: 'html/pages/tabs/tab_patient_info.html', status: false},
             {title: '住院病历记录', content: 'html/pages/tabs/tab_hospitalized.html', status: false},
             {title: '首次病程记录表', content: 'html/pages/tabs/tab_clinical_course.html', status: false},
             {title: '手术记录表', content: 'html/pages/tabs/tab_surgery.html', status: false},
@@ -18,52 +18,100 @@ app
             {title: '临时医嘱记录表', content: 'html/pages/tabs/tab_temp_medical_orders.html', status: false}
         ];
 
-        $scope.initForm = function () {
-            $scope.btnDisable = false;
-            //表
-            $scope.patient_info = {};
-            $scope.hospitalized = {};
-            $scope.clinical_course = {};
-            $scope.after_surgery = {};
-            $scope.surgery = {};
-            $scope.leave = {};
-            $scope.long_medical_orders = {};
-            $scope.temp_medical_orders = {};
+        $scope.initForm = function (data) {
+            if (data == null) {
+                $scope.btnDisable = false;
+                //表
+                $scope.patient_info = {};
+                $scope.hospitalized = {};
+                $scope.clinical_course = {};
+                $scope.after_surgery = {};
+                $scope.surgery = {};
+                $scope.leave = {};
+                $scope.long_medical_orders = {};
+                $scope.temp_medical_orders = {};
 
-            // 动态增加的条目
-            $scope.check_record = [{date: "", content: ""}];
-            $scope.description = [{date: "", content: ""}];
-            $scope.long_items = [{
-                start_datetime: "",
-                medical_order: "",
-                start_execute_doctor: "",
-                start_execute_nurse: "",
-                start_execute_datetime: "",
-                stop_datetime: "",
-                stop_execute_doctor: "",
-                stop_execute_nurse: "",
-                stop_execute_datetime: ""
-            }];
-            $scope.temp_items = [{
-                start_datetime: "",
-                medical_order: "",
-                start_execute_doctor: "",
-                start_execute_nurse: "",
-                start_execute_datetime: "",
-                checker: "",
-            }];
+                // 动态增加的条目
+                $scope.check_record = [{date: "", content: ""}];
+                $scope.description = [{date: "", content: ""}];
+                $scope.long_items = [{
+                    start_datetime: "",
+                    medical_order: "",
+                    start_execute_doctor: "",
+                    start_execute_nurse: "",
+                    start_execute_datetime: "",
+                    stop_datetime: "",
+                    stop_execute_doctor: "",
+                    stop_execute_nurse: "",
+                    stop_execute_datetime: ""
+                }];
+                $scope.temp_items = [{
+                    start_datetime: "",
+                    medical_order: "",
+                    start_execute_doctor: "",
+                    start_execute_nurse: "",
+                    start_execute_datetime: "",
+                    checker: "",
+                }];
+            }
+            else {
+                for(var item in data){
+                    if(data[item] != null){
+                        $scope[item] = data[item];
+                        if(item == "clinical_course"){
+                            $scope.check_record = data.clinical_course["check_record"];
+                        }else if(item == "after_surgery"){
+                            $scope.description = data.after_surgery["description"];
+                        }else if(item == "long_medical_orders"){
+                            $scope.long_items = data.long_medical_orders["items"];
+                        }else if(item == "temp_medical_orders"){
+                            $scope.temp_items = data.temp_medical_orders["items"];
+                        }
+                    }
+                }
+
+                // $scope.check_record = data.clinical_course["check_record"];
+                // $scope.description = data.after_surgery["description"];
+                // $scope.long_items = data.long_medical_orders["items"];
+                // $scope.temp_items = data.temp_medical_orders["items"];
+
+            }
+
         };
 
-        $scope.tab_status =function(){
+        $scope.tab_status = function () {
             var status = true;
-            for(var x in $scope.tabs){
+            for (var x in $scope.tabs) {
                 //console.log(x, $scope.tabs[x], $scope.tabs[x].status);
                 status = $scope.tabs[x].status && status;
             }
             return status;
         };
 
-        $scope.initForm();
+        $scope.initForm(null);
+
+        $scope.getDiagInfo = function () {
+            if ($scope.patient_info.medical_id === undefined || $scope.patient_info.out_date === undefined) {
+                $commonFun.showSimpleToast("请输入病案号和出院时间", "error-toast");
+                return 0;
+            }
+            var req = {
+                url: '/data/request_data',
+                method: 'GET',
+                params: {
+                    medical_id: $scope.patient_info.medical_id,
+                    out_date: $scope.patient_info.out_date,
+                }
+            };
+
+            $http(req).then(function (data) {
+                // console.log(data.data);
+                $scope.initForm(data.data);
+                $commonFun.showSimpleToast("获取成功，请切换到下一页查看", "success-toast");
+            }).catch(function () {
+                $commonFun.showSimpleToast("获取失败", "error-toast");
+            });
+        };
 
         //for debug
         // $scope.patient_info = test_data.tbl_patient_info;
@@ -79,7 +127,7 @@ app
 
         $scope.submit = function () {
             //判断表单是否填好
-            if(!$scope.tab_status()){
+            if (!$scope.tab_status()) {
                 $commonFun.showSimpleToast("提交失败，请检查表单，确认数据是否完整录入", "error-toast");
                 return;
             }
@@ -89,27 +137,18 @@ app
             $scope.long_medical_orders["items"] = $scope.long_items;
             $scope.temp_medical_orders["items"] = $scope.temp_items;
 
-            // console.log($scope.patient_info.birthday);
-            // console.log($scope.patient_info);
-            // console.log($scope.clinical_course);
-            // console.log($scope.hospitalized);
-            // console.log($scope.surgery);
-            // console.log($scope.leave);
-            // console.log($scope.long_medical_orders);
-            // console.log($scope.temp_medical_orders);
-
             var req = {
                 url: '/data/form-data',
                 method: 'POST',
                 params: {
-                    tbl_patient_info: $scope.patient_info,
-                    tbl_hospitalized: $scope.hospitalized,
-                    tbl_clinical_course: $scope.clinical_course,
-                    tbl_after_surgery: $scope.after_surgery,
-                    tbl_surgery: $scope.surgery,
-                    tbl_leave: $scope.leave,
-                    tbl_long_medical_orders: $scope.long_medical_orders,
-                    tbl_temp_medical_orders: $scope.temp_medical_orders,
+                    patient_info: $scope.patient_info,
+                    hospitalized: $scope.hospitalized,
+                    clinical_course: $scope.clinical_course,
+                    after_surgery: $scope.after_surgery,
+                    surgery: $scope.surgery,
+                    leave: $scope.leave,
+                    long_medical_orders: $scope.long_medical_orders,
+                    temp_medical_orders: $scope.temp_medical_orders,
                 }
             };
 

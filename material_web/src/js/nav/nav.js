@@ -7,9 +7,9 @@ app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialo
         $mdSidenav(menuId).toggle();
     };
     $scope.close = function () {
-          $mdSidenav('left').close()
+        $mdSidenav('left').close()
             .then(function () {
-              //console.debug("close LEFT is done");
+                //console.debug("close LEFT is done");
             });
     };
 
@@ -27,8 +27,8 @@ app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialo
             icon: 'dashboard'
         },
         {
-            lin: 'main.upload',
-            title: '数据文件上传',
+            lin: 'main.upload_xml',
+            title: '上传数据文件(xml)',
             icon: 'cloud_upload'
         }
     ];
@@ -37,11 +37,16 @@ app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialo
             lin: 'main.admin',
             title: '注册管理',
             icon: 'group'
+        },
+        {
+            lin: 'main.upload_csv',
+            title: '上传基本信息(csv)',
+            icon: 'cloud_upload'
         }
+
     ];
 
     $scope.userInfo = $userInfo.getUserInfo;
-
 
 
     $scope.alert = '';
@@ -58,10 +63,10 @@ app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialo
 
     $scope.showAdd = function (ev) {
         $mdDialog.show({
-                controller: DialogController,
-                template: '<md-dialog aria-label="Mango (Fruit)"> <md-content class="md-padding"> <form name="userForm"> <div layout layout-sm="column"> <md-input-container flex> <label>First Name</label> <input ng-model="user.firstName" placeholder="Placeholder text"> </md-input-container> <md-input-container flex> <label>Last Name</label> <input ng-model="theMax"> </md-input-container> </div> <md-input-container flex> <label>Address</label> <input ng-model="user.address"> </md-input-container> <div layout layout-sm="column"> <md-input-container flex> <label>City</label> <input ng-model="user.city"> </md-input-container> <md-input-container flex> <label>State</label> <input ng-model="user.state"> </md-input-container> <md-input-container flex> <label>Postal Code</label> <input ng-model="user.postalCode"> </md-input-container> </div> <md-input-container flex> <label>Biography</label> <textarea ng-model="user.biography" columns="1" md-maxlength="150"></textarea> </md-input-container> </form> </md-content> <div class="md-actions" layout="row"> <span flex></span> <md-button ng-click="answer(\'not useful\')"> Cancel </md-button> <md-button ng-click="answer(\'useful\')" class="md-primary"> Save </md-button> </div></md-dialog>',
-                targetEvent: ev,
-            })
+            controller: DialogController,
+            template: '<md-dialog aria-label="Mango (Fruit)"> <md-content class="md-padding"> <form name="userForm"> <div layout layout-sm="column"> <md-input-container flex> <label>First Name</label> <input ng-model="user.firstName" placeholder="Placeholder text"> </md-input-container> <md-input-container flex> <label>Last Name</label> <input ng-model="theMax"> </md-input-container> </div> <md-input-container flex> <label>Address</label> <input ng-model="user.address"> </md-input-container> <div layout layout-sm="column"> <md-input-container flex> <label>City</label> <input ng-model="user.city"> </md-input-container> <md-input-container flex> <label>State</label> <input ng-model="user.state"> </md-input-container> <md-input-container flex> <label>Postal Code</label> <input ng-model="user.postalCode"> </md-input-container> </div> <md-input-container flex> <label>Biography</label> <textarea ng-model="user.biography" columns="1" md-maxlength="150"></textarea> </md-input-container> </form> </md-content> <div class="md-actions" layout="row"> <span flex></span> <md-button ng-click="answer(\'not useful\')"> Cancel </md-button> <md-button ng-click="answer(\'useful\')" class="md-primary"> Save </md-button> </div></md-dialog>',
+            targetEvent: ev,
+        })
             .then(function (answer) {
                 $scope.alert = 'You said the information was "' + answer + '".';
             }, function () {

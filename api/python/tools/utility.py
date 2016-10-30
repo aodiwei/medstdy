@@ -9,6 +9,8 @@ __purpose__ =
 import os
 
 import datetime
+import re
+
 import pymongo
 import time
 import yagmail
@@ -21,8 +23,11 @@ class CONST(object):
     """
     some const val
     """
-    LOCAL_FORMAT = "%Y-%m-%d %H:%M:%S"
+    LOCAL_FORMAT_DATETIME = "%Y-%m-%d %H:%M:%S"
+    LOCAL_FORMAT_DATE = "%Y-%m-%d"
     UTC_FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ"
+    MONGODB_COLLECTIONS = ["patient_info", "clinical_course", "hospitalized", "surgery",
+                           "after_surgery", "leave", "temp_medical_orders", "long_medical_orders"]
 
 
 class Instances(object):
@@ -116,7 +121,7 @@ class Utility(object):
         :return:
         """
         mongodb = Instances.get_mongo_inst()
-        collection = mongodb.get_collection("tbl_user_operation_history")
+        collection = mongodb.get_collection("user_operation_history")
         oper_datetime = time.strftime("%Y%m%d_%H%M%S")
         oper = {
             oper_datetime: cause
@@ -142,3 +147,43 @@ class Utility(object):
             return local_st
         else:
             return local_st.strftime(CONST.UTC_FORMAT)
+
+    @classmethod
+    def strptime(cls, datetime_str, inst=True):
+        """
+        format str to datetime instance,
+        format including:
+            YYYY-MM-DD
+            YYYY/MM/DD
+            YYYY_MM_DD
+            YYYY-MM-DD %H:%M:%S
+            YYYY/MM/DD %H:%M:%S
+            YYYY_MM_DD %H:%M:%S
+            YYYY-M-D
+            YYYY/M/D
+            YYYY_M_D
+            YYYY-M-D %H:%M:%S
+            YYYY/M/D %H:%M:%S
+            YYYY_M_D %H:%M:%S
+        :param inst:
+        :param datetime_str:
+        :return:datetime instance/string format
+        """
+        p_date = re.compile(r"^(\d{4})[-/_](\d{1,2})[-/_](\d{1,2})$")
+        p_datetime = re.compile(r"^(\d{4})[-/_](\d{1,2})[-/_](\d{1,2}) (\d{1,2}):(\d{1,2}):(\d{1,2})$")
+        result_date = p_date.findall(datetime_str)
+        result_datetime = p_datetime.findall(datetime_str)
+        if result_datetime:
+            result = result_datetime[0]
+            # this way perform better 7x than strptime
+            datetime_inst = datetime.datetime(int(result[0]), int(result[1]), int(result[2]), int(result[3]),
+                            int(result[4]), int(result[5]), int(result[0]))
+            datetime_str = datetime_inst.strftime(CONST.LOCAL_FORMAT_DATETIME)
+        elif result_date:
+            result = result_date[0]
+            datetime_inst = datetime.datetime(int(result[0]), int(result[1]), int(result[2]))
+            datetime_str = datetime_inst.strftime(CONST.LOCAL_FORMAT_DATE)
+        else:
+            raise ValueError("nonsupport datetime format: {}".format(datetime_str))
+
+        return datetime_inst if inst else datetime_str

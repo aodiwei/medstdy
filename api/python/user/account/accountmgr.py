@@ -83,7 +83,7 @@ class AccountMgr(object):
                 "account": result.account,
                 "role": result.role,
                 "image": result.image,
-                "create_time": result.create_time.strftime(CONST.LOCAL_FORMAT),
+                "create_time": result.create_time.strftime(CONST.LOCAL_FORMAT_DATETIME),
             }
         else:
             log.warning("{0} login failed with wrong password".format(kwargs["user_name"]))

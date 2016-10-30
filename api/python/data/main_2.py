@@ -21,7 +21,7 @@ if __name__ == "__main__":
     if 'Windows' in plat:
         path = u"D:\MedStudy\source\更新后临床决策数据2015年有改动\更新后临床决策数据2015年有改动\临床决策系统数据CSV版\唇腭裂q36.920150101-20151231.csv"
     elif "Darwin" in plat:
-        path = "/Users/David/Documents/唇腭裂q36.920150101-20151231_u8.csv"
+        path = "/Users/David/medstdy/docs/data/唇腭裂q36.920150101-20151231.csv"
     else:
         pass
     data_mgr.parse_csv_file(path=path)
