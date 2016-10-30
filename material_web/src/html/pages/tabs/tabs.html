@@ -13,7 +13,7 @@
                         </form>
                     </md-card-content>
                     <md-card-actions layout="row" layout-align="end center">
-                        <span md-colors="{background: 'yellow'}">请输入完病案号和出院时间后点击此按钮获取已录入的相应信息</span>
+                        <span ng-show="tab.title == '患者基本信息'" md-colors="{background: 'yellow'}">请输入完病案号和出院时间后点击此按钮获取已录入的相应信息</span>
                         <md-button class="md-raised md-primary" ng-show="tab.title == '患者基本信息'" ng-click="getDiagInfo()">获取已录入数据</md-button>
                         <md-button class="md-fab md-mini md-primary" ng-show="tab.status">
                             <md-tooltip md-direction="left" md-visible="tooltipVisible">此页必填数据已录入完整，可以提交数据</md-tooltip>
