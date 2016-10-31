@@ -2,9 +2,16 @@
     <div flex>
         <md-card md-whiteframe="5">
             <div layout="row">
-                <md-datetime-inline flex="30" init-datatime="temp_items[$index].start_datetime" datetime-mode="datetime" placeholder="开始时间"
-                                    date-changed="dateChange()">
-                </md-datetime-inline>
+                <!--<md-datetime-inline flex="30" init-datatime="temp_items[$index].start_datetime" datetime-mode="datetime" placeholder="开始时间"-->
+                                    <!--date-changed="dateChange()">-->
+                <!--</md-datetime-inline>-->
+                <md-input-container flex>
+                    <label>开始时间</label>
+                    <input name="start_datetime" ng-model="temp_items[$index].start_datetime" ng-pattern="{{datetime_format}}">
+                    <div ng-messages="projectForm.start_datetime.$error">
+                        <div ng-message="pattern">时间格式:YYYY-MM-DD HH:mm</div>
+                    </div>
+                </md-input-container>
                 <md-input-container flex>
                     <label>医嘱</label>
                     <input  name="medical_order" ng-model="temp_items[$index].medical_order">
@@ -23,10 +30,17 @@
             </div>
 
             <div layout="row">
-                <md-datetime-inline flex="30" init-datatime="temp_items[$index].start_execute_datetime" datetime-mode="datetime"
-                                    placeholder="执行时间"
-                                    date-changed="dateChange()">
-                </md-datetime-inline>
+                <!--<md-datetime-inline flex="30" init-datatime="temp_items[$index].start_execute_datetime" datetime-mode="datetime"-->
+                                    <!--placeholder="执行时间"-->
+                                    <!--date-changed="dateChange()">-->
+                <!--</md-datetime-inline>-->
+                <md-input-container flex>
+                    <label>执行时间</label>
+                    <input  name="start_execute_datetime" ng-model="temp_items[$index].start_execute_datetime" ng-pattern="{{datetime_format}}">
+                    <div ng-messages="projectForm.start_execute_datetime.$error">
+                        <div ng-message="pattern">时间格式:YYYY-MM-DD HH:mm</div>
+                    </div>
+                </md-input-container>
                 <md-input-container flex>
                     <label>执行护士</label>
                     <input name="start_execute_nurse" ng-model="temp_items[$index].start_execute_nurse">

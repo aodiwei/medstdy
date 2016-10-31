@@ -13,9 +13,17 @@
         </div>
         <div flex>
             <md-card md-whiteframe="5">
-                <md-datetime-inline init-datatime="patient_info.out_date" datetime-mode="date" placeholder="出院时间"
-                                    date-changed="" required="true">
-                </md-datetime-inline>
+                <!--<md-datetime-inline init-datatime="patient_info.out_date" datetime-mode="date" placeholder="出院时间"-->
+                                    <!--date-changed="" required="true">-->
+                <!--</md-datetime-inline>-->
+                <md-input-container>
+                    <label>出院日期</label>
+                    <input required name="out_date" ng-model="patient_info.out_date" ng-pattern="{{date_format}}">
+                    <div ng-messages="projectForm.out_date.$error">
+                        <div ng-message="required">必填</div>
+                        <div ng-message="pattern">日期格式:YYYY-MM-DD</div>
+                    </div>
+                </md-input-container>
             <!--<md-card-actions layout="row" layout-align="end center">-->
                 <!--<md-button class="md-raised md-primary" ng-click="getDiagInfo()">获取诊断信息</md-button>-->
             <!--</md-card-actions>-->

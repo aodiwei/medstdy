@@ -145,7 +145,7 @@
                 '<form name="dateForm">',
                 ' <md-input-container md-no-float class="md-block" ng-click="vm.showPicker($event)">',
                 '<label>{{vm.placeholder}}</label>',
-                '   <input ng-model="initDatatime" name="initDatatime" readonly ng-required="{{ vm.required }}">',
+                '   <input ng-model="initDatatime" name="initDatatime" ng-required="{{ vm.required }}" ng-pattern="{{ vm.format }}" >',
                 ' </md-input-container>',
                 ' <div class="datatime-picker-wrap" ng-class="vm.isShowPicker ? \'show\' : \'\'">',
                 '   <div class="show-date" ng-click="vm.datetime=\'date\'" ng-class="vm.datetime === \'time\' ? \'show\' : \'\'">',
@@ -179,16 +179,20 @@
             vm.required = $scope.required;
 
             var format = 'yyyy-MM-dd HH:mm:ss';
+            vm.format = "^[1-2][0-9]{3}-[0-9]{2}-[0-9]{2} [1-2][0-9]:[0-5][0-9]:[0-5][0-9]$";
 
             vm.mode = function () {
                 if ($scope.datetimeMode == "date") {
                     format = 'yyyy-MM-dd';
+                    vm.format = "^[1-2][0-9]{3}-[0-9]{2}-[0-9]{2}$";
                     return false;
                 } else {
                     return true;
                 }
 
             };
+
+            vm.format = format;
 
 
             vm.save = function (value) {

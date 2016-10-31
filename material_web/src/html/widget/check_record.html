@@ -1,10 +1,17 @@
 <div layout="row">
     <div flex>
         <md-card md-whiteframe="5">
-            <md-datetime-inline init-datatime="check_record[$index].date" datetime-mode="datetime"
-                                placeholder="查房时间"
-                                date-changed="dateChange()">
-            </md-datetime-inline>
+            <!--<md-datetime-inline init-datatime="check_record[$index].date" datetime-mode="datetime"-->
+                                <!--placeholder="查房时间"-->
+                                <!--date-changed="dateChange()">-->
+            <!--</md-datetime-inline>-->
+            <md-input-container>
+                <label>查房时间</label>
+                <input name="date" ng-model="check_record[$index].date" ng-pattern="{{datetime_format}}">
+                <div ng-messages="projectForm.date.$error">
+                    <div ng-message="pattern">时间格式:YYYY-MM-DD HH:mm</div>
+                </div>
+            </md-input-container>
             <md-input-container>
                 <label>查房记录</label>
                 <textarea name="gist" ng-model="check_record[$index].content"  rows="2"

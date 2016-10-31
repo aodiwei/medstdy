@@ -1,17 +1,31 @@
 <div layout="row">
     <div flex>
         <md-card md-whiteframe="5">
-            <md-datetime-inline init-datatime="leave.in_date" datetime-mode="date" placeholder="入院时间"
-                                date-changed="dateChange()">
-            </md-datetime-inline>
+            <!--<md-datetime-inline init-datatime="leave.in_date" datetime-mode="date" placeholder="入院时间"-->
+                                <!--date-changed="dateChange()">-->
+            <!--</md-datetime-inline>-->
+            <md-input-container>
+                <label>入院日期</label>
+                <input name="in_date" ng-model="leave.in_date" ng-pattern="{{date_format}}">
+                <div ng-messages="projectForm.in_date.$error">
+                    <div ng-message="pattern">日期格式:YYYY-MM-DD</div>
+                </div>
+            </md-input-container>
         </md-card>
     </div>
 
     <div flex>
         <md-card md-whiteframe="5">
-            <md-datetime-inline init-datatime="leave.out_date" datetime-mode="date" placeholder="出院时间"
-                                date-changed="dateChange()">
-            </md-datetime-inline>
+            <!--<md-datetime-inline init-datatime="leave.out_date" datetime-mode="date" placeholder="出院时间"-->
+                                <!--date-changed="dateChange()">-->
+            <!--</md-datetime-inline>-->
+            <md-input-container>
+                <label>出院日期</label>
+                <input name="out_date" ng-model="leave.out_date" ng-pattern="{{date_format}}">
+                <div ng-messages="projectForm.out_date.$error">
+                    <div ng-message="pattern">日期格式:YYYY-MM-DD</div>
+                </div>
+            </md-input-container>
         </md-card>
     </div>
 </div>

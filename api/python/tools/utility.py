@@ -10,6 +10,7 @@ import os
 
 import datetime
 import re
+import platform
 
 import pymongo
 import time
@@ -18,6 +19,7 @@ import sunburnt
 
 import config
 import define
+
 
 class CONST(object):
     """
@@ -34,6 +36,7 @@ class Instances(object):
     """
     get instances
     """
+
     @classmethod
     def get_mongo_inst(cls):
         """
@@ -41,7 +44,13 @@ class Instances(object):
         :return:
         """
         conf = Utility.conf_get("mongodb")
-        host = conf.get("host", "localhost")
+        plat = platform.system()
+        if 'Windows' in plat or "Darwin" in plat:
+            mongo_host = conf.get("host_local")
+        else:
+            mongo_host = conf.get("host")
+
+        host = conf.get(mongo_host, "localhost")
         port = conf.get("port", 27017)
         db = conf.get("db", "medlogic")
         mongo_cli = pymongo.MongoClient(host, int(port))
@@ -177,7 +186,7 @@ class Utility(object):
             result = result_datetime[0]
             # this way perform better 7x than strptime
             datetime_inst = datetime.datetime(int(result[0]), int(result[1]), int(result[2]), int(result[3]),
-                            int(result[4]), int(result[5]), int(result[0]))
+                                              int(result[4]), int(result[5]), int(result[0]))
             datetime_str = datetime_inst.strftime(CONST.LOCAL_FORMAT_DATETIME)
         elif result_date:
             result = result_date[0]

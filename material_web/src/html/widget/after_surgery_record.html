@@ -1,10 +1,17 @@
 <div layout="row">
     <div flex>
         <md-card md-whiteframe="5">
-            <md-datetime-inline init-datatime="description[$index].date" datetime-mode="datetime"
-                                placeholder="时间"
-                                date-changed="dateChange()">
-            </md-datetime-inline>
+            <!--<md-datetime-inline init-datatime="description[$index].date" datetime-mode="datetime"-->
+                                <!--placeholder="时间"-->
+                                <!--date-changed="dateChange()">-->
+            <!--</md-datetime-inline>-->
+            <md-input-container>
+                <label>时间</label>
+                <input name="date" ng-model="description[$index].date" ng-pattern="{{datetime_format}}">
+                <div ng-messages="projectForm.date.$error">
+                    <div ng-message="pattern">时间格式:YYYY-MM-DD HH:mm</div>
+                </div>
+            </md-input-container>
             <md-input-container>
                 <label>术后病程</label>
                 <textarea name="content" ng-model="description[$index].content"  rows="2"
