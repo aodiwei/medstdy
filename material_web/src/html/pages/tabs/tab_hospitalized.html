@@ -43,10 +43,10 @@
             <md-card md-whiteframe="5">
                 <md-input-container>
                     <label>既往史</label>
-                    <input  name="history_illness" ng-model="hospitalized.history_illness">
-                    <!--<div ng-messages="projectForm.history_illness.$error">-->
-                        <!--<div ng-message="required">必填</div>-->
-                    <!--</div>-->
+                    <input required name="history_illness" ng-model="hospitalized.history_illness">
+                    <div ng-messages="projectForm.history_illness.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
                 </md-input-container>
             </md-card>
         </div>
@@ -58,10 +58,10 @@
             <md-card md-whiteframe="5">
                 <md-input-container>
                     <label>家族史</label>
-                    <input  name="family_illness" ng-model="hospitalized.family_illness">
-                    <!--<div ng-messages="projectForm.family_illness.$error">-->
-                        <!--<div ng-message="required">必填</div>-->
-                    <!--</div>-->
+                    <input required name="family_illness" ng-model="hospitalized.family_illness">
+                    <div ng-messages="projectForm.family_illness.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
                 </md-input-container>
             </md-card>
         </div>

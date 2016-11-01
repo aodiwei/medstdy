@@ -105,12 +105,12 @@
             <md-card md-whiteframe="5">
                 <md-input-container>
                     <label>描述</label>
-                    <textarea name="description" ng-model="surgery.description" rows="5"
+                    <textarea required name="description" ng-model="surgery.description" rows="5"
                               md-select-on-focus>
                     </textarea>
-                    <!--<div ng-messages="projectForm.description.$error">-->
-                        <!--<div ng-message="required">必填</div>-->
-                    <!--</div>-->
+                    <div ng-messages="projectForm.description.$error">
+                        <div ng-message="required">必填</div>
+                    </div>
                 </md-input-container>
             </md-card>
         </div>

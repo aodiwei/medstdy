@@ -50,10 +50,9 @@ class Instances(object):
         else:
             mongo_host = conf.get("host")
 
-        host = conf.get(mongo_host, "localhost")
         port = conf.get("port", 27017)
         db = conf.get("db", "medlogic")
-        mongo_cli = pymongo.MongoClient(host, int(port))
+        mongo_cli = pymongo.MongoClient(mongo_host, int(port))
         return mongo_cli.get_database(db)
 
     @classmethod

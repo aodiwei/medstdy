@@ -85,10 +85,10 @@
         <md-card md-whiteframe="5">
             <md-input-container>
                 <label>出院医嘱</label>
-                <textarea name="advice" ng-model="leave.advice" rows="2" md-select-on-focus></textarea>
-                <!--<div ng-messages="projectForm.advice.$error">-->
-                    <!--<div ng-message="required">必填</div>-->
-                <!--</div>-->
+                <textarea required name="advice" ng-model="leave.advice" rows="2" md-select-on-focus></textarea>
+                <div ng-messages="projectForm.advice.$error">
+                    <div ng-message="required">必填</div>
+                </div>
             </md-input-container>
         </md-card>
     </div>
