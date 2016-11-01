@@ -112,7 +112,7 @@ app
                 $scope.initForm(data.data);
                 $commonFun.showSimpleToast("获取成功，请切换到下一页查看", "success-toast");
             }).catch(function () {
-                $commonFun.showSimpleToast("获取失败", "error-toast");
+                $commonFun.showSimpleToast("获取失败, 请检查输入的病案号和出院日期，可能该病案号未入库", "error-toast");
             });
         };
 
@@ -156,12 +156,16 @@ app
             };
 
             $http(req).then(function (data) {
-                $scope.btnDisable = false;
                 $commonFun.showSimpleToast("提交成功", "success-toast");
                 $scope.initForm();
-            }).catch(function () {
-                $scope.btnDisable = false;
-                $commonFun.showSimpleToast("提交失败", "error-toast");
+            }).catch(function (data) {
+                console.log(data);
+                if(data.status == 412){
+                    $commonFun.showSimpleToast("提交失败,此病案号和日期不存在", "error-toast");
+                }else {
+                    $commonFun.showSimpleToast("提交失败", "error-toast");
+                }
+
             });
         }
 

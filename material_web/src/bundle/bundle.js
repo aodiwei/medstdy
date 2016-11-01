@@ -81089,7 +81089,7 @@ webpackJsonp([0,1],[
 	            $scope.initForm(data.data);
 	            $commonFun.showSimpleToast("获取成功，请切换到下一页查看", "success-toast");
 	        }).catch(function () {
-	            $commonFun.showSimpleToast("获取失败", "error-toast");
+	            $commonFun.showSimpleToast("获取失败, 请检查输入的病案号和出院日期，可能该病案号未入库", "error-toast");
 	        });
 	    };
 
@@ -81133,12 +81133,15 @@ webpackJsonp([0,1],[
 	        };
 
 	        $http(req).then(function (data) {
-	            $scope.btnDisable = false;
 	            $commonFun.showSimpleToast("提交成功", "success-toast");
 	            $scope.initForm();
-	        }).catch(function () {
-	            $scope.btnDisable = false;
-	            $commonFun.showSimpleToast("提交失败", "error-toast");
+	        }).catch(function (data) {
+	            console.log(data);
+	            if (data.status == 412) {
+	                $commonFun.showSimpleToast("提交失败,此病案号和日期不存在", "error-toast");
+	            } else {
+	                $commonFun.showSimpleToast("提交失败", "error-toast");
+	            }
 	        });
 	    };
 
@@ -82132,7 +82135,7 @@ webpackJsonp([0,1],[
 /* 83 */
 /***/ function(module, exports) {
 
-	module.exports = "<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <!--<md-datetime-inline init-datatime=\"description[$index].date\" datetime-mode=\"datetime\"-->\n                                <!--placeholder=\"时间\"-->\n                                <!--date-changed=\"dateChange()\">-->\n            <!--</md-datetime-inline>-->\n            <md-input-container>\n                <label>时间</label>\n                <input required name=\"date\" ng-model=\"description[$index].date\" ng-pattern=\"datetime_format\">\n                <div ng-messages=\"projectForm.date.$error\">\n                    <div ng-message=\"required\">必填</div>\n                    <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\n                </div>\n            </md-input-container>\n            <md-input-container>\n                <label>术后病程</label>\n                <textarea name=\"content\" ng-model=\"description[$index].content\"  rows=\"2\"\n                          md-select-on-focus>\n                    </textarea>\n                <div ng-messages=\"projectForm.content.$error\">\n                    <div ng-message=\"required\">必填</div>\n                </div>\n            </md-input-container>\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-raised md-primary\" ng-click=\"addDesItem()\">增加记录</md-button>\n                <md-button class=\"md-fab md-mini\">\n                    {{$index + 1}}\n                </md-button>\n                <md-button class=\"md-raised md-warn\" ng-click=\"delDesItem($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\n            </md-card-actions>\n        </md-card>\n    </div>\n</div>"
+	module.exports = "<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <!--<md-datetime-inline init-datatime=\"description[$index].date\" datetime-mode=\"datetime\"-->\n                                <!--placeholder=\"时间\"-->\n                                <!--date-changed=\"dateChange()\">-->\n            <!--</md-datetime-inline>-->\n            <md-input-container>\n                <label>时间</label>\n                <input required name=\"date\" ng-model=\"description[$index].date\" ng-pattern=\"datetime_format\">\n                <div ng-messages=\"projectForm.date.$error\">\n                    <div ng-message=\"required\">必填</div>\n                    <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\n                </div>\n            </md-input-container>\n            <md-input-container>\n                <label>术后病程</label>\n                <textarea required name=\"content\" ng-model=\"description[$index].content\"  rows=\"2\"\n                          md-select-on-focus>\n                    </textarea>\n                <div ng-messages=\"projectForm.content.$error\">\n                    <div ng-message=\"required\">必填</div>\n                </div>\n            </md-input-container>\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-raised md-primary\" ng-click=\"addDesItem()\">增加记录</md-button>\n                <md-button class=\"md-fab md-mini\">\n                    {{$index + 1}}\n                </md-button>\n                <md-button class=\"md-raised md-warn\" ng-click=\"delDesItem($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\n            </md-card-actions>\n        </md-card>\n    </div>\n</div>"
 
 /***/ },
 /* 84 */

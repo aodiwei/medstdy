@@ -37,3 +37,5 @@ C_CAUSE_sendError = "sendError"
 C_CAUSE_invalidUrl = "invalidUrl"
 
 C_CAUSE_fileError = "FileParseFailed"
+C_CAUSE_IdNonexistence = "IdNonexistence"
+

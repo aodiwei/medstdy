@@ -10,7 +10,7 @@ import tornado.web
 import define
 from api.basehandler import BaseHandler, CustomHTTPError
 from data.data_storage.data_store import DataStorage
-from logs import CustomMgrError
+from logs import CustomMgrError, DataExistError
 from tools.utility import Utility
 
 
@@ -24,7 +24,7 @@ class UploadXmlHandler(BaseHandler):
             data_mgr = DataStorage(user=user_name)
             map(data_mgr.store_xml_from_web, files)
         except CustomMgrError, e:
-            raise CustomHTTPError(500, error=define.C_EC_fileError, cause=e.message)
+            raise CustomHTTPError(400, error=define.C_EC_fileError, cause=e.message)
 
 
 class UploadCsvHandler(BaseHandler):
@@ -37,7 +37,7 @@ class UploadCsvHandler(BaseHandler):
             data_mgr = DataStorage(user=user_name)
             map(data_mgr.store_csv_from_web, files)
         except CustomMgrError, e:
-            raise CustomHTTPError(500, error=define.C_EC_fileError, cause=e.message)
+            raise CustomHTTPError(400, error=define.C_EC_fileError, cause=e.message)
 
 
 class FormDataHandler(BaseHandler):
@@ -51,11 +51,11 @@ class FormDataHandler(BaseHandler):
         user = self.get_current_user()
         user_name = user.get("user_name")
         data_mgr = DataStorage(user=user_name)
-        data_mgr.form_data(**data_info)
-        # try:
-        #
-        # except CustomMgrError, e:
-        #     raise CustomHTTPError(500, error=define.C_EC_formError, cause=e.message)
+
+        try:
+            data_mgr.form_data(**data_info)
+        except DataExistError, e:
+            raise CustomHTTPError(412, error=define.C_EC_formError, cause=e.message)
 
 
 class RequestDataHandler(BaseHandler):
@@ -68,5 +68,9 @@ class RequestDataHandler(BaseHandler):
         medical_id = self.get_argument("medical_id")
         outdate = self.get_argument("out_date")
         data_mgr = DataStorage()
-        res = data_mgr.get_data(medical_id, outdate)
+        try:
+            res = data_mgr.get_data(medical_id, outdate)
+        except DataExistError, e:
+            raise CustomHTTPError(412, error=define.C_CAUSE_IdNonexistence, cause=e.message)
+
         self.write(res)
