@@ -18,8 +18,8 @@ app
             {title: '临时医嘱记录表', content: 'html/pages/tabs/tab_temp_medical_orders.html', status: false}
         ];
 
-        $scope.datetime_format = "[1-2][0-9]{3}-[0-1][0-9]-[0-1][0-9] [1-2][0-9]:[0-5][0-9]";
-        $scope.date_format = "[1-2][0-9]{3}-[0-1][0-9]-[0-1][0-9]";
+        $scope.datetime_format = "[1-2][0-9]{3}-[0-1][0-9]-[0-3][0-9] [1-2][0-9]:[0-5][0-9]";
+        $scope.date_format = "[1-2][0-9]{3}-[0-1][0-9]-[0-3][0-9]";
 
         $scope.initForm = function (data) {
             if (data == null) {
