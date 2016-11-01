@@ -6,6 +6,7 @@ __author__ = "adw"
 __mtime__ = "2016/7/23"
 __purpose__ = 
 """
+import os
 import sys
 import platform
 sys.path.append("..")
@@ -19,9 +20,13 @@ if __name__ == "__main__":
     # data_mgr.store_data_from_disk()
     plat = platform.system()
     if 'Windows' in plat:
-        path = u"D:\MedStudy\source\更新后临床决策数据2015年有改动\更新后临床决策数据2015年有改动\临床决策系统数据CSV版\唇腭裂q36.920150101-20151231.csv"
+        path = u"D:/MedStudy/source/testcsv"
     elif "Darwin" in plat:
-        path = "/Users/David/medstdy/docs/data/唇腭裂q36.920150101-20151231.csv"
+        path = "/Users/David/medstdy/docs/data"
     else:
         pass
-    data_mgr.parse_csv_file(path=path)
+    for root, dirs, files in os.walk(path):
+        for fn in files:
+            sub_path = os.path.join(root, fn)
+            sub_path = sub_path.replace("\\", '/')
+            data_mgr.parse_csv_file(path=sub_path)

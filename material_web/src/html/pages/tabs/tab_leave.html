@@ -6,7 +6,7 @@
             <!--</md-datetime-inline>-->
             <md-input-container>
                 <label>入院日期</label>
-                <input name="in_date" ng-model="leave.in_date" ng-pattern="{{date_format}}">
+                <input name="in_date" ng-model="leave.in_date" ng-pattern="date_format">
                 <div ng-messages="projectForm.in_date.$error">
                     <div ng-message="pattern">日期格式:YYYY-MM-DD</div>
                 </div>
@@ -21,7 +21,7 @@
             <!--</md-datetime-inline>-->
             <md-input-container>
                 <label>出院日期</label>
-                <input name="out_date" ng-model="leave.out_date" ng-pattern="{{date_format}}">
+                <input name="out_date" ng-model="leave.out_date" ng-pattern="date_format">
                 <div ng-messages="projectForm.out_date.$error">
                     <div ng-message="pattern">日期格式:YYYY-MM-DD</div>
                 </div>

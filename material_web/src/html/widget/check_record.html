@@ -7,7 +7,7 @@
             <!--</md-datetime-inline>-->
             <md-input-container>
                 <label>查房时间</label>
-                <input name="date" ng-model="check_record[$index].date" ng-pattern="{{datetime_format}}">
+                <input name="date" ng-model="check_record[$index].date" ng-pattern="datetime_format">
                 <div ng-messages="projectForm.date.$error">
                     <div ng-message="pattern">时间格式:YYYY-MM-DD HH:mm</div>
                 </div>

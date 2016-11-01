@@ -7,7 +7,7 @@
                 <!--</md-datetime-inline>-->
                 <md-input-container flex>
                     <label>开始时间</label>
-                    <input name="start_datetime" ng-model="temp_items[$index].start_datetime" ng-pattern="{{datetime_format}}">
+                    <input name="start_datetime" ng-model="temp_items[$index].start_datetime" ng-pattern="datetime_format">
                     <div ng-messages="projectForm.start_datetime.$error">
                         <div ng-message="pattern">时间格式:YYYY-MM-DD HH:mm</div>
                     </div>
@@ -36,7 +36,7 @@
                 <!--</md-datetime-inline>-->
                 <md-input-container flex>
                     <label>执行时间</label>
-                    <input  name="start_execute_datetime" ng-model="temp_items[$index].start_execute_datetime" ng-pattern="{{datetime_format}}">
+                    <input  name="start_execute_datetime" ng-model="temp_items[$index].start_execute_datetime" ng-pattern="datetime_format">
                     <div ng-messages="projectForm.start_execute_datetime.$error">
                         <div ng-message="pattern">时间格式:YYYY-MM-DD HH:mm</div>
                     </div>

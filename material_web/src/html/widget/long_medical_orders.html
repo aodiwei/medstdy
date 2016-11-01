@@ -7,7 +7,7 @@
                 <!--</md-datetime-inline>-->
                 <md-input-container flex>
                     <label>开始时间</label>
-                    <input name="start_datetime" ng-model="long_items[$index].start_datetime" ng-pattern="{{datetime_format}}">
+                    <input name="start_datetime" ng-model="long_items[$index].start_datetime" ng-pattern="datetime_format">
                     <div ng-messages="projectForm.start_datetime.$error">
                         <div ng-message="pattern">时间格式:YYYY-MM-DD HH:mm</div>
                     </div>
@@ -29,7 +29,7 @@
                 <!--</md-datetime-inline>-->
                 <md-input-container flex>
                     <label>开始执行时间</label>
-                    <input name="start_execute_datetime" ng-model="long_items[$index].start_execute_datetime" ng-pattern="{{datetime_format}}">
+                    <input name="start_execute_datetime" ng-model="long_items[$index].start_execute_datetime" ng-pattern="datetime_format">
                     <div ng-messages="projectForm.start_execute_datetime.$error">
                         <div ng-message="pattern">时间格式:YYYY-MM-DD HH:mm</div>
                     </div>
@@ -57,7 +57,7 @@
                 <!--</md-datetime-inline>-->
                 <md-input-container flex>
                     <label>停止时间</label>
-                    <input name="stop_datetime" ng-model="long_items[$index].stop_datetime" ng-pattern="{{datetime_format}}">
+                    <input name="stop_datetime" ng-model="long_items[$index].stop_datetime" ng-pattern="datetime_format">
                     <div ng-messages="projectForm.stop_datetime.$error">
                         <div ng-message="pattern">时间格式:YYYY-MM-DD HH:mm</div>
                     </div>
@@ -86,7 +86,7 @@
 
             <md-input-container flex>
                 <label>停止执行时间</label>
-                <input name="stop_execute_datetime" ng-model="long_items[$index].stop_execute_datetime" ng-pattern="{{datetime_format}}">
+                <input name="stop_execute_datetime" ng-model="long_items[$index].stop_execute_datetime" ng-pattern="datetime_format">
                 <div ng-messages="projectForm.stop_execute_datetime.$error">
                     <div ng-message="pattern">时间格式:YYYY-MM-DD HH:mm</div>
                 </div>

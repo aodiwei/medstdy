@@ -18,7 +18,7 @@
                 <!--</md-datetime-inline>-->
                 <md-input-container>
                     <label>出院日期</label>
-                    <input required name="out_date" ng-model="patient_info.out_date" ng-pattern="{{date_format}}">
+                    <input required type="text" name="out_date" ng-model="patient_info.out_date" ng-pattern="date_format">
                     <div ng-messages="projectForm.out_date.$error">
                         <div ng-message="required">必填</div>
                         <div ng-message="pattern">日期格式:YYYY-MM-DD</div>
