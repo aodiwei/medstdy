@@ -31,7 +31,9 @@
             <md-card md-whiteframe="5">
                 <md-input-container>
                     <label>现病史</label>
-                    <input required name="present_illness" ng-model="hospitalized.present_illness">
+                    <!--<input required name="present_illness" ng-model="hospitalized.present_illness">-->
+                    <textarea required name="present_illness" ng-model="hospitalized.present_illness" rows="5"
+                              md-select-on-focus></textarea>
                     <div ng-messages="projectForm.present_illness.$error">
                         <div ng-message="required">必填</div>
                     </div>
@@ -43,7 +45,9 @@
             <md-card md-whiteframe="5">
                 <md-input-container>
                     <label>既往史</label>
-                    <input required name="history_illness" ng-model="hospitalized.history_illness">
+                    <!--<input required name="history_illness" ng-model="hospitalized.history_illness">-->
+                    <textarea required name="history_illness" ng-model="hospitalized.history_illness" rows="5"
+                              md-select-on-focus></textarea>
                     <div ng-messages="projectForm.history_illness.$error">
                         <div ng-message="required">必填</div>
                     </div>

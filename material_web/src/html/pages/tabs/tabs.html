@@ -29,7 +29,7 @@
                             </md-icon>
                         </md-button>
 
-                        <md-button class="md-raised md-primary" ng-click="submit()">提交</md-button>
+                        <md-button class="md-raised md-primary" ng-show="tab.title == '临时医嘱记录表'" ng-disabled="!tab_status()" ng-click="submit()">提交</md-button>
                     </md-card-actions>
                 </md-card>
             </div>

@@ -88,6 +88,7 @@ app
                 //console.log(x, $scope.tabs[x], $scope.tabs[x].status);
                 status = $scope.tabs[x].status && status;
             }
+            //console.log(status);
             return status;
         };
 
@@ -107,12 +108,13 @@ app
                 }
             };
 
-            $http(req).then(function (data) {
-                console.log(data.data);
-                $scope.initForm(data.data);
+            $http(req).then(function (req_data) {
+                console.log(req_data.data);
+                $scope.initForm(req_data.data);
                 $commonFun.showSimpleToast("获取成功，请切换到下一页查看", "success-toast");
             }).catch(function () {
-                $commonFun.showSimpleToast("获取失败, 请检查输入的病案号和出院日期，可能该病案号未入库", "error-toast");
+                $commonFun.showSimpleToast($scope.patient_info.medical_id + ":" + $scope.patient_info.out_date +
+                    "获取失败, 请检查输入的病案号和出院日期，可能该病案号未入库", "error-toast");
             });
         };
 
@@ -129,18 +131,13 @@ app
         // $scope.temp_items = test_data.tbl_temp_medical_orders.items;
 
         $scope.submit = function () {
-            //判断表单是否填好
-            if (!$scope.tab_status()) {
-                $commonFun.showSimpleToast("提交失败，请检查表单，确认数据是否完整录入", "error-toast");
-                return;
-            }
 
             $scope.clinical_course["check_record"] = $scope.check_record;
             $scope.after_surgery["description"] = $scope.description;
             $scope.long_medical_orders["items"] = $scope.long_items;
             $scope.temp_medical_orders["items"] = $scope.temp_items;
 
-            var req = {
+            var req_sub = {
                 url: '/data/form-data',
                 method: 'POST',
                 params: {
@@ -154,20 +151,35 @@ app
                     temp_medical_orders: $scope.temp_medical_orders,
                 }
             };
+            var alt = JSON.stringify(req_sub.params, null, 2);
+            //alert(alt);
+            console.log(alt);
+            //$commonFun.showSimpleToast(alt, "error-toast");
 
-            $http(req).then(function (data) {
+
+            //判断表单是否填好
+            if (!$scope.tab_status()) {
+                $commonFun.showSimpleToast("提交失败，请检查表单，确认数据是否完整录入", "error-toast");
+                return;
+            }
+
+
+            $http(req_sub).then(function (data_sub) {
                 $commonFun.showSimpleToast("提交成功", "success-toast");
                 $scope.initForm();
-            }).catch(function (data) {
-                console.log(data);
-                if(data.status == 412){
+            }).catch(function (data_sub) {
+                //console.log(data_sub);
+                var msg = JSON.stringify(data_sub, null, 2);
+                console.log(msg);
+                alert(msg);
+                if(data_sub.status == 412){
                     $commonFun.showSimpleToast("提交失败,此病案号和日期不存在", "error-toast");
                 }else {
                     $commonFun.showSimpleToast("提交失败", "error-toast");
                 }
 
             });
-        }
+        };
 
         //patient
         $scope.selected = {
