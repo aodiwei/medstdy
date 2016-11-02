@@ -47,7 +47,7 @@ class FormDataHandler(BaseHandler):
 
     @tornado.web.authenticated
     def post(self):
-        data_info = self.request.arguments
+        data_info = json.loads(self.request.body)
         user = self.get_current_user()
         user_name = user.get("user_name")
         data_mgr = DataStorage(user=user_name)

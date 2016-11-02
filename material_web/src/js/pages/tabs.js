@@ -140,7 +140,10 @@ app
             var req_sub = {
                 url: '/data/form-data',
                 method: 'POST',
-                params: {
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                data: {
                     patient_info: $scope.patient_info,
                     hospitalized: $scope.hospitalized,
                     clinical_course: $scope.clinical_course,
