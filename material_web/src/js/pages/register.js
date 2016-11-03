@@ -2,6 +2,7 @@
  * Created by david ao on 2016/8/27.
  */
 var app = require("../app.js");
+'use strict';
 
 app.controller("registerCtrl", function($scope, $http, $state, $commonFun){
     $scope.selected = {

@@ -30,6 +30,11 @@ app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialo
             lin: 'main.upload_xml',
             title: '上传数据文件(xml)',
             icon: 'cloud_upload'
+        },
+        {
+            lin: 'main.show_data',
+            title: '浏览数据',
+            icon: 'grid_on'
         }
     ];
     $scope.admin = [

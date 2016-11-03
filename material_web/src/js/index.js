@@ -27,6 +27,7 @@ require('../third_party/upload_file/angular-file-upload');
 
 //js
 require('../css/app.css');
+// require('../css/app.less');
 require('./app');
 require('./nav/nav');
 
@@ -63,3 +64,8 @@ require('../html/widget/check_record.html');
 require('../html/widget/after_surgery_record.html');
 require('../html/widget/long_medical_orders.html');
 require('../html/widget/temp_medical_orders.html');
+
+
+require('../html/pages/show_data/nutrition-table.html');
+require('../html/pages/show_data/show_data.html');
+require('./pages/show_data');
