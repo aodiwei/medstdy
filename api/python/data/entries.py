@@ -11,4 +11,5 @@ entries = [
     (r"/data/upload-csv", UploadCsvHandler),
     (r"/data/form-data", FormDataHandler),
     (r"/data/request_data", RequestDataHandler),
+    (r"/data/request_base_info_list", RequestBaseInfoDataListHandler),
 ]

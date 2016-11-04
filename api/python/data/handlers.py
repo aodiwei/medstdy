@@ -66,10 +66,28 @@ class RequestDataHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
         medical_id = self.get_argument("medical_id")
-        outdate = self.get_argument("out_date")
+        out_date = self.get_argument("out_date")
         data_mgr = DataStorage()
         try:
-            res = data_mgr.get_data(medical_id, outdate)
+            res = data_mgr.get_data(medical_id, out_date)
+        except DataExistError, e:
+            raise CustomHTTPError(412, error=define.C_CAUSE_IdNonexistence, cause=e.message)
+
+        self.write(res)
+
+
+class RequestBaseInfoDataListHandler(BaseHandler):
+    """
+    获取基本信息数据list
+    """
+
+    @tornado.web.authenticated
+    def get(self):
+        skip = self.get_argument("skip")
+        limit = self.get_argument("limit")
+        data_mgr = DataStorage()
+        try:
+            res = data_mgr.get_data_list(skip, limit)
         except DataExistError, e:
             raise CustomHTTPError(412, error=define.C_CAUSE_IdNonexistence, cause=e.message)
 
