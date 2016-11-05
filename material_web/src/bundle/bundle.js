@@ -42,51 +42,51 @@ webpackJsonp([0,1],[
 	__webpack_require__(46);
 
 	//third_party
+	// require('../third_party/datetimepicker/md-date-time.css');
+	// require('../third_party/datetimepicker/md-date-time');
+	// require('../third_party/datetimepicker/datetimepicker.css');
+	// require('../third_party/datetimepicker/datetimepicker');
+
 	__webpack_require__(48);
-	__webpack_require__(50);
-	__webpack_require__(51);
+
+	//js
+	__webpack_require__(49);
+	__webpack_require__(52);
 	__webpack_require__(53);
 
 	__webpack_require__(54);
-
-	//js
-	__webpack_require__(55);
+	__webpack_require__(56);
+	__webpack_require__(57);
 	__webpack_require__(58);
+
 	__webpack_require__(59);
-
 	__webpack_require__(60);
-	__webpack_require__(62);
-	__webpack_require__(63);
-	__webpack_require__(64);
-
-	__webpack_require__(65);
-	__webpack_require__(66);
-	__webpack_require__(67);
-
-	__webpack_require__(68);
 	__webpack_require__(61);
 
-	//html
-	__webpack_require__(69);
+	__webpack_require__(62);
+	__webpack_require__(55);
 
+	//html
+	__webpack_require__(63);
+
+	__webpack_require__(64);
+	__webpack_require__(65);
+	__webpack_require__(66);
+
+	__webpack_require__(67);
+	__webpack_require__(68);
+	__webpack_require__(69);
 	__webpack_require__(70);
 	__webpack_require__(71);
 	__webpack_require__(72);
-
 	__webpack_require__(73);
 	__webpack_require__(74);
 	__webpack_require__(75);
+
 	__webpack_require__(76);
 	__webpack_require__(77);
 	__webpack_require__(78);
 	__webpack_require__(79);
-	__webpack_require__(80);
-	__webpack_require__(81);
-
-	__webpack_require__(82);
-	__webpack_require__(83);
-	__webpack_require__(84);
-	__webpack_require__(85);
 
 /***/ },
 /* 15 */
@@ -78326,491 +78326,6 @@ webpackJsonp([0,1],[
 /* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(49);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(28)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./md-date-time.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./md-date-time.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 49 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(27)();
-	// imports
-
-
-	// module
-	exports.push([module.id, "/*\r\n\t@license md-date-time\r\n\t@author SimeonC\r\n\t@license 2015 MIT\r\n\t@version 0.1.0\r\n\t\r\n\tSee README.md for requirements and use.\r\n*//* Start Variable Declaration */\r\n/* End Variable Declaration */\r\n/* Start Main Styling */\r\n.visuallyhidden {\r\n  visibility: hidden;\r\n}\r\n.time-date {\r\n  overflow: hidden;\r\n  border: none;\r\n  width: 46.1rem;\r\n  font-size: 1.2rem;\r\n}\r\n.time-date .md-button {\r\n  padding: 6px;\r\n  margin: 0;\r\n  min-width: initial;\r\n  line-height: inherit;\r\n  font-size: inherit;\r\n}\r\n.time-date > .display {\r\n  position: relative;\r\n  width: 47%;\r\n  height: 100%;\r\n  cursor: pointer;\r\n  -webkit-transition: color 0.6s ease-in-out;\r\n          transition: color 0.6s ease-in-out;\r\n}\r\n.time-date > .display > .title {\r\n  background-color: #00796b;\r\n  color: #e1e1e1;\r\n  line-height: 2.5rem;\r\n}\r\n.time-date > .display > .content {\r\n  position: absolute;\r\n  left: 0px;\r\n  right: 0px;\r\n  bottom: 0px;\r\n  top: 2.4rem;\r\n  padding: 2.3rem 0;\r\n  font-size: 1.5rem;\r\n  background-color: #009688;\r\n  color: #e1e1e1;\r\n}\r\n.time-date > .display > .content > .super-title {\r\n  text-transform: uppercase;\r\n}\r\n.time-date > .display > .content > .main-title {\r\n  font-size: 6.1rem;\r\n  line-height: 6.1rem;\r\n  height: 6.1rem;\r\n}\r\n.time-date > .display > .content > .main-title > small {\r\n  font-size: 1.1rem;\r\n  margin-left: 0.3rem;\r\n}\r\n.time-date > .display > .content > .sub-title {\r\n  color: rgba(255,255,255,0.5);\r\n}\r\n.time-date > .control {\r\n  width: 53%;\r\n  overflow-x: hidden;\r\n  position: relative;\r\n}\r\n.time-date > .control > .full-title {\r\n  display: none;\r\n  background-color: #00796b;\r\n  color: #e1e1e1;\r\n  line-height: 2.4rem;\r\n}\r\n.time-date > .control > .slider {\r\n  position: absolute !important;\r\n  width: 200%;\r\n  -webkit-transition: left 0.6s ease-in-out;\r\n          transition: left 0.6s ease-in-out;\r\n}\r\n.time-date > .control > .slider > .date-control,\r\n.time-date > .control > .slider > .time-control,\r\n.time-date > .control > .slider > .switch-control {\r\n  float: left;\r\n  height: 20.9rem;\r\n}\r\n.time-date > .control > .slider > .date-control,\r\n.time-date > .control > .slider > .time-control {\r\n  width: 45%;\r\n  overflow-y: hidden;\r\n}\r\n.time-date > .control > .slider > .switch-control {\r\n  width: 10%;\r\n  cursor: pointer;\r\n  padding: 0 0.6rem;\r\n}\r\n.time-date > .control > .slider > .switch-control > i.fa:first-child {\r\n  margin-right: 1.4rem;\r\n}\r\n.time-date > .control > .slider > .switch-control > i.fa:last-child {\r\n  margin-left: 1.4rem;\r\n}\r\n.time-date > .control > .slider > .date-control > .title {\r\n  font-weight: 500;\r\n  line-height: 2.4rem;\r\n}\r\n.time-date > .control > .slider > .date-control > .title:after,\r\n.time-date > .control > .slider > .date-control > .title:before {\r\n  display: table;\r\n  content: \" \";\r\n}\r\n.time-date > .control > .slider > .date-control > .title:after {\r\n  clear: both;\r\n}\r\n.time-date > .control > .slider > .date-control > .title > span.month-part {\r\n  cursor: pointer;\r\n  position: relative;\r\n  margin-right: 0.5rem;\r\n}\r\n.time-date > .control > .slider > .date-control > .title > span.month-part:hover {\r\n  text-decoration: underline;\r\n}\r\n.time-date > .control > .slider > .date-control > .title > span.month-part > select {\r\n  position: absolute;\r\n  top: 0px;\r\n  bottom: 0px;\r\n  left: 0px;\r\n  right: 0px;\r\n  opacity: 0;\r\n  width: 100%;\r\n}\r\n.time-date > .control > .slider > .date-control > .title > input {\r\n  border: none;\r\n  width: 4.3rem;\r\n}\r\n.time-date > .control > .slider > .date-control > .headers {\r\n  margin-top: -0.7rem;\r\n  font-weight: 500;\r\n  font-size: 1rem;\r\n  padding-left: 1.5rem;\r\n  color: #737373;\r\n  text-align: left;\r\n}\r\n.time-date > .control > .slider > .date-control > .headers > .day-cell {\r\n  text-align: center;\r\n  cursor: default;\r\n  box-sizing: border-box;\r\n}\r\n.time-date > .control > .slider > .date-control .day-cell {\r\n  float: left;\r\n  width: 2.7rem;\r\n  height: 2.7rem;\r\n  padding: 0.7rem 6px 6px 6px;\r\n  cursor: pointer;\r\n  border-radius: 3rem;\r\n}\r\n.time-date > .control > .slider > .date-control > .days {\r\n  font-size: 1rem;\r\n  padding-left: 1.5rem;\r\n  width: 20.790000000000003rem;\r\n}\r\n.time-date > .control > .slider > .date-control > .days .day-cell {\r\n  color: #202020;\r\n}\r\n.time-date > .control > .slider > .date-control > .days .day-cell.today {\r\n  color: #009688;\r\n}\r\n.time-date > .control > .slider > .date-control > .days .day-cell.selected {\r\n  color: #fff;\r\n  background-color: #009688;\r\n}\r\n.time-date > .control > .slider > .date-control > .days .day-cell:hover,\r\n.time-date > .control > .slider > .date-control > .days .day-cell:active {\r\n  color: #e6e6e6;\r\n  background-color: #00baa9;\r\n}\r\n.time-date > .control > .slider > .date-control > .days .day-cell:disabled {\r\n  color: #aaa;\r\n  background-color: none;\r\n}\r\n.time-date > .control > .slider > .time-control {\r\n  position: relative;\r\n}\r\n.time-date > .control > .slider > .time-control > .time-inputs {\r\n  bottom: 60%;\r\n  margin-bottom: -4.3rem;\r\n  text-align: center;\r\n  position: absolute;\r\n  left: 0;\r\n  right: 0;\r\n}\r\n.time-date > .control > .slider > .time-control > .time-inputs > button.md-button {\r\n  font-size: 3rem;\r\n  line-height: 1rem;\r\n  width: 8.4rem;\r\n  margin: 0 0.8rem;\r\n  position: absolute;\r\n  padding-top: 0px;\r\n  padding-bottom: 0px;\r\n}\r\n.time-date > .control > .slider > .time-control > .time-inputs > button.md-button.hours {\r\n  left: 1.5rem;\r\n  right: 50%;\r\n  margin-right: 1rem;\r\n}\r\n.time-date > .control > .slider > .time-control > .time-inputs > button.md-button.minutes {\r\n  right: 0.7rem;\r\n  left: 50%;\r\n}\r\n.time-date > .control > .slider > .time-control > .time-inputs > button.md-button.up {\r\n  top: -2.3rem;\r\n}\r\n.time-date > .control > .slider > .time-control > .time-inputs > button.md-button.down {\r\n  bottom: -3rem;\r\n}\r\n.time-date > .control > .slider > .time-control > .time-inputs > input {\r\n  border: none;\r\n  border-bottom: 1px solid #000;\r\n  text-align: right;\r\n  font-size: 6.1rem;\r\n  line-height: 3rem;\r\n  width: 8.4rem;\r\n  margin: 0 0.7rem;\r\n}\r\n.time-date > .control > .slider > .time-control > .buttons {\r\n  position: absolute;\r\n  bottom: 3rem;\r\n  right: 0;\r\n  width: 9.2rem;\r\n}\r\n.time-date.date-mode > .control > .slider {\r\n  left: 0%;\r\n}\r\n.time-date:not(.time-mode-add):not(.time-mode-remove):not(.date-mode-add):not(.date-mode-remove).date-mode > .control > .slider > .time-control > *,\r\n.time-date:not(.time-mode-add):not(.time-mode-remove):not(.date-mode-add):not(.date-mode-remove).time-mode > .control > .slider > .date-control > * {\r\n  display: none;\r\n}\r\n.time-date.time-mode-add > .display,\r\n.time-date.time-mode-remove > .display,\r\n.time-date.date-mode-add > .display,\r\n.time-date.date-mode-remove > .display {\r\n  color: transparent !important;\r\n}\r\n.time-date.time-mode > .display > .content {\r\n  padding-top: 4.6rem;\r\n}\r\n.time-date.time-mode > .control > .slider {\r\n  left: -100%;\r\n}\r\n.time-date.date-only > .control > .slider > .switch-control,\r\n.time-date.date-only > .control > .slider > .time-control {\r\n  display: none;\r\n}\r\n.time-date.date-only > .control > .slider > .date-control {\r\n  width: 50%;\r\n  padding-left: 1rem;\r\n}\r\n.time-date.time-only > .display > .title {\r\n  display: none;\r\n}\r\n.time-date.time-only > .display > .content {\r\n  top: 0px;\r\n  padding-top: 6.3rem;\r\n}\r\n.time-date.time-only > .control > .slider > .switch-control,\r\n.time-date.time-only > .control > .slider > .date-control {\r\n  display: none;\r\n}\r\n.time-date.time-only > .control > .slider > .time-control {\r\n  width: 50%;\r\n}\r\n.time-date > .display,\r\n.time-date > .control {\r\n  height: 20.9rem;\r\n  float: left;\r\n  text-align: center;\r\n}\r\n.time-date > .buttons {\r\n  clear: both;\r\n  padding: 0.7rem;\r\n  text-align: right;\r\n}\r\n.time-date button,\r\n.time-date .button {\r\n  color: #009688;\r\n}\r\n.time-date.full-mode > .display {\r\n  display: none;\r\n}\r\n.time-date.full-mode > .control {\r\n  width: 100%;\r\n  height: 23.4rem;\r\n}\r\n.time-date.full-mode > .control > .full-title {\r\n  display: block;\r\n}\r\n.time-date.full-mode > .control > .slider {\r\n  float: none;\r\n  width: 100%;\r\n}\r\n.time-date.full-mode > .control > .slider > .time-control,\r\n.time-date.full-mode > .control > .slider > .date-control {\r\n  width: 50%;\r\n}\r\n.time-date.full-mode > .control > .slider > .switch-control {\r\n  display: none;\r\n}\r\n.time-date.full-mode > .buttons {\r\n  background-color: #009688;\r\n}\r\n.time-date.full-mode > .buttons > button {\r\n/* Invert colours for bottom bar */\r\n  color: #fff !important;\r\n}\r\n.time-date.vertical {\r\n  width: 23.1rem;\r\n}\r\n.time-date.vertical > .display {\r\n  width: 100%;\r\n  height: auto;\r\n  -webkit-transition: color 0.6s ease-in-out, height 0.6s ease-in-out;\r\n          transition: color 0.6s ease-in-out, height 0.6s ease-in-out;\r\n}\r\n.time-date.vertical > .display > .content {\r\n  position: relative;\r\n  width: 100%;\r\n  top: 0px;\r\n  height: 15.5rem;\r\n}\r\n.time-date.vertical > .control {\r\n  width: 100%;\r\n}\r\n.time-date.vertical.time-mode > .display > .content {\r\n  padding-top: 4.6rem;\r\n}\r\n.time-date.vertical.time-only > .display > .content {\r\n  top: 0px;\r\n  padding-top: 0.8rem;\r\n  height: 10rem;\r\n}\r\n.time-date.vertical.full-mode > .display {\r\n  display: none;\r\n}\r\n.time-date.vertical.full-mode > .control {\r\n  width: 100%;\r\n  height: 44.2rem;\r\n}\r\n.time-date.vertical.full-mode > .control > .full-title {\r\n  display: block;\r\n}\r\n.time-date.vertical.full-mode > .control > .slider {\r\n  float: none;\r\n  width: 100%;\r\n  height: auto;\r\n  overflow: auto;\r\n}\r\n.time-date.vertical.full-mode > .control > .slider > .time-control,\r\n.time-date.vertical.full-mode > .control > .slider > .date-control {\r\n  width: 100%;\r\n  float: left;\r\n}\r\n@media (max-width: 51rem) {\r\n  .time-date {\r\n    width: 23.1rem;\r\n  }\r\n  .time-date > .display {\r\n    width: 100%;\r\n    height: auto;\r\n    -webkit-transition: color 0.6s ease-in-out, height 0.6s ease-in-out;\r\n            transition: color 0.6s ease-in-out, height 0.6s ease-in-out;\r\n  }\r\n  .time-date > .display > .content {\r\n    position: relative;\r\n    width: 100%;\r\n    top: 0px;\r\n    height: 15.5rem;\r\n  }\r\n  .time-date > .control {\r\n    width: 100%;\r\n  }\r\n  .time-date.time-mode > .display > .content {\r\n    padding-top: 4.6rem;\r\n  }\r\n  .time-date.time-only > .display > .content {\r\n    top: 0px;\r\n    padding-top: 0.8rem;\r\n    height: 10rem;\r\n  }\r\n  .time-date.full-mode > .display {\r\n    display: none;\r\n  }\r\n  .time-date.full-mode > .control {\r\n    width: 100%;\r\n    height: 44.2rem;\r\n  }\r\n  .time-date.full-mode > .control > .full-title {\r\n    display: block;\r\n  }\r\n  .time-date.full-mode > .control > .slider {\r\n    float: none;\r\n    width: 100%;\r\n    height: auto;\r\n    overflow: auto;\r\n  }\r\n  .time-date.full-mode > .control > .slider > .time-control,\r\n  .time-date.full-mode > .control > .slider > .date-control {\r\n    width: 100%;\r\n    float: left;\r\n  }\r\n}\r\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 50 */
-/***/ function(module, exports) {
-
-	/*
-	 @license md-date-time
-	 @author SimeonC
-	 @license 2015 MIT
-	 @version 0.1.0
-
-	 See README.md for requirements and use.
-	 */
-	angular.module('mdDateTime', []).directive('timeDatePicker', ['$filter', '$sce', '$rootScope', '$parse', function ($filter, $sce, $rootScope, $parse) {
-	    var _dateFilter;
-	    _dateFilter = $filter('date');
-	    return {
-	        restrict: 'AE',
-	        replace: true,
-	        scope: {
-	            _modelValue: '=ngModel',
-	            _weekdays: '=?tdWeekdays'
-	        },
-	        require: 'ngModel',
-	        templateUrl: 'md-date-time.tpl.html',
-	        link: function (scope, element, attrs, ngModel) {
-	            var cancelFn, saveFn;
-	            attrs.$observe('defaultMode', function (val) {
-	                if (val !== 'time' && val !== 'date') {
-	                    val = 'date';
-	                }
-	                return scope._mode = val;
-	            });
-	            attrs.$observe('displayMode', function (val) {
-	                if (val !== 'full' && val !== 'time' && val !== 'date') {
-	                    val = void 0;
-	                }
-	                return scope._displayMode = val;
-	            });
-	            attrs.$observe('orientation', function (val) {
-	                return scope._verticalMode = val === 'true';
-	            });
-	            attrs.$observe('displayTwentyfour', function (val) {
-	                return scope._hours24 = val != null && val;
-	            });
-	            attrs.$observe('mindate', function (val) {
-	                if (val != null && Date.parse(val)) {
-	                    scope.restrictions.mindate = new Date(val);
-	                    return scope.restrictions.mindate.setHours(0, 0, 0, 0);
-	                }
-	            });
-	            attrs.$observe('maxdate', function (val) {
-	                if (val != null && Date.parse(val)) {
-	                    scope.restrictions.maxdate = new Date(val);
-	                    return scope.restrictions.maxdate.setHours(23, 59, 59, 999);
-	                }
-	            });
-	            scope._weekdays = scope._weekdays || ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-	            scope.$watch('_weekdays', function (value) {
-	                if (value == null || !angular.isArray(value)) {
-	                    return scope._weekdays = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-	                }
-	            });
-	            ngModel.$render = function () {
-	                return scope.setDate(ngModel.$modelValue);
-	            };
-	            saveFn = $parse(attrs.onSave);
-	            cancelFn = $parse(attrs.onCancel);
-	            scope.save = function () {
-	                scope._modelValue = scope.date;
-	                ngModel.$setDirty();
-	                return saveFn(scope.$parent, {
-	                    $value: scope.date
-	                });
-	            };
-	            return scope.cancel = function () {
-	                cancelFn(scope.$parent, {});
-	                return ngModel.$render();
-	            };
-	        },
-	        controller: ['$scope', function (scope) {
-	            var i;
-	            scope.restrictions = {
-	                mindate: void 0,
-	                maxdate: void 0
-	            };
-	            scope.setDate = function (newVal) {
-	                scope.date = newVal ? new Date(newVal) : new Date();
-	                scope.calendar._year = scope.date.getFullYear();
-	                scope.calendar._month = scope.date.getMonth();
-	                scope.clock._minutes = scope.date.getMinutes();
-	                scope.clock._hours = scope._hours24 ? scope.date.getHours() : scope.date.getHours() % 12;
-	                if (!scope._hours24 && scope.clock._hours === 0) {
-	                    return scope.clock._hours = 12;
-	                }
-	            };
-	            scope.display = {
-	                fullTitle: function () {
-	                    return _dateFilter(scope.date, 'EEEE d MMMM yyyy, h:mm a');
-	                },
-	                title: function () {
-	                    if (scope._mode === 'date') {
-	                        return _dateFilter(scope.date, scope._displayMode === 'date' ? 'EEEE' : 'EEEE h:mm a');
-	                    } else {
-	                        return _dateFilter(scope.date, 'MMMM d yyyy');
-	                    }
-	                },
-	                "super": function () {
-	                    if (scope._mode === 'date') {
-	                        return _dateFilter(scope.date, 'MMM');
-	                    } else {
-	                        return '';
-	                    }
-	                },
-	                main: function () {
-	                    return $sce.trustAsHtml(scope._mode === 'date' ? _dateFilter(scope.date, 'd') : _dateFilter(scope.date, 'h:mm') + "<small>" + _dateFilter(scope.date, 'a') + "</small>");
-	                },
-	                sub: function () {
-	                    if (scope._mode === 'date') {
-	                        return _dateFilter(scope.date, 'yyyy');
-	                    } else {
-	                        return _dateFilter(scope.date, 'HH:mm');
-	                    }
-	                }
-	            };
-	            scope.calendar = {
-	                _month: 0,
-	                _year: 0,
-	                _months: [],
-	                _allMonths: function () {
-	                    var j, results;
-	                    results = [];
-	                    for (i = j = 0; j <= 11; i = ++j) {
-	                        results.push(_dateFilter(new Date(0, i), 'MMMM'));
-	                    }
-	                    return results;
-	                }(),
-	                offsetMargin: function () {
-	                    return new Date(this._year, this._month).getDay() * 2.7 + "rem";
-	                },
-	                isVisible: function (d) {
-	                    return new Date(this._year, this._month, d).getMonth() === this._month;
-	                },
-	                isDisabled: function (d) {
-	                    var currentDate, maxdate, mindate;
-	                    currentDate = new Date(this._year, this._month, d);
-	                    mindate = scope.restrictions.mindate;
-	                    maxdate = scope.restrictions.maxdate;
-	                    return mindate != null && currentDate < mindate || maxdate != null && currentDate > maxdate;
-	                },
-	                isVisibleMonthButton: function (minOrMax) {
-	                    var date;
-	                    date = scope.restrictions[minOrMax];
-	                    return date != null && this._month <= date.getMonth() && this._year <= date.getFullYear();
-	                },
-	                "class": function (d) {
-	                    var classString;
-	                    classString = '';
-	                    if (scope.date != null && new Date(this._year, this._month, d).getTime() === new Date(scope.date.getTime()).setHours(0, 0, 0, 0)) {
-	                        classString += "selected";
-	                    }
-	                    if (new Date(this._year, this._month, d).getTime() === new Date().setHours(0, 0, 0, 0)) {
-	                        classString += " today";
-	                    }
-	                    return classString;
-	                },
-	                select: function (d) {
-	                    return scope.date.setFullYear(this._year, this._month, d);
-	                },
-	                monthChange: function () {
-	                    var maxdate, mindate;
-	                    if (this._year == null || isNaN(this._year)) {
-	                        this._year = new Date().getFullYear();
-	                    }
-	                    mindate = scope.restrictions.mindate;
-	                    maxdate = scope.restrictions.maxdate;
-	                    if (mindate != null && mindate.getFullYear() === this._year && mindate.getMonth() >= this._month) {
-	                        this._month = Math.max(mindate.getMonth(), this._month);
-	                    }
-	                    if (maxdate != null && maxdate.getFullYear() === this._year && maxdate.getMonth() <= this._month) {
-	                        this._month = Math.min(maxdate.getMonth(), this._month);
-	                    }
-	                    scope.date.setFullYear(this._year, this._month);
-	                    if (scope.date.getMonth() !== this._month) {
-	                        scope.date.setDate(0);
-	                    }
-	                    if (mindate != null && scope.date < mindate) {
-	                        scope.date.setDate(mindate.getTime());
-	                        scope.calendar.select(mindate.getDate());
-	                    }
-	                    if (maxdate != null && scope.date > maxdate) {
-	                        scope.date.setDate(maxdate.getTime());
-	                        return scope.calendar.select(maxdate.getDate());
-	                    }
-	                },
-	                _incMonth: function (months) {
-	                    this._month += months;
-	                    while (this._month < 0 || this._month > 11) {
-	                        if (this._month < 0) {
-	                            this._month += 12;
-	                            this._year--;
-	                        } else {
-	                            this._month -= 12;
-	                            this._year++;
-	                        }
-	                    }
-	                    return this.monthChange();
-	                }
-	            };
-	            scope.clock = {
-	                _minutes: 0,
-	                _hours: 0,
-	                _incHours: function (inc) {
-	                    this._hours = scope._hours24 ? Math.max(0, Math.min(23, this._hours + inc)) : Math.max(1, Math.min(12, this._hours + inc));
-	                    if (isNaN(this._hours)) {
-	                        return this._hours = 0;
-	                    }
-	                },
-	                _incMinutes: function (inc) {
-	                    this._minutes = Math.max(0, Math.min(59, this._minutes + inc));
-	                    if (isNaN(this._minutes)) {
-	                        return this._minutes = 0;
-	                    }
-	                },
-	                setAM: function (b) {
-	                    if (b == null) {
-	                        b = !this.isAM();
-	                    }
-	                    if (b && !this.isAM()) {
-	                        return scope.date.setHours(scope.date.getHours() - 12);
-	                    } else if (!b && this.isAM()) {
-	                        return scope.date.setHours(scope.date.getHours() + 12);
-	                    }
-	                },
-	                isAM: function () {
-	                    return scope.date.getHours() < 12;
-	                }
-	            };
-	            scope.$watch('clock._minutes', function (val, oldVal) {
-	                if (val != null && val !== scope.date.getMinutes() && !isNaN(val) && 0 <= val && val <= 59) {
-	                    return scope.date.setMinutes(val);
-	                }
-	            });
-	            scope.$watch('clock._hours', function (val) {
-	                if (val != null && !isNaN(val)) {
-	                    if (!scope._hours24) {
-	                        if (val === 24) {
-	                            val = 12;
-	                        } else if (val === 12) {
-	                            val = 0;
-	                        } else if (!scope.clock.isAM()) {
-	                            val += 12;
-	                        }
-	                    }
-	                    if (val !== scope.date.getHours()) {
-	                        return scope.date.setHours(val);
-	                    }
-	                }
-	            });
-	            scope.$watch('calendar._year', function (val) {
-	                var len, maxdate, mindate;
-	                mindate = scope.restrictions.mindate;
-	                maxdate = scope.restrictions.maxdate;
-	                i = mindate != null && mindate.getFullYear() === scope.calendar._year ? mindate.getMonth() : 0;
-	                len = maxdate != null && maxdate.getFullYear() === scope.calendar._year ? maxdate.getMonth() : 11;
-	                return scope.calendar._months = scope.calendar._allMonths.slice(i, len + 1);
-	            });
-	            scope.setNow = function () {
-	                return scope.setDate();
-	            };
-	            scope._mode = 'date';
-	            scope.modeClass = function () {
-	                if (scope._displayMode != null) {
-	                    scope._mode = scope._displayMode;
-	                }
-	                return "" + (scope._verticalMode != null && scope._verticalMode ? 'vertical ' : '') + (scope._displayMode === 'full' ? 'full-mode' : scope._displayMode === 'time' ? 'time-only' : scope._displayMode === 'date' ? 'date-only' : scope._mode === 'date' ? 'date-mode' : 'time-mode');
-	            };
-	            scope.modeSwitch = function () {
-	                var ref;
-	                return scope._mode = (ref = scope._displayMode) != null ? ref : scope._mode === 'date' ? 'time' : 'date';
-	            };
-	            return scope.modeSwitchText = function () {
-	                if (scope._mode === 'date') {
-	                    return 'Clock';
-	                } else {
-	                    return 'Calendar';
-	                }
-	            };
-	        }]
-	    };
-	}]);
-
-	'use strict';
-
-	angular.module('mdDateTime').run(['$templateCache', function ($templateCache) {
-
-	    $templateCache.put('md-date-time.tpl.html', '<div ng-class="modeClass()" class="time-date"><div ng-click="modeSwitch()" aria-label="Switch to {{modeSwitchText()}}" class="display"><div class="title">{{display.title()}}</div><div class="content"><div class="super-title">{{display.super()}}</div><div ng-bind-html="display.main()" class="main-title"></div><div class="sub-title">{{display.sub()}}</div></div></div><div class="control"><div class="full-title">{{display.fullTitle()}}</div><div class="slider"><div class="date-control"><div class="title"><md-button ng-click="calendar._incMonth(-1)" aria-label="Previous Month" style="float: left" ng-class="{\'visuallyhidden\': calendar.isVisibleMonthButton(\'mindate\')}"><i class="fa fa-caret-left"></i></md-button><span class="month-part">{{date | date:\'MMMM\'}}<select ng-model="calendar._month" ng-change="calendar.monthChange()" ng-options="calendar._allMonths.indexOf(month) as month for month in calendar._months"></select></span><input ng-model="calendar._year" ng-change="calendar.monthChange()" type="number" min="{{restrictions.mindate ? restrictions.mindate.getFullYear() : 0}}" max="{{restrcitions.maxdate ? restrictions.maxdate.getFullYear() : NaN}}" class="year-part"><md-button ng-click="calendar._incMonth(1)" aria-label="Next Month" style="float: right" ng-class="{\'visuallyhidden\': calendar.isVisibleMonthButton(\'maxdate\')}"><i class="fa fa-caret-right"></i></md-button></div><div class="headers"><div ng-repeat="day in _weekdays track by $index" class="day-cell">{{day}}</div></div><div class="days"><md-button ng-style="{\'margin-left\': calendar.offsetMargin()}" ng-class="calendar.class(1)" ng-disabled="calendar.isDisabled(1)" ng-show="calendar.isVisible(1)" ng-click="calendar.select(1)" class="day-cell">1</md-button><md-button ng-class="calendar.class(2)" ng-show="calendar.isVisible(2)" ng-disabled="calendar.isDisabled(2)" ng-click="calendar.select(2)" class="day-cell">2</md-button><md-button ng-class="calendar.class(3)" ng-show="calendar.isVisible(3)" ng-disabled="calendar.isDisabled(3)" ng-click="calendar.select(3)" class="day-cell">3</md-button><md-button ng-class="calendar.class(4)" ng-show="calendar.isVisible(4)" ng-disabled="calendar.isDisabled(4)" ng-click="calendar.select(4)" class="day-cell">4</md-button><md-button ng-class="calendar.class(5)" ng-show="calendar.isVisible(5)" ng-disabled="calendar.isDisabled(5)" ng-click="calendar.select(5)" class="day-cell">5</md-button><md-button ng-class="calendar.class(6)" ng-show="calendar.isVisible(6)" ng-disabled="calendar.isDisabled(6)" ng-click="calendar.select(6)" class="day-cell">6</md-button><md-button ng-class="calendar.class(7)" ng-show="calendar.isVisible(7)" ng-disabled="calendar.isDisabled(7)" ng-click="calendar.select(7)" class="day-cell">7</md-button><md-button ng-class="calendar.class(8)" ng-show="calendar.isVisible(8)" ng-disabled="calendar.isDisabled(8)" ng-click="calendar.select(8)" class="day-cell">8</md-button><md-button ng-class="calendar.class(9)" ng-show="calendar.isVisible(9)" ng-disabled="calendar.isDisabled(9)" ng-click="calendar.select(9)" class="day-cell">9</md-button><md-button ng-class="calendar.class(10)" ng-show="calendar.isVisible(10)" ng-disabled="calendar.isDisabled(10)" ng-click="calendar.select(10)" class="day-cell">10</md-button><md-button ng-class="calendar.class(11)" ng-show="calendar.isVisible(11)" ng-disabled="calendar.isDisabled(11)" ng-click="calendar.select(11)" class="day-cell">11</md-button><md-button ng-class="calendar.class(12)" ng-show="calendar.isVisible(12)" ng-disabled="calendar.isDisabled(12)" ng-click="calendar.select(12)" class="day-cell">12</md-button><md-button ng-class="calendar.class(13)" ng-show="calendar.isVisible(13)" ng-disabled="calendar.isDisabled(13)" ng-click="calendar.select(13)" class="day-cell">13</md-button><md-button ng-class="calendar.class(14)" ng-show="calendar.isVisible(14)" ng-disabled="calendar.isDisabled(14)" ng-click="calendar.select(14)" class="day-cell">14</md-button><md-button ng-class="calendar.class(15)" ng-show="calendar.isVisible(15)" ng-disabled="calendar.isDisabled(15)" ng-click="calendar.select(15)" class="day-cell">15</md-button><md-button ng-class="calendar.class(16)" ng-show="calendar.isVisible(16)" ng-disabled="calendar.isDisabled(16)" ng-click="calendar.select(16)" class="day-cell">16</md-button><md-button ng-class="calendar.class(17)" ng-show="calendar.isVisible(17)" ng-disabled="calendar.isDisabled(17)" ng-click="calendar.select(17)" class="day-cell">17</md-button><md-button ng-class="calendar.class(18)" ng-show="calendar.isVisible(18)" ng-disabled="calendar.isDisabled(18)" ng-click="calendar.select(18)" class="day-cell">18</md-button><md-button ng-class="calendar.class(19)" ng-show="calendar.isVisible(19)" ng-disabled="calendar.isDisabled(19)" ng-click="calendar.select(19)" class="day-cell">19</md-button><md-button ng-class="calendar.class(20)" ng-show="calendar.isVisible(20)" ng-disabled="calendar.isDisabled(20)" ng-click="calendar.select(20)" class="day-cell">20</md-button><md-button ng-class="calendar.class(21)" ng-show="calendar.isVisible(21)" ng-disabled="calendar.isDisabled(21)" ng-click="calendar.select(21)" class="day-cell">21</md-button><md-button ng-class="calendar.class(22)" ng-show="calendar.isVisible(22)" ng-disabled="calendar.isDisabled(22)" ng-click="calendar.select(22)" class="day-cell">22</md-button><md-button ng-class="calendar.class(23)" ng-show="calendar.isVisible(23)" ng-disabled="calendar.isDisabled(23)" ng-click="calendar.select(23)" class="day-cell">23</md-button><md-button ng-class="calendar.class(24)" ng-show="calendar.isVisible(24)" ng-disabled="calendar.isDisabled(24)" ng-click="calendar.select(24)" class="day-cell">24</md-button><md-button ng-class="calendar.class(25)" ng-show="calendar.isVisible(25)" ng-disabled="calendar.isDisabled(25)" ng-click="calendar.select(25)" class="day-cell">25</md-button><md-button ng-class="calendar.class(26)" ng-show="calendar.isVisible(26)" ng-disabled="calendar.isDisabled(26)" ng-click="calendar.select(26)" class="day-cell">26</md-button><md-button ng-class="calendar.class(27)" ng-show="calendar.isVisible(27)" ng-disabled="calendar.isDisabled(27)" ng-click="calendar.select(27)" class="day-cell">27</md-button><md-button ng-class="calendar.class(28)" ng-show="calendar.isVisible(28)" ng-disabled="calendar.isDisabled(28)" ng-click="calendar.select(28)" class="day-cell">28</md-button><md-button ng-class="calendar.class(29)" ng-show="calendar.isVisible(29)" ng-disabled="calendar.isDisabled(29)" ng-click="calendar.select(29)" class="day-cell">29</md-button><md-button ng-class="calendar.class(30)" ng-show="calendar.isVisible(30)" ng-disabled="calendar.isDisabled(30)" ng-click="calendar.select(30)" class="day-cell">30</md-button><md-button ng-class="calendar.class(31)" ng-show="calendar.isVisible(31)" ng-disabled="calendar.isDisabled(31)" ng-click="calendar.select(31)" class="day-cell">31</md-button></div></div><md-button ng-click="modeSwitch()" aria-label="Switch to {{modeSwitchText()}}" class="switch-control"><i class="fa fa-clock-o"></i><i class="fa fa-calendar"></i><span class="visuallyhidden">{{modeSwitchText()}}</span></md-button><div class="time-control"><div class="time-inputs"><input type="number" min="{{_hours24 ? 0 : 1}}" max="{{_hours24 ? 23 : 12}}" ng-model="clock._hours"><md-button ng-click="clock._incHours(1)" aria-label="Increment Hours" class="hours up"><i class="fa fa-caret-up"></i></md-button><md-button ng-click="clock._incHours(-1)" aria-label="Decrement Hours" class="hours down"><i class="fa fa-caret-down"></i></md-button><input type="number" min="0" max="59" ng-model="clock._minutes"><md-button ng-click="clock._incMinutes(1)" aria-label="Increment Minutes" class="minutes up"><i class="fa fa-caret-up"></i></md-button><md-button ng-click="clock._incMinutes(-1)" aria-label="Decrement Minutes" class="minutes down"><i class="fa fa-caret-down"></i></md-button></div><div ng-if="!_hours24" class="buttons"><md-button ng-click="clock.setAM()" aria-label="Switch AM/PM">{{date | date:\'a\'}}</md-button></div></div></div></div><div class="buttons"><md-button ng-click="setNow()" aria-label="Set To Current {{ _dispalyMode == \'date\' ? \'Date\' : \'Date/Time\'}}">Now</md-button><md-button ng-click="cancel()" aria-label="Cancel">Cancel</md-button><md-button ng-click="save()" aria-label="Save">Save</md-button></div></div>');
-	}]);
-
-/***/ },
-/* 51 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-
-	// load the styles
-	var content = __webpack_require__(52);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(28)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../../../node_modules/css-loader/index.js!./datetimepicker.css", function() {
-				var newContent = require("!!./../../../node_modules/css-loader/index.js!./datetimepicker.css");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-/* 52 */
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(27)();
-	// imports
-
-
-	// module
-	exports.push([module.id, ".datatime-picker-inline {\r\n  position: relative;\r\n}\r\n.datatime-picker-inline md-input-container {\r\n  cursor: pointer;\r\n  padding-bottom: 2px;\r\n}\r\n.datatime-picker-inline i.fa.inline-icon {\r\n  color: white;\r\n  font-size: 1.3rem;\r\n  line-height: 2.4rem;\r\n}\r\n.datatime-picker-inline i.fa.inline-icon + .fa {\r\n  margin-left: 10px;\r\n}\r\n.datatime-picker-inline .datatime-picker-wrap {\r\n  background: white;\r\n  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);\r\n  left: 0;\r\n  opacity: 0;\r\n  overflow: hidden;\r\n  position: absolute;\r\n  top: 38px;\r\n  transition: all .3s;\r\n  -webkit-transition: all .3s;\r\n  -moz-transition: all .3s;\r\n  -ms-transition: all .3s;\r\n  -o-transition: all .3s;\r\n  transform: scale(0, 0);\r\n  -webkit-transform: scale(0, 0);\r\n  -moz-transform: scale(0, 0);\r\n  -ms-transform: scale(0, 0);\r\n  -o-transform: scale(0, 0);\r\n  transform-origin: top center;\r\n  -webkit-transform-origin: top center;\r\n  -moz-transform-origin: top center;\r\n  -ms-transform-origin: top center;\r\n  -o-transform-origin: top center;\r\n  width: 22.15rem;\r\n  z-index: 99;\r\n}\r\n.datatime-picker-inline .datatime-picker-wrap.show {\r\n  opacity: 1;\r\n  transform: scale(1, 1);\r\n  -webkit-transform: scale(1, 1);\r\n  -moz-transform: scale(1, 1);\r\n  -ms-transform: scale(1, 1);\r\n  -o-transform: scale(1, 1);\r\n}\r\n.datatime-picker-inline .datatime-picker-wrap > .show-date, .datatime-picker-inline .datatime-picker-wrap > .show-time {\r\n  background: transparent;\r\n  color: #106cc8;\r\n  cursor: pointer;\r\n  display: block;\r\n  padding: 0;\r\n  position: absolute;\r\n  text-align: center;\r\n  transition: all .5s;\r\n  -webkit-transition: all .5s;\r\n  -moz-transition: all .5s;\r\n  -ms-transition: all .5s;\r\n  -o-transition: all .5s;\r\n  top: 0;\r\n  width: 70px;\r\n  z-index: 1;\r\n}\r\n.datatime-picker-inline .datatime-picker-wrap > .show-date:hover, .datatime-picker-inline .datatime-picker-wrap > .show-time:hover {\r\n  background: rgba(0, 0, 0, 0.1);\r\n  border-radius: 2px;\r\n}\r\n.datatime-picker-inline .datatime-picker-wrap > .show-date {\r\n  left: 0%;\r\n  opacity: 0;\r\n  transform: translateX(20rem) scale3d(0, 0, 0);\r\n  -webkit-transform: translateX(20rem) scale3d(0, 0, 0);\r\n  -moz-transform: translateX(20rem) scale3d(0, 0, 0);\r\n  -ms-transform: translateX(20rem) scale3d(0, 0, 0);\r\n  -o-transform: translateX(20rem) scale3d(0, 0, 0);\r\n}\r\n.datatime-picker-inline .datatime-picker-wrap > .show-date.show {\r\n  opacity: 1;\r\n  transform: translateX(0) scale3d(1, 1, 1);\r\n  -webkit-transform: translateX(0) scale3d(1, 1, 1);\r\n  -moz-transform: translateX(0) scale3d(1, 1, 1);\r\n  -ms-transform: translateX(0) scale3d(1, 1, 1);\r\n  -o-transform: translateX(0) scale3d(1, 1, 1);\r\n}\r\n.datatime-picker-inline .datatime-picker-wrap > .show-time {\r\n  left: 100%;\r\n  opacity: 0;\r\n  transform: translateX(-20rem) scale3d(0, 0, 0);\r\n  -webkit-transform: translateX(-20rem) scale3d(0, 0, 0);\r\n  -moz-transform: translateX(-20rem) scale3d(0, 0, 0);\r\n  -ms-transform: translateX(-20rem) scale3d(0, 0, 0);\r\n  -o-transform: translateX(-20rem) scale3d(0, 0, 0);\r\n}\r\n.datatime-picker-inline .datatime-picker-wrap > .show-time.show {\r\n  opacity: 1;\r\n  transform: translateX(-100%) scale3d(1, 1, 1);\r\n  -webkit-transform: translateX(-100%) scale3d(1, 1, 1);\r\n  -moz-transform: translateX(-100%) scale3d(1, 1, 1);\r\n  -ms-transform: translateX(-100%) scale3d(1, 1, 1);\r\n  -o-transform: translateX(-100%) scale3d(1, 1, 1);\r\n}\r\n.datatime-picker-inline .datatime-picker-wrap > .datatime-picker .slider {\r\n  transition: all .40s;\r\n  -webkit-transition: all .40s;\r\n  -moz-transition: all .40s;\r\n  -ms-transition: all .40s;\r\n  -o-transition: all .40s;\r\n}\r\n.datatime-picker-inline .datatime-picker-wrap > .datatime-picker.date .slider {\r\n  transform: translateX(0);\r\n  -webkit-transform: translateX(0);\r\n  -moz-transform: translateX(0);\r\n  -ms-transform: translateX(0);\r\n  -o-transform: translateX(0);\r\n}\r\n.datatime-picker-inline .datatime-picker-wrap > .datatime-picker.time .slider {\r\n  transform: translateX(-50%);\r\n  -webkit-transform: translateX(-50%);\r\n  -moz-transform: translateX(-50%);\r\n  -ms-transform: translateX(-50%);\r\n  -o-transform: translateX(-50%);\r\n}\r\n.datatime-picker-inline .datatime-picker-wrap > .datatime-picker.time-date.full-mode > .control > .full-title {\r\n  font-size: 1rem;\r\n  width: 22.2rem;\r\n}\r\n.datatime-picker-inline .datatime-picker-wrap > .datatime-picker.time-date > .buttons {\r\n  box-sizing: border-box;\r\n  font-size: 1rem;\r\n  padding: 5px 10px;\r\n  width: 22.2rem;\r\n}\r\n", ""]);
-
-	// exports
-
-
-/***/ },
-/* 53 */
-/***/ function(module, exports) {
-
-	(function () {
-	    'use strict';
-
-	    var app = angular.module('mdDatetimeInline', ['mdDateTime']);
-
-	    var contains = function (container, contained) {
-	        var node;
-	        node = contained.parentNode;
-	        while (node !== null && node !== container) {
-	            node = node.parentNode;
-	        }
-	        return node !== null;
-	    };
-
-	    app.directive('outsideClick', ['$document', '$parse', function ($document, $parse) {
-	        return {
-	            link: function ($scope, $element, $attributes) {
-	                var onDocumentClick, scopeExpression;
-	                scopeExpression = $attributes.outsideClick;
-	                onDocumentClick = function (event) {
-	                    if (!contains($element[0], event.target)) {
-	                        $scope.$apply(scopeExpression);
-	                    }
-	                };
-	                $document.on('click', onDocumentClick);
-	                $element.on('$destroy', function () {
-	                    $document.off('click', onDocumentClick);
-	                });
-	            }
-	        };
-	    }]);
-
-	    app.directive('mdDatetimeInline', mdDatetimeInline);
-
-	    angular.module('mdDateTime').run(['$templateCache', function ($templateCache) {
-	        $templateCache.put('md-date-time.tpl.html', ['<div outside-click ng-class="modeClass()" class="time-date">', '  <div ng-click="modeSwitch()" aria-label="Switch to {{modeSwitchText()}}" class="display">', '    <div class="title">{{display.title()}}</div>', '    <div class="content">', '      <div class="super-title">{{display.super()}}</div>', '      <div ng-bind-html="display.main()" class="main-title" style="color: white;"></div>', '      <div class="sub-title">{{display.sub()}}</div>', '    </div>', '  </div>', '  <div class="control">', '    <div class="full-title">{{date | date:\'yyyy-MM-dd HH:mm\' }}</div>', '    <div class="slider">', '      <div class="date-control">', '        <div class="title">', '          <md-button ng-click="calendar._incMonth(-1)" aria-label="Previous Month" style="float: left"><i class="fa fa-caret-left"></i></md-button>', '          <input ng-model="calendar._year" ng-change="calendar.monthChange()" type="number" class="year-part" style="text-align: right;">', '          <span class="month-part">{{date | date:\'MM\'}}', '            <select ng-model="calendar._month" ng-change="calendar.monthChange()" ng-options="calendar._months.indexOf(month) as month for month in calendar._months"></select>', '          </span>', '          <md-button ng-click="calendar._incMonth(1)" aria-label="Next Month" style="float: right; margin-right: 1rem;"><i class="fa fa-caret-right"></i></md-button>', '        </div>', '        <div class="headers">', '          <div class="day-cell">日</div>', '          <div class="day-cell">一</div>', '          <div class="day-cell">二</div>', '          <div class="day-cell">三</div>', '          <div class="day-cell">四</div>', '          <div class="day-cell">五</div>', '          <div class="day-cell">六</div>', '        </div>', '        <div class="days">', '          <md-button ng-style="{\'margin-left\': calendar.offsetMargin()}" ng-class="calendar.class(1)" ng-show="calendar.isVisible(1)" ng-click="calendar.select(1)" class="day-cell">1</md-button>', '          <md-button ng-class="calendar.class(2)" ng-show="calendar.isVisible(2)" ng-click="calendar.select(2)" class="day-cell">2</md-button>', '          <md-button ng-class="calendar.class(3)" ng-show="calendar.isVisible(3)" ng-click="calendar.select(3)" class="day-cell">3</md-button>', '          <md-button ng-class="calendar.class(4)" ng-show="calendar.isVisible(4)" ng-click="calendar.select(4)" class="day-cell">4</md-button>', '          <md-button ng-class="calendar.class(5)" ng-show="calendar.isVisible(5)" ng-click="calendar.select(5)" class="day-cell">5</md-button>', '          <md-button ng-class="calendar.class(6)" ng-show="calendar.isVisible(6)" ng-click="calendar.select(6)" class="day-cell">6</md-button>', '          <md-button ng-class="calendar.class(7)" ng-show="calendar.isVisible(7)" ng-click="calendar.select(7)" class="day-cell">7</md-button>', '          <md-button ng-class="calendar.class(8)" ng-show="calendar.isVisible(8)" ng-click="calendar.select(8)" class="day-cell">8</md-button>', '          <md-button ng-class="calendar.class(9)" ng-show="calendar.isVisible(9)" ng-click="calendar.select(9)" class="day-cell">9</md-button>', '          <md-button ng-class="calendar.class(10)" ng-show="calendar.isVisible(10)" ng-click="calendar.select(10)" class="day-cell">10</md-button>', '          <md-button ng-class="calendar.class(11)" ng-show="calendar.isVisible(11)" ng-click="calendar.select(11)" class="day-cell">11</md-button>', '          <md-button ng-class="calendar.class(12)" ng-show="calendar.isVisible(12)" ng-click="calendar.select(12)" class="day-cell">12</md-button>', '          <md-button ng-class="calendar.class(13)" ng-show="calendar.isVisible(13)" ng-click="calendar.select(13)" class="day-cell">13</md-button>', '          <md-button ng-class="calendar.class(14)" ng-show="calendar.isVisible(14)" ng-click="calendar.select(14)" class="day-cell">14</md-button>', '          <md-button ng-class="calendar.class(15)" ng-show="calendar.isVisible(15)" ng-click="calendar.select(15)" class="day-cell">15</md-button>', '          <md-button ng-class="calendar.class(16)" ng-show="calendar.isVisible(16)" ng-click="calendar.select(16)" class="day-cell">16</md-button>', '          <md-button ng-class="calendar.class(17)" ng-show="calendar.isVisible(17)" ng-click="calendar.select(17)" class="day-cell">17</md-button>', '          <md-button ng-class="calendar.class(18)" ng-show="calendar.isVisible(18)" ng-click="calendar.select(18)" class="day-cell">18</md-button>', '          <md-button ng-class="calendar.class(19)" ng-show="calendar.isVisible(19)" ng-click="calendar.select(19)" class="day-cell">19</md-button>', '          <md-button ng-class="calendar.class(20)" ng-show="calendar.isVisible(20)" ng-click="calendar.select(20)" class="day-cell">20</md-button>', '          <md-button ng-class="calendar.class(21)" ng-show="calendar.isVisible(21)" ng-click="calendar.select(21)" class="day-cell">21</md-button>', '          <md-button ng-class="calendar.class(22)" ng-show="calendar.isVisible(22)" ng-click="calendar.select(22)" class="day-cell">22</md-button>', '          <md-button ng-class="calendar.class(23)" ng-show="calendar.isVisible(23)" ng-click="calendar.select(23)" class="day-cell">23</md-button>', '          <md-button ng-class="calendar.class(24)" ng-show="calendar.isVisible(24)" ng-click="calendar.select(24)" class="day-cell">24</md-button>', '          <md-button ng-class="calendar.class(25)" ng-show="calendar.isVisible(25)" ng-click="calendar.select(25)" class="day-cell">25</md-button>', '          <md-button ng-class="calendar.class(26)" ng-show="calendar.isVisible(26)" ng-click="calendar.select(26)" class="day-cell">26</md-button>', '          <md-button ng-class="calendar.class(27)" ng-show="calendar.isVisible(27)" ng-click="calendar.select(27)" class="day-cell">27</md-button>', '          <md-button ng-class="calendar.class(28)" ng-show="calendar.isVisible(28)" ng-click="calendar.select(28)" class="day-cell">28</md-button>', '          <md-button ng-class="calendar.class(29)" ng-show="calendar.isVisible(29)" ng-click="calendar.select(29)" class="day-cell">29</md-button>', '          <md-button ng-class="calendar.class(30)" ng-show="calendar.isVisible(30)" ng-click="calendar.select(30)" class="day-cell">30</md-button>', '          <md-button ng-class="calendar.class(31)" ng-show="calendar.isVisible(31)" ng-click="calendar.select(31)" class="day-cell">31</md-button>', '        </div>', '      </div>', '      <md-button ng-click="modeSwitch()" aria-label="Switch to {{modeSwitchText()}}" class="switch-control"><i class="fa fa-clock-o"></i><i class="fa fa-calendar"></i><span class="visuallyhidden">{{modeSwitchText()}}</span></md-button>', '      <div class="time-control">', '        <div class="time-inputs">', '          <input type="tel" disabledx min="{{_hours24 ? 0 : 1}}" max="{{_hours24 ? 23 : 12}}" style="margin:0; font-size: 6rem; text-align: center; float: left; width: 10rem;" ng-model="clock._hours">', '          <md-button ng-click="clock._incHours(1)" aria-label="Increment Hours" class="hours up" style="top: -2.5rem; margin: 0; padding: 0; left: 0; width: 10rem;"><i class="fa fa-caret-up"></i></md-button>', '          <md-button ng-click="clock._incHours(-1)" aria-label="Decrement Hours" class="hours down" style="bottom: -3rem; margin: 0; padding: 0; left: 0; width: 10rem;"><i class="fa fa-caret-down"></i></md-button>', '          <input type="tel" disabledx min="0" max="59" ng-model="clock._minutes" style="margin:0; font-size: 6rem; text-align: center; float: right; width: 10rem;">', '          <md-button ng-click="clock._incMinutes(1)" aria-label="Increment Minutes" class="minutes up" style="top: -2.5rem; margin: 0; padding: 0; left: auto; right: 0; width: 10rem;"><i class="fa fa-caret-up"></i></md-button>', '          <md-button ng-click="clock._incMinutes(-1)" aria-label="Decrement Minutes" class="minutes down" style="bottom: -3rem; margin: 0; padding: 0; left: auto; right: 0; width: 10rem;"><i class="fa fa-caret-down"></i></md-button>', '        </div>', '        <div ng-if="!_hours24" class="buttons">', '          <md-button ng-click="clock.setAM()" aria-label="Switch AM/PM">{{date | date:\'a\'}}</md-button>', '        </div>', '      </div>', '    </div>', '  </div>', '  <div class="buttons">', '    <md-button ng-click="setNow()" aria-label="Set To Current {{ _dispalyMode == \'date\' ? \'Date\' : \'Date/Time\'}}">今天</md-button>', '    <md-button ng-click="cancel()" aria-label="Cancel">取消</md-button>', '    <md-button ng-click="save()" aria-label="Save">确定</md-button>', '  </div>', '</div>'].join(''));
-	    }]);
-
-	    /**
-	     * @ngInject
-	     */
-	    function mdDatetimeInline() {
-	        return {
-	            restrict: 'EA',
-	            scope: {
-	                initDatatime: '=',
-	                placeholder: '@',
-	                dateChanged: '&',
-	                datetimeMode: '@',
-	                required: '@'
-	            },
-	            template: ['<div class="datatime-picker-inline">', '<form name="dateForm">', ' <md-input-container md-no-float class="md-block" ng-click="vm.showPicker($event)">', '<label>{{vm.placeholder}}</label>', '   <input ng-model="initDatatime" name="initDatatime" ng-required="{{ vm.required }}" ng-pattern="{{ vm.format }}" >', ' </md-input-container>', ' <div class="datatime-picker-wrap" ng-class="vm.isShowPicker ? \'show\' : \'\'">', '   <div class="show-date" ng-click="vm.datetime=\'date\'" ng-class="vm.datetime === \'time\' ? \'show\' : \'\'">', '     <i class="fa fa-angle-left inline-icon" aria-hidden="true"></i>', '     <i class="fa fa-calendar inline-icon" aria-hidden="true"></i>', '   </div>', '   <div class="show-time" ng-show="{{vm.mode()}}" ng-click="vm.datetime=\'time\'" ng-class="vm.datetime === \'date\' ? \'show\' : \'\'">', '     <i class="fa fa-clock-o inline-icon" aria-hidden="true"></i>', '     <i class="fa fa-angle-right inline-icon" aria-hidden="true"></i>', '   </div>', '   <time-date-picker class="datatime-picker {{ vm.datetime }}" ng-model="vm.dateValue" ', '     display-twentyfour="true" on-save="vm.save($value)" display-mode="full" on-cancel="vm.cancel()"></time-date-picker>', ' </div>', '</form>', '</div>'].join(''),
-	            controller: Controller,
-	            controllerAs: 'vm'
-	        };
-
-	        /**
-	         * @ngInject
-	         */
-	        function Controller($scope, $timeout, dateFilter) {
-	            var vm = this;
-
-	            vm.placeholder = $scope.placeholder;
-	            vm.dateValue = $scope.initDatatime;
-
-	            vm.datetime = 'date';
-	            vm.required = $scope.required;
-
-	            var format = 'yyyy-MM-dd HH:mm:ss';
-	            vm.format = "^[1-2][0-9]{3}-[0-9]{2}-[0-9]{2} [1-2][0-9]:[0-5][0-9]:[0-5][0-9]$";
-
-	            vm.mode = function () {
-	                if ($scope.datetimeMode == "date") {
-	                    format = 'yyyy-MM-dd';
-	                    vm.format = "^[1-2][0-9]{3}-[0-9]{2}-[0-9]{2}$";
-	                    return false;
-	                } else {
-	                    return true;
-	                }
-	            };
-
-	            vm.format = format;
-
-	            vm.save = function (value) {
-	                $scope.initDatatime = dateFilter(new Date(value), format); //moment(value).format(format);
-	                if (typeof $scope.dateChanged === 'function') {
-	                    $scope.dateChanged();
-	                }
-
-	                vm.isShowPicker = false;
-	            };
-
-	            vm.cancel = function () {
-	                vm.isShowPicker = false;
-	            };
-
-	            vm.showPicker = function (event) {
-	                vm.isShowPicker = !vm.isShowPicker;
-	            };
-	        }
-	    }
-	})();
-
-/***/ },
-/* 54 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/*
 	 angular-file-upload v2.3.4
 	 https://github.com/nervgh/angular-file-upload
@@ -80786,13 +80301,13 @@ webpackJsonp([0,1],[
 	//# sourceMappingURL=angular-file-upload.js.map
 
 /***/ },
-/* 55 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(56);
+	var content = __webpack_require__(50);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(28)(content, {});
@@ -80812,7 +80327,7 @@ webpackJsonp([0,1],[
 	}
 
 /***/ },
-/* 56 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(27)();
@@ -80820,19 +80335,19 @@ webpackJsonp([0,1],[
 
 
 	// module
-	exports.push([module.id, "md-content.md-default-theme {\r\n    background-color: #eee;\r\n}\r\n\r\nmd-card {\r\n    /*background-color: #fff;*/\r\n}\r\n\r\nmd-card h2:first-of-type {\r\n    margin-top: 0;\r\n}\r\n\r\nmd-toolbar .md-button.md-default-theme {\r\n    border-radius: 99%;\r\n}\r\n\r\nh2 {\r\n    font-weight: 400;\r\n}\r\n\r\n.md-toolbar-tools-bottom {\r\n    font-size: small;\r\n}\r\n\r\n.md-toolbar-tools-bottom:last-child {\r\n    opacity: 0.8;\r\n}\r\n\r\nmd-toolbar:not(.md-hue-1),\r\n.md-fab {\r\n    fill: #fff;\r\n}\r\n\r\nmd-sidenav {\r\n    fill: #737373;\r\n}\r\n\r\nmd-sidenav ng-md-icon {\r\n    position: relative;\r\n    top: 5px;\r\n}\r\n\r\n.user-avatar {\r\n    border-radius: 99%;\r\n}\r\n\r\n/*/////////////*/\r\n.nav-active {\r\n    background: #2ed5b3;\r\n}\r\n\r\n.nav-click {\r\n    position: relative;\r\n}\r\n\r\n.cursorPointer {\r\n    cursor: pointer;\r\n}\r\n\r\n/*toast����*/\r\nmd-toast.md-success-toast-theme .md-toast-content {\r\n    background-color: green;\r\n}\r\n\r\nmd-toast.md-error-toast-theme .md-toast-content {\r\n    background-color: maroon;\r\n}\r\n\r\n/*md-toast {*/\r\n/*left: calc(50vw - 150px);*/\r\n/*}*/\r\n\r\n.login_body {\r\n    background-image: url(" + __webpack_require__(57) + ");\r\n    background-position: center center;\r\n    background-repeat: no-repeat;\r\n    background-size: cover;\r\n}", ""]);
+	exports.push([module.id, "md-content.md-default-theme {\n    background-color: #eee;\n}\n\nmd-card {\n    /*background-color: #fff;*/\n}\n\nmd-card h2:first-of-type {\n    margin-top: 0;\n}\n\nmd-toolbar .md-button.md-default-theme {\n    border-radius: 99%;\n}\n\nh2 {\n    font-weight: 400;\n}\n\n.md-toolbar-tools-bottom {\n    font-size: small;\n}\n\n.md-toolbar-tools-bottom:last-child {\n    opacity: 0.8;\n}\n\nmd-toolbar:not(.md-hue-1),\n.md-fab {\n    fill: #fff;\n}\n\nmd-sidenav {\n    fill: #737373;\n}\n\nmd-sidenav ng-md-icon {\n    position: relative;\n    top: 5px;\n}\n\n.user-avatar {\n    border-radius: 99%;\n}\n\n/*/////////////*/\n.nav-active {\n    background: #2ed5b3;\n}\n\n.nav-click {\n    position: relative;\n}\n\n.cursorPointer {\n    cursor: pointer;\n}\n\n/*toast����*/\nmd-toast.md-success-toast-theme .md-toast-content {\n    background-color: green;\n}\n\nmd-toast.md-error-toast-theme .md-toast-content {\n    background-color: maroon;\n}\n\n/*md-toast {*/\n/*left: calc(50vw - 150px);*/\n/*}*/\n\n.login_body {\n    background-image: url(" + __webpack_require__(51) + ");\n    background-position: center center;\n    background-repeat: no-repeat;\n    background-size: cover;\n}", ""]);
 
 	// exports
 
 
 /***/ },
-/* 57 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "d7ae8ef224938189d257c82407fb2c5e.png";
 
 /***/ },
-/* 58 */
+/* 52 */
 /***/ function(module, exports) {
 
 	/**
@@ -80840,7 +80355,8 @@ webpackJsonp([0,1],[
 	 */
 	var app = angular.module('medApp', ['ngMaterial', 'ngMdIcons', 'ui.router', 'ngMessages',
 	//'mdDateTime',
-	'mdDatetimeInline', 'angularFileUpload', 'md.data.table']);
+	// 'mdDatetimeInline',
+	'angularFileUpload', 'md.data.table']);
 
 	app.directive('userAvatar', function () {
 	    return {
@@ -80913,13 +80429,13 @@ webpackJsonp([0,1],[
 	module.exports = app;
 
 /***/ },
-/* 59 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by AO.Diwei on 2016/9/28.
 	 */
-	var app = __webpack_require__(58);
+	var app = __webpack_require__(52);
 	app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialog, $userInfo, $state) {
 	    $scope.toggleSidenav = function (menuId) {
 	        $mdSidenav(menuId).toggle();
@@ -80984,7 +80500,7 @@ webpackJsonp([0,1],[
 	});
 
 /***/ },
-/* 60 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -80992,9 +80508,9 @@ webpackJsonp([0,1],[
 	 */
 	'use strict';
 
-	var app = __webpack_require__(58);
+	var app = __webpack_require__(52);
 	// var division_conf = require('../config/division.js');
-	var test_data = __webpack_require__(61);
+	var test_data = __webpack_require__(55);
 	app.controller("formTabsCtrl", function ($scope, $http, $commonFun) {
 	    $scope.tabs = [{ title: '患者基本信息', content: 'html/pages/tabs/tab_patient_info.html', status: false }, { title: '住院病历记录', content: 'html/pages/tabs/tab_hospitalized.html', status: false }, { title: '首次病程记录表', content: 'html/pages/tabs/tab_clinical_course.html', status: false }, { title: '手术记录表', content: 'html/pages/tabs/tab_surgery.html', status: false }, { title: '术后病程表', content: 'html/pages/tabs/tab_after_surgery.html', status: false }, { title: '出院记录表', content: 'html/pages/tabs/tab_leave.html', status: false }, { title: '长期医嘱记录表', content: 'html/pages/tabs/tab_long_medical_orders.html', status: false }, { title: '临时医嘱记录表', content: 'html/pages/tabs/tab_temp_medical_orders.html', status: false }];
 
@@ -81217,7 +80733,7 @@ webpackJsonp([0,1],[
 	});
 
 /***/ },
-/* 61 */
+/* 55 */
 /***/ function(module, exports) {
 
 	/**
@@ -81351,7 +80867,7 @@ webpackJsonp([0,1],[
 	module.exports = test_data;
 
 /***/ },
-/* 62 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -81359,7 +80875,7 @@ webpackJsonp([0,1],[
 	 */
 	'use strict';
 
-	var app = __webpack_require__(58);
+	var app = __webpack_require__(52);
 
 	app.controller('LoginCtrl', function ($scope, $state, $http, $commonFun, $userInfo) {
 	    $scope.user = {};
@@ -81385,13 +80901,13 @@ webpackJsonp([0,1],[
 	});
 
 /***/ },
-/* 63 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by david ao on 2016/8/27.
 	 */
-	var app = __webpack_require__(58);
+	var app = __webpack_require__(52);
 
 	app.controller("registerCtrl", function ($scope, $http, $state, $commonFun) {
 	    $scope.selected = {
@@ -81428,13 +80944,13 @@ webpackJsonp([0,1],[
 	});
 
 /***/ },
-/* 64 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Created by AO.Diwei on 2016/10/19.
 	 */
-	var app = __webpack_require__(58);
+	var app = __webpack_require__(52);
 	app.controller('uploadXmlCtrl', function ($scope, FileUploader, $commonFun) {
 	    var uploader = $scope.uploader = new FileUploader({
 	        url: '/data/upload-xml'
@@ -81538,7 +81054,7 @@ webpackJsonp([0,1],[
 	});
 
 /***/ },
-/* 65 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -81546,7 +81062,7 @@ webpackJsonp([0,1],[
 	 */
 	'use strict';
 
-	var app = __webpack_require__(58);
+	var app = __webpack_require__(52);
 
 	app.service('$auth', function ($location, $http, $q, $userInfo, $state, $commonFun) {
 	    this.auth = function () {
@@ -81589,7 +81105,7 @@ webpackJsonp([0,1],[
 	});
 
 /***/ },
-/* 66 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -81597,7 +81113,7 @@ webpackJsonp([0,1],[
 	 */
 	'use strict';
 
-	var app = __webpack_require__(58);
+	var app = __webpack_require__(52);
 
 	app.service("$commonFun", function ($mdToast) {
 	  this.showSimpleToast = function (text, theme) {
@@ -81607,7 +81123,7 @@ webpackJsonp([0,1],[
 	});
 
 /***/ },
-/* 67 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -81616,7 +81132,7 @@ webpackJsonp([0,1],[
 
 	'use strict';
 
-	var app = __webpack_require__(58);
+	var app = __webpack_require__(52);
 
 	app.factory('$userInfo', function () {
 	    var _account = "";
@@ -81655,7 +81171,7 @@ webpackJsonp([0,1],[
 	});
 
 /***/ },
-/* 68 */
+/* 62 */
 /***/ function(module, exports) {
 
 	/**
@@ -82061,106 +81577,106 @@ webpackJsonp([0,1],[
 	module.exports = division;
 
 /***/ },
+/* 63 */
+/***/ function(module, exports) {
+
+	module.exports = "<md-sidenav layout=\"column\" class=\"md-sidenav-left md-whiteframe-18dp\" md-component-id=\"left\"\n            md-is-locked-open=\"$mdMedia('gt-md')\"\n            md-no-ink>\n    <md-toolbar class=\"md-tall md-primary md-hue-1\">\n        <span flex></span>\n        <div layout=\"column\" class=\"md-toolbar-tools-bottom inset\">\n            <user-avatar></user-avatar>\n            <span></span>\n            <div>{{userInfo().account}}</div>\n            <div>{{userInfo().email}}</div>\n        </div>\n    </md-toolbar>\n    <md-list>\n        <md-item ng-repeat=\"item in menu\" ng-click=\"close()\">\n            <div ui-sref=\"{{item.lin}}\" ng-class=\"{'nav-active': $state.includes('{{item.lin}}')}\">\n                <md-item-content layout=\"row\" layout-align=\"start center\">\n                    <div class=\"inset\">\n                        <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\n                    </div>\n                    <div class=\"inset\">{{item.title}}\n                    </div>\n                </md-item-content>\n            </div>\n        </md-item>\n        <div ng-show=\"userInfo().role=='admin'\">\n            <md-divider></md-divider>\n            <md-subheader>管理</md-subheader>\n            <md-item ng-repeat=\"item in admin\" ng-click=\"close()\">\n                <div ui-sref=\"{{item.lin}}\" ng-class=\"{'nav-active': $state.includes('{{item.lin}}')}\">\n                    <md-item-content layout=\"row\" layout-align=\"start center\">\n                        <div class=\"inset\">\n                            <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\n                        </div>\n                        <div class=\"inset\">{{item.title}}\n                        </div>\n                    </md-item-content>\n                </div>\n            </md-item>\n        </div>\n    </md-list>\n</md-sidenav>\n\n"
+
+/***/ },
+/* 64 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"inset\"></div>\n<div class=\"inset\"></div>\n<div class=\"inset\"></div>\n<div class=\"inset\"></div>\n<div layout=\"row\" layout-align=\"center center\" ng-controller=\"LoginCtrl\">\n    <md-card md-whiteframe=\"15\">\n        <md-card-title>\n            <md-card-title-text md-theme=\"dark-purple\">\n                <span class=\"md-headline\">登录</span>\n            </md-card-title-text>\n        </md-card-title>\n        <md-divider></md-divider>\n        <md-card-content>\n            <md-content layout-padding=\"\">\n                <form name=\"loginForm\">\n                    <md-input-container class=\"md-block\">\n                        <label>账号</label>\n                        <md-icon>\n                            <ng-md-icon icon=\"account_circle\"></ng-md-icon>\n                        </md-icon>\n                        <input ng-model=\"user.account\" type=\"text\" name=\"account\" required>\n                        <div ng-messages=\"loginForm.account.$error\">\n                            <div ng-message=\"required\">必填</div>\n                        </div>\n                    </md-input-container>\n\n                    <md-input-container class=\"md-block\">\n                        <label>密码</label>\n                        <md-icon>\n                            <ng-md-icon icon=\"lock\"></ng-md-icon>\n                        </md-icon>\n                        <input ng-model=\"user.password\" type=\"password\" name=\"password\" required>\n                        <div ng-messages=\"loginForm.password.$error\">\n                            <div ng-message=\"required\">必填</div>\n                        </div>\n                    </md-input-container>\n\n                    <md-card-actions layout=\"row\" layout-align=\"end center\">\n                        <md-button class=\"md-raised md-primary\" ng-click=\"submit()\">登录</md-button>\n                    </md-card-actions>\n                </form>\n            </md-content>\n        </md-card-content>\n    </md-card>\n</div>\n"
+
+/***/ },
+/* 65 */
+/***/ function(module, exports) {
+
+	module.exports = "<div layout=\"row\" layout-align=\"start center\" flex-offset=\"5\">\n    <md-card flex>\n        <md-card-title>\n            <md-card-title-text md-theme=\"dark-purple\">\n                <span class=\"md-headline\">上传文件</span>\n            </md-card-title-text>\n        </md-card-title>\n        <md-divider></md-divider>\n        <md-card-content>\n            <div layout=\"row\">\n                <div flex>\n                    <input class=\"ng-hide\" id=\"input-file-id\" multiple type=\"file\" nv-file-select=\"\"\n                           uploader=\"uploader\"/>\n                    <label for=\"input-file-id\" class=\"md-button md-raised md-primary\">选择文件(可多选)[{{ uploader.queue.length\n                        }}]</label>\n                    <md-table-container>\n                        <table md-table multiple>\n                            <thead md-head>\n                            <tr md-row>\n                                <th md-column>文件名</th>\n                                <th md-column md-numeric ng-show=\"uploader.isHTML5\">大小</th>\n                                <th md-column md-numeric ng-show=\"uploader.isHTML5\">进度</th>\n                                <th md-column md-numeric>状态</th>\n                                <th md-column>操作</th>\n                            </tr>\n                            </thead>\n                            <tbody md-body>\n                            <tr md-row ng-repeat=\"item in uploader.queue\">\n                                <td md-cell><strong>{{ item.file.name }}</strong></td>\n                                <td md-cell ng-show=\"uploader.isHTML5\" nowrap>{{ item.file.size/1024/1024|number:2 }}\n                                    MB\n                                </td>\n                                <td md-cell ng-show=\"uploader.isHTML5\">\n                                    <md-progress-linear md-mode=\"determinate\"\n                                                        value=\"{{item.progress}}\"></md-progress-linear>\n                                </td>\n                                <td md-cell class=\"text-center\">\n                                        <span ng-show=\"item.isSuccess\">\n                                            <md-icon>\n                                                <ng-md-icon icon=\"done\"></ng-md-icon>\n                                            </md-icon>\n                                        </span>\n                                    <span ng-show=\"item.isCancel\">\n                                            <md-icon>\n                                                <ng-md-icon icon=\"undo\"></ng-md-icon>\n                                            </md-icon>\n                                        </span>\n                                    <span ng-show=\"item.isError\">\n                                            <md-icon>\n                                                <ng-md-icon icon=\"clear\"></ng-md-icon>\n                                            </md-icon>\n                                        </span>\n                                </td>\n                                <td md-cell>\n                                    <md-button class=\"md-raised md-mini md-primary\" ng-click=\"item.upload()\"\n                                               ng-disabled=\"item.isReady || item.isUploading || item.isSuccess\">\n                                        <md-icon>\n                                            <ng-md-icon icon=\"cloud_upload\"></ng-md-icon>\n                                        </md-icon>\n                                        上传\n                                    </md-button>\n                                    <md-button class=\"md-raised md-mini md-warn md-hue-2\" ng-click=\"item.cancel()\"\n                                               ng-disabled=\"!item.isUploading\">\n                                        <md-icon>\n                                            <ng-md-icon icon=\"cloud_off\"></ng-md-icon>\n                                        </md-icon>\n                                        取消\n                                    </md-button>\n                                    <md-button class=\"md-raised md-mini md-warn\" ng-click=\"item.remove()\">\n                                        <md-icon>\n                                            <ng-md-icon icon=\"delete\"></ng-md-icon>\n                                        </md-icon>\n                                        移除\n                                    </md-button>\n                                </td>\n                            </tr>\n                            </tbody>\n                        </table>\n                    </md-table-container>\n                    <div>\n                        <div>\n                            上传进度:\n                            <md-progress-linear md-mode=\"determinate\"\n                                                value=\"{{uploader.progress}}\"></md-progress-linear>\n                        </div>\n                        <md-button class=\"md-raised md-primary\" ng-click=\"uploader.uploadAll()\"\n                                   ng-disabled=\"!uploader.getNotUploadedItems().length\">\n                            <md-icon>\n                                <ng-md-icon icon=\"cloud_upload\"></ng-md-icon>\n                            </md-icon>\n                            上传全部\n                        </md-button>\n                        <md-button class=\"md-raised md-warn md-hue-2\" ng-click=\"uploader.cancelAll()\"\n                                   ng-disabled=\"!uploader.isUploading\">\n                            <md-icon>\n                                <ng-md-icon icon=\"cloud_off\"></ng-md-icon>\n                            </md-icon>\n                            取消全部\n                        </md-button>\n                        <md-button class=\"md-raised md-warn\" ng-click=\"uploader.clearQueue()\"\n                                   ng-disabled=\"!uploader.queue.length\">\n                            <md-icon>\n                                <ng-md-icon icon=\"delete\"></ng-md-icon>\n                            </md-icon>\n                            移除全部\n                        </md-button>\n                    </div>\n                </div>\n            </div>\n\n\n        </md-card-content>\n    </md-card>\n</div>\n\n\n"
+
+/***/ },
+/* 66 */
+/***/ function(module, exports) {
+
+	module.exports = "<div ng-controller=\"registerCtrl\">\n    <div layout=\"row\" layout-align=\"start center\" flex-offset=\"5\">\n        <md-card  flex-xs=\"80\" flex=\"40\">\n            <md-card-title>\n                <md-card-title-text md-theme=\"dark-purple\">\n                    <span class=\"md-headline\">注册账号</span>\n                </md-card-title-text>\n            </md-card-title>\n            <md-divider></md-divider>\n            <md-card-content>\n                <form name=\"registerForm\">\n                    <md-input-container class=\"md-block\">\n                        <label>账号</label>\n                        <md-icon>\n                            <ng-md-icon icon=\"account_circle\"></ng-md-icon>\n                        </md-icon>\n                        <input ng-model=\"register_info.account\" type=\"text\" name=\"account\" required>\n                        <div ng-messages=\"registerForm.account.$error\">\n                            <div ng-message=\"required\">必填</div>\n                        </div>\n                    </md-input-container>\n\n                    <md-input-container class=\"md-block\">\n                        <label>邮箱</label>\n                        <md-icon>\n                            <ng-md-icon icon=\"email\"></ng-md-icon>\n                        </md-icon>\n                        <input ng-model=\"register_info.email\" type=\"email\" name=\"email\" required>\n                        <div ng-messages=\"registerForm.email.$error\">\n                            <div ng-message=\"required\">必填</div>\n                            <div ng-message=\"email\">请输入有效邮箱</div>\n                        </div>\n                    </md-input-container>\n\n                    <md-input-container class=\"md-block\">\n                        <label>密码</label>\n                        <md-icon>\n                            <ng-md-icon icon=\"lock\"></ng-md-icon>\n                        </md-icon>\n                        <input ng-model=\"register_info.password\" type=\"password\" name=\"password\" ng-pattern=\"/^[a-zA-Z]\\w{5,17}$/\" required>\n                        <div ng-messages=\"registerForm.password.$error\">\n                            <div ng-message=\"required\">必填</div>\n                            <div ng-message=\"pattern\" >密码必须是英文字母开头，并由英文字母和数字组成,至少6位</div>\n                        </div>\n                    </md-input-container>\n\n                    <md-input-container class=\"md-block\">\n                        <label>确认密码</label>\n                        <md-icon>\n                            <ng-md-icon icon=\"lock\"></ng-md-icon>\n                        </md-icon>\n                        <input ng-model=\"register_info.password_confirm\" type=\"password\" name=\"password_confirm\" ng-pattern=\"{{register_info.password}}\"  required>\n                        <div ng-messages=\"registerForm.password_confirm.$error\">\n                            <div ng-message=\"required\">必填</div>\n                            <div ng-message=\"pattern\" >请确认密码一致</div>\n                        </div>\n                    </md-input-container>\n\n                    <md-input-container class=\"md-block\">\n                        <label>角色</label>\n                        <md-icon>\n                            <ng-md-icon icon=\"person\"></ng-md-icon>\n                        </md-icon>\n                        <md-select name=\"role\" ng-model=\"register_info.role\" required>\n                            <md-option ng-value=\"role.value\" ng-repeat=\"role in selected.roles\">{{ role.option }}</md-option>\n                        </md-select>\n                        <div ng-messages=\"registerForm.role.$error\">\n                            <div ng-message=\"required\">必填</div>\n                        </div>\n                    </md-input-container>\n\n                    <md-card-actions layout=\"row\" layout-align=\"end center\">\n                        <md-button class=\"md-raised md-primary\" ng-click=\"registerFun()\" ng-disabled=\"registerForm.$invalid||btnDisable\">注册</md-button>\n                    </md-card-actions>\n                </form>\n            </md-card-content>\n        </md-card>\n    </div>\n</div>"
+
+/***/ },
+/* 67 */
+/***/ function(module, exports) {
+
+	module.exports = "<div ng-controller=\"formTabsCtrl\">\n    <md-tabs class=\"md-primary\" md-dynamic-height>\n        <md-tab ng-repeat=\"tab in tabs\"\n                label=\"{{tab.title}}\"\n                layout=\"row\">\n            <div class=\"inset\" hide-sm></div>\n            <div layout=\"row\" layout-align=\"center center\" flex-offset=\"5\">\n                <md-card flex style=\"margin-bottom: 500px\">\n                    <md-card-content>\n                        <form name=\"projectForm\">\n                            <ng-include src=\"tab.content\"></ng-include>\n                            <span ng-hide=\"true\">{{tab.status=!projectForm.$invalid}}</span>\n                        </form>\n                    </md-card-content>\n                    <md-card-actions layout=\"row\" layout-align=\"end center\">\n                        <span ng-show=\"tab.title == '患者基本信息'\" md-colors=\"{background: 'yellow'}\">请输入完病案号和出院时间后点击此按钮获取已录入的相应信息</span>\n                        <md-button class=\"md-raised md-primary\" ng-show=\"tab.title == '患者基本信息'\" ng-click=\"getDiagInfo()\">获取已录入数据</md-button>\n                        <md-button class=\"md-fab md-mini md-primary\" ng-show=\"tab.status\">\n                            <md-tooltip md-direction=\"left\" md-visible=\"tooltipVisible\">此页必填数据已录入完整，可以提交数据</md-tooltip>\n                            <md-icon>\n                                <ng-md-icon icon=\"check_circle\"></ng-md-icon>\n                            </md-icon>\n                        </md-button>\n\n                        <md-button aria-label=\"menu\" class=\"md-fab md-mini md-warn\" ng-show=\"!tab.status\">\n                            <md-tooltip md-direction=\"left\" md-visible=\"tooltipVisible\">此页必填数据未录入完整，不能提交数据</md-tooltip>\n                            <md-icon>\n                                <ng-md-icon icon=\"error\"></ng-md-icon>\n                            </md-icon>\n                        </md-button>\n\n                        <md-button class=\"md-raised md-primary\" ng-show=\"tab.title == '临时医嘱记录表'\" ng-disabled=\"!tab_status()\" ng-click=\"submit()\">提交</md-button>\n                    </md-card-actions>\n                </md-card>\n            </div>\n        </md-tab>\n    </md-tabs>\n</div>\n\n"
+
+/***/ },
+/* 68 */
+/***/ function(module, exports) {
+
+	module.exports = "<div>\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>病案号</label>\n                    <input required name=\"medical_id\" ng-model=\"patient_info.medical_id\">\n                    <div ng-messages=\"projectForm.medical_id.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <!--<md-datetime-inline init-datatime=\"patient_info.out_date\" datetime-mode=\"date\" placeholder=\"出院时间\"-->\n                                    <!--date-changed=\"\" required=\"true\">-->\n                <!--</md-datetime-inline>-->\n                <md-input-container>\n                    <label>出院日期</label>\n                    <input required type=\"text\" name=\"out_date\" ng-model=\"patient_info.out_date\" ng-pattern=\"date_format\">\n                    <div ng-messages=\"projectForm.out_date.$error\">\n                        <div ng-message=\"required\">必填</div>\n                        <div ng-message=\"pattern\">日期格式:YYYY-MM-DD</div>\n                    </div>\n                </md-input-container>\n            <!--<md-card-actions layout=\"row\" layout-align=\"end center\">-->\n                <!--<md-button class=\"md-raised md-primary\" ng-click=\"getDiagInfo()\">获取诊断信息</md-button>-->\n            <!--</md-card-actions>-->\n            <!--</md-card>-->\n        </div>\n    </div>\n\n\n    <!--<div layout=\"row\">-->\n        <!--<div flex>-->\n            <!--<md-card md-whiteframe=\"5\">-->\n                <!--<md-input-container>-->\n                    <!--<label>病案号</label>-->\n                    <!--<input required name=\"medical_id\" ng-model=\"patient_info.medical_id\">-->\n                    <!--<div ng-messages=\"projectForm.medical_id.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                <!--</md-input-container>-->\n            <!--</md-card>-->\n        <!--</div>-->\n        <!--<div flex>-->\n            <!--<md-card md-whiteframe=\"5\">-->\n                <!--<md-input-container>-->\n                    <!--<label>姓名</label>-->\n                    <!--<input required name=\"name\" ng-model=\"patient_info.name\">-->\n                    <!--<div ng-messages=\"projectForm.name.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                <!--</md-input-container>-->\n            <!--</md-card>-->\n        <!--</div>-->\n\n        <!--<div flex>-->\n            <!--<md-card md-whiteframe=\"5\">-->\n                <!--<md-input-container>-->\n                    <!--<label>身份证号</label>-->\n                    <!--<input required name=\"identity\" ng-model=\"patient_info.identity\">-->\n                    <!--<div ng-messages=\"projectForm.identity.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                <!--</md-input-container>-->\n            <!--</md-card>-->\n        <!--</div>-->\n    <!--</div>-->\n    <!--&lt;!&ndash;<div class=\"inset\" hide-sm></div>&ndash;&gt;-->\n    <!--<div layout=\"row\">-->\n        <!--<div flex>-->\n            <!--<md-card md-whiteframe=\"5\">-->\n                <!--<md-input-container>-->\n                    <!--<label>性别</label>-->\n                    <!--<md-select name=\"sex\" ng-model=\"patient_info.sex\" required>-->\n                        <!--<md-option ng-value=\"sex\" ng-repeat=\"sex in selected.sex\">{{ sex }}</md-option>-->\n                    <!--</md-select>-->\n                    <!--<div ng-messages=\"projectForm.sex.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                <!--</md-input-container>-->\n            <!--</md-card>-->\n        <!--</div>-->\n        <!--<div flex>-->\n            <!--<md-card md-whiteframe=\"5\">-->\n                <!--&lt;!&ndash;<md-input-container>&ndash;&gt;-->\n                <!--&lt;!&ndash;<label>生日</label>&ndash;&gt;-->\n                <!--&lt;!&ndash;<md-datepicker name=\"birthday\" ng-model=\"patient_info.birthday\" required=\"\"></md-datepicker>&ndash;&gt;-->\n                <!--&lt;!&ndash;<div ng-messages=\"projectForm.birthday.$error\">&ndash;&gt;-->\n                <!--&lt;!&ndash;<div ng-message=\"required\">必填</div>&ndash;&gt;-->\n                <!--&lt;!&ndash;</div>&ndash;&gt;-->\n                <!--&lt;!&ndash;</md-input-container>&ndash;&gt;-->\n                <!--<md-datetime-inline init-datatime=\"patient_info.birthday\" datetime-mode=\"date\" placeholder=\"生日\"-->\n                                    <!--date-changed=\"dateChange()\">-->\n                <!--</md-datetime-inline>-->\n            <!--</md-card>-->\n        <!--</div>-->\n\n        <!--<div flex>-->\n            <!--<md-card md-whiteframe=\"5\">-->\n                <!--<md-input-container>-->\n                    <!--<label>年龄</label>-->\n                    <!--<input required name=\"age\" ng-model=\"patient_info.age\" ng-pattern=\"/^[0-9]{0,2}$/\">-->\n                    <!--<div ng-messages=\"projectForm.age.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                        <!--<div ng-message=\"pattern\" class=\"my-message\">请输入1-2位数字</div>-->\n                    <!--</div>-->\n                <!--</md-input-container>-->\n            <!--</md-card>-->\n        <!--</div>-->\n\n    <!--</div>-->\n    <!--<div layout=\"row\">-->\n        <!--<div flex>-->\n            <!--<md-card md-whiteframe=\"5\">-->\n                <!--<md-input-container>-->\n                    <!--<label>省份</label>-->\n                    <!--<md-select name=\"province\" ng-model=\"patient_info.province\" required>-->\n                        <!--<md-option ng-value=\"key\" ng-repeat=\"(key, val) in selected.division\">{{ key }}</md-option>-->\n                    <!--</md-select>-->\n                    <!--<div ng-messages=\"projectForm.province.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                <!--</md-input-container>-->\n            <!--</md-card>-->\n        <!--</div>-->\n        <!--<div flex>-->\n            <!--<md-card md-whiteframe=\"5\">-->\n                <!--<md-input-container>-->\n                    <!--<label>城市</label>-->\n                    <!--<md-select name=\"city\" ng-model=\"patient_info.city\" required>-->\n                        <!--<md-option ng-value=\"key\" ng-repeat=\"(key, val) in selected.division[patient_info.province]\">{{-->\n                            <!--key }}-->\n                        <!--</md-option>-->\n                    <!--</md-select>-->\n                    <!--<div ng-messages=\"projectForm.city.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                <!--</md-input-container>-->\n            <!--</md-card>-->\n        <!--</div>-->\n        <!--<div flex>-->\n            <!--<md-card md-whiteframe=\"5\">-->\n                <!--<md-input-container>-->\n                    <!--<label>县/区</label>-->\n                    <!--<md-select name=\"district\" ng-model=\"patient_info.district\" required>-->\n                        <!--<md-option ng-value=\"district\"-->\n                                   <!--ng-repeat=\"district in selected.division[patient_info.province][patient_info.city]\">-->\n                            <!--{{ district }}-->\n                        <!--</md-option>-->\n                    <!--</md-select>-->\n                    <!--<div ng-messages=\"projectForm.district.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                <!--</md-input-container>-->\n            <!--</md-card>-->\n        <!--</div>-->\n    <!--</div>-->\n\n    <!--<div layout=\"row\">-->\n        <!--<div flex>-->\n            <!--<md-card md-whiteframe=\"5\">-->\n                <!--<md-input-container>-->\n                    <!--<label>详细地址</label>-->\n                    <!--<input required name=\"detail_addr\" ng-model=\"patient_info.detail_addr\">-->\n                    <!--<div ng-messages=\"projectForm.detail_addr.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                <!--</md-input-container>-->\n            <!--</md-card>-->\n        <!--</div>-->\n    <!--</div>-->\n\n    <!--<div layout=\"row\">-->\n        <!--<div flex>-->\n            <!--<md-card md-whiteframe=\"5\">-->\n                <!--<md-input-container>-->\n                    <!--<label>婚姻</label>-->\n                    <!--<md-select name=\"marriage\" ng-model=\"patient_info.marriage\" required>-->\n                        <!--<md-option ng-value=\"marriage\" ng-repeat=\"marriage in selected.marriage\">{{ marriage }}-->\n                        <!--</md-option>-->\n                    <!--</md-select>-->\n                    <!--<div ng-messages=\"projectForm.marriage.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                <!--</md-input-container>-->\n            <!--</md-card>-->\n        <!--</div>-->\n        <!--<div flex>-->\n            <!--<md-card md-whiteframe=\"5\">-->\n                <!--<md-input-container>-->\n                    <!--<label>职业</label>-->\n                    <!--<input required name=\"job\" ng-model=\"patient_info.job\">-->\n                    <!--<div ng-messages=\"projectForm.job.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                <!--</md-input-container>-->\n            <!--</md-card>-->\n        <!--</div>-->\n        <!--<div flex>-->\n            <!--<md-card md-whiteframe=\"5\">-->\n                <!--<md-input-container>-->\n                    <!--<label>门诊</label>-->\n                    <!--<input required name=\"outpatient\" ng-model=\"patient_info.outpatient\">-->\n                    <!--<div ng-messages=\"projectForm.outpatient.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                <!--</md-input-container>-->\n            <!--</md-card>-->\n        <!--</div>-->\n    <!--</div>-->\n    <!--<div layout=\"row\">-->\n        <!--<div flex>-->\n            <!--<md-card md-whiteframe=\"5\">-->\n                <!--<md-datetime-inline init-datatime=\"patient_info.in_date\" datetime-mode=\"datetime\" placeholder=\"入院时间\"-->\n                                    <!--date-changed=\"dateChange()\">-->\n                <!--</md-datetime-inline>-->\n            <!--</md-card>-->\n        <!--</div>-->\n\n        <!--<div flex>-->\n            <!--<md-card md-whiteframe=\"5\">-->\n                <!--<md-datetime-inline init-datatime=\"patient_info.out_date\" datetime-mode=\"datetime\" placeholder=\"出院时间\"-->\n                                    <!--date-changed=\"dateChange()\">-->\n                <!--</md-datetime-inline>-->\n            <!--</md-card>-->\n        <!--</div>-->\n    <!--</div>-->\n\n\n</div>"
+
+/***/ },
 /* 69 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-sidenav layout=\"column\" class=\"md-sidenav-left md-whiteframe-18dp\" md-component-id=\"left\"\r\n            md-is-locked-open=\"$mdMedia('gt-md')\"\r\n            md-no-ink>\r\n    <md-toolbar class=\"md-tall md-primary md-hue-1\">\r\n        <span flex></span>\r\n        <div layout=\"column\" class=\"md-toolbar-tools-bottom inset\">\r\n            <user-avatar></user-avatar>\r\n            <span></span>\r\n            <div>{{userInfo().account}}</div>\r\n            <div>{{userInfo().email}}</div>\r\n        </div>\r\n    </md-toolbar>\r\n    <md-list>\r\n        <md-item ng-repeat=\"item in menu\" ng-click=\"close()\">\r\n            <div ui-sref=\"{{item.lin}}\" ng-class=\"{'nav-active': $state.includes('{{item.lin}}')}\">\r\n                <md-item-content layout=\"row\" layout-align=\"start center\">\r\n                    <div class=\"inset\">\r\n                        <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\r\n                    </div>\r\n                    <div class=\"inset\">{{item.title}}\r\n                    </div>\r\n                </md-item-content>\r\n            </div>\r\n        </md-item>\r\n        <div ng-show=\"userInfo().role=='admin'\">\r\n            <md-divider></md-divider>\r\n            <md-subheader>管理</md-subheader>\r\n            <md-item ng-repeat=\"item in admin\" ng-click=\"close()\">\r\n                <div ui-sref=\"{{item.lin}}\" ng-class=\"{'nav-active': $state.includes('{{item.lin}}')}\">\r\n                    <md-item-content layout=\"row\" layout-align=\"start center\">\r\n                        <div class=\"inset\">\r\n                            <ng-md-icon icon=\"{{item.icon}}\"></ng-md-icon>\r\n                        </div>\r\n                        <div class=\"inset\">{{item.title}}\r\n                        </div>\r\n                    </md-item-content>\r\n                </div>\r\n            </md-item>\r\n        </div>\r\n    </md-list>\r\n</md-sidenav>\r\n\r\n"
+	module.exports = "<div>\n    <div layout=\"row\">\n        <!--<div flex>-->\n            <!--<md-card md-whiteframe=\"5\">-->\n                <!--<md-input-container>-->\n                    <!--<label>病案号</label>-->\n                    <!--<input required name=\"medical_id\" ng-model=\"patient_info.medical_id\">-->\n                    <!--<div ng-messages=\"projectForm.medical_id.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                <!--</md-input-container>-->\n            <!--</md-card>-->\n        <!--</div>-->\n\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>主诉</label>\n                    <input required name=\"complain\" ng-model=\"hospitalized.complain\">\n                    <div ng-messages=\"projectForm.complain.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>现病史</label>\n                    <!--<input required name=\"present_illness\" ng-model=\"hospitalized.present_illness\">-->\n                    <textarea required name=\"present_illness\" ng-model=\"hospitalized.present_illness\" rows=\"5\"\n                              md-select-on-focus></textarea>\n                    <div ng-messages=\"projectForm.present_illness.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>既往史</label>\n                    <!--<input required name=\"history_illness\" ng-model=\"hospitalized.history_illness\">-->\n                    <textarea required name=\"history_illness\" ng-model=\"hospitalized.history_illness\" rows=\"5\"\n                              md-select-on-focus></textarea>\n                    <div ng-messages=\"projectForm.history_illness.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>家族史</label>\n                    <input required name=\"family_illness\" ng-model=\"hospitalized.family_illness\">\n                    <div ng-messages=\"projectForm.family_illness.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>入院诊断(请用英文','分隔多个诊断)</label>\n                    <input name=\"admits_diag\" ng-model=\"hospitalized.admits_diag\">\n                    <!--<div ng-messages=\"projectForm.admits_diag.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>体格检查</label>\n                    <textarea name=\"physical_exam\" ng-model=\"hospitalized.physical_exam\" rows=\"5\"\n                              md-select-on-focus></textarea>\n                    <!--<div ng-messages=\"projectForm.physical_exam.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n            </md-card>\n        </div>\n\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>整形外科情况</label>\n                    <textarea required name=\"surgery\" ng-model=\"hospitalized.surgery\" rows=\"5\"\n                              md-select-on-focus></textarea>\n                    <div ng-messages=\"projectForm.surgery.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>辅助检查</label>\n                    <input name=\"assist_exam\" ng-model=\"hospitalized.assist_exam\">\n                    <!--<div ng-messages=\"projectForm.assist_exam.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n</div>"
 
 /***/ },
 /* 70 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"inset\"></div>\r\n<div class=\"inset\"></div>\r\n<div class=\"inset\"></div>\r\n<div class=\"inset\"></div>\r\n<div layout=\"row\" layout-align=\"center center\" ng-controller=\"LoginCtrl\">\r\n    <md-card md-whiteframe=\"15\">\r\n        <md-card-title>\r\n            <md-card-title-text md-theme=\"dark-purple\">\r\n                <span class=\"md-headline\">登录</span>\r\n            </md-card-title-text>\r\n        </md-card-title>\r\n        <md-divider></md-divider>\r\n        <md-card-content>\r\n            <md-content layout-padding=\"\">\r\n                <form name=\"loginForm\">\r\n                    <md-input-container class=\"md-block\">\r\n                        <label>账号</label>\r\n                        <md-icon>\r\n                            <ng-md-icon icon=\"account_circle\"></ng-md-icon>\r\n                        </md-icon>\r\n                        <input ng-model=\"user.account\" type=\"text\" name=\"account\" required>\r\n                        <div ng-messages=\"loginForm.account.$error\">\r\n                            <div ng-message=\"required\">必填</div>\r\n                        </div>\r\n                    </md-input-container>\r\n\r\n                    <md-input-container class=\"md-block\">\r\n                        <label>密码</label>\r\n                        <md-icon>\r\n                            <ng-md-icon icon=\"lock\"></ng-md-icon>\r\n                        </md-icon>\r\n                        <input ng-model=\"user.password\" type=\"password\" name=\"password\" required>\r\n                        <div ng-messages=\"loginForm.password.$error\">\r\n                            <div ng-message=\"required\">必填</div>\r\n                        </div>\r\n                    </md-input-container>\r\n\r\n                    <md-card-actions layout=\"row\" layout-align=\"end center\">\r\n                        <md-button class=\"md-raised md-primary\" ng-click=\"submit()\">登录</md-button>\r\n                    </md-card-actions>\r\n                </form>\r\n            </md-content>\r\n        </md-card-content>\r\n    </md-card>\r\n</div>\r\n"
+	module.exports = "<div>\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>病例特点</label>\n                    <textarea name=\"ill_description\" ng-model=\"clinical_course.ill_description\" rows=\"5\"\n                              md-select-on-focus>\n                    </textarea>\n                    <!--<div ng-messages=\"projectForm.ill_description.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>初步诊断(请用英文','分隔多个诊断)</label>\n                    <textarea name=\"init_diag\" ng-model=\"clinical_course.init_diag\" rows=\"5\"\n                              md-select-on-focus>\n                    </textarea>\n                    <!--<div ng-messages=\"projectForm.init_diag.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>治疗计划(请用英文','分隔多个手术)</label>\n                    <textarea name=\"treat_plan\" ng-model=\"clinical_course.treat_plan\" rows=\"5\"\n                              md-select-on-focus>\n                    </textarea>\n                    <!--<div ng-messages=\"projectForm.treat_plan.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>诊断依据</label>\n                    <textarea required name=\"gist\" ng-model=\"clinical_course.gist\" rows=\"1\"\n                              md-select-on-focus>\n                    </textarea>\n                    <div ng-messages=\"projectForm.gist.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>鉴别诊断</label>\n                    <textarea required name=\"antidiastole\" ng-model=\"clinical_course.antidiastole\" rows=\"1\"\n                              md-select-on-focus>\n                    </textarea>\n                    <div ng-messages=\"projectForm.antidiastole.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n    <div ng-repeat=\"item in check_record track by $index\">\n        <div ng-include=\"'html/widget/check_record.html'\"></div>\n    </div>\n\n</div>"
 
 /***/ },
 /* 71 */
 /***/ function(module, exports) {
 
-	module.exports = "<div layout=\"row\" layout-align=\"start center\" flex-offset=\"5\">\r\n    <md-card flex>\r\n        <md-card-title>\r\n            <md-card-title-text md-theme=\"dark-purple\">\r\n                <span class=\"md-headline\">上传文件</span>\r\n            </md-card-title-text>\r\n        </md-card-title>\r\n        <md-divider></md-divider>\r\n        <md-card-content>\r\n            <div layout=\"row\">\r\n                <div flex>\r\n                    <input class=\"ng-hide\" id=\"input-file-id\" multiple type=\"file\" nv-file-select=\"\"\r\n                           uploader=\"uploader\"/>\r\n                    <label for=\"input-file-id\" class=\"md-button md-raised md-primary\">选择文件(可多选)[{{ uploader.queue.length\r\n                        }}]</label>\r\n                    <md-table-container>\r\n                        <table md-table multiple>\r\n                            <thead md-head>\r\n                            <tr md-row>\r\n                                <th md-column>文件名</th>\r\n                                <th md-column md-numeric ng-show=\"uploader.isHTML5\">大小</th>\r\n                                <th md-column md-numeric ng-show=\"uploader.isHTML5\">进度</th>\r\n                                <th md-column md-numeric>状态</th>\r\n                                <th md-column>操作</th>\r\n                            </tr>\r\n                            </thead>\r\n                            <tbody md-body>\r\n                            <tr md-row ng-repeat=\"item in uploader.queue\">\r\n                                <td md-cell><strong>{{ item.file.name }}</strong></td>\r\n                                <td md-cell ng-show=\"uploader.isHTML5\" nowrap>{{ item.file.size/1024/1024|number:2 }}\r\n                                    MB\r\n                                </td>\r\n                                <td md-cell ng-show=\"uploader.isHTML5\">\r\n                                    <md-progress-linear md-mode=\"determinate\"\r\n                                                        value=\"{{item.progress}}\"></md-progress-linear>\r\n                                </td>\r\n                                <td md-cell class=\"text-center\">\r\n                                        <span ng-show=\"item.isSuccess\">\r\n                                            <md-icon>\r\n                                                <ng-md-icon icon=\"done\"></ng-md-icon>\r\n                                            </md-icon>\r\n                                        </span>\r\n                                    <span ng-show=\"item.isCancel\">\r\n                                            <md-icon>\r\n                                                <ng-md-icon icon=\"undo\"></ng-md-icon>\r\n                                            </md-icon>\r\n                                        </span>\r\n                                    <span ng-show=\"item.isError\">\r\n                                            <md-icon>\r\n                                                <ng-md-icon icon=\"clear\"></ng-md-icon>\r\n                                            </md-icon>\r\n                                        </span>\r\n                                </td>\r\n                                <td md-cell>\r\n                                    <md-button class=\"md-raised md-mini md-primary\" ng-click=\"item.upload()\"\r\n                                               ng-disabled=\"item.isReady || item.isUploading || item.isSuccess\">\r\n                                        <md-icon>\r\n                                            <ng-md-icon icon=\"cloud_upload\"></ng-md-icon>\r\n                                        </md-icon>\r\n                                        上传\r\n                                    </md-button>\r\n                                    <md-button class=\"md-raised md-mini md-warn md-hue-2\" ng-click=\"item.cancel()\"\r\n                                               ng-disabled=\"!item.isUploading\">\r\n                                        <md-icon>\r\n                                            <ng-md-icon icon=\"cloud_off\"></ng-md-icon>\r\n                                        </md-icon>\r\n                                        取消\r\n                                    </md-button>\r\n                                    <md-button class=\"md-raised md-mini md-warn\" ng-click=\"item.remove()\">\r\n                                        <md-icon>\r\n                                            <ng-md-icon icon=\"delete\"></ng-md-icon>\r\n                                        </md-icon>\r\n                                        移除\r\n                                    </md-button>\r\n                                </td>\r\n                            </tr>\r\n                            </tbody>\r\n                        </table>\r\n                    </md-table-container>\r\n                    <div>\r\n                        <div>\r\n                            上传进度:\r\n                            <md-progress-linear md-mode=\"determinate\"\r\n                                                value=\"{{uploader.progress}}\"></md-progress-linear>\r\n                        </div>\r\n                        <md-button class=\"md-raised md-primary\" ng-click=\"uploader.uploadAll()\"\r\n                                   ng-disabled=\"!uploader.getNotUploadedItems().length\">\r\n                            <md-icon>\r\n                                <ng-md-icon icon=\"cloud_upload\"></ng-md-icon>\r\n                            </md-icon>\r\n                            上传全部\r\n                        </md-button>\r\n                        <md-button class=\"md-raised md-warn md-hue-2\" ng-click=\"uploader.cancelAll()\"\r\n                                   ng-disabled=\"!uploader.isUploading\">\r\n                            <md-icon>\r\n                                <ng-md-icon icon=\"cloud_off\"></ng-md-icon>\r\n                            </md-icon>\r\n                            取消全部\r\n                        </md-button>\r\n                        <md-button class=\"md-raised md-warn\" ng-click=\"uploader.clearQueue()\"\r\n                                   ng-disabled=\"!uploader.queue.length\">\r\n                            <md-icon>\r\n                                <ng-md-icon icon=\"delete\"></ng-md-icon>\r\n                            </md-icon>\r\n                            移除全部\r\n                        </md-button>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n\r\n\r\n        </md-card-content>\r\n    </md-card>\r\n</div>\r\n\r\n\r\n"
+	module.exports = "<div>\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <!--<md-datetime-inline init-datatime=\"surgery.surgery_date\" datetime-mode=\"date\" placeholder=\"手术时间\"-->\n                                    <!--date-changed=\"dateChange()\">-->\n                <!--</md-datetime-inline>-->\n                <md-input-container>\n                    <label>手术时间</label>\n                    <input name=\"surgery_date\" ng-model=\"surgery.surgery_date\" ng-pattern=\"date_format\">\n                    <div ng-messages=\"projectForm.surgery_date.$error\">\n                        <div ng-message=\"pattern\">日期格式:YYYY-MM-DD</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>术前诊断(请用英文','分隔多个诊断)</label>\n                    <input name=\"before_diag\" ng-model=\"surgery.before_diag\">\n                    <!--<div ng-messages=\"projectForm.before_diag.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>术后诊断(请用英文','分隔多个诊断)</label>\n                    <input name=\"later_diag\" ng-model=\"surgery.later_diag\">\n                    <!--<div ng-messages=\"projectForm.later_diag.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>手术名称(请用英文','分隔多个手术)</label>\n                    <input name=\"surgery_name\" ng-model=\"surgery.surgery_name\">\n                    <!--<div ng-messages=\"projectForm.surgery_name.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>手术医生</label>\n                    <input name=\"surgery_doctor\" ng-model=\"surgery.surgery_doctor\">\n                    <!--<div ng-messages=\"projectForm.surgery_doctor.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>麻醉医生</label>\n                    <input name=\"narcosis_doctor\" ng-model=\"surgery.narcosis_doctor\">\n                    <!--<div ng-messages=\"projectForm.narcosis_doctor.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>器械护士</label>\n                    <input name=\"instrument_nurses\" ng-model=\"surgery.instrument_nurses\">\n                    <!--<div ng-messages=\"projectForm.instrument_nurses.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n            </md-card>\n        </div>\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>麻醉方式</label>\n                    <input name=\"narcosis_way\" ng-model=\"surgery.narcosis_way\">\n                    <!--<div ng-messages=\"projectForm.narcosis_way.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n    <div layout=\"row\">\n        <div flex>\n            <md-card md-whiteframe=\"5\">\n                <md-input-container>\n                    <label>描述</label>\n                    <textarea required name=\"description\" ng-model=\"surgery.description\" rows=\"5\"\n                              md-select-on-focus>\n                    </textarea>\n                    <div ng-messages=\"projectForm.description.$error\">\n                        <div ng-message=\"required\">必填</div>\n                    </div>\n                </md-input-container>\n            </md-card>\n        </div>\n    </div>\n</div>"
 
 /***/ },
 /* 72 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"registerCtrl\">\r\n    <div layout=\"row\" layout-align=\"start center\" flex-offset=\"5\">\r\n        <md-card  flex-xs=\"80\" flex=\"40\">\r\n            <md-card-title>\r\n                <md-card-title-text md-theme=\"dark-purple\">\r\n                    <span class=\"md-headline\">注册账号</span>\r\n                </md-card-title-text>\r\n            </md-card-title>\r\n            <md-divider></md-divider>\r\n            <md-card-content>\r\n                <form name=\"registerForm\">\r\n                    <md-input-container class=\"md-block\">\r\n                        <label>账号</label>\r\n                        <md-icon>\r\n                            <ng-md-icon icon=\"account_circle\"></ng-md-icon>\r\n                        </md-icon>\r\n                        <input ng-model=\"register_info.account\" type=\"text\" name=\"account\" required>\r\n                        <div ng-messages=\"registerForm.account.$error\">\r\n                            <div ng-message=\"required\">必填</div>\r\n                        </div>\r\n                    </md-input-container>\r\n\r\n                    <md-input-container class=\"md-block\">\r\n                        <label>邮箱</label>\r\n                        <md-icon>\r\n                            <ng-md-icon icon=\"email\"></ng-md-icon>\r\n                        </md-icon>\r\n                        <input ng-model=\"register_info.email\" type=\"email\" name=\"email\" required>\r\n                        <div ng-messages=\"registerForm.email.$error\">\r\n                            <div ng-message=\"required\">必填</div>\r\n                            <div ng-message=\"email\">请输入有效邮箱</div>\r\n                        </div>\r\n                    </md-input-container>\r\n\r\n                    <md-input-container class=\"md-block\">\r\n                        <label>密码</label>\r\n                        <md-icon>\r\n                            <ng-md-icon icon=\"lock\"></ng-md-icon>\r\n                        </md-icon>\r\n                        <input ng-model=\"register_info.password\" type=\"password\" name=\"password\" ng-pattern=\"/^[a-zA-Z]\\w{5,17}$/\" required>\r\n                        <div ng-messages=\"registerForm.password.$error\">\r\n                            <div ng-message=\"required\">必填</div>\r\n                            <div ng-message=\"pattern\" >密码必须是英文字母开头，并由英文字母和数字组成,至少6位</div>\r\n                        </div>\r\n                    </md-input-container>\r\n\r\n                    <md-input-container class=\"md-block\">\r\n                        <label>确认密码</label>\r\n                        <md-icon>\r\n                            <ng-md-icon icon=\"lock\"></ng-md-icon>\r\n                        </md-icon>\r\n                        <input ng-model=\"register_info.password_confirm\" type=\"password\" name=\"password_confirm\" ng-pattern=\"{{register_info.password}}\"  required>\r\n                        <div ng-messages=\"registerForm.password_confirm.$error\">\r\n                            <div ng-message=\"required\">必填</div>\r\n                            <div ng-message=\"pattern\" >请确认密码一致</div>\r\n                        </div>\r\n                    </md-input-container>\r\n\r\n                    <md-input-container class=\"md-block\">\r\n                        <label>角色</label>\r\n                        <md-icon>\r\n                            <ng-md-icon icon=\"person\"></ng-md-icon>\r\n                        </md-icon>\r\n                        <md-select name=\"role\" ng-model=\"register_info.role\" required>\r\n                            <md-option ng-value=\"role.value\" ng-repeat=\"role in selected.roles\">{{ role.option }}</md-option>\r\n                        </md-select>\r\n                        <div ng-messages=\"registerForm.role.$error\">\r\n                            <div ng-message=\"required\">必填</div>\r\n                        </div>\r\n                    </md-input-container>\r\n\r\n                    <md-card-actions layout=\"row\" layout-align=\"end center\">\r\n                        <md-button class=\"md-raised md-primary\" ng-click=\"registerFun()\" ng-disabled=\"registerForm.$invalid||btnDisable\">注册</md-button>\r\n                    </md-card-actions>\r\n                </form>\r\n            </md-card-content>\r\n        </md-card>\r\n    </div>\r\n</div>"
+	module.exports = "<div>\n    <div ng-repeat=\"item in description track by $index\">\n        <div ng-include=\"'html/widget/after_surgery_record.html'\"></div>\n    </div>\n</div>"
 
 /***/ },
 /* 73 */
 /***/ function(module, exports) {
 
-	module.exports = "<div ng-controller=\"formTabsCtrl\">\r\n    <md-tabs class=\"md-primary\" md-dynamic-height>\r\n        <md-tab ng-repeat=\"tab in tabs\"\r\n                label=\"{{tab.title}}\"\r\n                layout=\"row\">\r\n            <div class=\"inset\" hide-sm></div>\r\n            <div layout=\"row\" layout-align=\"center center\" flex-offset=\"5\">\r\n                <md-card flex style=\"margin-bottom: 500px\">\r\n                    <md-card-content>\r\n                        <form name=\"projectForm\">\r\n                            <ng-include src=\"tab.content\"></ng-include>\r\n                            <span ng-hide=\"true\">{{tab.status=!projectForm.$invalid}}</span>\r\n                        </form>\r\n                    </md-card-content>\r\n                    <md-card-actions layout=\"row\" layout-align=\"end center\">\r\n                        <span ng-show=\"tab.title == '患者基本信息'\" md-colors=\"{background: 'yellow'}\">请输入完病案号和出院时间后点击此按钮获取已录入的相应信息</span>\r\n                        <md-button class=\"md-raised md-primary\" ng-show=\"tab.title == '患者基本信息'\" ng-click=\"getDiagInfo()\">获取已录入数据</md-button>\r\n                        <md-button class=\"md-fab md-mini md-primary\" ng-show=\"tab.status\">\r\n                            <md-tooltip md-direction=\"left\" md-visible=\"tooltipVisible\">此页必填数据已录入完整，可以提交数据</md-tooltip>\r\n                            <md-icon>\r\n                                <ng-md-icon icon=\"check_circle\"></ng-md-icon>\r\n                            </md-icon>\r\n                        </md-button>\r\n\r\n                        <md-button aria-label=\"menu\" class=\"md-fab md-mini md-warn\" ng-show=\"!tab.status\">\r\n                            <md-tooltip md-direction=\"left\" md-visible=\"tooltipVisible\">此页必填数据未录入完整，不能提交数据</md-tooltip>\r\n                            <md-icon>\r\n                                <ng-md-icon icon=\"error\"></ng-md-icon>\r\n                            </md-icon>\r\n                        </md-button>\r\n\r\n                        <md-button class=\"md-raised md-primary\" ng-show=\"tab.title == '临时医嘱记录表'\" ng-disabled=\"!tab_status()\" ng-click=\"submit()\">提交</md-button>\r\n                    </md-card-actions>\r\n                </md-card>\r\n            </div>\r\n        </md-tab>\r\n    </md-tabs>\r\n</div>\r\n\r\n"
+	module.exports = "<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <!--<md-datetime-inline init-datatime=\"leave.in_date\" datetime-mode=\"date\" placeholder=\"入院时间\"-->\n                                <!--date-changed=\"dateChange()\">-->\n            <!--</md-datetime-inline>-->\n            <md-input-container>\n                <label>入院日期</label>\n                <input name=\"in_date\" ng-model=\"leave.in_date\" ng-pattern=\"date_format\">\n                <div ng-messages=\"projectForm.in_date.$error\">\n                    <div ng-message=\"pattern\">日期格式:YYYY-MM-DD</div>\n                </div>\n            </md-input-container>\n        </md-card>\n    </div>\n\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <!--<md-datetime-inline init-datatime=\"leave.out_date\" datetime-mode=\"date\" placeholder=\"出院时间\"-->\n                                <!--date-changed=\"dateChange()\">-->\n            <!--</md-datetime-inline>-->\n            <md-input-container>\n                <label>出院日期</label>\n                <input name=\"out_date\" ng-model=\"leave.out_date\" ng-pattern=\"date_format\">\n                <div ng-messages=\"projectForm.out_date.$error\">\n                    <div ng-message=\"pattern\">日期格式:YYYY-MM-DD</div>\n                </div>\n            </md-input-container>\n        </md-card>\n    </div>\n</div>\n\n<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <md-input-container>\n                <label>入院病情描述</label>\n                <textarea name=\"description\" ng-model=\"leave.description\" rows=\"1\" md-select-on-focus></textarea>\n                <!--<div ng-messages=\"projectForm.description.$error\">-->\n                    <!--<div ng-message=\"required\">必填</div>-->\n                <!--</div>-->\n            </md-input-container>\n        </md-card>\n    </div>\n</div>\n\n<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <md-input-container>\n                <label>初步诊断(请用英文','分隔多个诊断)</label>\n                <input name=\"init_diag\" ng-model=\"leave.init_diag\">\n                <!--<div ng-messages=\"projectForm.init_diag.$error\">-->\n                    <!--<div ng-message=\"required\">必填</div>-->\n                <!--</div>-->\n            </md-input-container>\n        </md-card>\n    </div>\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <md-input-container>\n                <label>出院诊断(请用英文','分隔多个诊断)</label>\n                <input name=\"leave_diag\" ng-model=\"leave.leave_diag\">\n                <!--<div ng-messages=\"projectForm.leave_diag.$error\">-->\n                    <!--<div ng-message=\"required\">必填</div>-->\n                <!--</div>-->\n            </md-input-container>\n        </md-card>\n    </div>\n</div>\n\n<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <md-input-container>\n                <label>治疗过程(请用英文','分隔多个手术)</label>\n                <textarea name=\"treatment\" ng-model=\"leave.treatment\" rows=\"2\" md-select-on-focus></textarea>\n                <!--<div ng-messages=\"projectForm.treatment.$error\">-->\n                    <!--<div ng-message=\"required\">必填</div>-->\n                <!--</div>-->\n            </md-input-container>\n        </md-card>\n    </div>\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <md-input-container>\n                <label>出院医嘱</label>\n                <textarea required name=\"advice\" ng-model=\"leave.advice\" rows=\"2\" md-select-on-focus></textarea>\n                <div ng-messages=\"projectForm.advice.$error\">\n                    <div ng-message=\"required\">必填</div>\n                </div>\n            </md-input-container>\n        </md-card>\n    </div>\n</div>"
 
 /***/ },
 /* 74 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>病案号</label>\r\n                    <input required name=\"medical_id\" ng-model=\"patient_info.medical_id\">\r\n                    <div ng-messages=\"projectForm.medical_id.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <!--<md-datetime-inline init-datatime=\"patient_info.out_date\" datetime-mode=\"date\" placeholder=\"出院时间\"-->\r\n                                    <!--date-changed=\"\" required=\"true\">-->\r\n                <!--</md-datetime-inline>-->\r\n                <md-input-container>\r\n                    <label>出院日期</label>\r\n                    <input required type=\"text\" name=\"out_date\" ng-model=\"patient_info.out_date\" ng-pattern=\"date_format\">\r\n                    <div ng-messages=\"projectForm.out_date.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                        <div ng-message=\"pattern\">日期格式:YYYY-MM-DD</div>\r\n                    </div>\r\n                </md-input-container>\r\n            <!--<md-card-actions layout=\"row\" layout-align=\"end center\">-->\r\n                <!--<md-button class=\"md-raised md-primary\" ng-click=\"getDiagInfo()\">获取诊断信息</md-button>-->\r\n            <!--</md-card-actions>-->\r\n            <!--</md-card>-->\r\n        </div>\r\n    </div>\r\n\r\n\r\n    <!--<div layout=\"row\">-->\r\n        <!--<div flex>-->\r\n            <!--<md-card md-whiteframe=\"5\">-->\r\n                <!--<md-input-container>-->\r\n                    <!--<label>病案号</label>-->\r\n                    <!--<input required name=\"medical_id\" ng-model=\"patient_info.medical_id\">-->\r\n                    <!--<div ng-messages=\"projectForm.medical_id.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                <!--</md-input-container>-->\r\n            <!--</md-card>-->\r\n        <!--</div>-->\r\n        <!--<div flex>-->\r\n            <!--<md-card md-whiteframe=\"5\">-->\r\n                <!--<md-input-container>-->\r\n                    <!--<label>姓名</label>-->\r\n                    <!--<input required name=\"name\" ng-model=\"patient_info.name\">-->\r\n                    <!--<div ng-messages=\"projectForm.name.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                <!--</md-input-container>-->\r\n            <!--</md-card>-->\r\n        <!--</div>-->\r\n\r\n        <!--<div flex>-->\r\n            <!--<md-card md-whiteframe=\"5\">-->\r\n                <!--<md-input-container>-->\r\n                    <!--<label>身份证号</label>-->\r\n                    <!--<input required name=\"identity\" ng-model=\"patient_info.identity\">-->\r\n                    <!--<div ng-messages=\"projectForm.identity.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                <!--</md-input-container>-->\r\n            <!--</md-card>-->\r\n        <!--</div>-->\r\n    <!--</div>-->\r\n    <!--&lt;!&ndash;<div class=\"inset\" hide-sm></div>&ndash;&gt;-->\r\n    <!--<div layout=\"row\">-->\r\n        <!--<div flex>-->\r\n            <!--<md-card md-whiteframe=\"5\">-->\r\n                <!--<md-input-container>-->\r\n                    <!--<label>性别</label>-->\r\n                    <!--<md-select name=\"sex\" ng-model=\"patient_info.sex\" required>-->\r\n                        <!--<md-option ng-value=\"sex\" ng-repeat=\"sex in selected.sex\">{{ sex }}</md-option>-->\r\n                    <!--</md-select>-->\r\n                    <!--<div ng-messages=\"projectForm.sex.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                <!--</md-input-container>-->\r\n            <!--</md-card>-->\r\n        <!--</div>-->\r\n        <!--<div flex>-->\r\n            <!--<md-card md-whiteframe=\"5\">-->\r\n                <!--&lt;!&ndash;<md-input-container>&ndash;&gt;-->\r\n                <!--&lt;!&ndash;<label>生日</label>&ndash;&gt;-->\r\n                <!--&lt;!&ndash;<md-datepicker name=\"birthday\" ng-model=\"patient_info.birthday\" required=\"\"></md-datepicker>&ndash;&gt;-->\r\n                <!--&lt;!&ndash;<div ng-messages=\"projectForm.birthday.$error\">&ndash;&gt;-->\r\n                <!--&lt;!&ndash;<div ng-message=\"required\">必填</div>&ndash;&gt;-->\r\n                <!--&lt;!&ndash;</div>&ndash;&gt;-->\r\n                <!--&lt;!&ndash;</md-input-container>&ndash;&gt;-->\r\n                <!--<md-datetime-inline init-datatime=\"patient_info.birthday\" datetime-mode=\"date\" placeholder=\"生日\"-->\r\n                                    <!--date-changed=\"dateChange()\">-->\r\n                <!--</md-datetime-inline>-->\r\n            <!--</md-card>-->\r\n        <!--</div>-->\r\n\r\n        <!--<div flex>-->\r\n            <!--<md-card md-whiteframe=\"5\">-->\r\n                <!--<md-input-container>-->\r\n                    <!--<label>年龄</label>-->\r\n                    <!--<input required name=\"age\" ng-model=\"patient_info.age\" ng-pattern=\"/^[0-9]{0,2}$/\">-->\r\n                    <!--<div ng-messages=\"projectForm.age.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                        <!--<div ng-message=\"pattern\" class=\"my-message\">请输入1-2位数字</div>-->\r\n                    <!--</div>-->\r\n                <!--</md-input-container>-->\r\n            <!--</md-card>-->\r\n        <!--</div>-->\r\n\r\n    <!--</div>-->\r\n    <!--<div layout=\"row\">-->\r\n        <!--<div flex>-->\r\n            <!--<md-card md-whiteframe=\"5\">-->\r\n                <!--<md-input-container>-->\r\n                    <!--<label>省份</label>-->\r\n                    <!--<md-select name=\"province\" ng-model=\"patient_info.province\" required>-->\r\n                        <!--<md-option ng-value=\"key\" ng-repeat=\"(key, val) in selected.division\">{{ key }}</md-option>-->\r\n                    <!--</md-select>-->\r\n                    <!--<div ng-messages=\"projectForm.province.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                <!--</md-input-container>-->\r\n            <!--</md-card>-->\r\n        <!--</div>-->\r\n        <!--<div flex>-->\r\n            <!--<md-card md-whiteframe=\"5\">-->\r\n                <!--<md-input-container>-->\r\n                    <!--<label>城市</label>-->\r\n                    <!--<md-select name=\"city\" ng-model=\"patient_info.city\" required>-->\r\n                        <!--<md-option ng-value=\"key\" ng-repeat=\"(key, val) in selected.division[patient_info.province]\">{{-->\r\n                            <!--key }}-->\r\n                        <!--</md-option>-->\r\n                    <!--</md-select>-->\r\n                    <!--<div ng-messages=\"projectForm.city.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                <!--</md-input-container>-->\r\n            <!--</md-card>-->\r\n        <!--</div>-->\r\n        <!--<div flex>-->\r\n            <!--<md-card md-whiteframe=\"5\">-->\r\n                <!--<md-input-container>-->\r\n                    <!--<label>县/区</label>-->\r\n                    <!--<md-select name=\"district\" ng-model=\"patient_info.district\" required>-->\r\n                        <!--<md-option ng-value=\"district\"-->\r\n                                   <!--ng-repeat=\"district in selected.division[patient_info.province][patient_info.city]\">-->\r\n                            <!--{{ district }}-->\r\n                        <!--</md-option>-->\r\n                    <!--</md-select>-->\r\n                    <!--<div ng-messages=\"projectForm.district.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                <!--</md-input-container>-->\r\n            <!--</md-card>-->\r\n        <!--</div>-->\r\n    <!--</div>-->\r\n\r\n    <!--<div layout=\"row\">-->\r\n        <!--<div flex>-->\r\n            <!--<md-card md-whiteframe=\"5\">-->\r\n                <!--<md-input-container>-->\r\n                    <!--<label>详细地址</label>-->\r\n                    <!--<input required name=\"detail_addr\" ng-model=\"patient_info.detail_addr\">-->\r\n                    <!--<div ng-messages=\"projectForm.detail_addr.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                <!--</md-input-container>-->\r\n            <!--</md-card>-->\r\n        <!--</div>-->\r\n    <!--</div>-->\r\n\r\n    <!--<div layout=\"row\">-->\r\n        <!--<div flex>-->\r\n            <!--<md-card md-whiteframe=\"5\">-->\r\n                <!--<md-input-container>-->\r\n                    <!--<label>婚姻</label>-->\r\n                    <!--<md-select name=\"marriage\" ng-model=\"patient_info.marriage\" required>-->\r\n                        <!--<md-option ng-value=\"marriage\" ng-repeat=\"marriage in selected.marriage\">{{ marriage }}-->\r\n                        <!--</md-option>-->\r\n                    <!--</md-select>-->\r\n                    <!--<div ng-messages=\"projectForm.marriage.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                <!--</md-input-container>-->\r\n            <!--</md-card>-->\r\n        <!--</div>-->\r\n        <!--<div flex>-->\r\n            <!--<md-card md-whiteframe=\"5\">-->\r\n                <!--<md-input-container>-->\r\n                    <!--<label>职业</label>-->\r\n                    <!--<input required name=\"job\" ng-model=\"patient_info.job\">-->\r\n                    <!--<div ng-messages=\"projectForm.job.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                <!--</md-input-container>-->\r\n            <!--</md-card>-->\r\n        <!--</div>-->\r\n        <!--<div flex>-->\r\n            <!--<md-card md-whiteframe=\"5\">-->\r\n                <!--<md-input-container>-->\r\n                    <!--<label>门诊</label>-->\r\n                    <!--<input required name=\"outpatient\" ng-model=\"patient_info.outpatient\">-->\r\n                    <!--<div ng-messages=\"projectForm.outpatient.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                <!--</md-input-container>-->\r\n            <!--</md-card>-->\r\n        <!--</div>-->\r\n    <!--</div>-->\r\n    <!--<div layout=\"row\">-->\r\n        <!--<div flex>-->\r\n            <!--<md-card md-whiteframe=\"5\">-->\r\n                <!--<md-datetime-inline init-datatime=\"patient_info.in_date\" datetime-mode=\"datetime\" placeholder=\"入院时间\"-->\r\n                                    <!--date-changed=\"dateChange()\">-->\r\n                <!--</md-datetime-inline>-->\r\n            <!--</md-card>-->\r\n        <!--</div>-->\r\n\r\n        <!--<div flex>-->\r\n            <!--<md-card md-whiteframe=\"5\">-->\r\n                <!--<md-datetime-inline init-datatime=\"patient_info.out_date\" datetime-mode=\"datetime\" placeholder=\"出院时间\"-->\r\n                                    <!--date-changed=\"dateChange()\">-->\r\n                <!--</md-datetime-inline>-->\r\n            <!--</md-card>-->\r\n        <!--</div>-->\r\n    <!--</div>-->\r\n\r\n\r\n</div>"
+	module.exports = "<div>\n    <div ng-repeat=\"index in temp_items track by $index\">\n        <div ng-include=\"'html/widget/temp_medical_orders.html'\"></div>\n    </div>\n</div>"
 
 /***/ },
 /* 75 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\r\n    <div layout=\"row\">\r\n        <!--<div flex>-->\r\n            <!--<md-card md-whiteframe=\"5\">-->\r\n                <!--<md-input-container>-->\r\n                    <!--<label>病案号</label>-->\r\n                    <!--<input required name=\"medical_id\" ng-model=\"patient_info.medical_id\">-->\r\n                    <!--<div ng-messages=\"projectForm.medical_id.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                <!--</md-input-container>-->\r\n            <!--</md-card>-->\r\n        <!--</div>-->\r\n\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>主诉</label>\r\n                    <input required name=\"complain\" ng-model=\"hospitalized.complain\">\r\n                    <div ng-messages=\"projectForm.complain.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>现病史</label>\r\n                    <!--<input required name=\"present_illness\" ng-model=\"hospitalized.present_illness\">-->\r\n                    <textarea required name=\"present_illness\" ng-model=\"hospitalized.present_illness\" rows=\"5\"\r\n                              md-select-on-focus></textarea>\r\n                    <div ng-messages=\"projectForm.present_illness.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>既往史</label>\r\n                    <!--<input required name=\"history_illness\" ng-model=\"hospitalized.history_illness\">-->\r\n                    <textarea required name=\"history_illness\" ng-model=\"hospitalized.history_illness\" rows=\"5\"\r\n                              md-select-on-focus></textarea>\r\n                    <div ng-messages=\"projectForm.history_illness.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>家族史</label>\r\n                    <input required name=\"family_illness\" ng-model=\"hospitalized.family_illness\">\r\n                    <div ng-messages=\"projectForm.family_illness.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>入院诊断(请用英文','分隔多个诊断)</label>\r\n                    <input name=\"admits_diag\" ng-model=\"hospitalized.admits_diag\">\r\n                    <!--<div ng-messages=\"projectForm.admits_diag.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>体格检查</label>\r\n                    <textarea name=\"physical_exam\" ng-model=\"hospitalized.physical_exam\" rows=\"5\"\r\n                              md-select-on-focus></textarea>\r\n                    <!--<div ng-messages=\"projectForm.physical_exam.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>整形外科情况</label>\r\n                    <textarea required name=\"surgery\" ng-model=\"hospitalized.surgery\" rows=\"5\"\r\n                              md-select-on-focus></textarea>\r\n                    <div ng-messages=\"projectForm.surgery.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>辅助检查</label>\r\n                    <input name=\"assist_exam\" ng-model=\"hospitalized.assist_exam\">\r\n                    <!--<div ng-messages=\"projectForm.assist_exam.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n</div>"
+	module.exports = "<div>\n    <div ng-repeat=\"index in long_items track by $index\">\n        <div ng-include=\"'html/widget/long_medical_orders.html'\"></div>\n    </div>\n</div>"
 
 /***/ },
 /* 76 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>病例特点</label>\r\n                    <textarea name=\"ill_description\" ng-model=\"clinical_course.ill_description\" rows=\"5\"\r\n                              md-select-on-focus>\r\n                    </textarea>\r\n                    <!--<div ng-messages=\"projectForm.ill_description.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>初步诊断(请用英文','分隔多个诊断)</label>\r\n                    <textarea name=\"init_diag\" ng-model=\"clinical_course.init_diag\" rows=\"5\"\r\n                              md-select-on-focus>\r\n                    </textarea>\r\n                    <!--<div ng-messages=\"projectForm.init_diag.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>治疗计划(请用英文','分隔多个手术)</label>\r\n                    <textarea name=\"treat_plan\" ng-model=\"clinical_course.treat_plan\" rows=\"5\"\r\n                              md-select-on-focus>\r\n                    </textarea>\r\n                    <!--<div ng-messages=\"projectForm.treat_plan.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>诊断依据</label>\r\n                    <textarea required name=\"gist\" ng-model=\"clinical_course.gist\" rows=\"1\"\r\n                              md-select-on-focus>\r\n                    </textarea>\r\n                    <div ng-messages=\"projectForm.gist.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>鉴别诊断</label>\r\n                    <textarea required name=\"antidiastole\" ng-model=\"clinical_course.antidiastole\" rows=\"1\"\r\n                              md-select-on-focus>\r\n                    </textarea>\r\n                    <div ng-messages=\"projectForm.antidiastole.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n    <div ng-repeat=\"item in check_record track by $index\">\r\n        <div ng-include=\"'html/widget/check_record.html'\"></div>\r\n    </div>\r\n\r\n</div>"
+	module.exports = "<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <!--<md-datetime-inline init-datatime=\"check_record[$index].date\" datetime-mode=\"datetime\"-->\n                                <!--placeholder=\"查房时间\"-->\n                                <!--date-changed=\"dateChange()\">-->\n            <!--</md-datetime-inline>-->\n            <md-input-container>\n                <label>查房时间</label>\n                <input name=\"date\" ng-model=\"check_record[$index].date\" ng-pattern=\"datetime_format\">\n                <div ng-messages=\"projectForm.date.$error\">\n                    <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\n                </div>\n            </md-input-container>\n            <md-input-container>\n                <label>查房记录</label>\n                <textarea name=\"gist\" ng-model=\"check_record[$index].content\"  rows=\"2\"\n                          md-select-on-focus>\n                    </textarea>\n                <!--<div ng-messages=\"projectForm.gist.$error\">-->\n                    <!--<div ng-message=\"required\">必填</div>-->\n                <!--</div>-->\n            </md-input-container>\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-raised md-primary\" ng-click=\"addCheckItem()\">增加记录</md-button>\n                <md-button class=\"md-fab md-mini\">\n                    {{$index + 1}}\n                </md-button>\n                <md-button class=\"md-raised md-warn\" ng-click=\"delCheckItem($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\n            </md-card-actions>\n        </md-card>\n    </div>\n</div>"
 
 /***/ },
 /* 77 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <!--<md-datetime-inline init-datatime=\"surgery.surgery_date\" datetime-mode=\"date\" placeholder=\"手术时间\"-->\r\n                                    <!--date-changed=\"dateChange()\">-->\r\n                <!--</md-datetime-inline>-->\r\n                <md-input-container>\r\n                    <label>手术时间</label>\r\n                    <input name=\"surgery_date\" ng-model=\"surgery.surgery_date\" ng-pattern=\"date_format\">\r\n                    <div ng-messages=\"projectForm.surgery_date.$error\">\r\n                        <div ng-message=\"pattern\">日期格式:YYYY-MM-DD</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>术前诊断(请用英文','分隔多个诊断)</label>\r\n                    <input name=\"before_diag\" ng-model=\"surgery.before_diag\">\r\n                    <!--<div ng-messages=\"projectForm.before_diag.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>术后诊断(请用英文','分隔多个诊断)</label>\r\n                    <input name=\"later_diag\" ng-model=\"surgery.later_diag\">\r\n                    <!--<div ng-messages=\"projectForm.later_diag.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>手术名称(请用英文','分隔多个手术)</label>\r\n                    <input name=\"surgery_name\" ng-model=\"surgery.surgery_name\">\r\n                    <!--<div ng-messages=\"projectForm.surgery_name.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>手术医生</label>\r\n                    <input name=\"surgery_doctor\" ng-model=\"surgery.surgery_doctor\">\r\n                    <!--<div ng-messages=\"projectForm.surgery_doctor.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>麻醉医生</label>\r\n                    <input name=\"narcosis_doctor\" ng-model=\"surgery.narcosis_doctor\">\r\n                    <!--<div ng-messages=\"projectForm.narcosis_doctor.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>器械护士</label>\r\n                    <input name=\"instrument_nurses\" ng-model=\"surgery.instrument_nurses\">\r\n                    <!--<div ng-messages=\"projectForm.instrument_nurses.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>麻醉方式</label>\r\n                    <input name=\"narcosis_way\" ng-model=\"surgery.narcosis_way\">\r\n                    <!--<div ng-messages=\"projectForm.narcosis_way.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n    <div layout=\"row\">\r\n        <div flex>\r\n            <md-card md-whiteframe=\"5\">\r\n                <md-input-container>\r\n                    <label>描述</label>\r\n                    <textarea required name=\"description\" ng-model=\"surgery.description\" rows=\"5\"\r\n                              md-select-on-focus>\r\n                    </textarea>\r\n                    <div ng-messages=\"projectForm.description.$error\">\r\n                        <div ng-message=\"required\">必填</div>\r\n                    </div>\r\n                </md-input-container>\r\n            </md-card>\r\n        </div>\r\n    </div>\r\n</div>"
+	module.exports = "<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <!--<md-datetime-inline init-datatime=\"description[$index].date\" datetime-mode=\"datetime\"-->\n                                <!--placeholder=\"时间\"-->\n                                <!--date-changed=\"dateChange()\">-->\n            <!--</md-datetime-inline>-->\n            <md-input-container>\n                <label>时间</label>\n                <input required name=\"date\" ng-model=\"description[$index].date\" ng-pattern=\"datetime_format\">\n                <div ng-messages=\"projectForm.date.$error\">\n                    <div ng-message=\"required\">必填</div>\n                    <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\n                </div>\n            </md-input-container>\n            <md-input-container>\n                <label>术后病程</label>\n                <textarea required name=\"content\" ng-model=\"description[$index].content\"  rows=\"2\"\n                          md-select-on-focus>\n                    </textarea>\n                <div ng-messages=\"projectForm.content.$error\">\n                    <div ng-message=\"required\">必填</div>\n                </div>\n            </md-input-container>\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-raised md-primary\" ng-click=\"addDesItem()\">增加记录</md-button>\n                <md-button class=\"md-fab md-mini\">\n                    {{$index + 1}}\n                </md-button>\n                <md-button class=\"md-raised md-warn\" ng-click=\"delDesItem($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\n            </md-card-actions>\n        </md-card>\n    </div>\n</div>"
 
 /***/ },
 /* 78 */
 /***/ function(module, exports) {
 
-	module.exports = "<div>\r\n    <div ng-repeat=\"item in description track by $index\">\r\n        <div ng-include=\"'html/widget/after_surgery_record.html'\"></div>\r\n    </div>\r\n</div>"
+	module.exports = "<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <div layout=\"row\">\n                <!--<md-datetime-inline flex=\"30\" init-datatime=\"long_items[$index].start_datetime\" datetime-mode=\"datetime\" placeholder=\"开始时间\"-->\n                                    <!--date-changed=\"dateChange()\">-->\n                <!--</md-datetime-inline>-->\n                <md-input-container flex>\n                    <label>开始时间</label>\n                    <input name=\"start_datetime\" ng-model=\"long_items[$index].start_datetime\" ng-pattern=\"datetime_format\">\n                    <div ng-messages=\"projectForm.start_datetime.$error\">\n                        <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\n                    </div>\n                </md-input-container>\n                <md-input-container flex>\n                    <label>医嘱</label>\n                    <input name=\"medical_order\" ng-model=\"long_items[$index].medical_order\">\n                    <!--<div ng-messages=\"projectForm.medical_order.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n\n            </div>\n\n            <div layout=\"row\">\n                <!--<md-datetime-inline flex=\"30\" init-datatime=\"long_items[$index].start_execute_datetime\" datetime-mode=\"datetime\"-->\n                                    <!--placeholder=\"开始执行时间\"-->\n                                    <!--date-changed=\"dateChange()\">-->\n                <!--</md-datetime-inline>-->\n                <md-input-container flex>\n                    <label>开始执行时间</label>\n                    <input name=\"start_execute_datetime\" ng-model=\"long_items[$index].start_execute_datetime\" ng-pattern=\"datetime_format\">\n                    <div ng-messages=\"projectForm.start_execute_datetime.$error\">\n                        <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\n                    </div>\n                </md-input-container>\n                <md-input-container flex>\n                    <label>开始执行医生</label>\n                    <input  name=\"start_execute_doctor\" ng-model=\"long_items[$index].start_execute_doctor\">\n                    <!--<div ng-messages=\"projectForm.start_execute_doctor.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n                <md-input-container flex>\n                    <label>开始执行护士</label>\n                    <input name=\"start_execute_nurse\" ng-model=\"long_items[$index].start_execute_nurse\">\n                    <!--<div ng-messages=\"projectForm.start_execute_nurse.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n            </div>\n\n            <div layout=\"row\">\n                <!--<md-datetime-inline flex=\"30\" init-datatime=\"long_items[$index].stop_datetime\" datetime-mode=\"datetime\"-->\n                                    <!--placeholder=\"停止时间\"-->\n                                    <!--date-changed=\"dateChange()\">-->\n                <!--</md-datetime-inline>-->\n                <md-input-container flex>\n                    <label>停止时间</label>\n                    <input name=\"stop_datetime\" ng-model=\"long_items[$index].stop_datetime\" ng-pattern=\"datetime_format\">\n                    <div ng-messages=\"projectForm.stop_datetime.$error\">\n                        <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\n                    </div>\n                </md-input-container>\n\n                <md-input-container flex>\n                    <label>停止执行医生</label>\n                    <input name=\"stop_execute_doctor\" ng-model=\"long_items[$index].stop_execute_doctor\">\n                    <!--<div ng-messages=\"projectForm.stop_execute_doctor.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n                <md-input-container flex>\n                    <label>停止执行护士</label>\n                    <input  name=\"stop_execute_nurse\" ng-model=\"long_items[$index].stop_execute_nurse\">\n                    <!--<div ng-messages=\"projectForm.stop_execute_nurse.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n            </div>\n\n            <!--<md-datetime-inline  init-datatime=\"long_items[$index].stop_execute_datetime\" datetime-mode=\"datetime\"-->\n                                <!--placeholder=\"停止执行时间\"-->\n                                <!--date-changed=\"dateChange()\">-->\n            <!--</md-datetime-inline>-->\n\n            <md-input-container flex>\n                <label>停止执行时间</label>\n                <input name=\"stop_execute_datetime\" ng-model=\"long_items[$index].stop_execute_datetime\" ng-pattern=\"datetime_format\">\n                <div ng-messages=\"projectForm.stop_execute_datetime.$error\">\n                    <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\n                </div>\n            </md-input-container>\n\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-raised md-primary\" ng-click=\"addLongItem()\">增加记录</md-button>\n                <md-button class=\"md-fab md-mini\">\n                    {{$index + 1}}\n                </md-button>\n                <md-button class=\"md-raised md-warn\" ng-click=\"delLongItem()($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\n            </md-card-actions>\n\n        </md-card>\n    </div>\n</div>"
 
 /***/ },
 /* 79 */
 /***/ function(module, exports) {
 
-	module.exports = "<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <!--<md-datetime-inline init-datatime=\"leave.in_date\" datetime-mode=\"date\" placeholder=\"入院时间\"-->\r\n                                <!--date-changed=\"dateChange()\">-->\r\n            <!--</md-datetime-inline>-->\r\n            <md-input-container>\r\n                <label>入院日期</label>\r\n                <input name=\"in_date\" ng-model=\"leave.in_date\" ng-pattern=\"date_format\">\r\n                <div ng-messages=\"projectForm.in_date.$error\">\r\n                    <div ng-message=\"pattern\">日期格式:YYYY-MM-DD</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <!--<md-datetime-inline init-datatime=\"leave.out_date\" datetime-mode=\"date\" placeholder=\"出院时间\"-->\r\n                                <!--date-changed=\"dateChange()\">-->\r\n            <!--</md-datetime-inline>-->\r\n            <md-input-container>\r\n                <label>出院日期</label>\r\n                <input name=\"out_date\" ng-model=\"leave.out_date\" ng-pattern=\"date_format\">\r\n                <div ng-messages=\"projectForm.out_date.$error\">\r\n                    <div ng-message=\"pattern\">日期格式:YYYY-MM-DD</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n</div>\r\n\r\n<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>入院病情描述</label>\r\n                <textarea name=\"description\" ng-model=\"leave.description\" rows=\"1\" md-select-on-focus></textarea>\r\n                <!--<div ng-messages=\"projectForm.description.$error\">-->\r\n                    <!--<div ng-message=\"required\">必填</div>-->\r\n                <!--</div>-->\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n</div>\r\n\r\n<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>初步诊断(请用英文','分隔多个诊断)</label>\r\n                <input name=\"init_diag\" ng-model=\"leave.init_diag\">\r\n                <!--<div ng-messages=\"projectForm.init_diag.$error\">-->\r\n                    <!--<div ng-message=\"required\">必填</div>-->\r\n                <!--</div>-->\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>出院诊断(请用英文','分隔多个诊断)</label>\r\n                <input name=\"leave_diag\" ng-model=\"leave.leave_diag\">\r\n                <!--<div ng-messages=\"projectForm.leave_diag.$error\">-->\r\n                    <!--<div ng-message=\"required\">必填</div>-->\r\n                <!--</div>-->\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n</div>\r\n\r\n<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>治疗过程(请用英文','分隔多个手术)</label>\r\n                <textarea name=\"treatment\" ng-model=\"leave.treatment\" rows=\"2\" md-select-on-focus></textarea>\r\n                <!--<div ng-messages=\"projectForm.treatment.$error\">-->\r\n                    <!--<div ng-message=\"required\">必填</div>-->\r\n                <!--</div>-->\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <md-input-container>\r\n                <label>出院医嘱</label>\r\n                <textarea required name=\"advice\" ng-model=\"leave.advice\" rows=\"2\" md-select-on-focus></textarea>\r\n                <div ng-messages=\"projectForm.advice.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n        </md-card>\r\n    </div>\r\n</div>"
-
-/***/ },
-/* 80 */
-/***/ function(module, exports) {
-
-	module.exports = "<div>\r\n    <div ng-repeat=\"index in temp_items track by $index\">\r\n        <div ng-include=\"'html/widget/temp_medical_orders.html'\"></div>\r\n    </div>\r\n</div>"
-
-/***/ },
-/* 81 */
-/***/ function(module, exports) {
-
-	module.exports = "<div>\r\n    <div ng-repeat=\"index in long_items track by $index\">\r\n        <div ng-include=\"'html/widget/long_medical_orders.html'\"></div>\r\n    </div>\r\n</div>"
-
-/***/ },
-/* 82 */
-/***/ function(module, exports) {
-
-	module.exports = "<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <!--<md-datetime-inline init-datatime=\"check_record[$index].date\" datetime-mode=\"datetime\"-->\r\n                                <!--placeholder=\"查房时间\"-->\r\n                                <!--date-changed=\"dateChange()\">-->\r\n            <!--</md-datetime-inline>-->\r\n            <md-input-container>\r\n                <label>查房时间</label>\r\n                <input name=\"date\" ng-model=\"check_record[$index].date\" ng-pattern=\"datetime_format\">\r\n                <div ng-messages=\"projectForm.date.$error\">\r\n                    <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\r\n                </div>\r\n            </md-input-container>\r\n            <md-input-container>\r\n                <label>查房记录</label>\r\n                <textarea name=\"gist\" ng-model=\"check_record[$index].content\"  rows=\"2\"\r\n                          md-select-on-focus>\r\n                    </textarea>\r\n                <!--<div ng-messages=\"projectForm.gist.$error\">-->\r\n                    <!--<div ng-message=\"required\">必填</div>-->\r\n                <!--</div>-->\r\n            </md-input-container>\r\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\r\n                <md-button class=\"md-raised md-primary\" ng-click=\"addCheckItem()\">增加记录</md-button>\r\n                <md-button class=\"md-fab md-mini\">\r\n                    {{$index + 1}}\r\n                </md-button>\r\n                <md-button class=\"md-raised md-warn\" ng-click=\"delCheckItem($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\r\n            </md-card-actions>\r\n        </md-card>\r\n    </div>\r\n</div>"
-
-/***/ },
-/* 83 */
-/***/ function(module, exports) {
-
-	module.exports = "<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <!--<md-datetime-inline init-datatime=\"description[$index].date\" datetime-mode=\"datetime\"-->\r\n                                <!--placeholder=\"时间\"-->\r\n                                <!--date-changed=\"dateChange()\">-->\r\n            <!--</md-datetime-inline>-->\r\n            <md-input-container>\r\n                <label>时间</label>\r\n                <input required name=\"date\" ng-model=\"description[$index].date\" ng-pattern=\"datetime_format\">\r\n                <div ng-messages=\"projectForm.date.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                    <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\r\n                </div>\r\n            </md-input-container>\r\n            <md-input-container>\r\n                <label>术后病程</label>\r\n                <textarea required name=\"content\" ng-model=\"description[$index].content\"  rows=\"2\"\r\n                          md-select-on-focus>\r\n                    </textarea>\r\n                <div ng-messages=\"projectForm.content.$error\">\r\n                    <div ng-message=\"required\">必填</div>\r\n                </div>\r\n            </md-input-container>\r\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\r\n                <md-button class=\"md-raised md-primary\" ng-click=\"addDesItem()\">增加记录</md-button>\r\n                <md-button class=\"md-fab md-mini\">\r\n                    {{$index + 1}}\r\n                </md-button>\r\n                <md-button class=\"md-raised md-warn\" ng-click=\"delDesItem($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\r\n            </md-card-actions>\r\n        </md-card>\r\n    </div>\r\n</div>"
-
-/***/ },
-/* 84 */
-/***/ function(module, exports) {
-
-	module.exports = "<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <div layout=\"row\">\r\n                <!--<md-datetime-inline flex=\"30\" init-datatime=\"long_items[$index].start_datetime\" datetime-mode=\"datetime\" placeholder=\"开始时间\"-->\r\n                                    <!--date-changed=\"dateChange()\">-->\r\n                <!--</md-datetime-inline>-->\r\n                <md-input-container flex>\r\n                    <label>开始时间</label>\r\n                    <input name=\"start_datetime\" ng-model=\"long_items[$index].start_datetime\" ng-pattern=\"datetime_format\">\r\n                    <div ng-messages=\"projectForm.start_datetime.$error\">\r\n                        <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\r\n                    </div>\r\n                </md-input-container>\r\n                <md-input-container flex>\r\n                    <label>医嘱</label>\r\n                    <input name=\"medical_order\" ng-model=\"long_items[$index].medical_order\">\r\n                    <!--<div ng-messages=\"projectForm.medical_order.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n\r\n            </div>\r\n\r\n            <div layout=\"row\">\r\n                <!--<md-datetime-inline flex=\"30\" init-datatime=\"long_items[$index].start_execute_datetime\" datetime-mode=\"datetime\"-->\r\n                                    <!--placeholder=\"开始执行时间\"-->\r\n                                    <!--date-changed=\"dateChange()\">-->\r\n                <!--</md-datetime-inline>-->\r\n                <md-input-container flex>\r\n                    <label>开始执行时间</label>\r\n                    <input name=\"start_execute_datetime\" ng-model=\"long_items[$index].start_execute_datetime\" ng-pattern=\"datetime_format\">\r\n                    <div ng-messages=\"projectForm.start_execute_datetime.$error\">\r\n                        <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\r\n                    </div>\r\n                </md-input-container>\r\n                <md-input-container flex>\r\n                    <label>开始执行医生</label>\r\n                    <input  name=\"start_execute_doctor\" ng-model=\"long_items[$index].start_execute_doctor\">\r\n                    <!--<div ng-messages=\"projectForm.start_execute_doctor.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n                <md-input-container flex>\r\n                    <label>开始执行护士</label>\r\n                    <input name=\"start_execute_nurse\" ng-model=\"long_items[$index].start_execute_nurse\">\r\n                    <!--<div ng-messages=\"projectForm.start_execute_nurse.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n            </div>\r\n\r\n            <div layout=\"row\">\r\n                <!--<md-datetime-inline flex=\"30\" init-datatime=\"long_items[$index].stop_datetime\" datetime-mode=\"datetime\"-->\r\n                                    <!--placeholder=\"停止时间\"-->\r\n                                    <!--date-changed=\"dateChange()\">-->\r\n                <!--</md-datetime-inline>-->\r\n                <md-input-container flex>\r\n                    <label>停止时间</label>\r\n                    <input name=\"stop_datetime\" ng-model=\"long_items[$index].stop_datetime\" ng-pattern=\"datetime_format\">\r\n                    <div ng-messages=\"projectForm.stop_datetime.$error\">\r\n                        <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\r\n                    </div>\r\n                </md-input-container>\r\n\r\n                <md-input-container flex>\r\n                    <label>停止执行医生</label>\r\n                    <input name=\"stop_execute_doctor\" ng-model=\"long_items[$index].stop_execute_doctor\">\r\n                    <!--<div ng-messages=\"projectForm.stop_execute_doctor.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n                <md-input-container flex>\r\n                    <label>停止执行护士</label>\r\n                    <input  name=\"stop_execute_nurse\" ng-model=\"long_items[$index].stop_execute_nurse\">\r\n                    <!--<div ng-messages=\"projectForm.stop_execute_nurse.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n            </div>\r\n\r\n            <!--<md-datetime-inline  init-datatime=\"long_items[$index].stop_execute_datetime\" datetime-mode=\"datetime\"-->\r\n                                <!--placeholder=\"停止执行时间\"-->\r\n                                <!--date-changed=\"dateChange()\">-->\r\n            <!--</md-datetime-inline>-->\r\n\r\n            <md-input-container flex>\r\n                <label>停止执行时间</label>\r\n                <input name=\"stop_execute_datetime\" ng-model=\"long_items[$index].stop_execute_datetime\" ng-pattern=\"datetime_format\">\r\n                <div ng-messages=\"projectForm.stop_execute_datetime.$error\">\r\n                    <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\r\n                </div>\r\n            </md-input-container>\r\n\r\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\r\n                <md-button class=\"md-raised md-primary\" ng-click=\"addLongItem()\">增加记录</md-button>\r\n                <md-button class=\"md-fab md-mini\">\r\n                    {{$index + 1}}\r\n                </md-button>\r\n                <md-button class=\"md-raised md-warn\" ng-click=\"delLongItem()($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\r\n            </md-card-actions>\r\n\r\n        </md-card>\r\n    </div>\r\n</div>"
-
-/***/ },
-/* 85 */
-/***/ function(module, exports) {
-
-	module.exports = "<div layout=\"row\">\r\n    <div flex>\r\n        <md-card md-whiteframe=\"5\">\r\n            <div layout=\"row\">\r\n                <!--<md-datetime-inline flex=\"30\" init-datatime=\"temp_items[$index].start_datetime\" datetime-mode=\"datetime\" placeholder=\"开始时间\"-->\r\n                                    <!--date-changed=\"dateChange()\">-->\r\n                <!--</md-datetime-inline>-->\r\n                <md-input-container flex>\r\n                    <label>开始时间</label>\r\n                    <input name=\"start_datetime\" ng-model=\"temp_items[$index].start_datetime\" ng-pattern=\"datetime_format\">\r\n                    <div ng-messages=\"projectForm.start_datetime.$error\">\r\n                        <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\r\n                    </div>\r\n                </md-input-container>\r\n                <md-input-container flex>\r\n                    <label>医嘱</label>\r\n                    <input  name=\"medical_order\" ng-model=\"temp_items[$index].medical_order\">\r\n                    <!--<div ng-messages=\"projectForm.medical_order.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n                <md-input-container flex>\r\n                    <label>执行医生</label>\r\n                    <input  name=\"start_execute_doctor\" ng-model=\"temp_items[$index].start_execute_doctor\">\r\n                    <!--<div ng-messages=\"projectForm.start_execute_doctor.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n\r\n            </div>\r\n\r\n            <div layout=\"row\">\r\n                <!--<md-datetime-inline flex=\"30\" init-datatime=\"temp_items[$index].start_execute_datetime\" datetime-mode=\"datetime\"-->\r\n                                    <!--placeholder=\"执行时间\"-->\r\n                                    <!--date-changed=\"dateChange()\">-->\r\n                <!--</md-datetime-inline>-->\r\n                <md-input-container flex>\r\n                    <label>执行时间</label>\r\n                    <input  name=\"start_execute_datetime\" ng-model=\"temp_items[$index].start_execute_datetime\" ng-pattern=\"datetime_format\">\r\n                    <div ng-messages=\"projectForm.start_execute_datetime.$error\">\r\n                        <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\r\n                    </div>\r\n                </md-input-container>\r\n                <md-input-container flex>\r\n                    <label>执行护士</label>\r\n                    <input name=\"start_execute_nurse\" ng-model=\"temp_items[$index].start_execute_nurse\">\r\n                    <!--<div ng-messages=\"projectForm.start_execute_nurse.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n                <md-input-container flex>\r\n                    <label>核对人</label>\r\n                    <input name=\"start_execute_doctor\" ng-model=\"temp_items[$index].start_execute_doctor\">\r\n                    <!--<div ng-messages=\"projectForm.start_execute_doctor.$error\">-->\r\n                        <!--<div ng-message=\"required\">必填</div>-->\r\n                    <!--</div>-->\r\n                </md-input-container>\r\n\r\n            </div>\r\n\r\n\r\n\r\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\r\n                <md-button class=\"md-raised md-primary\" ng-click=\"addTempItem()\">增加记录</md-button>\r\n                <md-button class=\"md-fab md-mini\">\r\n                    {{$index + 1}}\r\n                </md-button>\r\n                <md-button class=\"md-raised md-warn\" ng-click=\"delTempItem($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\r\n            </md-card-actions>\r\n\r\n        </md-card>\r\n    </div>\r\n</div>"
+	module.exports = "<div layout=\"row\">\n    <div flex>\n        <md-card md-whiteframe=\"5\">\n            <div layout=\"row\">\n                <!--<md-datetime-inline flex=\"30\" init-datatime=\"temp_items[$index].start_datetime\" datetime-mode=\"datetime\" placeholder=\"开始时间\"-->\n                                    <!--date-changed=\"dateChange()\">-->\n                <!--</md-datetime-inline>-->\n                <md-input-container flex>\n                    <label>开始时间</label>\n                    <input name=\"start_datetime\" ng-model=\"temp_items[$index].start_datetime\" ng-pattern=\"datetime_format\">\n                    <div ng-messages=\"projectForm.start_datetime.$error\">\n                        <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\n                    </div>\n                </md-input-container>\n                <md-input-container flex>\n                    <label>医嘱</label>\n                    <input  name=\"medical_order\" ng-model=\"temp_items[$index].medical_order\">\n                    <!--<div ng-messages=\"projectForm.medical_order.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n                <md-input-container flex>\n                    <label>执行医生</label>\n                    <input  name=\"start_execute_doctor\" ng-model=\"temp_items[$index].start_execute_doctor\">\n                    <!--<div ng-messages=\"projectForm.start_execute_doctor.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n\n            </div>\n\n            <div layout=\"row\">\n                <!--<md-datetime-inline flex=\"30\" init-datatime=\"temp_items[$index].start_execute_datetime\" datetime-mode=\"datetime\"-->\n                                    <!--placeholder=\"执行时间\"-->\n                                    <!--date-changed=\"dateChange()\">-->\n                <!--</md-datetime-inline>-->\n                <md-input-container flex>\n                    <label>执行时间</label>\n                    <input  name=\"start_execute_datetime\" ng-model=\"temp_items[$index].start_execute_datetime\" ng-pattern=\"datetime_format\">\n                    <div ng-messages=\"projectForm.start_execute_datetime.$error\">\n                        <div ng-message=\"pattern\">时间格式:YYYY-MM-DD HH:mm</div>\n                    </div>\n                </md-input-container>\n                <md-input-container flex>\n                    <label>执行护士</label>\n                    <input name=\"start_execute_nurse\" ng-model=\"temp_items[$index].start_execute_nurse\">\n                    <!--<div ng-messages=\"projectForm.start_execute_nurse.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n                <md-input-container flex>\n                    <label>核对人</label>\n                    <input name=\"start_execute_doctor\" ng-model=\"temp_items[$index].start_execute_doctor\">\n                    <!--<div ng-messages=\"projectForm.start_execute_doctor.$error\">-->\n                        <!--<div ng-message=\"required\">必填</div>-->\n                    <!--</div>-->\n                </md-input-container>\n\n            </div>\n\n\n\n            <md-card-actions layout=\"row\" layout-align=\"end center\">\n                <md-button class=\"md-raised md-primary\" ng-click=\"addTempItem()\">增加记录</md-button>\n                <md-button class=\"md-fab md-mini\">\n                    {{$index + 1}}\n                </md-button>\n                <md-button class=\"md-raised md-warn\" ng-click=\"delTempItem($index)\" ng-disabled=\"$index==0\">删除记录</md-button>\n            </md-card-actions>\n\n        </md-card>\n    </div>\n</div>"
 
 /***/ }
 ]);

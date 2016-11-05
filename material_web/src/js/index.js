@@ -17,10 +17,10 @@ require('angular-material-data-table');
 require('../../node_modules/angular-material-data-table/dist/md-data-table.css');
 
 //third_party
-require('../third_party/datetimepicker/md-date-time.css');
-require('../third_party/datetimepicker/md-date-time');
-require('../third_party/datetimepicker/datetimepicker.css');
-require('../third_party/datetimepicker/datetimepicker');
+// require('../third_party/datetimepicker/md-date-time.css');
+// require('../third_party/datetimepicker/md-date-time');
+// require('../third_party/datetimepicker/datetimepicker.css');
+// require('../third_party/datetimepicker/datetimepicker');
 
 require('../third_party/upload_file/angular-file-upload');
 

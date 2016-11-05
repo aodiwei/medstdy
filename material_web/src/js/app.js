@@ -7,7 +7,7 @@ var app = angular.module('medApp', [
     'ui.router',
     'ngMessages',
     //'mdDateTime',
-    'mdDatetimeInline',
+    // 'mdDatetimeInline',
     'angularFileUpload',
     'md.data.table'
 ]);
