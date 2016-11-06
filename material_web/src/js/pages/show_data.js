@@ -1,16 +1,16 @@
 'use strict';
 var app = require("../app.js");
-app.controller('showDataCtrl', ['$http', '$mdEditDialog', '$q', '$timeout', '$scope', function ($http, $mdEditDialog, $q, $timeout, $scope) {
+app.controller('showDataCtrl', ['$http', '$mdEditDialog', '$q', '$timeout', '$scope', "$commonFun", function ($http, $mdEditDialog, $q, $timeout, $scope, $commonFun) {
 
 
     $scope.options = {
         rowSelection: true,
-        multiSelect: true,
+        multiSelect: false,
         autoSelect: true,
         decapitate: false,
         largeEditDialog: false,
         boundaryLinks: false,
-        limitSelect: true,
+        limitSelect: false,
         pageSelect: true
     };
 
@@ -23,8 +23,8 @@ app.controller('showDataCtrl', ['$http', '$mdEditDialog', '$q', '$timeout', '$sc
     }];
 
     $scope.query = {
-        order: 'name',
-        limit: 5,
+        order: '_id',
+        limit: 50,
         page: 1
     };
 
@@ -77,39 +77,26 @@ app.controller('showDataCtrl', ['$http', '$mdEditDialog', '$q', '$timeout', '$sc
         orderBy: 'comment'
     }];
 
-    $http.get('desserts.json').then(function (desserts) {
-        $scope.desserts = desserts.data;
+    /////////////////////
+    $scope.getBaseInfoList = function (skip, limit) {
+        var req = {
+            url: '/data/request_base_info_list',
+            method: 'GET',
+            params: {
+                skip: skip,
+                limit: limit,
+            }
+        };
+        $http(req).then(function (req_data) {
+            $scope.desserts = req_data.data;
+        }).catch(function () {
+            $commonFun.showSimpleToast("获取数据失败", "error-toast");
+        });
 
-        // $scope.selected.push($scope.desserts.data[1]);
+    };
+    $scope.getBaseInfoList(0, 50);
 
-        // $scope.selected.push({
-        //   name: 'Ice cream sandwich',
-        //   type: 'Ice cream',
-        //   calories: { value: 237.0 },
-        //   fat: { value: 9.0 },
-        //   carbs: { value: 37.0 },
-        //   protein: { value: 4.3 },
-        //   sodium: { value: 129.0 },
-        //   calcium: { value: 8.0 },
-        //   iron: { value: 1.0 }
-        // });
 
-        // $scope.selected.push({
-        //   name: 'Eclair',
-        //   type: 'Pastry',
-        //   calories: { value:  262.0 },
-        //   fat: { value: 16.0 },
-        //   carbs: { value: 24.0 },
-        //   protein: { value:  6.0 },
-        //   sodium: { value: 337.0 },
-        //   calcium: { value:  6.0 },
-        //   iron: { value: 7.0 }
-        // });
-
-        // $scope.promise = $timeout(function () {
-        //   $scope.desserts = desserts.data;
-        // }, 1000);
-    });
 
     $scope.editComment = function (event, dessert) {
         event.stopPropagation();
@@ -154,7 +141,7 @@ app.controller('showDataCtrl', ['$http', '$mdEditDialog', '$q', '$timeout', '$sc
         console.log('Page: ' + page + ' Limit: ' + limit);
 
         $scope.promise = $timeout(function () {
-
+            $scope.getBaseInfoList((page - 1) * limit, limit)
         }, 2000);
     };
 
@@ -168,7 +155,8 @@ app.controller('showDataCtrl', ['$http', '$mdEditDialog', '$q', '$timeout', '$sc
 
     $scope.loadStuff = function () {
         $scope.promise = $timeout(function () {
-
+            $scope.onPaginate(1, 50);
+            $scope.query.page = 1;
         }, 2000);
     };
 
@@ -182,4 +170,5 @@ app.controller('showDataCtrl', ['$http', '$mdEditDialog', '$q', '$timeout', '$sc
         }, 2000);
     };
 
-}]);
+}])
+;

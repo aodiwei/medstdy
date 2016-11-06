@@ -82179,13 +82179,13 @@ webpackJsonp([0,1],[
 /* 86 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-toolbar class=\"md-table-toolbar md-default\" ng-show=\"!options.rowSelection || !selected.length\">\n  <div class=\"md-toolbar-tools\">\n    <span>Nutrition</span>\n    <span flex></span>\n    <md-button class=\"md-icon-button\" ng-click=\"loadStuff()\">\n      <md-icon>refresh</md-icon>\n    </md-button>\n    <md-button class=\"md-icon-button\">\n      <md-icon>filter_list</md-icon>\n    </md-button>\n    <md-button class=\"md-icon-button\">\n      <md-icon>more_vert</md-icon>\n    </md-button>\n  </div>\n</md-toolbar>\n\n<md-toolbar class=\"md-table-toolbar alternate\" ng-show=\"options.rowSelection && selected.length\">\n  <div class=\"md-toolbar-tools\">\n    <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>\n    <span flex></span>\n    <md-button class=\"md-icon-button\">\n      <md-icon>delete</md-icon>\n    </md-button>\n  </div>\n</md-toolbar>\n\n<md-table-container>\n  <table data-md-table data-md-row-select=\"options.rowSelection\" multiple=\"{{options.multiSelect}}\" data-ng-model=\"selected\" md-progress=\"promise\">\n    <!-- <thead md-head md-order=\"query.order\">\n      <tr md-row>\n        <th md-column ng-repeat=\"column in columns\" md-numeric=\"column.numeric\" md-order-by=\"{{column.orderBy}}\">\n          <span>{{column.name}}</span>\n          <span ng-if=\"column.unit\">({{column.unit}})</span>\n        </th>\n      </tr>\n    </thead> -->\n    <thead ng-if=\"!options.decapitate\" md-head data-md-order=\"query.order\" md-on-reorder=\"onReorder\">\n      <tr md-row>\n        <th md-column md:order:by=\"name\"><span>Dessert (100g serving)</span></th>\n        <th md-column md:order:by=\"type\"><span>Type</span></th>\n        <th md-column data-md-numeric data-md-order-by=\"calories.value\" data-md-desc><span>Calories</span></th>\n        <th md-column data-md-numeric data-md-order-by=\"fat.value\"><span>Fat (g)</span></th>\n        <!-- <th md-column data-md-numeric data-md-order-by=\"carbs.value\"><span>Carbs (g)</span></th> -->\n        <th md-column data-md-numeric data-md-order-by=\"protein.value\"><span>Protein (g)</span></th>\n        <!-- <th md-column data-md-numeric data-md-order-by=\"sodium.value\"><span>Sodium (mg)</span></th> -->\n        <!-- <th md-column data-md-numeric data-md-order-by=\"calcium.value\"><span>Calcium (%)</span></th> -->\n        <th md-column data-md-numeric data-md-order-by=\"iron.value\" data-hide-sm><span>Iron (%)</span></th>\n        <th md-column data-md-order-by=\"comment\">\n          <md-icon>comments</md-icon>\n          <span>Comments</span>\n        </th>\n      </tr>\n    </thead>\n    <tbody md-body>\n      <tr md-row md-select=\"dessert\" md-select-id=\"name\" data-md-on-select=\"log\" md-on-deselect=\"deselect\"\n          x-md-auto-select=\"options.autoSelect\" ng-disabled=\"dessert.calories.value > 400\"\n          data-ng-repeat=\"dessert in desserts.data | filter: filter.search | orderBy: query.order | limitTo: query.limit : (query.page - 1) * query.limit\">\n        <td md-cell>{{dessert.name}}</td>\n        <td md-cell>\n          <md-select ng-model=\"dessert.type\" placeholder=\"Other\">\n            <md-option ng-value=\"type\" ng-repeat=\"type in getTypes()\">{{type}}</md-option>\n          </md-select>\n        </td>\n        <td md-cell>{{dessert.calories.value}}</td>\n        <td md-cell>{{dessert.fat.value | number: 2}}</td>\n        <!-- <td md-cell>{{dessert.carbs.value}}</td> -->\n        <td md-cell>{{dessert.protein.value | number: 2}}</td>\n        <!-- <td md-cell>{{dessert.sodium.value}}</td> -->\n        <!-- <td md-cell>{{dessert.calcium.value}}%</td> -->\n        <td md-cell hide-sm>{{dessert.iron.value}}%</td>\n        <td md-cell ng-click=\"editComment($event, dessert)\" ng-class=\"{'md-placeholder': !dessert.comment}\">\n          {{dessert.comment || 'Add a comment'}}\n        </td>\n      </tr>\n    </tbody>\n  </table>\n</md-table-container>\n\n<data-md-table-pagination md-limit=\"query.limit\" md-limit-options=\"limitOptions\" md-page=\"query.page\" md-total=\"{{desserts.count}}\" md-on-paginate=\"onPaginate\" md-page-select=\"options.pageSelect\" md-boundary-links=\"options.boundaryLinks\"></data-md-table-pagination>"
+	module.exports = "<md-toolbar class=\"md-table-toolbar md-default\" ng-show=\"!options.rowSelection || !selected.length\">\n    <div class=\"md-toolbar-tools\">\n        <span>数据浏览</span>\n        <span flex></span>\n        <md-button class=\"md-raised md-mini md-primary\" ng-click=\"loadStuff()\">\n            <md-icon>\n                <ng-md-icon icon=\"refresh\"></ng-md-icon>\n            </md-icon>\n        </md-button>\n        <!--<md-button class=\"md-icon-button\">-->\n        <!--<md-icon>filter_list</md-icon>-->\n        <!--</md-button>-->\n        <!--<md-button class=\"md-icon-button\">-->\n        <!--<md-icon>more_vert</md-icon>-->\n        <!--</md-button>-->\n    </div>\n</md-toolbar>\n\n<md-toolbar class=\"md-table-toolbar md-warning\" ng-show=\"options.rowSelection && selected.length\">\n    <div class=\"md-toolbar-tools\">\n        <!--<span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>-->\n        <!--<span flex></span>-->\n        <!--<md-icon>-->\n            <!--<ng-md-icon icon=\"done\"></ng-md-icon>-->\n        <!--</md-icon>-->\n\n        <md-button class=\"md-raised md-mini md-primary\" ng-click=\"loadStuff()\">\n            <md-icon>\n                <ng-md-icon icon=\"details\"></ng-md-icon>\n            </md-icon>\n        </md-button>\n    </div>\n</md-toolbar>\n\n<md-table-container>\n    <table data-md-table data-md-row-select=\"options.rowSelection\" multiple=\"{{options.multiSelect}}\"\n           data-ng-model=\"selected\" md-progress=\"promise\">\n        <thead ng-if=\"!options.decapitate\" md-head data-md-order=\"query.order\" md-on-reorder=\"onReorder\">\n        <tr md-row>\n            <th md-column data-md-order-by=\"_id\"><span>ID</span></th>\n            <th md-column data-md-order-by=\"name\"><span>姓名</span></th>\n            <th md-column><span>年龄</span></th>\n            <th md-column data-md-order-by=\"province\"><span>省份</span></th>\n            <th md-column data-md-order-by=\"district\"><span>城市</span></th>\n            <th md-column data-md-order-by=\"main_diagnosis\"><span>主要诊断</span></th>\n            <th md-column data-md-order-by=\"else_diagnosis\"><span>其他诊断</span></th>\n            <th md-column data-md-order-by=\"main_surgery\"><span>主要手术</span></th>\n            <th md-column data-md-order-by=\"else_diagnosis\"><span>其他手术</span></th>\n            <th md-column data-md-order-by=\"dataer\" data-hide-sm><span>录入者</span></th>\n            <th md-column data-md-order-by=\"create_time\" data-hide-sm><span>录入时间</span></th>\n        </tr>\n        </thead>\n        <tbody md-body>\n        <tr md-row md-select=\"dessert\" md-select-id=\"_id\" data-md-on-select=\"log\" md-on-deselect=\"deselect\"\n            x-md-auto-select=\"options.autoSelect\"\n            data-ng-repeat=\"dessert in desserts.data \">\n            <td md-cell>{{dessert._id}}</td>\n            <td md-cell>{{dessert.name}}</td>\n            <td md-cell>{{parseInt(dessert.age)}}</td>\n            <td md-cell>{{dessert.province}}</td>\n            <td md-cell>{{dessert.district}}</td>\n            <td md-cell>{{dessert.main_diagnosis}}</td>\n            <td md-cell>{{dessert.else_diagnosis}}</td>\n            <td md-cell>{{dessert.main_surgery}}</td>\n            <td md-cell>{{dessert.else_diagnosis}}</td>\n            <td md-cell>{{dessert.dataer}}</td>\n            <td md-cell>{{dessert.create_time}}</td>\n        </tr>\n        </tbody>\n    </table>\n</md-table-container>\n\n<data-md-table-pagination md-limit=\"query.limit\" md-page=\"query.page\"\n                          md-total=\"{{desserts.count}}\" md-on-paginate=\"onPaginate\" md-page-select=\"options.pageSelect\"\n                          md-boundary-links=\"options.boundaryLinks\"></data-md-table-pagination>"
 
 /***/ },
 /* 87 */
 /***/ function(module, exports) {
 
-	module.exports = "<div layout=\"column\">\n\n    <md-toolbar>\n        <div class=\"md-toolbar-tools\">\n            <div class=\"md-title\">Material Design Data Table</div>\n        </div>\n    </md-toolbar>\n\n    <div laout=\"column\" flex ng-controller=\"showDataCtrl\">\n\n        <md-card>\n            <div layout=\"row\" layout-wrap class=\"checkboxes\">\n                <md-checkbox ng-model=\"options.rowSelection\">Row Selection</md-checkbox>\n                <md-checkbox ng-model=\"options.multiSelect\">Multiple Selection</md-checkbox>\n                <md-checkbox ng-model=\"options.autoSelect\">Auto Selection</md-checkbox>\n                <md-checkbox ng-model=\"options.decapitate\">Decapitate</md-checkbox>\n                <md-checkbox ng-model=\"options.largeEditDialog\">Lard Edit Dialogs</md-checkbox>\n                <md-checkbox ng-model=\"options.boundaryLinks\">Pagination Boundary Links</md-checkbox>\n                <md-checkbox ng-model=\"options.limitSelect\" ng-click=\"toggleLimitOptions()\">Pagination Limit Select\n                </md-checkbox>\n                <md-checkbox ng-model=\"options.pageSelect\">Pagination Page Select</md-checkbox>\n            </div>\n        </md-card>\n\n        <md-card ng-include=\"'html/pages/show_data/nutrition-table.html'\"></md-card>\n\n    </div>\n\n</div>"
+	module.exports = "<div layout=\"column\">\n\n    <md-toolbar>\n        <div class=\"md-toolbar-tools\">\n            <div class=\"md-title\">Material Design Data Table</div>\n        </div>\n    </md-toolbar>\n\n    <div laout=\"column\" flex ng-controller=\"showDataCtrl\">\n\n        <!--<md-card>-->\n            <!--<div layout=\"row\" layout-wrap class=\"checkboxes\">-->\n                <!--<md-checkbox ng-model=\"options.rowSelection\">Row Selection</md-checkbox>-->\n                <!--<md-checkbox ng-model=\"options.multiSelect\">Multiple Selection</md-checkbox>-->\n                <!--<md-checkbox ng-model=\"options.autoSelect\">Auto Selection</md-checkbox>-->\n                <!--<md-checkbox ng-model=\"options.decapitate\">Decapitate</md-checkbox>-->\n                <!--<md-checkbox ng-model=\"options.largeEditDialog\">Lard Edit Dialogs</md-checkbox>-->\n                <!--<md-checkbox ng-model=\"options.boundaryLinks\">Pagination Boundary Links</md-checkbox>-->\n                <!--<md-checkbox ng-model=\"options.limitSelect\" ng-click=\"toggleLimitOptions()\">Pagination Limit Select-->\n                <!--</md-checkbox>-->\n                <!--<md-checkbox ng-model=\"options.pageSelect\">Pagination Page Select</md-checkbox>-->\n            <!--</div>-->\n        <!--</md-card>-->\n\n        <md-card ng-include=\"'html/pages/show_data/nutrition-table.html'\"></md-card>\n\n    </div>\n\n</div>"
 
 /***/ },
 /* 88 */
@@ -82194,16 +82194,16 @@ webpackJsonp([0,1],[
 	'use strict';
 
 	var app = __webpack_require__(58);
-	app.controller('showDataCtrl', ['$http', '$mdEditDialog', '$q', '$timeout', '$scope', function ($http, $mdEditDialog, $q, $timeout, $scope) {
+	app.controller('showDataCtrl', ['$http', '$mdEditDialog', '$q', '$timeout', '$scope', "$commonFun", function ($http, $mdEditDialog, $q, $timeout, $scope, $commonFun) {
 
 	    $scope.options = {
 	        rowSelection: true,
-	        multiSelect: true,
+	        multiSelect: false,
 	        autoSelect: true,
 	        decapitate: false,
 	        largeEditDialog: false,
 	        boundaryLinks: false,
-	        limitSelect: true,
+	        limitSelect: false,
 	        pageSelect: true
 	    };
 
@@ -82216,8 +82216,8 @@ webpackJsonp([0,1],[
 	    }];
 
 	    $scope.query = {
-	        order: 'name',
-	        limit: 5,
+	        order: '_id',
+	        limit: 50,
 	        page: 1
 	    };
 
@@ -82270,39 +82270,23 @@ webpackJsonp([0,1],[
 	        orderBy: 'comment'
 	    }];
 
-	    $http.get('desserts.json').then(function (desserts) {
-	        $scope.desserts = desserts.data;
-
-	        // $scope.selected.push($scope.desserts.data[1]);
-
-	        // $scope.selected.push({
-	        //   name: 'Ice cream sandwich',
-	        //   type: 'Ice cream',
-	        //   calories: { value: 237.0 },
-	        //   fat: { value: 9.0 },
-	        //   carbs: { value: 37.0 },
-	        //   protein: { value: 4.3 },
-	        //   sodium: { value: 129.0 },
-	        //   calcium: { value: 8.0 },
-	        //   iron: { value: 1.0 }
-	        // });
-
-	        // $scope.selected.push({
-	        //   name: 'Eclair',
-	        //   type: 'Pastry',
-	        //   calories: { value:  262.0 },
-	        //   fat: { value: 16.0 },
-	        //   carbs: { value: 24.0 },
-	        //   protein: { value:  6.0 },
-	        //   sodium: { value: 337.0 },
-	        //   calcium: { value:  6.0 },
-	        //   iron: { value: 7.0 }
-	        // });
-
-	        // $scope.promise = $timeout(function () {
-	        //   $scope.desserts = desserts.data;
-	        // }, 1000);
-	    });
+	    /////////////////////
+	    $scope.getBaseInfoList = function (skip, limit) {
+	        var req = {
+	            url: '/data/request_base_info_list',
+	            method: 'GET',
+	            params: {
+	                skip: skip,
+	                limit: limit
+	            }
+	        };
+	        $http(req).then(function (req_data) {
+	            $scope.desserts = req_data.data;
+	        }).catch(function () {
+	            $commonFun.showSimpleToast("获取数据失败", "error-toast");
+	        });
+	    };
+	    $scope.getBaseInfoList(0, 50);
 
 	    $scope.editComment = function (event, dessert) {
 	        event.stopPropagation();
@@ -82346,7 +82330,9 @@ webpackJsonp([0,1],[
 	        console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
 	        console.log('Page: ' + page + ' Limit: ' + limit);
 
-	        $scope.promise = $timeout(function () {}, 2000);
+	        $scope.promise = $timeout(function () {
+	            $scope.getBaseInfoList((page - 1) * limit, limit);
+	        }, 2000);
 	    };
 
 	    $scope.deselect = function (item) {
@@ -82358,7 +82344,10 @@ webpackJsonp([0,1],[
 	    };
 
 	    $scope.loadStuff = function () {
-	        $scope.promise = $timeout(function () {}, 2000);
+	        $scope.promise = $timeout(function () {
+	            $scope.onPaginate(1, 50);
+	            $scope.query.page = 1;
+	        }, 2000);
 	    };
 
 	    $scope.onReorder = function (order) {

@@ -83,11 +83,18 @@ class RequestBaseInfoDataListHandler(BaseHandler):
 
     @tornado.web.authenticated
     def get(self):
-        skip = self.get_argument("skip")
-        limit = self.get_argument("limit")
+        try:
+            skip = int(self.get_argument("skip", 0))
+            limit = int(self.get_argument("limit", 50))
+        except ValueError as e:
+            raise CustomHTTPError(400, error=define.C_EC_InvalidArgError, cause=e.message)
         data_mgr = DataStorage()
         try:
-            res = data_mgr.get_data_list(skip, limit)
+            docs, count = data_mgr.get_base_data_list(skip, limit)
+            res = {
+                "data": docs,
+                "count": count
+            }
         except DataExistError, e:
             raise CustomHTTPError(412, error=define.C_CAUSE_IdNonexistence, cause=e.message)
 
