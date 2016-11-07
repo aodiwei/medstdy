@@ -26,6 +26,7 @@ class CONST(object):
     some const val
     """
     LOCAL_FORMAT_DATETIME = "%Y-%m-%d %H:%M:%S"
+    LOCAL_FORMAT_DATETIME_PRX = "%Y%m%d%H%M%S"
     LOCAL_FORMAT_DATE = "%Y-%m-%d"
     UTC_FORMAT = "%Y-%m-%dT%H:%M:%S.%fZ"
     MONGODB_COLLECTIONS = ["patient_info", "clinical_course", "hospitalized", "surgery",

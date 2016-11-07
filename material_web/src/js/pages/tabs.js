@@ -89,7 +89,7 @@ app
                 status = $scope.tabs[x].status && status;
             }
             //console.log(status);
-            return status;
+            return status && $scope.btnDisable;
         };
 
         $scope.initForm(null);
@@ -112,6 +112,7 @@ app
                 console.log(req_data.data);
                 $scope.initForm(req_data.data);
                 $commonFun.showSimpleToast("获取成功，请切换到下一页查看", "success-toast");
+                $scope.btnDisable = true;
             }).catch(function () {
                 $commonFun.showSimpleToast($scope.patient_info.medical_id + ":" + $scope.patient_info.out_date +
                     "获取失败, 请检查输入的病案号和出院日期，可能该病案号未入库", "error-toast");
