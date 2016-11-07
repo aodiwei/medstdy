@@ -16,7 +16,7 @@
     </div>
 </md-toolbar>
 
-<md-toolbar class="md-table-toolbar md-warning" ng-show="options.rowSelection && selected.length">
+<md-toolbar class="md-table-toolbar md-warn md-warn-hu1" ng-show="options.rowSelection && selected.length">
     <div class="md-toolbar-tools">
         <!--<span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>-->
         <!--<span flex></span>-->
@@ -28,6 +28,7 @@
             <md-icon>
                 <ng-md-icon icon="details"></ng-md-icon>
             </md-icon>
+            详细信息
         </md-button>
     </div>
 </md-toolbar>
@@ -56,7 +57,7 @@
             data-ng-repeat="dessert in desserts.data ">
             <td md-cell>{{dessert._id}}</td>
             <td md-cell>{{dessert.name}}</td>
-            <td md-cell>{{parseInt(dessert.age)}}</td>
+            <td md-cell>{{dessert.age}}</td>
             <td md-cell>{{dessert.province}}</td>
             <td md-cell>{{dessert.district}}</td>
             <td md-cell>{{dessert.main_diagnosis}}</td>
