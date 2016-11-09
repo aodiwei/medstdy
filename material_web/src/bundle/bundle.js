@@ -80421,6 +80421,7 @@ webpackJsonp([0,1],[
 	app.run(['$rootScope', '$auth', '$state', '$userInfo', '$commonFun', function ($rootScope, $auth, $state, $userInfo, $commonFun) {
 
 	    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+	        $commonFun.stopInter();
 	        if (toState.name == 'login') {
 	            return; // 如果是进入登录界面则允许
 	        }
@@ -80594,7 +80595,7 @@ webpackJsonp([0,1],[
 	            status = $scope.tabs[x].status && status;
 	        }
 	        //console.log(status);
-	        return status && $scope.btnDisable;
+	        return status; //&& $scope.btnDisable;
 	    };
 
 	    $scope.initForm(null);
@@ -80743,6 +80744,63 @@ webpackJsonp([0,1],[
 	    $scope.delTempItem = function (index) {
 	        $scope.temp_items.splice(index, 1);
 	    };
+
+	    $scope.saveTemp = function () {
+	        $scope.clinical_course["check_record"] = $scope.check_record;
+	        $scope.after_surgery["description"] = $scope.description;
+	        $scope.long_medical_orders["items"] = $scope.long_items;
+	        $scope.temp_medical_orders["items"] = $scope.temp_items;
+
+	        var req_sub = {
+	            url: '/data/save_temp',
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json'
+	            },
+	            data: {
+	                patient_info: $scope.patient_info,
+	                hospitalized: $scope.hospitalized,
+	                clinical_course: $scope.clinical_course,
+	                after_surgery: $scope.after_surgery,
+	                surgery: $scope.surgery,
+	                leave: $scope.leave,
+	                long_medical_orders: $scope.long_medical_orders,
+	                temp_medical_orders: $scope.temp_medical_orders
+	            }
+	        };
+
+	        $http(req_sub).then(function (data_sub) {
+	            console.log("临时保存成功");
+	            console.log(data_sub);
+	        }).catch(function (data_sub) {
+	            console.log("临时保存失败");
+	            console.log(data_sub);
+	        });
+	    };
+
+	    $scope.getTemp = function () {
+	        var req = {
+	            url: '/data/get_temp',
+	            method: 'GET'
+	        };
+
+	        $http(req).then(function (req_data) {
+	            console.log("临时数据获取成功");
+	            console.log(req_data.data);
+	            $scope.initForm(req_data.data);
+	        }).catch(function (req_data) {
+	            console.log("临时数据获取失败");
+	            console.log(req_data.data);
+	        });
+	    };
+
+	    $commonFun.inter($scope.saveTemp, 10000);
+
+	    //$scope.timer = $interval(function(){
+	    //    $scope.saveTemp();
+	    //}, 10000);
+
+	    $scope.getTemp();
 	});
 
 /***/ },
@@ -81129,11 +81187,23 @@ webpackJsonp([0,1],[
 
 	var app = __webpack_require__(52);
 
-	app.service("$commonFun", function ($mdToast) {
-	  this.showSimpleToast = function (text, theme) {
-	    //theme 只能是success-toast/error-toast，要拓展需要去css里添加类
-	    $mdToast.show($mdToast.simple().textContent(text).position('bottom right').theme(theme).hideDelay(5000));
-	  };
+	app.service("$commonFun", function ($mdToast, $interval) {
+	    this.showSimpleToast = function (text, theme) {
+	        //theme 只能是success-toast/error-toast，要拓展需要去css里添加类
+	        $mdToast.show($mdToast.simple().textContent(text).position('bottom right').theme(theme).hideDelay(5000));
+	    };
+
+	    this.inter = function (func, interTime) {
+	        this.timer = $interval(function () {
+	            console.log("start timer");
+	            func();
+	        }, interTime);
+	    };
+
+	    this.stopInter = function () {
+	        console.log("stop timer");
+	        $interval.cancel(this.timer);
+	    };
 	});
 
 /***/ },

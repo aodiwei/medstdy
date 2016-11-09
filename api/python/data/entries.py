@@ -12,4 +12,6 @@ entries = [
     (r"/data/form-data", FormDataHandler),
     (r"/data/request_data", RequestDataHandler),
     (r"/data/request_base_info_list", RequestBaseInfoDataListHandler),
+    (r"/data/save_temp", SaveTempHandler),
+    (r"/data/get_temp", GetTempHandler),
 ]

@@ -103,6 +103,7 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
  app.run(['$rootScope', '$auth', '$state', '$userInfo', '$commonFun', function ($rootScope, $auth, $state, $userInfo, $commonFun) {
 
      $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+         $commonFun.stopInter();
          if (toState.name == 'login') {
              return;// 如果是进入登录界面则允许
          }

@@ -58,16 +58,16 @@ app
                 }];
             }
             else {
-                for(var item in data){
-                    if(data[item] != null){
+                for (var item in data) {
+                    if (data[item] != null) {
                         $scope[item] = data[item];
-                        if(item == "clinical_course"){
+                        if (item == "clinical_course") {
                             $scope.check_record = data.clinical_course["check_record"];
-                        }else if(item == "after_surgery"){
+                        } else if (item == "after_surgery") {
                             $scope.description = data.after_surgery["description"];
-                        }else if(item == "long_medical_orders"){
+                        } else if (item == "long_medical_orders") {
                             $scope.long_items = data.long_medical_orders["items"];
-                        }else if(item == "temp_medical_orders"){
+                        } else if (item == "temp_medical_orders") {
                             $scope.temp_items = data.temp_medical_orders["items"];
                         }
                     }
@@ -89,7 +89,7 @@ app
                 status = $scope.tabs[x].status && status;
             }
             //console.log(status);
-            return status && $scope.btnDisable;
+            return status; //&& $scope.btnDisable;
         };
 
         $scope.initForm(null);
@@ -141,7 +141,7 @@ app
             var req_sub = {
                 url: '/data/form-data',
                 method: 'POST',
-                headers:{
+                headers: {
                     'Content-Type': 'application/json'
                 },
                 data: {
@@ -176,9 +176,9 @@ app
                 var msg = JSON.stringify(data_sub, null, 2);
                 console.log(msg);
                 alert(msg);
-                if(data_sub.status == 412){
+                if (data_sub.status == 412) {
                     $commonFun.showSimpleToast("提交失败,此病案号和日期不存在", "error-toast");
-                }else {
+                } else {
                     $commonFun.showSimpleToast("提交失败", "error-toast");
                 }
 
@@ -242,4 +242,61 @@ app
             $scope.temp_items.splice(index, 1);
         };
 
-    });
+
+        $scope.saveTemp = function () {
+            $scope.clinical_course["check_record"] = $scope.check_record;
+            $scope.after_surgery["description"] = $scope.description;
+            $scope.long_medical_orders["items"] = $scope.long_items;
+            $scope.temp_medical_orders["items"] = $scope.temp_items;
+
+            var req_sub = {
+                url: '/data/save_temp',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    patient_info: $scope.patient_info,
+                    hospitalized: $scope.hospitalized,
+                    clinical_course: $scope.clinical_course,
+                    after_surgery: $scope.after_surgery,
+                    surgery: $scope.surgery,
+                    leave: $scope.leave,
+                    long_medical_orders: $scope.long_medical_orders,
+                    temp_medical_orders: $scope.temp_medical_orders,
+                }
+            };
+
+            $http(req_sub).then(function (data_sub) {
+                console.log("临时保存成功");
+                console.log(data_sub);
+            }).catch(function (data_sub) {
+                console.log("临时保存失败");
+                console.log(data_sub);
+            });
+        };
+
+        $scope.getTemp = function () {
+            var req = {
+                url: '/data/get_temp',
+                method: 'GET',
+            };
+
+            $http(req).then(function (req_data) {
+                console.log("临时数据获取成功");
+                console.log(req_data.data);
+                $scope.initForm(req_data.data);
+            }).catch(function (req_data) {
+                console.log("临时数据获取失败");
+                console.log(req_data.data);
+            });
+        };
+
+        $commonFun.inter($scope.saveTemp, 10000);
+
+        //$scope.timer = $interval(function(){
+        //    $scope.saveTemp();
+        //}, 10000);
+
+        $scope.getTemp();
+});

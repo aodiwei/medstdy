@@ -99,3 +99,38 @@ class RequestBaseInfoDataListHandler(BaseHandler):
             raise CustomHTTPError(412, error=define.C_CAUSE_IdNonexistence, cause=e.message)
 
         self.write(res)
+
+
+class SaveTempHandler(BaseHandler):
+    """
+    每1分钟自动保存当前录入情况，但不保存到数据库
+    """
+    @tornado.web.authenticated
+    def post(self):
+        data_info = json.loads(self.request.body)
+        user = self.get_current_user()
+        user_name = user.get("user_name")
+        data_mgr = DataStorage(user=user_name)
+
+        try:
+            data_mgr.save_temp(**data_info)
+        except Exception, e:
+            raise CustomHTTPError(400, error=define.C_CAUSE_fileError, cause=e.message)
+
+
+class GetTempHandler(BaseHandler):
+    """
+    每1分钟自动保存当前录入情况，但不保存到数据库
+    """
+    @tornado.web.authenticated
+    def get(self):
+        user = self.get_current_user()
+        user_name = user.get("user_name")
+        data_mgr = DataStorage(user=user_name)
+
+        try:
+            res = data_mgr.get_temp()
+        except Exception, e:
+            raise CustomHTTPError(400, error=define.C_CAUSE_fileError, cause=e.message)
+
+        self.write(res)
