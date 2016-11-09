@@ -68,4 +68,5 @@ require('../html/widget/temp_medical_orders.html');
 
 require('../html/pages/show_data/nutrition-table.html');
 require('../html/pages/show_data/show_data.html');
+require('../html/pages/show_data/show_details.html');
 require('./pages/show_data');

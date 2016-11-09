@@ -91,6 +91,7 @@ webpackJsonp([0,1],[
 
 	__webpack_require__(80);
 	__webpack_require__(81);
+	__webpack_require__(83);
 	__webpack_require__(82);
 
 /***/ },
@@ -80421,6 +80422,7 @@ webpackJsonp([0,1],[
 	app.run(['$rootScope', '$auth', '$state', '$userInfo', '$commonFun', function ($rootScope, $auth, $state, $userInfo, $commonFun) {
 
 	    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+	        // $commonFun.stopInter();
 	        if (toState.name == 'login') {
 	            return; // 如果是进入登录界面则允许
 	        }
@@ -80594,7 +80596,7 @@ webpackJsonp([0,1],[
 	            status = $scope.tabs[x].status && status;
 	        }
 	        //console.log(status);
-	        return status && $scope.btnDisable;
+	        return status; //&& $scope.btnDisable;
 	    };
 
 	    $scope.initForm(null);
@@ -80743,6 +80745,60 @@ webpackJsonp([0,1],[
 	    $scope.delTempItem = function (index) {
 	        $scope.temp_items.splice(index, 1);
 	    };
+
+	    $scope.saveTemp = function () {
+	        $scope.clinical_course["check_record"] = $scope.check_record;
+	        $scope.after_surgery["description"] = $scope.description;
+	        $scope.long_medical_orders["items"] = $scope.long_items;
+	        $scope.temp_medical_orders["items"] = $scope.temp_items;
+
+	        var req_sub = {
+	            url: '/data/save_temp',
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json'
+	            },
+	            data: {
+	                patient_info: $scope.patient_info,
+	                hospitalized: $scope.hospitalized,
+	                clinical_course: $scope.clinical_course,
+	                after_surgery: $scope.after_surgery,
+	                surgery: $scope.surgery,
+	                leave: $scope.leave,
+	                long_medical_orders: $scope.long_medical_orders,
+	                temp_medical_orders: $scope.temp_medical_orders
+	            }
+	        };
+
+	        $http(req_sub).then(function (data_sub) {
+	            console.log("临时保存成功");
+	            console.log(data_sub);
+	        }).catch(function (data_sub) {
+	            console.log("临时保存失败");
+	            console.log(data_sub);
+	        });
+	    };
+
+	    $scope.getTemp = function () {
+	        var req = {
+	            url: '/data/get_temp',
+	            method: 'GET'
+	        };
+
+	        $http(req).then(function (req_data) {
+	            console.log("临时数据获取成功");
+	            console.log(req_data.data);
+	            $scope.initForm(req_data.data);
+	        }).catch(function (req_data) {
+	            console.log("临时数据获取失败");
+	            console.log(req_data.data);
+	        });
+	    };
+
+	    //60s自动保存
+	    // $commonFun.inter($scope.saveTemp, 60000);
+	    //获取临时保存
+	    // $scope.getTemp();
 	});
 
 /***/ },
@@ -81129,11 +81185,23 @@ webpackJsonp([0,1],[
 
 	var app = __webpack_require__(52);
 
-	app.service("$commonFun", function ($mdToast) {
-	  this.showSimpleToast = function (text, theme) {
-	    //theme 只能是success-toast/error-toast，要拓展需要去css里添加类
-	    $mdToast.show($mdToast.simple().textContent(text).position('bottom right').theme(theme).hideDelay(5000));
-	  };
+	app.service("$commonFun", function ($mdToast, $interval) {
+	    this.showSimpleToast = function (text, theme) {
+	        //theme 只能是success-toast/error-toast，要拓展需要去css里添加类
+	        $mdToast.show($mdToast.simple().textContent(text).position('bottom right').theme(theme).hideDelay(5000));
+	    };
+
+	    this.inter = function (func, interTime) {
+	        this.timer = $interval(function () {
+	            console.log("start timer");
+	            func();
+	        }, interTime);
+	    };
+
+	    this.stopInter = function () {
+	        console.log("stop timer");
+	        $interval.cancel(this.timer);
+	    };
 	});
 
 /***/ },
@@ -81696,7 +81764,7 @@ webpackJsonp([0,1],[
 /* 80 */
 /***/ function(module, exports) {
 
-	module.exports = "<md-toolbar class=\"md-table-toolbar md-default\" ng-show=\"!options.rowSelection || !selected.length\">\n    <div class=\"md-toolbar-tools\">\n        <span>数据浏览</span>\n        <span flex></span>\n        <md-button class=\"md-raised md-mini md-primary\" ng-click=\"loadStuff()\">\n            <md-icon>\n                <ng-md-icon icon=\"refresh\"></ng-md-icon>\n            </md-icon>\n        </md-button>\n        <!--<md-button class=\"md-icon-button\">-->\n        <!--<md-icon>filter_list</md-icon>-->\n        <!--</md-button>-->\n        <!--<md-button class=\"md-icon-button\">-->\n        <!--<md-icon>more_vert</md-icon>-->\n        <!--</md-button>-->\n    </div>\n</md-toolbar>\n\n<md-toolbar class=\"md-table-toolbar md-warn md-warn-hu1\" ng-show=\"options.rowSelection && selected.length\">\n    <div class=\"md-toolbar-tools\">\n        <!--<span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>-->\n        <!--<span flex></span>-->\n        <!--<md-icon>-->\n            <!--<ng-md-icon icon=\"done\"></ng-md-icon>-->\n        <!--</md-icon>-->\n\n        <md-button class=\"md-raised md-mini md-primary\" ng-click=\"\">\n            <md-icon>\n                <ng-md-icon icon=\"details\"></ng-md-icon>\n            </md-icon>\n            <!--详细信息-->\n        </md-button>\n    </div>\n</md-toolbar>\n\n<md-table-container>\n    <table data-md-table data-md-row-select=\"options.rowSelection\" multiple=\"{{options.multiSelect}}\"\n           data-ng-model=\"selected\" md-progress=\"promise\">\n        <thead ng-if=\"!options.decapitate\" md-head data-md-order=\"query.order\" md-on-reorder=\"onReorder\">\n        <tr md-row>\n            <th md-column data-md-order-by=\"_id\"><span>ID</span></th>\n            <th md-column data-md-order-by=\"name\"><span>姓名</span></th>\n            <th md-column><span>年龄</span></th>\n            <th md-column data-md-order-by=\"province\"><span>省份</span></th>\n            <th md-column data-md-order-by=\"district\"><span>城市</span></th>\n            <th md-column data-md-order-by=\"main_diagnosis\"><span>主要诊断</span></th>\n            <th md-column data-md-order-by=\"else_diagnosis\"><span>其他诊断</span></th>\n            <th md-column data-md-order-by=\"main_surgery\"><span>主要手术</span></th>\n            <th md-column data-md-order-by=\"else_surgery\"><span>其他手术</span></th>\n            <th md-column data-md-order-by=\"dataer\" data-hide-sm><span>录入者</span></th>\n            <th md-column data-md-order-by=\"create_time\" data-hide-sm><span>录入时间</span></th>\n        </tr>\n        </thead>\n        <tbody md-body>\n        <tr md-row md-select=\"dessert\" md-select-id=\"_id\" data-md-on-select=\"log\" md-on-deselect=\"deselect\"\n            x-md-auto-select=\"options.autoSelect\"\n            data-ng-repeat=\"dessert in desserts.data \">\n            <td md-cell>{{dessert._id}}</td>\n            <td md-cell>{{dessert.name}}</td>\n            <td md-cell>{{dessert.age}}</td>\n            <td md-cell>{{dessert.province}}</td>\n            <td md-cell>{{dessert.district}}</td>\n            <td md-cell>{{dessert.main_diagnosis}}</td>\n            <td md-cell>{{dessert.else_diagnosis}}</td>\n            <td md-cell>{{dessert.main_surgery}}</td>\n            <td md-cell>{{dessert.else_surgery}}</td>\n            <td md-cell>{{dessert.dataer}}</td>\n            <td md-cell>{{dessert.create_time}}</td>\n        </tr>\n        </tbody>\n    </table>\n</md-table-container>\n\n<data-md-table-pagination md-limit=\"query.limit\" md-page=\"query.page\"\n                          md-total=\"{{desserts.count}}\" md-on-paginate=\"onPaginate\" md-page-select=\"options.pageSelect\"\n                          md-boundary-links=\"options.boundaryLinks\"></data-md-table-pagination>"
+	module.exports = "<md-toolbar class=\"md-table-toolbar md-default\" ng-show=\"!options.rowSelection || !selected.length\">\n    <div class=\"md-toolbar-tools\">\n        <span>数据浏览</span>\n        <span flex></span>\n        <md-button class=\"md-raised md-mini md-primary\" ng-click=\"loadStuff()\">\n            <md-icon>\n                <ng-md-icon icon=\"refresh\"></ng-md-icon>\n            </md-icon>\n        </md-button>\n        <!--<md-button class=\"md-icon-button\">-->\n        <!--<md-icon>filter_list</md-icon>-->\n        <!--</md-button>-->\n        <!--<md-button class=\"md-icon-button\">-->\n        <!--<md-icon>more_vert</md-icon>-->\n        <!--</md-button>-->\n    </div>\n</md-toolbar>\n\n<md-toolbar class=\"md-table-toolbar md-warn md-warn-hu1\" ng-show=\"options.rowSelection && selected.length\">\n    <div class=\"md-toolbar-tools\">\n        <!--<span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected</span>-->\n        <!--<span flex></span>-->\n        <!--<md-icon>-->\n            <!--<ng-md-icon icon=\"done\"></ng-md-icon>-->\n        <!--</md-icon>-->\n\n        <md-button class=\"md-raised md-mini md-primary\" ng-click=\"showDetail($event)\">\n            <md-icon>\n                <ng-md-icon icon=\"details\"></ng-md-icon>\n            </md-icon>\n            详细信息\n        </md-button>\n    </div>\n</md-toolbar>\n\n<md-table-container>\n    <table data-md-table data-md-row-select=\"options.rowSelection\" multiple=\"{{options.multiSelect}}\"\n           data-ng-model=\"selected\" md-progress=\"promise\">\n        <thead ng-if=\"!options.decapitate\" md-head data-md-order=\"query.order\" md-on-reorder=\"onReorder\">\n        <tr md-row>\n            <th md-column data-md-order-by=\"_id\"><span>ID</span></th>\n            <th md-column data-md-order-by=\"name\"><span>姓名</span></th>\n            <th md-column><span>年龄</span></th>\n            <th md-column data-md-order-by=\"province\"><span>省份</span></th>\n            <th md-column data-md-order-by=\"district\"><span>城市</span></th>\n            <th md-column data-md-order-by=\"main_diagnosis\"><span>主要诊断</span></th>\n            <th md-column data-md-order-by=\"else_diagnosis\"><span>其他诊断</span></th>\n            <th md-column data-md-order-by=\"main_surgery\"><span>主要手术</span></th>\n            <th md-column data-md-order-by=\"else_surgery\"><span>其他手术</span></th>\n            <th md-column data-md-order-by=\"dataer\" data-hide-sm><span>录入者</span></th>\n            <th md-column data-md-order-by=\"create_time\" data-hide-sm><span>录入时间</span></th>\n        </tr>\n        </thead>\n        <tbody md-body>\n        <tr md-row md-select=\"dessert\" md-select-id=\"_id\" data-md-on-select=\"log\" md-on-deselect=\"deselect\"\n            x-md-auto-select=\"options.autoSelect\"\n            data-ng-repeat=\"dessert in desserts.data \">\n            <td md-cell>{{dessert._id}}</td>\n            <td md-cell>{{dessert.name}}</td>\n            <td md-cell>{{dessert.age}}</td>\n            <td md-cell>{{dessert.province}}</td>\n            <td md-cell>{{dessert.district}}</td>\n            <td md-cell>{{dessert.main_diagnosis}}</td>\n            <td md-cell>{{dessert.else_diagnosis}}</td>\n            <td md-cell>{{dessert.main_surgery}}</td>\n            <td md-cell>{{dessert.else_surgery}}</td>\n            <td md-cell>{{dessert.dataer}}</td>\n            <td md-cell>{{dessert.create_time}}</td>\n        </tr>\n        </tbody>\n    </table>\n</md-table-container>\n\n<data-md-table-pagination md-limit=\"query.limit\" md-page=\"query.page\"\n                          md-total=\"{{desserts.count}}\" md-on-paginate=\"onPaginate\" md-page-select=\"options.pageSelect\"\n                          md-boundary-links=\"options.boundaryLinks\"></data-md-table-pagination>"
 
 /***/ },
 /* 81 */
@@ -81711,7 +81779,7 @@ webpackJsonp([0,1],[
 	'use strict';
 
 	var app = __webpack_require__(52);
-	app.controller('showDataCtrl', ['$http', '$mdEditDialog', '$q', '$timeout', '$scope', "$commonFun", function ($http, $mdEditDialog, $q, $timeout, $scope, $commonFun) {
+	app.controller('showDataCtrl', function ($http, $mdEditDialog, $q, $timeout, $scope, $commonFun, $mdDialog) {
 
 	    $scope.options = {
 	        rowSelection: true,
@@ -81856,7 +81924,9 @@ webpackJsonp([0,1],[
 	        console.log(item.name, 'was deselected');
 	    };
 
+	    $scope.selectedItem = "";
 	    $scope.log = function (item) {
+	        $scope.selectedItem = item._id;
 	        console.log(item.name, 'was selected');
 	    };
 
@@ -81874,7 +81944,46 @@ webpackJsonp([0,1],[
 
 	        $scope.promise = $timeout(function () {}, 2000);
 	    };
-	}]);
+
+	    $scope.customFullscreen = false;
+	    $scope.showDetail = function (ev) {
+	        $mdDialog.show({
+	            controller: DialogController,
+	            templateUrl: '/html/pages/show_data/show_details.html',
+	            parent: angular.element(document.body),
+	            targetEvent: ev,
+	            clickOutsideToClose: true,
+	            locals: { selectedItem: $scope.selectedItem },
+	            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+	        }).then(function (answer) {
+	            $scope.status = 'You said the information was "' + answer + '".';
+	        }, function () {
+	            $scope.status = 'You cancelled the dialog.';
+	        });
+	    };
+	    function DialogController($scope, $mdDialog, selectedItem) {
+
+	        $scope.selectedItem = selectedItem;
+
+	        $scope.hide = function () {
+	            $mdDialog.hide();
+	        };
+
+	        $scope.cancel = function () {
+	            $mdDialog.cancel();
+	        };
+
+	        $scope.answer = function (answer) {
+	            $mdDialog.hide(answer);
+	        };
+	    }
+	});
+
+/***/ },
+/* 83 */
+/***/ function(module, exports) {
+
+	module.exports = "<md-dialog aria-label=\"详细信息\">\n  <form ng-cloak>\n    <md-toolbar>\n      <div class=\"md-toolbar-tools\">\n        <h2>{{ selectedItem }}详细信息</h2>\n        <span flex></span>\n        <md-button class=\"md-icon-button\" ng-click=\"cancel()\">\n          <ng-md-icon icon=\"close\"></ng-md-icon>\n        </md-button>\n      </div>\n    </md-toolbar>\n\n    <md-dialog-content>\n      <div class=\"md-dialog-content\">\n        <h2>Using .md-dialog-content class that sets the padding as the spec zzzzz{{ selectedItem }}</h2>\n        <p>\n          The mango is a juicy stone fruit belonging to the genus Mangifera, consisting of numerous tropical fruiting trees, cultivated mostly for edible fruit. The majority of these species are found in nature as wild mangoes. They all belong to the flowering plant family Anacardiaceae. The mango is native to South and Southeast Asia, from where it has been distributed worldwide to become one of the most cultivated fruits in the tropics.\n        </p>\n\n        <p>\n          The highest concentration of Mangifera genus is in the western part of Malesia (Sumatra, Java and Borneo) and in Burma and India. While other Mangifera species (e.g. horse mango, M. foetida) are also grown on a more localized basis, Mangifera indica&mdash;the \"common mango\" or \"Indian mango\"&mdash;is the only mango tree commonly cultivated in many tropical and subtropical regions.\n        </p>\n        <p>\n          It originated in Indian subcontinent (present day India and Pakistan) and Burma. It is the national fruit of India, Pakistan, and the Philippines, and the national tree of Bangladesh. In several cultures, its fruit and leaves are ritually used as floral decorations at weddings, public celebrations, and religious ceremonies.\n        </p>\n      </div>\n    </md-dialog-content>\n\n    <md-dialog-actions layout=\"row\">\n      <md-button class=\"md-raised md-mini md-primary\" ng-click=\"hide()\">\n        关闭\n      </md-button>\n    </md-dialog-actions>\n  </form>\n</md-dialog>"
 
 /***/ }
 ]);

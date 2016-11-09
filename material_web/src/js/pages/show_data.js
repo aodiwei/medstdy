@@ -1,6 +1,6 @@
 'use strict';
 var app = require("../app.js");
-app.controller('showDataCtrl', ['$http', '$mdEditDialog', '$q', '$timeout', '$scope', "$commonFun", function ($http, $mdEditDialog, $q, $timeout, $scope, $commonFun) {
+app.controller('showDataCtrl', function ($http, $mdEditDialog, $q, $timeout, $scope, $commonFun, $mdDialog) {
 
 
     $scope.options = {
@@ -97,7 +97,6 @@ app.controller('showDataCtrl', ['$http', '$mdEditDialog', '$q', '$timeout', '$sc
     $scope.getBaseInfoList(0, 50);
 
 
-
     $scope.editComment = function (event, dessert) {
         event.stopPropagation();
 
@@ -145,11 +144,14 @@ app.controller('showDataCtrl', ['$http', '$mdEditDialog', '$q', '$timeout', '$sc
         }, 2000);
     };
 
+
     $scope.deselect = function (item) {
         console.log(item.name, 'was deselected');
     };
 
+    $scope.selectedItem = "";
     $scope.log = function (item) {
+        $scope.selectedItem = item._id;
         console.log(item.name, 'was selected');
     };
 
@@ -170,5 +172,39 @@ app.controller('showDataCtrl', ['$http', '$mdEditDialog', '$q', '$timeout', '$sc
         }, 2000);
     };
 
-}])
-;
+
+    $scope.customFullscreen = false;
+    $scope.showDetail = function (ev) {
+        $mdDialog.show({
+            controller: DialogController,
+            templateUrl: '/html/pages/show_data/show_details.html',
+            parent: angular.element(document.body),
+            targetEvent: ev,
+            clickOutsideToClose: true,
+            locals: { selectedItem: $scope.selectedItem },
+            fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+        })
+            .then(function (answer) {
+                $scope.status = 'You said the information was "' + answer + '".';
+            }, function () {
+                $scope.status = 'You cancelled the dialog.';
+            });
+    };
+    function DialogController($scope, $mdDialog, selectedItem) {
+
+        $scope.selectedItem = selectedItem;
+
+        $scope.hide = function () {
+            $mdDialog.hide();
+        };
+
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+
+        $scope.answer = function (answer) {
+            $mdDialog.hide(answer);
+        };
+    }
+
+});
