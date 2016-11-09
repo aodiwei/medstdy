@@ -292,11 +292,8 @@ app
             });
         };
 
-        $commonFun.inter($scope.saveTemp, 10000);
-
-        //$scope.timer = $interval(function(){
-        //    $scope.saveTemp();
-        //}, 10000);
-
+        //60s自动保存
+        $commonFun.inter($scope.saveTemp, 60000);
+        //获取临时保存
         $scope.getTemp();
 });
