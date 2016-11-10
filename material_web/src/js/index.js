@@ -65,8 +65,19 @@ require('../html/widget/after_surgery_record.html');
 require('../html/widget/long_medical_orders.html');
 require('../html/widget/temp_medical_orders.html');
 
+require('../html/widget/check_record_read.html');
+require('../html/widget/after_surgery_record_read.html');
+require('../html/widget/long_medical_orders_read.html');
+require('../html/widget/temp_medical_orders_read.html');
+
 
 require('../html/pages/show_data/nutrition-table.html');
 require('../html/pages/show_data/show_data.html');
 require('../html/pages/show_data/show_details.html');
+require('../html/pages/show_data/base_info.html');
+require('../html/pages/show_data/hospitalized.html');
+require('../html/pages/show_data/clinical_course.html');
+require('../html/pages/show_data/surgery.html');
+require('../html/pages/show_data/after_surgery.html');
+require('../html/pages/show_data/leave.html');
 require('./pages/show_data');

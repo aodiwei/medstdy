@@ -86,11 +86,15 @@ class RequestBaseInfoDataListHandler(BaseHandler):
         try:
             skip = int(self.get_argument("skip", 0))
             limit = int(self.get_argument("limit", 50))
+            all = int(self.get_argument("all", 0))
         except ValueError as e:
             raise CustomHTTPError(400, error=define.C_EC_InvalidArgError, cause=e.message)
         data_mgr = DataStorage()
         try:
-            docs, count = data_mgr.get_base_data_list(skip, limit)
+            params = {}
+            if all == 0:
+                params = {"dataer": {"$exists": 1}}
+            docs, count = data_mgr.get_base_data_list(skip, limit, **params)
             res = {
                 "data": docs,
                 "count": count

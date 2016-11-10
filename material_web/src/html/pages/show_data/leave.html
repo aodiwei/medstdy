@@ -1,0 +1,68 @@
+<div layout="row">
+    <div flex>
+        <md-card md-whiteframe="5">
+            <md-input-container>
+                <label>入院日期</label>
+                <input name="in_date" ng-model="leave.in_date" ng-pattern="date_format" readonly>
+            </md-input-container>
+        </md-card>
+    </div>
+
+    <div flex>
+        <md-card md-whiteframe="5">
+            <md-input-container>
+                <label>出院日期</label>
+                <input name="out_date" ng-model="leave.out_date" ng-pattern="date_format" readonly>
+            </md-input-container>
+        </md-card>
+    </div>
+</div>
+
+<div layout="row">
+    <div flex>
+        <md-card md-whiteframe="5">
+            <md-input-container>
+                <label>入院病情描述</label>
+                <textarea name="description" ng-model="leave.description" rows="1" md-select-on-focus readonly></textarea>
+            </md-input-container>
+        </md-card>
+    </div>
+</div>
+
+<div layout="row">
+    <div flex>
+        <md-card md-whiteframe="5">
+            <md-input-container>
+                <label>初步诊断</label>
+                <input name="init_diag" ng-model="leave.init_diag" readonly>
+            </md-input-container>
+        </md-card>
+    </div>
+    <div flex>
+        <md-card md-whiteframe="5">
+            <md-input-container>
+                <label>出院诊断</label>
+                <input name="leave_diag" ng-model="leave.leave_diag" readonly>
+            </md-input-container>
+        </md-card>
+    </div>
+</div>
+
+<div layout="row">
+    <div flex>
+        <md-card md-whiteframe="5">
+            <md-input-container>
+                <label>治疗过程</label>
+                <textarea name="treatment" ng-model="leave.treatment" rows="1" md-select-on-focus readonly></textarea>
+            </md-input-container>
+        </md-card>
+    </div>
+    <div flex>
+        <md-card md-whiteframe="5">
+            <md-input-container>
+                <label>出院医嘱</label>
+                <textarea required name="advice" ng-model="leave.advice" rows="1" md-select-on-focus readonly></textarea>
+            </md-input-container>
+        </md-card>
+    </div>
+</div>

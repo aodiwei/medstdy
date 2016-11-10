@@ -1,0 +1,14 @@
+<div layout="row">
+    <div flex>
+        <md-card md-whiteframe="5">
+            <md-input-container>
+                <label>查房时间</label>
+                <input name="date" ng-model="check_record[$index].date" ng-pattern="datetime_format" readonly>
+            </md-input-container>
+            <md-input-container>
+                <label>查房记录</label>
+                <textarea name="gist" ng-model="check_record[$index].content"  rows="2" readonly></textarea>
+            </md-input-container>
+        </md-card>
+    </div>
+</div>

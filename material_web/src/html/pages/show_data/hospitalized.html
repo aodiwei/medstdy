@@ -1,0 +1,87 @@
+<div>
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>主诉</label>
+                    <input readonly name="complain" ng-model="hospitalized.complain">
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+
+
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>现病史</label>
+                    <!--<input readonly name="present_illness" ng-model="hospitalized.present_illness">-->
+                    <textarea readonly name="present_illness" ng-model="hospitalized.present_illness" rows="1"></textarea>
+                </md-input-container>
+            </md-card>
+        </div>
+
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>既往史</label>
+                    <!--<input readonly name="history_illness" ng-model="hospitalized.history_illness">-->
+                    <textarea readonly name="history_illness" ng-model="hospitalized.history_illness" rows="1"></textarea>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+
+
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>家族史</label>
+                    <input readonly name="family_illness" ng-model="hospitalized.family_illness">
+                </md-input-container>
+            </md-card>
+        </div>
+
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>入院诊断</label>
+                    <input name="admits_diag" ng-model="hospitalized.admits_diag" readonly>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>体格检查</label>
+                    <textarea name="physical_exam" ng-model="hospitalized.physical_exam" rows="1" readonly></textarea>
+                </md-input-container>
+            </md-card>
+        </div>
+
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>整形外科情况</label>
+                    <textarea readonly name="surgery" ng-model="hospitalized.surgery" rows="1"></textarea>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>辅助检查</label>
+                    <input name="assist_exam" ng-model="hospitalized.assist_exam" readonly>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+</div>

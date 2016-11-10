@@ -1,0 +1,86 @@
+<div>
+    <div layout="row">
+        <div flex="20">
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>手术时间</label>
+                    <input name="surgery_date" ng-model="surgery.surgery_date" ng-pattern="date_format" readonly>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>手术名称</label>
+                    <textarea name="surgery_name" ng-model="surgery.surgery_name" readonly></textarea>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>术前诊断</label>
+                    <textarea name="before_diag" ng-model="surgery.before_diag" readonly></textarea>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>术后诊断</label>
+                    <textarea name="later_diag" ng-model="surgery.later_diag" readonly></textarea>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>手术医生</label>
+                    <input name="surgery_doctor" ng-model="surgery.surgery_doctor" readonly>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>麻醉医生</label>
+                    <input name="narcosis_doctor" ng-model="surgery.narcosis_doctor" readonly>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>器械护士</label>
+                    <input name="instrument_nurses" ng-model="surgery.instrument_nurses" readonly>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>麻醉方式</label>
+                    <input name="narcosis_way" ng-model="surgery.narcosis_way" readonly>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>描述</label>
+                    <textarea required name="description" ng-model="surgery.description" rows="1"
+                              md-select-on-focus readonly>
+                    </textarea>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+</div>

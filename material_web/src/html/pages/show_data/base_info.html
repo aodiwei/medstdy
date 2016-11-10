@@ -1,0 +1,128 @@
+<div>
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>病案号</label>
+                    <input name="medical_id" ng-model="patient_info.medical_id" readonly>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>姓名</label>
+                    <input readonly name="name" ng-model="patient_info.name">
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>入院日期</label>
+                    <input readonly type="text" name="in_date" ng-model="patient_info.in_date" ng-pattern="date_format">
+                </md-input-container>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>出院日期</label>
+                    <input readonly type="text" name="out_date" ng-model="patient_info.out_date" ng-pattern="date_format">
+                </md-input-container>
+        </div>
+    </div>
+
+    <div layout="row">
+
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>性别</label>
+                    <input readonly name="sex" ng-model="patient_info.sex">
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>生日</label>
+                    <input readonly name="sex" ng-model="patient_info.birthday">
+                </md-input-container>
+            </md-card>
+        </div>
+
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>年龄</label>
+                    <input readonly name="age" ng-model="patient_info.age" ng-pattern="/^[0-9]{0,2}$/">
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>身份证号</label>
+                    <input readonly name="identity" ng-model="patient_info.identity">
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+    <div layout="row">
+        <div flex="20">
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>省份</label>
+                    <input readonly name="province" ng-model="patient_info.province">
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex="20">
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>城市</label>
+                    <input readonly name="district" ng-model="patient_info.district">
+                </md-input-container>
+            </md-card>
+        </div>
+
+
+        <div flex="60">
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>详细地址</label>
+                    <input readonly name="detail_addr" ng-model="patient_info.detail_addr">
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+
+    <div layout="row">
+        <div flex="20">
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>婚姻</label>
+                    <input readonly name="marriage" ng-model="patient_info.marriage">
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex="20">
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>职业</label>
+                    <input readonly name="job" ng-model="patient_info.job">
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex="60">
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>门诊</label>
+                    <input readonly name="outpatient" ng-model="patient_info.outpatient">
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+
+
+</div>

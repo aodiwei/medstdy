@@ -1,0 +1,14 @@
+<div layout="row">
+    <div flex>
+        <md-card md-whiteframe="5">
+            <md-input-container>
+                <label>时间</label>
+                <input required name="date" ng-model="description[$index].date" ng-pattern="datetime_format" readonly>
+            </md-input-container>
+            <md-input-container>
+                <label>术后病程</label>
+                <textarea required name="content" ng-model="description[$index].content"  rows="1" readonly></textarea>
+            </md-input-container>
+        </md-card>
+    </div>
+</div>

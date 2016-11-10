@@ -1,0 +1,38 @@
+<div layout="row">
+    <div flex>
+        <md-card md-whiteframe="5">
+            <div layout="row">
+                <md-input-container flex>
+                    <label>开始时间</label>
+                    <input name="start_datetime" ng-model="temp_items[$index].start_datetime" ng-pattern="datetime_format" readonly>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>医嘱</label>
+                    <input  name="medical_order" ng-model="temp_items[$index].medical_order" readonly>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>执行医生</label>
+                    <input  name="start_execute_doctor" ng-model="temp_items[$index].start_execute_doctor" readonly>
+                </md-input-container>
+
+            </div>
+
+            <div layout="row">
+                <md-input-container flex>
+                    <label>执行时间</label>
+                    <input  name="start_execute_datetime" ng-model="temp_items[$index].start_execute_datetime" ng-pattern="datetime_format" readonly>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>执行护士</label>
+                    <input name="start_execute_nurse" ng-model="temp_items[$index].start_execute_nurse" readonly>
+                </md-input-container>
+                <md-input-container flex>
+                    <label>核对人</label>
+                    <input name="start_execute_doctor" ng-model="temp_items[$index].start_execute_doctor" readonly>
+                </md-input-container>
+
+            </div>
+
+        </md-card>
+    </div>
+</div>

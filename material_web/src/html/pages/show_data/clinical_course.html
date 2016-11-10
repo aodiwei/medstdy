@@ -1,0 +1,59 @@
+<div>
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>病例特点</label>
+                    <textarea name="ill_description" ng-model="clinical_course.ill_description" rows="1" readonly>
+                    </textarea>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>初步诊断</label>
+                    <textarea name="init_diag" ng-model="clinical_course.init_diag" rows="1" readonly>
+                    </textarea>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>治疗计划</label>
+                    <textarea name="treat_plan" ng-model="clinical_course.treat_plan" rows="1" readonly>
+                    </textarea>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+    <div layout="row">
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>诊断依据</label>
+                    <textarea required name="gist" ng-model="clinical_course.gist" rows="1" readonly>
+                    </textarea>
+                </md-input-container>
+            </md-card>
+        </div>
+        <div flex>
+            <md-card md-whiteframe="5">
+                <md-input-container>
+                    <label>鉴别诊断</label>
+                    <textarea required name="antidiastole" ng-model="clinical_course.antidiastole" rows="1" readonly>
+                    </textarea>
+                </md-input-container>
+            </md-card>
+        </div>
+    </div>
+
+    <div ng-repeat="item in check_record track by $index">
+        <div ng-include="'html/widget/check_record_read.html'"></div>
+    </div>
+
+</div>
