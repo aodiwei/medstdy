@@ -25,57 +25,24 @@ app.controller('showDataCtrl', function ($http, $mdEditDialog, $q, $timeout, $sc
         $scope.query = {
             order: '_id',
             limit: 50,
-            page: 1
+            page: 1,
+            filter: '_id'
+        };
+        $scope.filter = {
+            options: {
+                debounce: 500
+            },
+            search: ''
         };
 
-        // for testing ngRepeat
-        $scope.columns = [{
-            name: 'Dessert',
-            orderBy: 'name',
-            unit: '100g serving'
-        }, {
-            descendFirst: true,
-            name: 'Type',
-            orderBy: 'type'
-        }, {
-            name: 'Calories',
-            numeric: true,
-            orderBy: 'calories.value'
-        }, {
-            name: 'Fat',
-            numeric: true,
-            orderBy: 'fat.value',
-            unit: 'g'
-        }, /* {
-         name: 'Carbs',
-         numeric: true,
-         orderBy: 'carbs.value',
-         unit: 'g'
-         }, */ {
-            name: 'Protein',
-            numeric: true,
-            orderBy: 'protein.value',
-            trim: true,
-            unit: 'g'
-        }, /* {
-         name: 'Sodium',
-         numeric: true,
-         orderBy: 'sodium.value',
-         unit: 'mg'
-         }, {
-         name: 'Calcium',
-         numeric: true,
-         orderBy: 'calcium.value',
-         unit: '%'
-         }, */ {
-            name: 'Iron',
-            numeric: true,
-            orderBy: 'iron.value',
-            unit: '%'
-        }, {
-            name: 'Comments',
-            orderBy: 'comment'
-        }];
+        $scope.search_type_select = {
+            '_id': 'ID',
+            'name': '姓名',
+            'dataer': '录入者',
+            'main_diagnosis': '主要诊断'
+
+        };
+
 
         /////////////////////
         $scope.getBaseInfoList = function (skip, limit) {
@@ -176,14 +143,14 @@ app.controller('showDataCtrl', function ($http, $mdEditDialog, $q, $timeout, $sc
         $scope.customFullscreen = true;
         $scope.showDetail = function (ev) {
             $mdDialog.show({
-                    controller: DialogController,
-                    templateUrl: '/html/pages/show_data/show_details.html',
-                    parent: angular.element(document.body),
-                    targetEvent: ev,
-                    clickOutsideToClose: true,
-                    locals: {selectedItem: $scope.selectedItem},
-                    fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
-                })
+                controller: DialogController,
+                templateUrl: '/html/pages/show_data/show_details.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: true,
+                locals: {selectedItem: $scope.selectedItem},
+                fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+            })
                 .then(function (answer) {
                     $scope.status = 'You said the information was "' + answer + '".';
                 }, function () {
@@ -232,8 +199,8 @@ app.controller('showDataCtrl', function ($http, $mdEditDialog, $q, $timeout, $sc
                     for (var item in data) {
                         if (data[item] != null) {
                             $scope[item] = data[item];
-                            if (item == "patient_info"){
-                                $scope[item].sex =  $scope[item].sex == 1 ? "男" : "女";
+                            if (item == "patient_info") {
+                                $scope[item].sex = $scope[item].sex == 1 ? "男" : "女";
                                 $scope[item].marriage = $scope[item].marriage == 1 ? "未婚" : "已婚";
                                 $scope[item].outpatient = $scope[item].outpatient.diagnosis;
                             }
