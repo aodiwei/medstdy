@@ -1,5 +1,4 @@
 <div layout="column">
-
     <md-toolbar>
         <div class="md-toolbar-tools">
             <div class="md-title">浏览数据</div>
@@ -9,18 +8,23 @@
     <div laout="column" flex ng-controller="showDataCtrl">
 
         <!--<md-card>-->
-            <!--<div layout="row" layout-wrap class="checkboxes">-->
-                <!--<md-checkbox ng-model="options.rowSelection">Row Selection</md-checkbox>-->
-                <!--<md-checkbox ng-model="options.multiSelect">Multiple Selection</md-checkbox>-->
-                <!--<md-checkbox ng-model="options.autoSelect">Auto Selection</md-checkbox>-->
-                <!--<md-checkbox ng-model="options.decapitate">Decapitate</md-checkbox>-->
-                <!--<md-checkbox ng-model="options.largeEditDialog">Lard Edit Dialogs</md-checkbox>-->
-                <!--<md-checkbox ng-model="options.boundaryLinks">Pagination Boundary Links</md-checkbox>-->
-                <!--<md-checkbox ng-model="options.limitSelect" ng-click="toggleLimitOptions()">Pagination Limit Select-->
-                <!--</md-checkbox>-->
-                <!--<md-checkbox ng-model="options.pageSelect">Pagination Page Select</md-checkbox>-->
-            <!--</div>-->
+        <!--<div layout="row" layout-wrap class="checkboxes">-->
+        <!--<md-checkbox ng-model="options.rowSelection">Row Selection</md-checkbox>-->
+        <!--<md-checkbox ng-model="options.multiSelect">Multiple Selection</md-checkbox>-->
+        <!--<md-checkbox ng-model="options.autoSelect">Auto Selection</md-checkbox>-->
+        <!--<md-checkbox ng-model="options.decapitate">Decapitate</md-checkbox>-->
+        <!--<md-checkbox ng-model="options.largeEditDialog">Lard Edit Dialogs</md-checkbox>-->
+        <!--<md-checkbox ng-model="options.boundaryLinks">Pagination Boundary Links</md-checkbox>-->
+        <!--<md-checkbox ng-model="options.limitSelect" ng-click="toggleLimitOptions()">Pagination Limit Select-->
+        <!--</md-checkbox>-->
+        <!--<md-checkbox ng-model="options.pageSelect">Pagination Page Select</md-checkbox>-->
+        <!--</div>-->
         <!--</md-card>-->
+
+        <md-button class="md-fab md-fab-bottom-right" aria-label="details" ng-click="showDetail($event)"
+                   ng-disabled="!(options.rowSelection && selected.length)">
+            <ng-md-icon icon="details"></ng-md-icon>
+        </md-button>
 
         <md-card ng-include="'html/pages/show_data/nutrition-table.html'"></md-card>
 

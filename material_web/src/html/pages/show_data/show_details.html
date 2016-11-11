@@ -1,87 +1,87 @@
 <md-dialog aria-label="详细信息">
-  <form ng-cloak>
-    <md-toolbar>
-      <div class="md-toolbar-tools">
-        <h2>{{ selectedItem }}详细信息</h2>
-        <span flex></span>
-        <md-button class="md-icon-button" ng-click="cancel()">
-          <ng-md-icon icon="close"></ng-md-icon>
-        </md-button>
-      </div>
-    </md-toolbar>
+    <form ng-cloak>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>{{ selectedItem }}详细信息</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <ng-md-icon icon="close"></ng-md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
 
-    <md-dialog-content>
-      <div class="md-dialog-content">
-        <md-toolbar class="md-warn">
-           <div class="md-toolbar-tools">
-             <h2 class="md-flex">基本信息</h2>
-           </div>
-         </md-toolbar>
-        <md-content flex layout-padding>
-          <div ng-include="'html/pages/show_data/base_info.html'"></div>
-        </md-content>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <md-toolbar class="md-warn">
+                    <div class="md-toolbar-tools">
+                        <h2 class="md-flex">基本信息</h2>
+                    </div>
+                </md-toolbar>
+                <md-content flex layout-padding>
+                    <div ng-include="'html/pages/show_data/base_info.html'"></div>
+                </md-content>
 
-        <md-toolbar class="md-warn">
-           <div class="md-toolbar-tools">
-             <h2 class="md-flex">住院病历记录</h2>
-           </div>
-         </md-toolbar>
-        <md-content flex layout-padding>
-          <div ng-include="'html/pages/show_data/clinical_course.html'"></div>
-        </md-content>
+                <md-toolbar class="md-warn">
+                    <div class="md-toolbar-tools">
+                        <h2 class="md-flex">住院病历记录</h2>
+                    </div>
+                </md-toolbar>
+                <md-content flex layout-padding>
+                    <div ng-include="'html/pages/show_data/clinical_course.html'"></div>
+                </md-content>
 
-        <md-toolbar class="md-warn">
-           <div class="md-toolbar-tools">
-             <h2 class="md-flex">手术记录</h2>
-           </div>
-         </md-toolbar>
-        <md-content flex layout-padding>
-          <div ng-include="'html/pages/show_data/surgery.html'"></div>
-        </md-content>
+                <md-toolbar class="md-warn">
+                    <div class="md-toolbar-tools">
+                        <h2 class="md-flex">手术记录</h2>
+                    </div>
+                </md-toolbar>
+                <md-content flex layout-padding>
+                    <div ng-include="'html/pages/show_data/surgery.html'"></div>
+                </md-content>
 
-        <md-toolbar class="md-warn">
-           <div class="md-toolbar-tools">
-             <h2 class="md-flex">术后记录</h2>
-           </div>
-         </md-toolbar>
-        <md-content flex layout-padding>
-          <div ng-include="'html/pages/show_data/after_surgery.html'"></div>
-        </md-content>
+                <md-toolbar class="md-warn">
+                    <div class="md-toolbar-tools">
+                        <h2 class="md-flex">术后记录</h2>
+                    </div>
+                </md-toolbar>
+                <md-content flex layout-padding>
+                    <div ng-include="'html/pages/show_data/after_surgery.html'"></div>
+                </md-content>
 
-        <md-toolbar class="md-warn">
-           <div class="md-toolbar-tools">
-             <h2 class="md-flex">出院记录</h2>
-           </div>
-         </md-toolbar>
-        <md-content flex layout-padding>
-          <div ng-include="'html/pages/show_data/leave.html'"></div>
-        </md-content>
+                <md-toolbar class="md-warn">
+                    <div class="md-toolbar-tools">
+                        <h2 class="md-flex">出院记录</h2>
+                    </div>
+                </md-toolbar>
+                <md-content flex layout-padding>
+                    <div ng-include="'html/pages/show_data/leave.html'"></div>
+                </md-content>
 
-        <md-toolbar class="md-warn">
-           <div class="md-toolbar-tools">
-             <h2 class="md-flex">长期医嘱记录表</h2>
-           </div>
-         </md-toolbar>
-        <md-content flex layout-padding>
-          <div ng-include="'html/pages/show_data/long_medical_orders.html'"></div>
-        </md-content>
+                <md-toolbar class="md-warn">
+                    <div class="md-toolbar-tools">
+                        <h2 class="md-flex">长期医嘱记录表</h2>
+                    </div>
+                </md-toolbar>
+                <md-content flex layout-padding>
+                    <div ng-include="'html/pages/show_data/long_medical_orders.html'"></div>
+                </md-content>
 
-        <md-toolbar class="md-warn">
-           <div class="md-toolbar-tools">
-             <h2 class="md-flex">临时医嘱记录表</h2>
-           </div>
-         </md-toolbar>
-        <md-content flex layout-padding>
-          <div ng-include="'html/pages/show_data/temp_medical_orders.html'"></div>
-        </md-content>
+                <md-toolbar class="md-warn">
+                    <div class="md-toolbar-tools">
+                        <h2 class="md-flex">临时医嘱记录表</h2>
+                    </div>
+                </md-toolbar>
+                <md-content flex layout-padding>
+                    <div ng-include="'html/pages/show_data/temp_medical_orders.html'"></div>
+                </md-content>
 
-      </div>
-    </md-dialog-content>
+            </div>
+        </md-dialog-content>
 
-    <md-dialog-actions layout="row">
-      <md-button class="md-raised md-mini md-primary" ng-click="hide()">
-        关闭
-      </md-button>
-    </md-dialog-actions>
-  </form>
+        <md-dialog-actions layout="row">
+            <md-button class="md-raised md-mini md-primary" ng-click="hide()">
+                关闭
+            </md-button>
+        </md-dialog-actions>
+    </form>
 </md-dialog>

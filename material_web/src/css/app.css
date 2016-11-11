@@ -76,3 +76,11 @@ md-toast.md-error-toast-theme .md-toast-content {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.md-button.md-fab.md-fab-bottom-right {
+top: auto;
+right: 20px;
+bottom: 20px;
+left: auto;
+position: fixed;
+}
