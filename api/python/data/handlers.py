@@ -87,6 +87,8 @@ class RequestBaseInfoDataListHandler(BaseHandler):
             skip = int(self.get_argument("skip", 0))
             limit = int(self.get_argument("limit", 50))
             all = int(self.get_argument("all", 0))
+            field = self.get_argument("field", None)
+            query = self.get_argument("query", None)
         except ValueError as e:
             raise CustomHTTPError(400, error=define.C_EC_InvalidArgError, cause=e.message)
         data_mgr = DataStorage()
@@ -94,6 +96,13 @@ class RequestBaseInfoDataListHandler(BaseHandler):
             params = {}
             if all == 0:
                 params = {"dataer": {"$exists": 1}}
+            if field and query:
+                if field == "main_diagnosis":
+                    params.update({'main_diagnosis.diagnosis': query})
+                elif field == "main_surgery":
+                    params.update({'main_surgery.surgery': query})
+                else:
+                    params.update({field: query})
             docs, count = data_mgr.get_base_data_list(skip, limit, **params)
             res = {
                 "data": docs,

@@ -26,7 +26,9 @@ app.controller('showDataCtrl', function ($http, $mdEditDialog, $q, $timeout, $sc
             order: '_id',
             limit: 50,
             page: 1,
-            filter: '_id'
+            filter: '_id',
+            search_type: '_id',
+            search: ''
         };
         $scope.filter = {
             options: {
@@ -39,8 +41,8 @@ app.controller('showDataCtrl', function ($http, $mdEditDialog, $q, $timeout, $sc
             '_id': 'ID',
             'name': '姓名',
             'dataer': '录入者',
-            'main_diagnosis': '主要诊断'
-
+            'main_diagnosis': '主要诊断',
+            'main_surgery': '主要手术'
         };
 
 
@@ -52,6 +54,8 @@ app.controller('showDataCtrl', function ($http, $mdEditDialog, $q, $timeout, $sc
                 params: {
                     skip: skip,
                     limit: limit,
+                    field: $scope.query.search_type,
+                    query: $scope.query.search
                 }
             };
             $http(req).then(function (req_data) {
@@ -124,6 +128,8 @@ app.controller('showDataCtrl', function ($http, $mdEditDialog, $q, $timeout, $sc
 
         $scope.loadStuff = function () {
             $scope.promise = $timeout(function () {
+                $scope.query.search_type = '_id';
+                $scope.query.search = '';
                 $scope.onPaginate(1, 50);
                 $scope.query.page = 1;
             }, 2000);
@@ -201,7 +207,7 @@ app.controller('showDataCtrl', function ($http, $mdEditDialog, $q, $timeout, $sc
                             $scope[item] = data[item];
                             if (item == "patient_info") {
                                 $scope[item].sex = $scope[item].sex == 1 ? "男" : "女";
-                                $scope[item].marriage = $scope[item].marriage == 1 ? "未婚" : "已婚";
+                                $scope[item].marriage = $scope[item].marriage == 2 ? "已婚" : "未婚";
                                 $scope[item].outpatient = $scope[item].outpatient.diagnosis;
                             }
                             else if (item == "clinical_course") {
