@@ -5,6 +5,7 @@ Created on 2016年2月18日
 @author: David Ao
 '''
 import json
+import re
 
 import tornado.web
 import define
@@ -97,10 +98,11 @@ class RequestBaseInfoDataListHandler(BaseHandler):
             if all == 0:
                 params = {"dataer": {"$exists": 1}}
             if field and query:
+                rexExp = re.compile(u".*{}.*".format(query), re.IGNORECASE)
                 if field == "main_diagnosis":
-                    params.update({'main_diagnosis.diagnosis': query})
+                    params.update({'main_diagnosis.diagnosis': rexExp})
                 elif field == "main_surgery":
-                    params.update({'main_surgery.surgery': query})
+                    params.update({'main_surgery.surgery': rexExp})
                 else:
                     params.update({field: query})
             docs, count = data_mgr.get_base_data_list(skip, limit, **params)
