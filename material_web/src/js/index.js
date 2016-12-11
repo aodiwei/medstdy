@@ -15,15 +15,18 @@ require('angular-ui-router');
 require('font-awesome-webpack');
 require('angular-material-data-table');
 require('../../node_modules/angular-material-data-table/dist/md-data-table.css');
+// require('../../node_modules/bootstrap/dist/css/bootstrap.min.css');
+// require('../../node_modules/angular-bootstrap/ui-bootstrap-tpls.min.js');
+require('../../node_modules/chart.js/dist/Chart.min.js');
+require('../../node_modules/angular-chart.js/dist/angular-chart.min.js');
+
 
 //third_party
 // require('../third_party/datetimepicker/md-date-time.css');
 // require('../third_party/datetimepicker/md-date-time');
 // require('../third_party/datetimepicker/datetimepicker.css');
 // require('../third_party/datetimepicker/datetimepicker');
-
 require('../third_party/upload_file/angular-file-upload');
-
 
 //js
 require('../css/app.css');
@@ -35,6 +38,8 @@ require('./pages/tabs');
 require('./pages/login');
 require('./pages/register');
 require('./pages/upload_file');
+require('./pages/show_data');
+require('./pages/record_statistic');
 
 require('./service/authService');
 require('./service/commonFunService');
@@ -80,4 +85,5 @@ require('../html/pages/show_data/clinical_course.html');
 require('../html/pages/show_data/surgery.html');
 require('../html/pages/show_data/after_surgery.html');
 require('../html/pages/show_data/leave.html');
-require('./pages/show_data');
+
+require('../html/pages/statistic/record_statistic.html');

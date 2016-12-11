@@ -35,6 +35,11 @@ app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialo
             lin: 'main.show_data',
             title: '浏览数据',
             icon: 'grid_on'
+        },
+        {
+            lin: 'main.record_statistic',
+            title: '录入榜',
+            icon: 'trending_up'
         }
     ];
     $scope.admin = [

@@ -9,7 +9,8 @@ var app = angular.module('medApp', [
     //'mdDateTime',
     // 'mdDatetimeInline',
     'angularFileUpload',
-    'md.data.table'
+    'md.data.table',
+    'chart.js'
 ]);
 
 app.directive('userAvatar', function () {
@@ -38,7 +39,7 @@ app.directive('userAvatar', function () {
     };
 });
 
-app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
+app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider, ChartJsProvider) {
     var customBlueMap = $mdThemingProvider.extendPalette('teal', {
         'contrastDefaultColor': 'light',
         'contrastDarkColors': ['50'],
@@ -87,6 +88,10 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
             url: "/show_data",
             templateUrl: "./html/pages/show_data/show_data.html"
         })
+        .state("main.record_statistic", {
+            url: "/record_statistic",
+            templateUrl: "./html/pages/statistic/record_statistic.html"
+        })
         .state("main.upload_csv", {
             url: "/upload_csv",
             templateUrl: "./html/pages/upload_file/upload_csv.html"
@@ -96,24 +101,34 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
             templateUrl: "./html/pages/admin/register.html"
         });
 
+    // Configure all charts
+    ChartJsProvider.setOptions({
+      chartColors: ['#46BFBD', '#46BFBD'],
+      responsive: true
+    });
+    // // Configure all line charts
+    // ChartJsProvider.setOptions('line', {
+    //   showLines: false
+    // });
+
 
 });
 
- app.run(['$rootScope', '$auth', '$state', '$userInfo', '$commonFun', function ($rootScope, $auth, $state, $userInfo, $commonFun) {
+app.run(['$rootScope', '$auth', '$state', '$userInfo', '$commonFun', function ($rootScope, $auth, $state, $userInfo, $commonFun) {
 
-     $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-         // $commonFun.stopInter();
-         if (toState.name == 'login') {
-             return;// 如果是进入登录界面则允许
-         }
-         var account = $userInfo.getAccount();
-         if (account == "") {//for debug
-             $commonFun.showSimpleToast('请登录', 'error-toast');
-             event.preventDefault();// 取消默认跳转行为
-             $state.go("login");//跳转到登录界面
-         }
-     });
- }]);
+    $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+        // $commonFun.stopInter();
+        if (toState.name == 'login') {
+            return;// 如果是进入登录界面则允许
+        }
+        var account = $userInfo.getAccount();
+        if (account == "") {//for debug
+            $commonFun.showSimpleToast('请登录', 'error-toast');
+            event.preventDefault();// 取消默认跳转行为
+            $state.go("login");//跳转到登录界面
+        }
+    });
+}]);
 
 
 module.exports = app;
