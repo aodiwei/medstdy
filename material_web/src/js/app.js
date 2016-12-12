@@ -10,7 +10,8 @@ var app = angular.module('medApp', [
     // 'mdDatetimeInline',
     'angularFileUpload',
     'md.data.table',
-    'chart.js'
+    'chart.js',
+    'ng-fusioncharts'
 ]);
 
 app.directive('userAvatar', function () {

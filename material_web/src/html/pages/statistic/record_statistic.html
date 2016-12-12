@@ -5,14 +5,28 @@
         </div>
     </md-toolbar>
 
-    <div laout="column" flex="80" ng-controller="recordStatisticCtrl">
+    <div laout="row" ng-controller="recordStatisticCtrl">
+        <div flex>
+            <md-card>
+                <fusioncharts
+                        width="600"
+                        height="400"
+                        type="column2d"
+                        datasource="{{myDataSource}}"
+                ></fusioncharts>
+            </md-card>
+        </div>
 
-        <md-card>
-            <canvas id="doughnut" class="chart chart-bar"
-                    chart-data="data" chart-labels="labels" >
-            </canvas>
-        </md-card>
-
+        <div flex>
+            <md-card >
+                <fusioncharts
+                        width="600"
+                        height="400"
+                        type="pie3d"
+                        datasource="{{myDataSource}}"
+                ></fusioncharts>
+            </md-card>
+        </div>
     </div>
 
 </div>
