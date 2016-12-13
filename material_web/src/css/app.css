@@ -84,3 +84,7 @@ bottom: 50px;
 left: auto;
 position: fixed;
 }
+
+g[class$='creditgroup'] {
+    display: none;
+}
