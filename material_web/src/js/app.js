@@ -10,7 +10,6 @@ var app = angular.module('medApp', [
     // 'mdDatetimeInline',
     'angularFileUpload',
     'md.data.table',
-    'chart.js',
     'ng-fusioncharts'
 ]);
 
@@ -40,7 +39,7 @@ app.directive('userAvatar', function () {
     };
 });
 
-app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider, ChartJsProvider) {
+app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
     var customBlueMap = $mdThemingProvider.extendPalette('teal', {
         'contrastDefaultColor': 'light',
         'contrastDarkColors': ['50'],
@@ -101,17 +100,6 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider, Cha
             url: "/admin",
             templateUrl: "./html/pages/admin/register.html"
         });
-
-    // Configure all charts
-    ChartJsProvider.setOptions({
-      chartColors: ['#46BFBD', '#46BFBD'],
-      responsive: true
-    });
-    // // Configure all line charts
-    // ChartJsProvider.setOptions('line', {
-    //   showLines: false
-    // });
-
 
 });
 

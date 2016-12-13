@@ -15,11 +15,6 @@ require('angular-ui-router');
 require('font-awesome-webpack');
 require('angular-material-data-table');
 require('../../node_modules/angular-material-data-table/dist/md-data-table.css');
-// require('../../node_modules/bootstrap/dist/css/bootstrap.min.css');
-// require('../../node_modules/angular-bootstrap/ui-bootstrap-tpls.min.js');
-require('../../node_modules/chart.js/dist/Chart.min.js');
-require('../../node_modules/angular-chart.js/dist/angular-chart.min.js');
-
 
 //third_party
 // require('../third_party/datetimepicker/md-date-time.css');

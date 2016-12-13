@@ -5,56 +5,53 @@ var app = require('../app.js');
 'use strict';
 
 app.controller('recordStatisticCtrl', function ($scope, $statistic) {
-    $statistic.getRecordStatistic().then(function (req) {
-        console.log(req);
-        $scope.myDataSource = {
-            chart: {
-                caption: "贡献值",
-                subCaption: "",
-                numberPrefix: "",
-                theme: "ocean"
-            },
-            data: []
-        };
-
-        var data = req.data;
-        for (var item in data) {
-            if (item == 0) {
-                continue;
-            }
-            $scope.myDataSource.data.push({
-                label: data[item]["dataer"],
-                value: data[item]["count"]
-            });
-        }
-    });
-
-    $scope.myDataSource2 = {
+    $scope.dataSourceBar = {
         chart: {
             caption: "贡献值",
             subCaption: "",
             numberPrefix: "",
             theme: "ocean"
         },
-        data: [{
-            label: "Bakersfield Central",
-            value: "880000"
-        },
-            {
-                label: "Garden Groove harbour",
-                value: "730000"
-            },
-            {
-                label: "Los Angeles Topanga",
-                value: "590000"
-            },
-            {
-                label: "Compton-Rancho Dom",
-                value: "520000"
-            },
-            {
-                label: "Daly City Serramonte",
-                value: "330000"
-            }]
+        data: []
     };
+
+    $scope.dataSource3D = {
+        chart: {
+            caption: "完成情况",
+            subcaption: "贡献率",
+            startingangle: "120",
+            showlabels: "1",
+            showlegend: "1",
+            enablemultislicing: "0",
+            slicingdistance: "15",
+            showpercentvalues: "1",
+            showpercentintooltip: "0",
+            plottooltext: "$label : $datavalue",
+            theme: "fint"
+        },
+        data: []
+    };
+    $statistic.getRecordStatistic().then(function (req) {
+        console.log(req);
+        var data = req.data;
+        for (var item in data) {
+            if (item == 0) {
+                $scope.dataSource3D.data.push({
+                    label: "未完成",
+                    value: data[item]["count"]
+                });
+                continue;
+            }
+            $scope.dataSourceBar.data.push({
+                label: data[item]["dataer"],
+                value: data[item]["count"]
+            });
+            $scope.dataSource3D.data.push({
+                label: data[item]["dataer"],
+                value: data[item]["count"]
+            });
+        }
+    });
+
+
 });
