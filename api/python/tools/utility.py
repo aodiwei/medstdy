@@ -53,7 +53,10 @@ class Instances(object):
 
         port = conf.get("port", 27017)
         db = conf.get("db", "medlogic")
-        mongo_cli = pymongo.MongoClient(mongo_host, int(port))
+        user = conf.get("user", "user")
+        password = conf.get("password", "password")
+        uri = "mongodb://{}:{}@{}/{}?authMechanism=MONGODB-CR".format(user, password, mongo_host, db)
+        mongo_cli = pymongo.MongoClient(uri, int(port))
         return mongo_cli.get_database(db)
 
     @classmethod

@@ -31,8 +31,8 @@ if __name__ == "__main__":
     #         sub_path = sub_path.replace("\\", '/')
     #         data_mgr.parse_csv_file(path=sub_path)
 
-    # data_mgr.get_base_data_list(0, 10)
-    file = ["103497_20160118", "28187_20160725", "30297_20160722", "30749_20160725", "34588_20160425", "29530_20160729", ]
-    file = ["109163_20160620"]
-    for item in file:
-        data_mgr.parse_json("/Users/David/data_file/json/{}.json".format(item))
+    data_mgr.get_base_data_list(0, 10)
+    # file = ["103497_20160118", "28187_20160725", "30297_20160722", "30749_20160725", "34588_20160425", "29530_20160729", ]
+    # file = ["109163_20160620"]
+    # for item in file:
+    #     data_mgr.parse_json("/Users/David/data_file/json/{}.json".format(item))
