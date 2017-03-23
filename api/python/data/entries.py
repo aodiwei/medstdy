@@ -16,4 +16,5 @@ entries = [
     (r"/data/get_temp", GetTempHandler),
     (r"/data/record_statistic", RecordStatisticHandler),
     (r"/data/extract_feature", ExtractFeatureHandler),
+    (r"/data/svm_predict", SvmPredictHandler),
 ]

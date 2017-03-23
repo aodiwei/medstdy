@@ -14,6 +14,7 @@ import env
 
 env.init()
 from data_storage.data_store import DataStorage
+from mlearn.svm_ml import SvmLm
 
 if __name__ == "__main__":
     data_mgr = DataStorage("manual_operation")
@@ -38,4 +39,8 @@ if __name__ == "__main__":
     #     data_mgr.parse_json("/Users/David/data_file/json/{}.json".format(item))
 
     # result = data_mgr.extract_feature()
-    data_mgr.write_feature_cvs()
+    # data_mgr.write_feature_cvs()
+
+    ml = SvmLm()
+    res = ml.predict("自觉双侧面下部宽大，影响美观3年余")
+    print res

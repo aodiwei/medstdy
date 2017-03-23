@@ -12,6 +12,7 @@ import define
 from api.basehandler import BaseHandler, CustomHTTPError
 from data.data_storage.data_store import DataStorage
 from logs import CustomMgrError, DataExistError
+from mlearn.svm_ml import SvmLm
 from tools.utility import Utility
 
 
@@ -131,7 +132,7 @@ class SaveTempHandler(BaseHandler):
         try:
             data_mgr.save_temp(**data_info)
         except Exception, e:
-            raise CustomHTTPError(400, error=define.C_CAUSE_fileError, cause=e.message)
+            raise CustomHTTPError(400, error=define.C_EC_fileError, cause=e.message)
 
 
 class GetTempHandler(BaseHandler):
@@ -148,7 +149,7 @@ class GetTempHandler(BaseHandler):
         try:
             res = data_mgr.get_temp()
         except Exception, e:
-            raise CustomHTTPError(400, error=define.C_CAUSE_fileError, cause=e.message)
+            raise CustomHTTPError(400, error=define.C_EC_fileError, cause=e.message)
 
         self.write(res)
 
@@ -165,7 +166,7 @@ class RecordStatisticHandler(BaseHandler):
         try:
             res = data_mgr.record_statistic()
         except Exception, e:
-            raise CustomHTTPError(400, error=define.C_CAUSE_mongodbError, cause=e.message)
+            raise CustomHTTPError(400, error=define.C_EC_mongoError, cause=e.message)
 
         self.write({
             "data": res
@@ -184,7 +185,25 @@ class ExtractFeatureHandler(BaseHandler):
         try:
             res = data_mgr.extract_feature(feature=feature)
         except Exception, e:
-            raise CustomHTTPError(400, error=define.C_CAUSE_mongodbError, cause=e.message)
+            raise CustomHTTPError(400, error=define.C_EC_mongoError, cause=e.message)
+
+        self.write({
+            "data": res
+        })
+
+
+class SvmPredictHandler(BaseHandler):
+    """
+    svm 机器学习预测
+    """
+    @tornado.web.authenticated
+    def post(self):
+        ml = SvmLm()
+        text = self.get_argument("text")
+        try:
+            res = ml.predict(text)
+        except Exception, e:
+            raise CustomHTTPError(400, error=define.C_EC_MlError, cause=define.C_CAUSE_mlError)
 
         self.write({
             "data": res
