@@ -61,3 +61,23 @@ app.service('$statistic', function ($http) {
     }
 });
 
+app.service('$mLearn', function ($http) {
+    return {
+        svmMLearn: function (text) {
+            var req = {
+                url: '/data/svm_mlearn',
+                method: 'POST',
+                data: text
+            };
+            var promise = $http(req).then(function (req_data) {
+                return req_data.data;
+            }).catch(function (req_data) {
+                console.log(req_data);
+                promise.reject(false);
+            });
+
+            return promise;
+        }
+    }
+});
+
