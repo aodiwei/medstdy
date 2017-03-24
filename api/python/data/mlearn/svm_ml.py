@@ -27,7 +27,7 @@ class SvmLm(object):
             y = clf.predict(x)
         except Exception, e:
             log.exception("predict {} failed".format(text))
-            raise CustomMgrError(e)
+            raise CustomMgrError(e.message)
         return y[0] if y else ""
 
     def word_tokenizer(self, word):
