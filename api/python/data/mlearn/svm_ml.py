@@ -20,8 +20,8 @@ class SvmLm(object):
         :return:
         """
         try:
-            clf = joblib.load('mlearn/model/svm_model.pkl')
-            vocabulary = joblib.load('mlearn/model/vocabulary.pkl')
+            clf = joblib.load('data/mlearn/model/svm_model.pkl')
+            vocabulary = joblib.load('data/mlearn/model/vocabulary.pkl')
             tfidf_v = TfidfVectorizer(tokenizer=self.word_tokenizer, stop_words=self.stopwords(), vocabulary=vocabulary)
             x = tfidf_v.fit_transform([text]).toarray()
             y = clf.predict(x)
@@ -43,7 +43,7 @@ class SvmLm(object):
         :param path:
         :return:
         """
-        with open("mlearn/model/stopword.txt", 'r') as f:
+        with open("data/mlearn/model/stopword.txt", 'r') as f:
             stopwords = set([w.strip() for w in f])
 
         return stopwords
