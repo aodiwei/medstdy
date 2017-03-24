@@ -9,22 +9,42 @@
         <div flex>
             <md-card>
                 <md-input-container>
-                    <label>主诉</label>
-                    <textarea name="mlearnText" ng-model="mlearnText" rows="2" md-select-on-focus></textarea>
+                    <label>请输入主诉</label>
+                    <input name="mlearnText" ng-model="mlearnText"  md-select-on-focus/>
                 </md-input-container>
-                <md-input-container>
-                    <label>诊断</label>
-                    <md-content>
-                        <p>{{mlearnResult}}</p>
-                    </md-content>
-                </md-input-container>
+                    <md-card-content>
+                        <p>诊断结果：</p>
+                        <p style="color:red">{{mlearnResult}}</p>
+                    </md-card-content>
                 <md-card-actions layout="row" layout-align="end center">
                     <md-button class="md-raised md-primary"  ng-disabled="mlearnText==''" ng-click="submit()">
-                        提交
+                        诊断
                     </md-button>
                 </md-card-actions>
             </md-card>
         </div>
+    </div>
+
+    <div flex>
+        <md-card>
+            <md-card-header>
+                <md-card-header-text>
+                    <span class="md-title">说明</span>
+                </md-card-header-text>
+            </md-card-header>
+            <md-card-content>
+                <p>
+                    目前数据量较少，只用了诊断结果单个类别至少有40个患者的类别进行了机器学习，对于这样的数据准确率可以达到95%，
+                    这些类别是：
+                    <li>下颌角肥大</li>
+                    <li>先天性单侧二度唇裂</li>
+                    <li>先天性唇裂</li>
+                    <li>先天性唇裂术后继发畸形</li>
+                    <li>颏部畸形</li>
+                    目前可以用这些类别的主诉进行机器学习诊断，请在上面输入框内输入主诉进行诊断。
+                </p>
+            </md-card-content>
+        </md-card>
     </div>
 
 </div>

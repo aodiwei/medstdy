@@ -40,6 +40,11 @@ app.controller('NavCtrl', function ($scope, $mdBottomSheet, $mdSidenav, $mdDialo
             lin: 'main.record_statistic',
             title: '录入榜',
             icon: 'trending_up'
+        },
+        {
+            lin: 'main.ml_predict',
+            title: '机器诊断',
+            icon: 'note_add'
         }
     ];
     $scope.admin = [

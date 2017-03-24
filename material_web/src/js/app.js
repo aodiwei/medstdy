@@ -92,6 +92,10 @@ app.config(function ($mdThemingProvider, $stateProvider, $urlRouterProvider) {
             url: "/record_statistic",
             templateUrl: "./html/pages/statistic/record_statistic.html"
         })
+        .state("main.ml_predict", {
+            url: "/ml_predict",
+            templateUrl: "./html/pages/mlearn/mlearn.html"
+        })
         .state("main.upload_csv", {
             url: "/upload_csv",
             templateUrl: "./html/pages/upload_file/upload_csv.html"

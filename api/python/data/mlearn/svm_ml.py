@@ -22,7 +22,7 @@ class SvmLm(object):
         x = tfidf_v.fit_transform([text]).toarray()
         y = clf.predict(x)
 
-        return y
+        return y[0] if y else ""
 
     def word_tokenizer(self, word):
         """

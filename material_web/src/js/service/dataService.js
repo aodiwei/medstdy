@@ -65,7 +65,7 @@ app.service('$mLearn', function ($http) {
     return {
         svmMLearn: function (text) {
             var req = {
-                url: '/data/svm_mlearn',
+                url: '/data/svm_predict',
                 method: 'POST',
                 data: text
             };

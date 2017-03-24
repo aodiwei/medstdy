@@ -4,8 +4,8 @@
 var app = require('../app.js');
 'use strict';
 
-app.controller('recordStatisticCtrl', function ($scope, $mLearn) {
-    $scope.mlearnText = "";
+app.controller('mLearnCtrl', function ($scope, $mLearn) {
+    $scope.mlearnText = "自觉双侧面下部宽大，影响美观3年余";
     $scope.mlearnResult = "";
 
     $scope.submit = function(){

@@ -199,7 +199,7 @@ class SvmPredictHandler(BaseHandler):
     @tornado.web.authenticated
     def post(self):
         ml = SvmLm()
-        text = self.get_argument("text")
+        text = self.request.body
         try:
             res = ml.predict(text)
         except Exception, e:
