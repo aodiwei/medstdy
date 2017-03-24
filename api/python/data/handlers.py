@@ -203,7 +203,7 @@ class SvmPredictHandler(BaseHandler):
         try:
             res = ml.predict(text)
         except Exception, e:
-            raise CustomHTTPError(400, error=define.C_EC_MlError, cause=e.message)
+            raise CustomHTTPError(400, error=define.C_EC_MlError, cause=e)
 
         self.write({
             "data": res

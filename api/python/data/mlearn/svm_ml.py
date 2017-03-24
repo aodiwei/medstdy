@@ -6,6 +6,9 @@ from sklearn.svm import SVC
 from sklearn.externals import joblib
 import jieba
 
+from logs import LoggerMgr, CustomMgrError
+log = LoggerMgr.getLogger()
+
 class SvmLm(object):
     """
     SVM 机器学习
@@ -16,12 +19,15 @@ class SvmLm(object):
         :param text:
         :return:
         """
-        clf = joblib.load('mlearn/model/svm_model.pkl')
-        vocabulary = joblib.load('mlearn/model/vocabulary.pkl')
-        tfidf_v = TfidfVectorizer(tokenizer=self.word_tokenizer, stop_words=self.stopwords(), vocabulary=vocabulary)
-        x = tfidf_v.fit_transform([text]).toarray()
-        y = clf.predict(x)
-
+        try:
+            clf = joblib.load('mlearn/model/svm_model.pkl')
+            vocabulary = joblib.load('mlearn/model/vocabulary.pkl')
+            tfidf_v = TfidfVectorizer(tokenizer=self.word_tokenizer, stop_words=self.stopwords(), vocabulary=vocabulary)
+            x = tfidf_v.fit_transform([text]).toarray()
+            y = clf.predict(x)
+        except Exception, e:
+            log.exception("predict {} failed".format(text))
+            raise CustomMgrError(e)
         return y[0] if y else ""
 
     def word_tokenizer(self, word):
