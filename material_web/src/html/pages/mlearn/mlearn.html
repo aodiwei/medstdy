@@ -1,0 +1,30 @@
+<div layout="column">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <div class="md-title">机器学习诊断</div>
+        </div>
+    </md-toolbar>
+
+    <div laout="row" ng-controller="mLearnCtrl">
+        <div flex>
+            <md-card>
+                <md-input-container>
+                    <label>主诉</label>
+                    <textarea name="mlearnText" ng-model="mlearnText" rows="2" md-select-on-focus></textarea>
+                </md-input-container>
+                <md-input-container>
+                    <label>诊断</label>
+                    <md-content>
+                        <p>{{mlearnResult}}</p>
+                    </md-content>
+                </md-input-container>
+                <md-card-actions layout="row" layout-align="end center">
+                    <md-button class="md-raised md-primary"  ng-disabled="mlearnText==''" ng-click="submit()">
+                        提交
+                    </md-button>
+                </md-card-actions>
+            </md-card>
+        </div>
+    </div>
+
+</div>

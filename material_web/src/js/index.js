@@ -35,6 +35,7 @@ require('./pages/register');
 require('./pages/upload_file');
 require('./pages/show_data');
 require('./pages/record_statistic');
+require('./pages/mlearn');
 
 require('./service/authService');
 require('./service/commonFunService');
@@ -49,6 +50,7 @@ require('../html/nav/left_nav.html');
 require('../html/pages/login/login.html');
 require('../html/pages/upload_file/upload_file.html');
 require('../html/pages/admin/register.html');
+require('../html/pages/mlearn/mlearn.html');
 
 require('../html/pages/tabs/tabs.html');
 require('../html/pages/tabs/tab_patient_info.html');
